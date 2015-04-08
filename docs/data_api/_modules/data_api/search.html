@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro|Open+Sans|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>data_api.search &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="KBase Data API 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../index.html" class="text-logo">KBase Data API</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../semantic.html">Semantic type system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../searchapi.html">Search API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools and examples</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Module code</a></li>
+              
+              <li>data_api.search</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for data_api.search</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The search APIs are broken down into the different types of data stores in the</span>
+<span class="sd">system:</span>
+
+<span class="sd">* :class:`DataStore` - Data objects and their relationships</span>
+<span class="sd">* :class:`DataModel` - Data types and their relationships</span>
+<span class="sd">* :class:`UserActivity` - Users and usage</span>
+<span class="sd">* :class:`MethodStore` - Method and service specifications</span>
+
+<span class="sd">Each data store is represented with a separate subclass</span>
+<span class="sd">of the parent &quot;SearchableData&quot;.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;4/8/15&#39;</span>
+
+<div class="viewcode-block" id="SearchableData"><a class="viewcode-back" href="../../searchapi.html#data_api.search.SearchableData">[docs]</a><span class="k">class</span> <span class="nc">SearchableData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base functionality for any searchable data source.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="DataStore"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataStore">[docs]</a><span class="k">class</span> <span class="nc">DataStore</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Store of data objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DataStore.__init__"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataStore.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create with special flag to indicate fully &#39;public&#39;</span>
+<span class="sd">        data source (i.e. reference data).</span>
+
+<span class="sd">        :param public: Is all data public?</span>
+<span class="sd">        :type public: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refdata</span> <span class="o">=</span> <span class="n">public</span>
+</div></div>
+<div class="viewcode-block" id="DataModel"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataModel">[docs]</a><span class="k">class</span> <span class="nc">DataModel</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Store of data types, which together form</span>
+<span class="sd">    a data model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="UserActivity"><a class="viewcode-back" href="../../searchapi.html#data_api.search.UserActivity">[docs]</a><span class="k">class</span> <span class="nc">UserActivity</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Store of information about users and their activities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="MethodStore"><a class="viewcode-back" href="../../searchapi.html#data_api.search.MethodStore">[docs]</a><span class="k">class</span> <span class="nc">MethodStore</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Store of information about &quot;methods&quot;, which are any</span>
+<span class="sd">    transformations of data and parameters (possibly chainable,</span>
+<span class="sd">    so this should include workflows).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+
+  <script type="text/javascript">
+    $("#mobile-toggle a").click(function () {
+      $("#left-column").toggle();
+    });
+  </script>
+
+  <script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="container-wrapper">
+    <div class="container-fluid">
+      <div class="footer">
+        &copy; Copyright 2015, Dan Gunter, Matt Henderson. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      </div>
+    </div>
+  </div>
+  </body>
+</html>
