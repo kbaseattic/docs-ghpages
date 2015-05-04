@@ -110,26 +110,18 @@
           
           <div class="document clearer body">
             
-  <div class="section" id="module-data_api.search">
-<span id="search-api"></span><h1>Search API<a class="headerlink" href="#module-data_api.search" title="Permalink to this headline">¶</a></h1>
-<p>The search APIs are broken down into the different types of data stores in the
+  <div class="section" id="search-api">
+<h1>Search API<a class="headerlink" href="#search-api" title="Permalink to this headline">¶</a></h1>
+<p>This page documents the skeleton of a search API. Real code will come
+after some prototyping and specific examples have been worked through.</p>
+<span class="target" id="module-data_api.search"></span><p>The search APIs are broken down into the different types of data stores in the
 system:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#data_api.search.DataStore" title="data_api.search.DataStore"><code class="xref py py-class docutils literal"><span class="pre">DataStore</span></code></a> - Data objects and their relationships</li>
 <li><a class="reference internal" href="#data_api.search.DataModel" title="data_api.search.DataModel"><code class="xref py py-class docutils literal"><span class="pre">DataModel</span></code></a> - Data types and their relationships</li>
-<li><a class="reference internal" href="#data_api.search.UserActivity" title="data_api.search.UserActivity"><code class="xref py py-class docutils literal"><span class="pre">UserActivity</span></code></a> - Users and usage</li>
-<li><a class="reference internal" href="#data_api.search.MethodStore" title="data_api.search.MethodStore"><code class="xref py py-class docutils literal"><span class="pre">MethodStore</span></code></a> - Method and service specifications</li>
 </ul>
 <p>Each data store is represented with a separate subclass
 of the parent &quot;SearchableData&quot;.</p>
-<p>It is an open question whether there is anything in the base
-<a class="reference internal" href="#data_api.search.SearchableData" title="data_api.search.SearchableData"><code class="xref py py-class docutils literal"><span class="pre">SearchableData</span></code></a> class,
-i.e., whether there is a common set of search methods or a common
-language in which queries can be expressed. One option is to go the
-relational route, and allow a subset of SQL to be used as a common
-search language in every API (regardless of underlying implementation,
-which <em>could</em> be something besides a relational store, although that
-would clearly imply some extra effort on our part).</p>
 <dl class="class">
 <dt id="data_api.search.SearchableData">
 <em class="property">class </em><code class="descclassname">data_api.search.</code><code class="descname">SearchableData</code><a class="reference internal" href="_modules/data_api/search.html#SearchableData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_api.search.SearchableData" title="Permalink to this definition">¶</a></dt>
@@ -138,44 +130,14 @@ would clearly imply some extra effort on our part).</p>
 
 <dl class="class">
 <dt id="data_api.search.DataStore">
-<em class="property">class </em><code class="descclassname">data_api.search.</code><code class="descname">DataStore</code><span class="sig-paren">(</span><em>public=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_api/search.html#DataStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_api.search.DataStore" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">data_api.search.</code><code class="descname">DataStore</code><a class="reference internal" href="_modules/data_api/search.html#DataStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_api.search.DataStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store of data objects.</p>
-<dl class="method">
-<dt id="data_api.search.DataStore.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>public=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/data_api/search.html#DataStore.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_api.search.DataStore.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create with special flag to indicate fully 'public'
-data source (i.e. reference data).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>public</strong> (<em>bool</em>) -- Is all data public?</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
 <dt id="data_api.search.DataModel">
 <em class="property">class </em><code class="descclassname">data_api.search.</code><code class="descname">DataModel</code><a class="reference internal" href="_modules/data_api/search.html#DataModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_api.search.DataModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Store of data types, which together form
-a data model.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="data_api.search.UserActivity">
-<em class="property">class </em><code class="descclassname">data_api.search.</code><code class="descname">UserActivity</code><a class="reference internal" href="_modules/data_api/search.html#UserActivity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_api.search.UserActivity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Store of information about users and their activities.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="data_api.search.MethodStore">
-<em class="property">class </em><code class="descclassname">data_api.search.</code><code class="descname">MethodStore</code><a class="reference internal" href="_modules/data_api/search.html#MethodStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_api.search.MethodStore" title="Permalink to this definition">¶</a></dt>
-<dd><p>Store of information about &quot;methods&quot;, which are any
-transformations of data and parameters (possibly chainable,
-so this should include workflows).</p>
+<dd><p>Store of data types, which together form a data model (type system).</p>
 </dd></dl>
 
 </div>

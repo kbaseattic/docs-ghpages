@@ -68,7 +68,6 @@
     
     
       <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../design.html">Design notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../semantic.html">Semantic type system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../searchapi.html">Search API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools and examples</a></li>
@@ -114,8 +113,6 @@
 
 <span class="sd">* :class:`DataStore` - Data objects and their relationships</span>
 <span class="sd">* :class:`DataModel` - Data types and their relationships</span>
-<span class="sd">* :class:`UserActivity` - Users and usage</span>
-<span class="sd">* :class:`MethodStore` - Method and service specifications</span>
 
 <span class="sd">Each data store is represented with a separate subclass</span>
 <span class="sd">of the parent &quot;SearchableData&quot;.</span>
@@ -131,33 +128,15 @@
 <div class="viewcode-block" id="DataStore"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataStore">[docs]</a><span class="k">class</span> <span class="nc">DataStore</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Store of data objects.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="DataStore.__init__"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataStore.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create with special flag to indicate fully &#39;public&#39;</span>
-<span class="sd">        data source (i.e. reference data).</span>
-
-<span class="sd">        :param public: Is all data public?</span>
-<span class="sd">        :type public: bool</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Main data store.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_refdata</span> <span class="o">=</span> <span class="n">public</span>
-</div></div>
+</div>
 <div class="viewcode-block" id="DataModel"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataModel">[docs]</a><span class="k">class</span> <span class="nc">DataModel</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Store of data types, which together form</span>
-<span class="sd">    a data model.</span>
+    <span class="sd">&quot;&quot;&quot;Store of data types, which together form a data model (type system).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
-</div>
-<div class="viewcode-block" id="UserActivity"><a class="viewcode-back" href="../../searchapi.html#data_api.search.UserActivity">[docs]</a><span class="k">class</span> <span class="nc">UserActivity</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Store of information about users and their activities.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span>
-</div>
-<div class="viewcode-block" id="MethodStore"><a class="viewcode-back" href="../../searchapi.html#data_api.search.MethodStore">[docs]</a><span class="k">class</span> <span class="nc">MethodStore</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Store of information about &quot;methods&quot;, which are any</span>
-<span class="sd">    transformations of data and parameters (possibly chainable,</span>
-<span class="sd">    so this should include workflows).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-</pre></div>
+</pre></div></div>
 
           </div>
             
