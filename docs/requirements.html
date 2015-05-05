@@ -418,9 +418,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_introduction">Introduction</a></li>
 <li><a href="#_requirements">Requirements</a></li>
-<li><a href="#science-req">Science user-facing requirements</a></li>
-<li><a href="#dev-req">External developer requirements</a></li>
-<li><a href="#impl-req">Infrastructure requirements</a></li>
 </ul>
 </li>
 </ul>
@@ -445,7 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <strong>Revised</strong>
 </td>
 <td class="hdlist2">
-<p>April-May, 2015</p>
+<p>April, 2015</p>
 </td>
 </tr>
 </table>
@@ -488,103 +485,67 @@ ness and receive early feedback.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The intent is to try and capture the best of all three into a set of requirements in a compact form that can be more easily transformed into concrete tasks for prototyping and development. All faults with the resulting document is solely attributable to its author (Dan Gunter).</p>
+<p>The intent is to try and capture the best of all three into a set of requirements in a compact form that is closer to a set of JIRA sprints for prototyping and development. All faults with the resulting document is solely attributable to its author (Dan Gunter).</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_requirements">Requirements</h3>
 <div class="paragraph">
-<p>Requirements are divided into three types:</p>
+<p>Requirements are divided into infrastructure requirements and user-facing requirements. The former is for a robust, etc. system and the latter are the requirements that relate directly to the user experience. Where appropriate the links between the two have been noted.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#science-req">Science user-facing requirements</a> - Relate directly to the user experience</p>
-</li>
-<li>
-<p><a href="#dev-req">External developer requirements</a> - Enable addition to the system by other developers</p>
-</li>
-<li>
-<p><a href="#impl-req">Infrastructure requirements</a> - Internal requirements of the system</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="science-req">Science user-facing requirements</h3>
-<div id="sharing" class="paragraph">
-<div class="title">Sharing model</div>
-<p>There should be a well-defined relation to the existing laboratory and research sharing practices. In particular, research groups should map to data permission roles, and research projects should map to collections of narratives and associated data. The model should make it easy to share with people inside and outside of the group, with predictable results. The model should make it possible for people to join and leave, or change roles, for groups and projects without disrupting or invalidating the sharing that has already occurred.</p>
-</div>
-<div class="paragraph">
-<div class="title">Responsiveness of User Interfaces</div>
+<div class="sect3">
+<h4 id="_user_facing_requirements">User-facing requirements</h4>
+<div id="sharing" class="dlist">
+<dl>
+<dt class="hdlist1">Consistent, intuitive sharing model</dt>
+<dd>
+<p>TBD</p>
+</dd>
+<dt class="hdlist1">Responsiveness of User Interfaces</dt>
+<dd>
 <p>Users should not wait more than a second for common, simple data operations. More complex operations (searches, etc.) can take longer. Feedback should be provided for any operation taking more than 10 or so seconds. This applies to all interfaces, not just the Narrative UI.</p>
+</dd>
+</dl>
 </div>
-<div id="provenance" class="paragraph">
-<div class="title">Provenance</div>
-<p>The provenance of data should be discoverable, modulo the privacy policies. Related to <a href="#versioning">versionin</a> (see also <a href="#provenance-impl">provenance implementation</a>).</p>
-</div>
-<div class="paragraph">
-<div class="title">Immutability</div>
-<p>Data used for published results should not be subject to change by anyone, as this may affect the integrity of derived works. Related to <a href="#provenance">provenance</a> and thus <a href="#sharing">sharing</a>.</p>
-</div>
-<div id="sciencemodel" class="paragraph">
-<div class="title">Conceptual data model</div>
-<p>There should be an accessible and well-documented conceptual data model that users can relate to the data that they are processing. This model can help query and browse the system as a "knowledge base" as opposed to a collection of user-defined objects.</p>
-</div>
-<div id="annotations" class="paragraph">
-<div class="title">Annotations, comments, and evidence</div>
-<p>Users should be able to annotate work, as allowed by the <a href="#permissions">permissions</a> model, to indicate linkages or assert evidence. These annotations should persist in the system, and be discoverable, etc. Related to <a href="#queries">queries</a>.</p>
+<div id="provenance" class="dlist">
+<dl>
+<dt class="hdlist1">Provenance</dt>
+<dd>
+<p>The provenance of data should be discoverable, modulo the privacy policies. Related to <a href="#versioning">[versioning]</a>.</p>
+</dd>
+<dt class="hdlist1">Immutability</dt>
+<dd>
+<p>Data used for published results should not be subject to change by anyone, as this may affect the integrity of derived works. Related to <a href="#provenance">[provenance]</a> and thus <a href="#sharing">[sharing]</a>.</p>
+</dd>
+</dl>
 </div>
 </div>
-<div class="sect2">
-<h3 id="dev-req">External developer requirements</h3>
-<div id="service-api" class="paragraph">
-<div class="title">Service creation</div>
-<p>Clearly documented interfaces for writing new services. Also a documented and available system for testing these services locally in the developer&#8217;s own environment.</p>
+<div class="sect3">
+<h4 id="_infrastructure_requirements">Infrastructure requirements</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Marshaling and unmarshaling</dt>
+<dd>
+<p>KBase uses remote services to execute the biological functions. These services are ultimately the consumers and producers of most data of interest to KBase. It is essential that data can be efficiently and easily described and transferred in and out of these services. Whatever data representations exist in the data stores, "data types" that are recognized by the services must be represented as structured blocks of bytes. Technologies such as Thrift, Avro, and Protocol Buffers are all designed for this task. This means that any de-normalized or deconstructed data representation in a datastore, i.e. optimized for searches as described below, must be automatically and consistently isomorphic to the serialized representations.</p>
+</dd>
+</dl>
 </div>
-<div id="data-api" class="paragraph">
-<div class="title">Data API</div>
-<p>There should be a consistent, clear, and well-documented set of generic and biology-specific functions, available as an API for major supported languages (e.g. Java, Python, and PERL). This API should be usable from within the services, and within the Narrative UI code cells.</p>
-</div>
-<div id="extensibility" class="paragraph">
-<div class="title">Independent extensibility</div>
-<p>It should be possible for external developers to understand and extend the KBase data types, execution models, etc., to incorporate new types of functionality. There would be a set of rules of engagement for developers to advertise this functionality and ask for it to be integrated into the core KBase.</p>
-</div>
-<div id="sciencemodel-ext" class="paragraph">
-<div class="title">Concept extensibility</div>
-<p>The conceptual data model at the core of KBase should be extensible through a well-define process of proposal and acceptance. This relatively heavy-weight process should not prevent developers from adding to the conceptual model in their local development environment. Related to <a href="#sciencemodel">the conceptual data model</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="impl-req">Infrastructure requirements</h3>
-<div class="paragraph">
-<div class="title">Marshaling and unmarshaling</div>
-<p>KBase uses remote services to execute the biological functions. These services are consumers and producers of most data of interest to KBase. It is essential that data can be efficiently and easily described and transferred in and out of these services.</p>
-</div>
-<div id="versioning" class="paragraph">
-<div class="title">Versioning</div>
+<div id="versioning" class="dlist">
+<dl>
+<dt class="hdlist1">Versioning</dt>
+<dd>
 <p>Data versioning must be discoverable and rational. Changes that break backwards compatibility should be machine-understandable by versioning convention. The state of the art here is Semantic Versioning. However, this does not specify how to evolve versions across the system. The requirement also includes that there is a <strong>single</strong>, <strong>easily understandable</strong> source of truth for how data is versioned, and that all data in the system follows this protocol.</p>
+</dd>
+<dt class="hdlist1">Permissions</dt>
+<dd>
+<p>The owner and other people with permissions on data should be handled by the system at a fundamental level, so that searches, etc. can be implemented efficiently while maintaining privacy guarantees. This <strong>cannot</strong> be implemented by ignoring privacy in the database and filtering results.</p>
+</dd>
+<dt class="hdlist1">Slicing and subsetting</dt>
+<dd>
+<p>It must be possible to return a reasonably minimal subset of data needed for an operation, even if this requires creating temporary new objects that are subsets of defined data types.</p>
+</dd>
+</dl>
 </div>
-<div id="permissions" class="paragraph">
-<div class="title">Permissions</div>
-<p>The owner and other people with permissions on data should be handled by the system at a fundamental level, so that searches, etc. can be implemented efficiently while maintaining privacy guarantees. This <strong>cannot</strong> be implemented by ignoring privacy in the database and filtering results. Related to <a href="#sharing">sharing</a>.</p>
-</div>
-<div class="paragraph">
-<div class="title">Slicing and subsetting</div>
-<p>It must be possible to return a reasonably minimal subset of data needed for an operation, even if this requires creating temporary new objects (i.e. "views") that are subsets of defined data types.</p>
-</div>
-<div id="sciencemodel-impl" class="paragraph">
-<div class="title">Data model</div>
-<p>The data objects should all be connected to the conceptual data model.</p>
-</div>
-<div id="queries" class="paragraph">
-<div class="title">Queries</div>
-<p>A wide variety of queries should be allowed of the system. In particular, queries should be able to cross current "boundaries" of data about the users, their data, reference data, annotations and evidence (see <a href="#annotations">annotations</a> and <a href="#provenance">provenance</a>, <a href="#provenance-impl">the provenance implementation</a>).</p>
-</div>
-<div id="provenance-impl" class="paragraph">
-<div class="title">Provenance implementation</div>
-<p>The provenance needs to be stored logically "with" the data, so it can be queried and updated along with the data objects themselves.</p>
 </div>
 </div>
 </div>
@@ -592,7 +553,7 @@ ness and receive early feedback.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-05-04 13:26:50 PDT
+Last updated 2015-05-04 17:39:31 PDT
 </div>
 </div>
 </body>
