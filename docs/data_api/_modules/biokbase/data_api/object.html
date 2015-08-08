@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro|Open+Sans|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>biokbase.data_api.object &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="KBase Data API 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="biokbase.data_api" href="../data_api.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../data_api.html" accesskey="U">biokbase.data_api</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../../index.html" class="text-logo">KBase Data API</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../biokbase.html">biokbase package</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../../index.html">Docs</a></li>
+              
+                <li><a href="../../index.html">Module code</a></li>
+              
+                <li><a href="../data_api.html">biokbase.data_api</a></li>
+              
+              <li>biokbase.data_api.object</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for biokbase.data_api.object</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module for base class for Data API objects.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">cStringIO</span> <span class="kn">as</span> <span class="nn">StringIO</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">StringIO</span> <span class="kn">as</span> <span class="nn">StringIO</span>
+
+<span class="kn">import</span> <span class="nn">biokbase.workspace.client</span>
+
+<span class="n">REF_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;(.+/.+(/[0-9].+)?)|(ws\.[1-9][0-9]+\.[1-9][0-9]+)&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="get_token"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.get_token">[docs]</a><span class="k">def</span> <span class="nf">get_token</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;KB_AUTH_TOKEN&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="s">&quot;Missing authentication token!  Set KB_AUTH_TOKEN environment variable.&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ObjectAPI"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI">[docs]</a><span class="k">class</span> <span class="nc">ObjectAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generic Object API for basic properties and actions of a KBase Data Object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">services</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">services</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">({}):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;You must provide a service configuration dictionary! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">services</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">services</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&quot;workspace_service_url&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;Expecting workspace_service_url key!&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">ref</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Missing object reference!&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="nb">unicode</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Invalid reference given, expected string! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">REF_PATTERN</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Invalid workspace reference string! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">services</span> <span class="o">=</span> <span class="n">services</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span> <span class="o">=</span> <span class="n">biokbase</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Workspace</span><span class="p">(</span><span class="n">services</span><span class="p">[</span><span class="s">&quot;workspace_service_url&quot;</span><span class="p">],</span> <span class="n">token</span><span class="o">=</span><span class="n">get_token</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
+        
+        <span class="n">info_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_info_new</span><span class="p">({</span>
+            <span class="s">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}],</span>
+            <span class="s">&quot;includeMetadata&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&quot;ignoreErrors&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span>        
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&quot;object_id&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s">&quot;object_name&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s">&quot;object_reference&quot;</span><span class="p">:</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info_values</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">info_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="s">&quot;object_reference_versioned&quot;</span><span class="p">:</span> <span class="s">&quot;{0}/{1}/{2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info_values</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">info_values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">info_values</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+            <span class="s">&quot;type_string&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s">&quot;save_date&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="s">&quot;version&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+            <span class="s">&quot;saved_by&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+            <span class="s">&quot;workspace_id&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+            <span class="s">&quot;workspace_name&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+            <span class="s">&quot;object_checksum&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+            <span class="s">&quot;object_size&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+            <span class="s">&quot;object_metadata&quot;</span><span class="p">:</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;object_id&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;object_name&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">translate_to_MD5_types</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;type_string&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;version&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="ObjectAPI.get_schema"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_schema">[docs]</a>    <span class="k">def</span> <span class="nf">get_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the schema associated with this object.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          string&quot;&quot;&quot;</span>
+    
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_type_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()[</span><span class="s">&quot;type_string&quot;</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span>
+</div>
+<div class="viewcode-block" id="ObjectAPI.get_typestring"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_typestring">[docs]</a>    <span class="k">def</span> <span class="nf">get_typestring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the type identifier string.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          string&quot;&quot;&quot;</span>
+                
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span>
+</div>
+<div class="viewcode-block" id="ObjectAPI.get_info"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve basic properties about this object.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          dict&quot;&quot;&quot;</span>
+            
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+</div>
+<div class="viewcode-block" id="ObjectAPI.get_history"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_history">[docs]</a>    <span class="k">def</span> <span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the recorded history of this object describing how it has been modified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_history</span><span class="p">({</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">})</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_history</span>
+    </div>
+<div class="viewcode-block" id="ObjectAPI.get_provenance"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_provenance">[docs]</a>    <span class="k">def</span> <span class="nf">get_provenance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the recorded provenance of this object describing how to recreate it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_provenance</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span>
+    </div>
+<div class="viewcode-block" id="ObjectAPI.get_id"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the internal identifier for this object.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          string&quot;&quot;&quot;</span>
+    
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+    </div>
+<div class="viewcode-block" id="ObjectAPI.get_name"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the name assigned to this object.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          string&quot;&quot;&quot;</span>
+    
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+    </div>
+<div class="viewcode-block" id="ObjectAPI.get_data"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve object data.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          dict&quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_objects</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])[</span><span class="mi">0</span><span class="p">][</span><span class="s">&quot;data&quot;</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+</div>
+<div class="viewcode-block" id="ObjectAPI.get_data_subset"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_data_subset">[docs]</a>    <span class="k">def</span> <span class="nf">get_data_subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a subset of data from this object, given a list of paths to the data elements.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          dict&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> 
+                        <span class="s">&quot;included&quot;</span><span class="p">:</span> <span class="n">path_list</span><span class="p">}])[</span><span class="mi">0</span><span class="p">][</span><span class="s">&quot;data&quot;</span><span class="p">]</span>
+    </div>
+<div class="viewcode-block" id="ObjectAPI.get_referrers"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.get_referrers">[docs]</a>    <span class="k">def</span> <span class="nf">get_referrers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a dictionary that indicates by type what objects are referring to this object.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          dict&quot;&quot;&quot;</span>
+        
+        <span class="n">referrers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">list_referencing_objects</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="n">object_refs_by_type</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>        
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">:</span>
+            <span class="n">typestring</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">translate_to_MD5_types</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="n">typestring</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">object_refs_by_type</span><span class="p">:</span>
+                <span class="n">object_refs_by_type</span><span class="p">[</span><span class="n">typestring</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            
+            <span class="n">object_refs_by_type</span><span class="p">[</span><span class="n">typestring</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">object_refs_by_type</span>
+    </div>
+<div class="viewcode-block" id="ObjectAPI.copy"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.object.ObjectAPI.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_ws</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs a naive object copy to a target workspace.  A naive object copy is a simple</span>
+<span class="sd">        copy that only generates a copy object of this entity, but any referencing entities</span>
+<span class="sd">        are not included or considered.  More specific object copies should be implemented by</span>
+<span class="sd">        specific types that understand their copy semantics for children and other referencing</span>
+<span class="sd">        or referenced objects.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">          to_ws : the target workspace to copy the object to, which the user must have permission</span>
+<span class="sd">          to write to.&quot;&quot;&quot;</span>
+    
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">copy_object</span><span class="p">({</span><span class="s">&quot;from&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">},</span> <span class="s">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;workspace&quot;</span><span class="p">:</span> <span class="n">to_ws</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">}})</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s">&quot;error&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">}</span></div></div>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../data_api.html" >biokbase.data_api</a> &raquo;</li> 
+      </ul>
+    </div>
+
+  <script type="text/javascript">
+    $("#mobile-toggle a").click(function () {
+      $("#left-column").toggle();
+    });
+  </script>
+
+  <script type="text/javascript" src="../../../_static/js/bootstrap.js"></script>
+  <div class="container-wrapper">
+    <div class="container-fluid">
+      <div class="footer">
+        &copy; Copyright 2015, Dan Gunter, Matt Henderson. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

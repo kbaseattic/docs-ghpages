@@ -1,0 +1,1270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro|Open+Sans|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>biokbase.data_api package &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="KBase Data API 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="biokbase package" href="biokbase.html" />
+    <link rel="next" title="biokbase.data_api.tests package" href="biokbase.data_api.tests.html" />
+    <link rel="prev" title="biokbase package" href="biokbase.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="biokbase.data_api.tests.html" title="biokbase.data_api.tests package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="biokbase.html" title="biokbase package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="biokbase.html" accesskey="U">biokbase package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    index.html" class="text-logo">KBase Data API</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="biokbase.html">biokbase package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="biokbase.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biokbase.html#module-biokbase">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+                <li><a href="biokbase.html">biokbase package</a></li>
+              
+              <li>biokbase.data_api package</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="biokbase-data-api-package">
+<h1>biokbase.data_api package<a class="headerlink" href="#biokbase-data-api-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="biokbase.data_api.tests.html">biokbase.data_api.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="biokbase.data_api.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biokbase.data_api.tests.html#module-biokbase.data_api.tests.test_genome_annotation_api">biokbase.data_api.tests.test_genome_annotation_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biokbase.data_api.tests.html#module-biokbase.data_api.tests.test_nav">biokbase.data_api.tests.test_nav module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biokbase.data_api.tests.html#module-biokbase.data_api.tests.test_suite_basic">biokbase.data_api.tests.test_suite_basic module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biokbase.data_api.tests.html#module-biokbase.data_api.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-biokbase.data_api.assembly">
+<span id="biokbase-data-api-assembly-module"></span><h2>biokbase.data_api.assembly module<a class="headerlink" href="#module-biokbase.data_api.assembly" title="Permalink to this headline">¶</a></h2>
+<p>Data API for Assembly entities.  This API provides methods for retrieving
+summary information such as GC content, total length, external source information
+as well as methods for retrieving individual contig sequences and gathering contig lengths and contig GC.</p>
+<dl class="class">
+<dt id="biokbase.data_api.assembly.AssemblyAPI">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.assembly.</code><code class="descname">AssemblyAPI</code><span class="sig-paren">(</span><em>services</em>, <em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.object.ObjectAPI" title="biokbase.data_api.object.ObjectAPI"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.object.ObjectAPI</span></code></a></p>
+<p>API for the assembled sequences associated with a Genome Annotation.</p>
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_assembly_id">
+<code class="descname">get_assembly_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_assembly_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_assembly_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the id for an Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>id: string identifier for the Assembly</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_contig_gc_content">
+<code class="descname">get_contig_gc_content</code><span class="sig-paren">(</span><em>contig_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_contig_gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_contig_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total GC content for each contiguous sequence of this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict&lt;str&gt;: float</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_contig_ids">
+<code class="descname">get_contig_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_contig_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_contig_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the ids for every contiguous sequence in this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list&lt;str&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_contig_lengths">
+<code class="descname">get_contig_lengths</code><span class="sig-paren">(</span><em>contig_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_contig_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_contig_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the ids for every contiguous sequence in this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict&lt;str&gt;: &lt;int&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_contigs_by_id">
+<code class="descname">get_contigs_by_id</code><span class="sig-paren">(</span><em>contig_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_contigs_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_contigs_by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve contiguous sequences from this Assembly by id.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>contig_id_list: list&lt;str&gt;</dd>
+<dt>Returns:</dt>
+<dd><p class="first">dict</p>
+<p>dictionary of contigs, with contig id as key
+contig value structure
+{</p>
+<blockquote>
+<div>'contig_id': string,
+'length': integer,
+'md5': string,
+'name': string,
+'description': string,
+'is_complete': 0 or 1,
+'is_circular': 0 or 1,
+'sequence': string</div></blockquote>
+<p class="last">}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_dna_size">
+<code class="descname">get_dna_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_dna_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_dna_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total DNA size for this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>int</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_external_source_info">
+<code class="descname">get_external_source_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_external_source_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_external_source_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the external source information associated with this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>id: string identifier for the Assembly</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_gc_content">
+<code class="descname">get_gc_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total GC content for this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>float</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_genome_annotations">
+<code class="descname">get_genome_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_genome_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_genome_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the GenomeAnnotations that refer to this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list&lt;GenomeAnnotationAPI&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_number_contigs">
+<code class="descname">get_number_contigs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_number_contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_number_contigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of contiguous sequences in this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>int</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.assembly.AssemblyAPI.get_stats">
+<code class="descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/assembly.html#AssemblyAPI.get_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.assembly.AssemblyAPI.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the derived statistical information about this Assembly.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>gc_content: total guanine and cytosine content, counting all G and C only
+dna_size: total length of all dna sequence for this Assembly
+num_contigs: total number of contiguous sequences in this Assembly</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.display">
+<span id="biokbase-data-api-display-module"></span><h2>biokbase.data_api.display module<a class="headerlink" href="#module-biokbase.data_api.display" title="Permalink to this headline">¶</a></h2>
+<p>Objects for displaying the results in the IPython notebook.</p>
+<dl class="class">
+<dt id="biokbase.data_api.display.AssemblyInfo">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">AssemblyInfo</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#AssemblyInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.AssemblyInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.display.TemplateMixin" title="biokbase.data_api.display.TemplateMixin"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.display.TemplateMixin</span></code></a></p>
+<p>Get information about assembly.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>stats (dict): Statistics from <cite>AssemblyAPI.get_stats()</cite></dd>
+</dl>
+<dl class="attribute">
+<dt id="biokbase.data_api.display.AssemblyInfo.template">
+<code class="descname">template</code><em class="property"> = '&lt;b&gt;GC content&lt;/b&gt;: {{gc_content}}&lt;br&gt;\n    &lt;b&gt;Total DNA sequence length&lt;/b&gt;:{{dna_size}}&lt;br&gt;\n    &lt;b&gt;Number of contigs&lt;/b&gt;:{{num_contigs}}'</em><a class="headerlink" href="#biokbase.data_api.display.AssemblyInfo.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.Classification">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">Classification</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#Classification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.Classification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.display.TemplateMixin" title="biokbase.data_api.display.TemplateMixin"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.display.TemplateMixin</span></code></a></p>
+<p>Taxonomic classification.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>taxon (TaxonAPI): base taxon
+name (str): Scientific name
+children (list of TaxonAPI): List of TaxonAPI objects
+parents (list of Taxon</dd>
+</dl>
+<dl class="attribute">
+<dt id="biokbase.data_api.display.Classification.template">
+<code class="descname">template</code><em class="property"> = '{% for name in classification %}\n    &lt;span style=&quot;margin-left: {{ loop.index0 * 10 }}px&quot;&gt;\n    &lt;span style=&quot;font-size: 50%&quot;&gt;&amp;gt;&lt;/span&gt;&amp;nbsp;{{ name }}\n    &lt;/span&gt;&lt;br&gt;{% endfor %}'</em><a class="headerlink" href="#biokbase.data_api.display.Classification.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.Contigs">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">Contigs</code><span class="sig-paren">(</span><em>contigs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#Contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.Contigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.display.Table" title="biokbase.data_api.display.Table"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.display.Table</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.FeaturePositions">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">FeaturePositions</code><span class="sig-paren">(</span><em>ga</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#FeaturePositions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.FeaturePositions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.display.Table" title="biokbase.data_api.display.Table"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.display.Table</span></code></a></p>
+<p>The position (and ID and type) of features in the genome.</p>
+<dl class="method">
+<dt id="biokbase.data_api.display.FeaturePositions.stripplot">
+<code class="descname">stripplot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#FeaturePositions.stripplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.FeaturePositions.stripplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a 'stripplot' of all feature positions.</p>
+<p>Requires the 'seaborn' library</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.FeatureStats">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">FeatureStats</code><span class="sig-paren">(</span><em>ga</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#FeatureStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.FeatureStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.display.Table" title="biokbase.data_api.display.Table"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.display.Table</span></code></a></p>
+<p>Feature information for genomes</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.Organism">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">Organism</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#Organism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.Organism" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.display.TemplateMixin" title="biokbase.data_api.display.TemplateMixin"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.display.TemplateMixin</span></code></a></p>
+<p>Summary of an organism as per ENSEMBL page, from
+a TaxonAPI.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>taxon (TaxonAPI): Taxon with info for organism</dd>
+</dl>
+<dl class="attribute">
+<dt id="biokbase.data_api.display.Organism.template">
+<code class="descname">template</code><em class="property"> = '&lt;b&gt;Taxonomy ID&lt;/b&gt;: {{taxon.get_taxonomic_id()}}&lt;br&gt;\n        &lt;b&gt;Name&lt;/b&gt;: {{taxon.get_scientific_name()}}&lt;br&gt;\n        &lt;b&gt;Aliases&lt;/b&gt;:&lt;br&gt;\n        {% for a in taxon.get_aliases() %}\n        &amp;nbsp;&amp;nbsp;{{ a }}&lt;br&gt;\n        {% endfor %}\n        &lt;b&gt;Classification&lt;/b&gt;:&lt;br&gt;{% for name in classification %}\n    &lt;span style=&quot;margin-left: {{ loop.index0 * 10 }}px&quot;&gt;\n    &lt;span style=&quot;font-size: 50%&quot;&gt;&amp;gt;&lt;/span&gt;&amp;nbsp;{{ name }}\n    &lt;/span&gt;&lt;br&gt;{% endfor %}'</em><a class="headerlink" href="#biokbase.data_api.display.Organism.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.ProteinStats">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">ProteinStats</code><span class="sig-paren">(</span><em>ga, stats=['length']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#ProteinStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.ProteinStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.display.Table" title="biokbase.data_api.display.Table"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.display.Table</span></code></a></p>
+<p>Various statistics for proteins.</p>
+<dl class="attribute">
+<dt id="biokbase.data_api.display.ProteinStats.STATS_LENGTH">
+<code class="descname">STATS_LENGTH</code><em class="property"> = 'length'</em><a class="headerlink" href="#biokbase.data_api.display.ProteinStats.STATS_LENGTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.display.ProteinStats.plot_protein_lengths">
+<code class="descname">plot_protein_lengths</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#ProteinStats.plot_protein_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.ProteinStats.plot_protein_lengths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.Table">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">Table</code><span class="sig-paren">(</span><em>data=None</em>, <em>index=None</em>, <em>columns=None</em>, <em>dtype=None</em>, <em>copy=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#Table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>Create a Table from the input data.
+This is a thin wrapper around the Pandas DataFrame object.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.display.TemplateMixin">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.display.</code><code class="descname">TemplateMixin</code><a class="reference internal" href="_modules/biokbase/data_api/display.html#TemplateMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.TemplateMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="biokbase.data_api.display.TemplateMixin.render">
+<code class="descname">render</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#TemplateMixin.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.TemplateMixin.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="biokbase.data_api.display.TemplateMixin.template">
+<code class="descname">template</code><em class="property"> = ''</em><a class="headerlink" href="#biokbase.data_api.display.TemplateMixin.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.display.nbviewer_mode">
+<code class="descclassname">biokbase.data_api.display.</code><code class="descname">nbviewer_mode</code><span class="sig-paren">(</span><em>value=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/display.html#nbviewer_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.display.nbviewer_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get/set the global nbviewer-friendly mode.
+This is currently used to tell qgrid where to get
+its JavaScript from (local or a CDN).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.genome_annotation">
+<span id="biokbase-data-api-genome-annotation-module"></span><h2>biokbase.data_api.genome_annotation module<a class="headerlink" href="#module-biokbase.data_api.genome_annotation" title="Permalink to this headline">¶</a></h2>
+<p>Data API for Genome Annotation entities.  This API provides methods for retrieving the
+Assembly and Taxon associated with an annotation, as well as retrieving individual features.</p>
+<dl class="class">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.genome_annotation.</code><code class="descname">GenomeAnnotationAPI</code><span class="sig-paren">(</span><em>services</em>, <em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.object.ObjectAPI" title="biokbase.data_api.object.ObjectAPI"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.object.ObjectAPI</span></code></a></p>
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_assembly">
+<code class="descname">get_assembly</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the Assembly used to create this Genome Annotation.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>AssemblyAPI</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_cds_by_mrna">
+<code class="descname">get_cds_by_mrna</code><span class="sig-paren">(</span><em>mRNA_feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_cds_by_mrna"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_cds_by_mrna" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_children_cds_by_gene">
+<code class="descname">get_children_cds_by_gene</code><span class="sig-paren">(</span><em>gene_feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_children_cds_by_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_children_cds_by_gene" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_children_mrna_by_gene">
+<code class="descname">get_children_mrna_by_gene</code><span class="sig-paren">(</span><em>gene_feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_children_mrna_by_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_children_mrna_by_gene" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_aliases">
+<code class="descname">get_feature_aliases</code><span class="sig-paren">(</span><em>feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_aliases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_aliases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_dna">
+<code class="descname">get_feature_dna</code><span class="sig-paren">(</span><em>feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_dna"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_dna" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_functions">
+<code class="descname">get_feature_functions</code><span class="sig-paren">(</span><em>feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_functions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_functions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_ids">
+<code class="descname">get_feature_ids</code><span class="sig-paren">(</span><em>type_list=None</em>, <em>region_list=None</em>, <em>function_list=None</em>, <em>alias_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves feature ids based on filters such as feature types, regions, functional descriptions, aliases.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list&lt;str&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_locations">
+<code class="descname">get_feature_locations</code><span class="sig-paren">(</span><em>feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_locations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the location information for Genome Features present in this Genome Annotation.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><p class="first">dict&lt;str&gt;: dict</p>
+<dl class="last docutils">
+<dt>{&quot;contig_id&quot;: str,</dt>
+<dd>&quot;strand&quot;: str,
+&quot;start&quot;: int
+&quot;length&quot;: int}</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_publications">
+<code class="descname">get_feature_publications</code><span class="sig-paren">(</span><em>feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_publications"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_publications" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_type_counts">
+<code class="descname">get_feature_type_counts</code><span class="sig-paren">(</span><em>type_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_type_counts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_type_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of Genome Features contained in this Genome Annotation by Feature type identifier.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict&lt;str&gt;:&lt;int&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_type_descriptions">
+<code class="descname">get_feature_type_descriptions</code><span class="sig-paren">(</span><em>type_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_type_descriptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_type_descriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a descriptive string for each feature type identifier.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_types">
+<code class="descname">get_feature_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_feature_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_feature_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the Genome Feature type identifiers available from this Genome Annotation.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list&lt;str&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_features_by_id">
+<code class="descname">get_features_by_id</code><span class="sig-paren">(</span><em>feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_features_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_features_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_gene_by_cds">
+<code class="descname">get_gene_by_cds</code><span class="sig-paren">(</span><em>cds_feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_gene_by_cds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_gene_by_cds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_gene_by_mrna">
+<code class="descname">get_gene_by_mrna</code><span class="sig-paren">(</span><em>mRNA_feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_gene_by_mrna"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_gene_by_mrna" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_mrna_by_cds">
+<code class="descname">get_mrna_by_cds</code><span class="sig-paren">(</span><em>cds_feature_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_mrna_by_cds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_mrna_by_cds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_proteins">
+<code class="descname">get_proteins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_proteins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_proteins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_taxon">
+<code class="descname">get_taxon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/genome_annotation.html#GenomeAnnotationAPI.get_taxon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.genome_annotation.GenomeAnnotationAPI.get_taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the Taxon assigned to this Genome Annotation.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>TaxonAPI</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.nav">
+<span id="biokbase-data-api-nav-module"></span><h2>biokbase.data_api.nav module<a class="headerlink" href="#module-biokbase.data_api.nav" title="Permalink to this headline">¶</a></h2>
+<p>Navigation of object containers (e.g. workspaces).</p>
+<p>The primary class is 'Finder':</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">biokbase.data_api</span> <span class="kn">import</span> <span class="n">nav</span>
+<span class="n">finder</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">Finder</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="c"># see class docs for args and usage</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="biokbase.data_api.nav.DBConnection">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.nav.</code><code class="descname">DBConnection</code><span class="sig-paren">(</span><em>workspace=None</em>, <em>auth_token=None</em>, <em>ws_url=None</em>, <em>shock_url=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#DBConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.DBConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Database connection.</p>
+<dl class="attribute">
+<dt id="biokbase.data_api.nav.DBConnection.DEFAULT_SHOCK_URL">
+<code class="descname">DEFAULT_SHOCK_URL</code><em class="property"> = 'https://ci.kbase.us/services/shock-api/'</em><a class="headerlink" href="#biokbase.data_api.nav.DBConnection.DEFAULT_SHOCK_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="biokbase.data_api.nav.DBConnection.DEFAULT_WS_URL">
+<code class="descname">DEFAULT_WS_URL</code><em class="property"> = 'https://ci.kbase.us/services/ws/'</em><a class="headerlink" href="#biokbase.data_api.nav.DBConnection.DEFAULT_WS_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.nav.DBConnection.get_object">
+<code class="descname">get_object</code><span class="sig-paren">(</span><em>objid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#DBConnection.get_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.DBConnection.get_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an object in the workspace.</p>
+<p>TODO: Make this work!!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.nav.DBConnection.get_objectapi_params">
+<code class="descname">get_objectapi_params</code><span class="sig-paren">(</span><em>objid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#DBConnection.get_objectapi_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.DBConnection.get_objectapi_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get back the params that the ObjectAPI ctor wants, as
+a dictionary with the correct keyword arguments set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.nav.DBConnection.get_workspace">
+<code class="descname">get_workspace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#DBConnection.get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.DBConnection.get_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.nav.DBConnection.list_objects">
+<code class="descname">list_objects</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#DBConnection.list_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.DBConnection.list_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all objects in workspace.</p>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd>list of ObjectInfo</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.nav.Finder">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.nav.</code><code class="descname">Finder</code><span class="sig-paren">(</span><em>conn</em>, <em>cache=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#Finder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.Finder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Find objects.</p>
+<p>Initialize with a DBConnection object:</p>
+<blockquote>
+<div>f = Finder(DBConnection(workspace=1122))</div></blockquote>
+<p>You can use indexing to look up objects by name:</p>
+<blockquote>
+<div>f['kb|contigset.12523']</div></blockquote>
+<p>The name can contain Unix glob characters (e.g. &quot;*&quot;):</p>
+<blockquote>
+<div>f['Rhodobacter*']</div></blockquote>
+<p>You can also look up objects by position</p>
+<blockquote>
+<div>f[0]</div></blockquote>
+<p>You can look up an object by arbitrary attributes by
+passing a dict-like object (anything with an 'items' method) as the index</p>
+<blockquote>
+<div>f[dict(type='KBaseGenomes.ContigSet-2.0')]</div></blockquote>
+<p>Use list() to see all objects:</p>
+<blockquote>
+<div>print(list(f))</div></blockquote>
+<dl class="method">
+<dt id="biokbase.data_api.nav.Finder.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>objid=None</em>, <em>name=None</em>, <em>name_re=None</em>, <em>type_=None</em>, <em>type_re=None</em>, <em>type_ver=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#Finder.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.Finder.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a filtered subset of the contained objects.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">objid (int): Object identifier
+name (str): Exact match name
+name_re (str): Regular expression match name
+<a href="#id1"><span class="problematic" id="id2">type_</span></a> (str): Exact match type
+type_re (str): Regular expression match type
+type_ver (tuple): Match on string type and str version comparator
+kw (dict): Names and values, matched as exact strings. If the</p>
+<blockquote class="last">
+<div>name is not in the record, it is ignored.</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.nav.Finder.ls">
+<code class="descname">ls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#Finder.ls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.Finder.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>List objects in the current container namespace.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list of objects, each in the same form returned by the indexing
+operations.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.nav.ObjectInfo">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.nav.</code><code class="descname">ObjectInfo</code><a class="reference internal" href="_modules/biokbase/data_api/nav.html#ObjectInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.ObjectInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.nav._ObjectInfo</span></code></p>
+<p>Metadata about one object.</p>
+<dl class="attribute">
+<dt id="biokbase.data_api.nav.ObjectInfo.data">
+<code class="descname">data</code><a class="headerlink" href="#biokbase.data_api.nav.ObjectInfo.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full, raw, data from its metadata.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="biokbase.data_api.nav.ObjectInfo.object">
+<code class="descname">object</code><a class="headerlink" href="#biokbase.data_api.nav.ObjectInfo.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get wrapped KBase data object from the metadata.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.nav.ObjectInfo.set_conn">
+<code class="descname">set_conn</code><span class="sig-paren">(</span><em>conn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#ObjectInfo.set_conn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.ObjectInfo.set_conn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.nav.add_dicts">
+<code class="descclassname">biokbase.data_api.nav.</code><code class="descname">add_dicts</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/nav.html#add_dicts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.nav.add_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add two dictionaries together and return a third.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.object">
+<span id="biokbase-data-api-object-module"></span><h2>biokbase.data_api.object module<a class="headerlink" href="#module-biokbase.data_api.object" title="Permalink to this headline">¶</a></h2>
+<p>Module for base class for Data API objects.</p>
+<dl class="class">
+<dt id="biokbase.data_api.object.ObjectAPI">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.object.</code><code class="descname">ObjectAPI</code><span class="sig-paren">(</span><em>services=None</em>, <em>ref=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Generic Object API for basic properties and actions of a KBase Data Object.</p>
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>to_ws=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a naive object copy to a target workspace.  A naive object copy is a simple
+copy that only generates a copy object of this entity, but any referencing entities
+are not included or considered.  More specific object copies should be implemented by
+specific types that understand their copy semantics for children and other referencing
+or referenced objects.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>to_ws : the target workspace to copy the object to, which the user must have permission
+to write to.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve object data.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_data_subset">
+<code class="descname">get_data_subset</code><span class="sig-paren">(</span><em>path_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_data_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a subset of data from this object, given a list of paths to the data elements.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_history">
+<code class="descname">get_history</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the recorded history of this object describing how it has been modified.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_id">
+<code class="descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the internal identifier for this object.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>string</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_info">
+<code class="descname">get_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve basic properties about this object.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_name">
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the name assigned to this object.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>string</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_provenance">
+<code class="descname">get_provenance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_provenance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the recorded provenance of this object describing how to recreate it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_referrers">
+<code class="descname">get_referrers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_referrers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a dictionary that indicates by type what objects are referring to this object.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>dict</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_schema">
+<code class="descname">get_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the schema associated with this object.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>string</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.object.ObjectAPI.get_typestring">
+<code class="descname">get_typestring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#ObjectAPI.get_typestring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.ObjectAPI.get_typestring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the type identifier string.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>string</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.object.get_token">
+<code class="descclassname">biokbase.data_api.object.</code><code class="descname">get_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/object.html#get_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.object.get_token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.taxon">
+<span id="biokbase-data-api-taxon-module"></span><h2>biokbase.data_api.taxon module<a class="headerlink" href="#module-biokbase.data_api.taxon" title="Permalink to this headline">¶</a></h2>
+<p>Data API for Taxon entities.  This API provides methods for traversing
+taxonomic parent/child relationships, and accessing information such as
+NCBI taxonomic id, scientific name, scientific lineage, etc.</p>
+<dl class="class">
+<dt id="biokbase.data_api.taxon.TaxonAPI">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.taxon.</code><code class="descname">TaxonAPI</code><span class="sig-paren">(</span><em>services</em>, <em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.object.ObjectAPI" title="biokbase.data_api.object.ObjectAPI"><code class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.object.ObjectAPI</span></code></a></p>
+<p>Represents a Taxonomic Unit, e.g., species.
+Built to support KBaseGenomesCondensedPrototypeV2.Taxon and KBaseGenomes.Genome.</p>
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_aliases">
+<code class="descname">get_aliases</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_aliases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the aliases for this Taxonomic Unit.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list&lt;str&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_children">
+<code class="descname">get_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_children"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the children Taxon of this Taxon as TaxonAPI objects.
+If this is accessing a Genome object, returns None.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list&lt;TaxonAPI&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_domain">
+<code class="descname">get_domain</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the domain associated with this Taxonomic Unit.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>str</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_genetic_code">
+<code class="descname">get_genetic_code</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_genetic_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_genetic_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the genetic code for this Taxonomic Unit.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>int</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_genome_annotations">
+<code class="descname">get_genome_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_genome_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_genome_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the GenomeAnnotations that refer to this Taxon.
+If this is accessing a Genome object, returns None.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list&lt;GenomeAnnotationAPI&gt;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_kingdom">
+<code class="descname">get_kingdom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_kingdom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_kingdom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the kingdom associated with this Taxonomic Unit.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>str</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_parent">
+<code class="descname">get_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve parent Taxon of this Taxon as a TaxonAPI object.
+If this is accessing a Genome object, returns None.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>TaxonAPI</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_scientific_lineage">
+<code class="descname">get_scientific_lineage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_scientific_lineage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_scientific_lineage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the scientific lineage of this Taxon.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><p class="first">str</p>
+<p class="last">e.g., &quot;Top unit;Middle unit;Lowest unit&quot;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_scientific_name">
+<code class="descname">get_scientific_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_scientific_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_scientific_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the scientific name of this Taxon.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><p class="first">str</p>
+<p class="last">e.g., Escherichia Coli K12 str. MG1655</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.taxon.TaxonAPI.get_taxonomic_id">
+<code class="descname">get_taxonomic_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/taxon.html#TaxonAPI.get_taxonomic_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.taxon.TaxonAPI.get_taxonomic_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the NCBI taxonomic id of this Taxon.
+The KBaseGenomes.Genome type's closest representative is source_id.</p>
+<p>Unknown == -1</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>int</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.types">
+<span id="biokbase-data-api-types-module"></span><h2>biokbase.data_api.types module<a class="headerlink" href="#module-biokbase.data_api.types" title="Permalink to this headline">¶</a></h2>
+<p>Mapping of data store types to object classes.</p>
+<dl class="class">
+<dt id="biokbase.data_api.types.DataStores">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.types.</code><code class="descname">DataStores</code><a class="reference internal" href="_modules/biokbase/data_api/types.html#DataStores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.types.DataStores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">enum.Enum</span></code></p>
+<p>The huge variety of data stores we have at the moment.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.types.get_object_class">
+<code class="descclassname">biokbase.data_api.types.</code><code class="descname">get_object_class</code><span class="sig-paren">(</span><em>type_name</em>, <em>store=&lt;DataStores.workspace: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/types.html#get_object_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.types.get_object_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the appropriate object class for a given type name.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>type_name - string name of type
+store - type of data store (currently only 'workspace')</dd>
+<dt>Returns:</dt>
+<dd>appropriate subclass of ObjectAPI (possibly just the base class)</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.types.get_re">
+<code class="descclassname">biokbase.data_api.types.</code><code class="descname">get_re</code><span class="sig-paren">(</span><em>d</em>, <em>key</em>, <em>default_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/types.html#get_re"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.types.get_re" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get key from dict, but treat keys <em>in</em> dict as regular
+expressions.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>d: Dictionary to search
+key: String key
+default_value: A default value, any type</dd>
+<dt>Returns:</dt>
+<dd>matching value or <cite>default_value</cite> if not found</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.typesystem">
+<span id="biokbase-data-api-typesystem-module"></span><h2>biokbase.data_api.typesystem module<a class="headerlink" href="#module-biokbase.data_api.typesystem" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="biokbase.data_api.typesystem.AbstractTypeAPI">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.typesystem.</code><code class="descname">AbstractTypeAPI</code><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeAPI.get_schema">
+<code class="descname">get_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeAPI.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeAPI.get_schema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeAPI.set_schema">
+<code class="descname">set_schema</code><span class="sig-paren">(</span><em>schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeAPI.set_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeAPI.set_schema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeAPI.validate_schema">
+<code class="descname">validate_schema</code><span class="sig-paren">(</span><em>schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeAPI.validate_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeAPI.validate_schema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.typesystem.</code><code class="descname">AbstractTypeNamespaceAPI</code><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_type">
+<code class="descname">add_type</code><span class="sig-paren">(</span><em>type_schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.add_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_user">
+<code class="descname">add_user</code><span class="sig-paren">(</span><em>type_schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.add_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type">
+<code class="descname">get_type</code><span class="sig-paren">(</span><em>type_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.get_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type_names">
+<code class="descname">get_type_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.get_type_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.publish_type">
+<code class="descname">publish_type</code><span class="sig-paren">(</span><em>type_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.publish_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.publish_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_type">
+<code class="descname">remove_type</code><span class="sig-paren">(</span><em>type_schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.remove_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_user">
+<code class="descname">remove_user</code><span class="sig-paren">(</span><em>type_schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.remove_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.unpublish_type">
+<code class="descname">unpublish_type</code><span class="sig-paren">(</span><em>type_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.unpublish_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.unpublish_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_type">
+<code class="descname">update_type</code><span class="sig-paren">(</span><em>type_name=None</em>, <em>type_schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.update_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_user">
+<code class="descname">update_user</code><span class="sig-paren">(</span><em>type_schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.update_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.typesystem.</code><code class="descname">AbstractTypeRegistry</code><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry.get_namespaces">
+<code class="descname">get_namespaces</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry.get_namespaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry.get_namespaces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry.get_registry_info">
+<code class="descname">get_registry_info</code><span class="sig-paren">(</span><em>hash=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry.get_registry_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry.get_registry_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry.get_spec_hash">
+<code class="descname">get_spec_hash</code><span class="sig-paren">(</span><em>schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry.get_spec_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry.get_spec_hash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry.get_types">
+<code class="descname">get_types</code><span class="sig-paren">(</span><em>namespace=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry.get_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry.get_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry.register_namespace">
+<code class="descname">register_namespace</code><span class="sig-paren">(</span><em>namespace=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry.register_namespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry.register_namespace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry.register_spec">
+<code class="descname">register_spec</code><span class="sig-paren">(</span><em>namespace=None</em>, <em>schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry.register_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry.register_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.typesystem.AbstractTypeRegistry.update_spec">
+<code class="descname">update_spec</code><span class="sig-paren">(</span><em>namespace=None</em>, <em>schema=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/typesystem.html#AbstractTypeRegistry.update_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.typesystem.AbstractTypeRegistry.update_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.util">
+<span id="biokbase-data-api-util-module"></span><h2>biokbase.data_api.util module<a class="headerlink" href="#module-biokbase.data_api.util" title="Permalink to this headline">¶</a></h2>
+<p>Utility functions.</p>
+<dl class="docutils">
+<dt>Includes:</dt>
+<dd><ul class="first last simple">
+<li>Logging decorators</li>
+</ul>
+</dd>
+</dl>
+<dl class="function">
+<dt id="biokbase.data_api.util.format_kvp">
+<code class="descclassname">biokbase.data_api.util.</code><code class="descname">format_kvp</code><span class="sig-paren">(</span><em>d</em>, <em>sep</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/util.html#format_kvp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.util.format_kvp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format key-value pairs as a string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.util.format_timestamp">
+<code class="descclassname">biokbase.data_api.util.</code><code class="descname">format_timestamp</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#biokbase.data_api.util.format_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.util.func_one">
+<code class="descclassname">biokbase.data_api.util.</code><code class="descname">func_one</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/util.html#func_one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.util.func_one" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="biokbase.data_api.util.func_two">
+<code class="descclassname">biokbase.data_api.util.</code><code class="descname">func_two</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/util.html#func_two"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.util.func_two" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.util.logged">
+<em class="property">class </em><code class="descclassname">biokbase.data_api.util.</code><code class="descname">logged</code><span class="sig-paren">(</span><em>logger=None</em>, <em>**kvp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api/util.html#logged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.util.logged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Logging decorator.</p>
+<p>The format of the output for function entry and exit
+is controlled by the class variables, <cite>ENTRY_MESSAGE</cite> and
+<cite>EXIT_MESSAGE</cite>. These are pre-processed by <cite>.format()</cite>
+with a dictionary including per-function key/value
+pairs and some provided values:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">timestamp: ISO8601 UTC timestamp, to microseconds</p>
+</li>
+<li><p class="first">func_name: Name of function</p>
+</li>
+<li><dl class="first docutils">
+<dt>dur: Duration between the ENTRY and EXIT</dt>
+<dd><p class="first last">as a floating point #seconds</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">kvp: User-provided key/value pairs, formatted as
+&quot;key=value&quot; separated by commas</p>
+</li>
+</ul>
+</div></blockquote>
+<p>Usage:</p>
+<blockquote>
+<div><p>&#64;logged
+def func_one(args):</p>
+<blockquote>
+<div><blockquote>
+<div>print(&quot;I am logged&quot;)</div></blockquote>
+<p>&#64;logged(name='joe')
+def func_two(args):</p>
+<blockquote>
+<div>print(&quot;I am also logged&quot;)</div></blockquote>
+<p># Output:</p>
+<p>2015-08-04T11:08:10.046121 func_one.begin/
+I am logged
+2015-08-04T11:08:10.046320 func_one.end 0.00019907951355/
+2015-08-04T11:08:10.046465 func_two.begin/name=joe
+I am also logged
+2015-08-04T11:08:10.046575 func_two.end 0.000110149383545/name=joe</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="attribute">
+<dt id="biokbase.data_api.util.logged.ENTRY_MESSAGE">
+<code class="descname">ENTRY_MESSAGE</code><em class="property"> = '{timestamp} {func_name}.begin/{kvp}'</em><a class="headerlink" href="#biokbase.data_api.util.logged.ENTRY_MESSAGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="biokbase.data_api.util.logged.EXIT_MESSAGE">
+<code class="descname">EXIT_MESSAGE</code><em class="property"> = '{timestamp} {func_name}.end {dur}/{kvp}'</em><a class="headerlink" href="#biokbase.data_api.util.logged.EXIT_MESSAGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-biokbase.data_api" title="Permalink to this headline">¶</a></h2>
+<p>KBase Data API package.</p>
+<dl class="function">
+<dt id="biokbase.data_api.browse">
+<code class="descclassname">biokbase.data_api.</code><code class="descname">browse</code><span class="sig-paren">(</span><em>workspace=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biokbase/data_api.html#browse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biokbase.data_api.browse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a <cite>.nav.Finder</cite> instance, which allows
+the user to easily list and retrieve objects in a given
+workspace through the Data API.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>workspace: Integer identifier for the workspace</dd>
+<dt>Returns:</dt>
+<dd>An initialized Finder instance.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+            
+    <div class="footer-relations">
+      <div class="pull-left">
+        <a href="biokbase.html" title="previous chapter (use the left arrow)">biokbase package</a>
+      </div>
+      <div class="pull-right">
+        <a href="biokbase.data_api.tests.html" title="next chapter (use the right arrow)">biokbase.data_api.tests package</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="biokbase.data_api.tests.html" title="biokbase.data_api.tests package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="biokbase.html" title="biokbase package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="biokbase.html" >biokbase package</a> &raquo;</li> 
+      </ul>
+    </div>
+
+  <script type="text/javascript">
+    $("#mobile-toggle a").click(function () {
+      $("#left-column").toggle();
+    });
+  </script>
+
+  <script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="container-wrapper">
+    <div class="container-fluid">
+      <div class="footer">
+        &copy; Copyright 2015, Dan Gunter, Matt Henderson. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      </div>
+    </div>
+  </div>
+  </body>
+</html>
