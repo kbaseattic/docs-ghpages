@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro|Open+Sans|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>biokbase.data_api.display &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="KBase Data API 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="biokbase.data_api" href="../data_api.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../data_api.html" accesskey="U">biokbase.data_api</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../../index.html" class="text-logo">KBase Data API</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../biokbase.html">biokbase package</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../../index.html">Docs</a></li>
+              
+                <li><a href="../../index.html">Module code</a></li>
+              
+                <li><a href="../data_api.html">biokbase.data_api</a></li>
+              
+              <li>biokbase.data_api.display</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for biokbase.data_api.display</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Objects for displaying the results in the IPython notebook.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;8/1/15&#39;</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="c"># Qgrid table display</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">qgrid</span>
+    <span class="n">qgrid</span><span class="o">.</span><span class="n">nbinstall</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">qgrid</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="c"># Seaborn graphing</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">sns</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="n">_nbviewer</span> <span class="o">=</span> <span class="bp">False</span>
+<div class="viewcode-block" id="nbviewer_mode"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.nbviewer_mode">[docs]</a><span class="k">def</span> <span class="nf">nbviewer_mode</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get/set the global nbviewer-friendly mode.</span>
+<span class="sd">    This is currently used to tell qgrid where to get</span>
+<span class="sd">    its JavaScript from (local or a CDN).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_nbviewer</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">_nbviewer</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_nbviewer</span>
+</div>
+<div class="viewcode-block" id="Table"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.Table">[docs]</a><span class="k">class</span> <span class="nc">Table</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a Table from the input data.</span>
+<span class="sd">    This is a thin wrapper around the Pandas DataFrame object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_ipython_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">qgrid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">qgrid</span><span class="o">.</span><span class="n">show_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remote_js</span><span class="o">=</span><span class="n">nbviewer_mode</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Contigs"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.Contigs">[docs]</a><span class="k">class</span> <span class="nc">Contigs</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contigs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create contigset from list of strings.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          contigs: List of strings for contigs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;ids&#39;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">})</span>
+</div>
+<div class="viewcode-block" id="TemplateMixin"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.TemplateMixin">[docs]</a><span class="k">class</span> <span class="nc">TemplateMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TemplateMixin.render"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.TemplateMixin.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="Classification"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.Classification">[docs]</a><span class="k">class</span> <span class="nc">Classification</span><span class="p">(</span><span class="n">TemplateMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Taxonomic classification.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">      taxon (TaxonAPI): base taxon</span>
+<span class="sd">      name (str): Scientific name</span>
+<span class="sd">      children (list of TaxonAPI): List of TaxonAPI objects</span>
+<span class="sd">      parents (list of Taxon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;{</span><span class="si">% f</span><span class="s">or name in classification %}</span>
+<span class="s">    &lt;span style=&quot;margin-left: {{ loop.index0 * 10 }}px&quot;&gt;</span>
+<span class="s">    &lt;span style=&quot;font-size: 50%&quot;&gt;&amp;gt;&lt;/span&gt;&amp;nbsp;{{ name }}</span>
+<span class="s">    &lt;/span&gt;&lt;br&gt;{</span><span class="si">% e</span><span class="s">ndfor %}&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a taxon.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          obj: TaxonAPI object or object with `get_taxon`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TemplateMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;get_taxon&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classification</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
+        <span class="c"># self.children = self.taxon.get_children() or []</span>
+        <span class="c"># tx, self.parents = self.taxon, []</span>
+        <span class="c"># while tx:</span>
+        <span class="c">#     tx = tx.get_parent()</span>
+        <span class="c">#     if tx:</span>
+        <span class="c">#         self.parents.insert(tx.get_scientific_name(), 0)</span>
+        <span class="c"># self.classification = self.parents + [self.name] + [</span>
+        <span class="c">#     child.get_scientific_name() for child in self.children]</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">classification</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">classification</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Organism"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.Organism">[docs]</a><span class="k">class</span> <span class="nc">Organism</span><span class="p">(</span><span class="n">TemplateMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Summary of an organism as per ENSEMBL page, from</span>
+<span class="sd">    a TaxonAPI.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">      taxon (TaxonAPI): Taxon with info for organism</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;&lt;b&gt;Taxonomy ID&lt;/b&gt;: {{taxon.get_taxonomic_id()}}&lt;br&gt;</span>
+<span class="s">        &lt;b&gt;Name&lt;/b&gt;: {{taxon.get_scientific_name()}}&lt;br&gt;</span>
+<span class="s">        &lt;b&gt;Aliases&lt;/b&gt;:&lt;br&gt;</span>
+<span class="s">        {</span><span class="si">% f</span><span class="s">or a in taxon.get_aliases() %}</span>
+<span class="s">        &amp;nbsp;&amp;nbsp;{{ a }}&lt;br&gt;</span>
+<span class="s">        {</span><span class="si">% e</span><span class="s">ndfor %}</span>
+<span class="s">        &lt;b&gt;Classification&lt;/b&gt;:&lt;br&gt;&#39;&#39;&#39;</span> <span class="o">+</span> \
+        <span class="n">Classification</span><span class="o">.</span><span class="n">template</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from an API object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          obj: TaxonAPI object or object with `get_taxon`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TemplateMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;get_taxon&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="n">classf</span> <span class="o">=</span> <span class="n">Classification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="p">)</span><span class="o">.</span><span class="n">classification</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">classification</span><span class="o">=</span><span class="n">classf</span><span class="p">,</span> <span class="n">taxon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="AssemblyInfo"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.AssemblyInfo">[docs]</a><span class="k">class</span> <span class="nc">AssemblyInfo</span><span class="p">(</span><span class="n">TemplateMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get information about assembly.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">      stats (dict): Statistics from `AssemblyAPI.get_stats()`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;&lt;b&gt;GC content&lt;/b&gt;: {{gc_content}}&lt;br&gt;</span>
+<span class="s">    &lt;b&gt;Total DNA sequence length&lt;/b&gt;:{{dna_size}}&lt;br&gt;</span>
+<span class="s">    &lt;b&gt;Number of contigs&lt;/b&gt;:{{num_contigs}}&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create assembly info.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          obj: AssemblyAPI or object with `get_assembly` method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TemplateMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;get_assembly&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_assembly</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="FeatureStats"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.FeatureStats">[docs]</a><span class="k">class</span> <span class="nc">FeatureStats</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Feature information for genomes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a genome.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ga: GenomeAnnotationAPI object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_feature_types</span><span class="p">():</span> <span class="c"># all feature types</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c"># get lists of positions for each feature_id</span>
+            <span class="n">feature_id_lists</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_feature_ids_by_type</span><span class="p">([</span><span class="n">feature</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">fi</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">feature_id_lists</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">feature</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;feature_type&#39;</span><span class="p">,</span> <span class="s">&#39;count&#39;</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="FeaturePositions"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.FeaturePositions">[docs]</a><span class="k">class</span> <span class="nc">FeaturePositions</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The position (and ID and type) of features in the genome.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a genome.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ga: GenomeAnnotationAPI object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_features</span><span class="p">(</span><span class="n">ga</span><span class="p">)</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="s">&#39;len&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">):</span>
+        <span class="s">&quot;This should probably move into genome_annotation module&quot;</span>
+        <span class="kn">from</span> <span class="nn">biokbase.data_api.object</span> <span class="kn">import</span> <span class="n">ObjectAPI</span>
+        <span class="n">fcr</span> <span class="o">=</span> <span class="s">&#39;feature_container_references&#39;</span>
+        <span class="n">refs</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="n">fcr</span><span class="p">])[</span><span class="n">fcr</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">refs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="n">ga</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="c"># fetch data</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&#39;features&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">feat_id</span> <span class="ow">in</span> <span class="n">features</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c"># iterate features</span>
+                <span class="n">ftype</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">feat_id</span><span class="p">][</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">features</span><span class="p">[</span><span class="n">feat_id</span><span class="p">][</span><span class="s">&#39;locations&#39;</span><span class="p">]:</span>
+                    <span class="c"># biuld an output row and add to result</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">(</span><span class="n">ftype</span><span class="p">,</span> <span class="n">feat_id</span><span class="p">,</span> <span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">loc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+<div class="viewcode-block" id="FeaturePositions.stripplot"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.FeaturePositions.stripplot">[docs]</a>    <span class="k">def</span> <span class="nf">stripplot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make a &#39;stripplot&#39; of all feature positions.</span>
+
+<span class="sd">        Requires the &#39;seaborn&#39; library</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sns</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&#39;Requires the &quot;seaborn&quot; library. See: &#39;</span>
+                             <span class="s">&#39;https://github.com/mwaskom/seaborn&#39;</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c"># get rid of spurious negative tick</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">ax</span>
+
+</div></div>
+<div class="viewcode-block" id="ProteinStats"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.ProteinStats">[docs]</a><span class="k">class</span> <span class="nc">ProteinStats</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Various statistics for proteins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">STATS_LENGTH</span> <span class="o">=</span> <span class="s">&#39;length&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="n">STATS_LENGTH</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a genome.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ga: GenomeAnnotationAPI object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">proteins</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">STATS_LENGTH</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">STATS_LENGTH</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s">&#39;amino_acid_sequence&#39;</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">proteins</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ProteinStats.plot_protein_lengths"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.display.ProteinStats.plot_protein_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">plot_protein_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">STATS_LENGTH</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s">&#39;hist&#39;</span><span class="p">)</span>
+
+<span class="c">###################################</span>
+
+<span class="c"># def __rb_parsing(self)was found</span>
+<span class="c">#     in a Rhodobacter genome.</span>
+<span class="c">#         NODE_48_length_21448_cov_4.91263_ID_95</span>
+<span class="c">#     &quot;&quot;&quot;</span>
+<span class="c">#     c0 = contigs[0]</span>
+<span class="c">#     colnames = c0.split(sep)[::2]</span>
+<span class="c">#</span>
+<span class="c">#     # infer types for each column from 1st row</span>
+<span class="c">#     # if it can be made a float, assume it is numeric</span>
+<span class="c">#     coltypes = []</span>
+<span class="c">#     for colval in c0.split(sep)[1::2]:</span>
+<span class="c">#         try:</span>
+<span class="c">#             float(colval)</span>
+<span class="c">#             coltypes.append(float)</span>
+<span class="c">#         except ValueError:</span>
+<span class="c">#             coltypes.append(str)</span>
+<span class="c">#</span>
+<span class="c">#     # build a dict of the values</span>
+<span class="c">#     contig_dict = dict.fromkeys(colnames)</span>
+<span class="c">#     for k in contig_dict:</span>
+<span class="c">#         contig_dict[k] = []</span>
+<span class="c">#     n = len(contig_dict)</span>
+<span class="c">#     for contig in contigs:</span>
+<span class="c">#         values = contig.split(sep)[1::2]</span>
+<span class="c">#         for i in range(n):</span>
+<span class="c">#             value = coltypes[i](values[i])</span>
+<span class="c">#             contig_dict[colnames[i]].append(value)</span>
+<span class="c">#</span>
+<span class="c">#     # create DataFrame from the dict</span>
+<span class="c">#     pd.DataFrame.__init__(self, contig_dict)</span>
+</pre></div></div></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../data_api.html" >biokbase.data_api</a> &raquo;</li> 
+      </ul>
+    </div>
+
+  <script type="text/javascript">
+    $("#mobile-toggle a").click(function () {
+      $("#left-column").toggle();
+    });
+  </script>
+
+  <script type="text/javascript" src="../../../_static/js/bootstrap.js"></script>
+  <div class="container-wrapper">
+    <div class="container-fluid">
+      <div class="footer">
+        &copy; Copyright 2015, Dan Gunter, Matt Henderson. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

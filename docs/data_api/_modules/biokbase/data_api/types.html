@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+  
+  <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro|Open+Sans|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>biokbase.data_api.types &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="KBase Data API 0.0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="biokbase.data_api" href="../data_api.html" />
+  
+   
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../data_api.html" accesskey="U">biokbase.data_api</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../../index.html" class="text-logo">KBase Data API</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../biokbase.html">biokbase package</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../../index.html">Docs</a></li>
+              
+                <li><a href="../../index.html">Module code</a></li>
+              
+                <li><a href="../data_api.html">biokbase.data_api</a></li>
+              
+              <li>biokbase.data_api.types</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for biokbase.data_api.types</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Mapping of data store types to object classes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;7/31/15&#39;</span>
+
+<span class="c"># System</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c"># Third-party</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span>  <span class="n">Enum</span> <span class="c"># requires enum34</span>
+
+<span class="c"># Local</span>
+<span class="kn">from</span> <span class="nn">biokbase.data_api.assembly</span> <span class="kn">import</span> <span class="n">AssemblyAPI</span>
+<span class="kn">from</span> <span class="nn">biokbase.data_api.genome_annotation</span> <span class="kn">import</span> <span class="n">GenomeAnnotationAPI</span>
+<span class="kn">from</span> <span class="nn">biokbase.data_api.taxon</span> <span class="kn">import</span> <span class="n">TaxonAPI</span>
+<span class="kn">from</span> <span class="nn">biokbase.data_api.object</span> <span class="kn">import</span> <span class="n">ObjectAPI</span>
+
+<div class="viewcode-block" id="DataStores"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.types.DataStores">[docs]</a><span class="k">class</span> <span class="nc">DataStores</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The huge variety of data stores we have at the moment.&quot;&quot;&quot;</span>
+    <span class="n">workspace</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c">## Mapping from a type name to a wrapper class, used in `get_class`</span></div>
+<span class="n">_typemap</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">r&#39;KBaseGenomes\.ContigSet-2\.0&#39;</span><span class="p">:</span> <span class="n">AssemblyAPI</span><span class="p">,</span>    
+    <span class="s">r&#39;KBaseGenomesCondensedPrototypeV2\.Assembly&#39;</span><span class="p">:</span> <span class="n">AssemblyAPI</span><span class="p">,</span>
+    <span class="s">r&#39;KBaseGenomesCondensedPrototypeV2\.GenomeAnnotation&#39;</span><span class="p">:</span> <span class="n">GenomeAnnotationAPI</span><span class="p">,</span>
+    <span class="s">r&#39;KBaseGenomes\.Genome-.*&#39;</span><span class="p">:</span> <span class="n">GenomeAnnotationAPI</span><span class="p">,</span>
+    <span class="s">r&#39;KBaseGenomesCondensedPrototypeV2\.Taxon&#39;</span><span class="p">:</span> <span class="n">TaxonAPI</span>
+<span class="p">}</span>
+
+<div class="viewcode-block" id="get_re"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.types.get_re">[docs]</a><span class="k">def</span> <span class="nf">get_re</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get key from dict, but treat keys *in* dict as regular</span>
+<span class="sd">     expressions.</span>
+
+<span class="sd">     Args:</span>
+<span class="sd">       d: Dictionary to search</span>
+<span class="sd">       key: String key</span>
+<span class="sd">       default_value: A default value, any type</span>
+
+<span class="sd">     Returns:</span>
+<span class="sd">       matching value or `default_value` if not found</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">dkey</span><span class="p">,</span> <span class="n">dval</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">dkey</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">dval</span>
+    <span class="k">return</span> <span class="n">default_value</span>
+</div>
+<div class="viewcode-block" id="get_object_class"><a class="viewcode-back" href="../../../biokbase.data_api.html#biokbase.data_api.types.get_object_class">[docs]</a><span class="k">def</span> <span class="nf">get_object_class</span><span class="p">(</span><span class="n">type_name</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="n">DataStores</span><span class="o">.</span><span class="n">workspace</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the appropriate object class for a given type name.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      type_name - string name of type</span>
+<span class="sd">      store - type of data store (currently only &#39;workspace&#39;)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      appropriate subclass of ObjectAPI (possibly just the base class)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clazz</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">store</span> <span class="o">==</span> <span class="n">DataStores</span><span class="o">.</span><span class="n">workspace</span><span class="p">:</span>
+        <span class="n">clazz</span> <span class="o">=</span> <span class="n">get_re</span><span class="p">(</span><span class="n">_typemap</span><span class="p">,</span> <span class="n">type_name</span><span class="p">,</span> <span class="n">ObjectAPI</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">clazz</span></div>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">KBase Data API 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../data_api.html" >biokbase.data_api</a> &raquo;</li> 
+      </ul>
+    </div>
+
+  <script type="text/javascript">
+    $("#mobile-toggle a").click(function () {
+      $("#left-column").toggle();
+    });
+  </script>
+
+  <script type="text/javascript" src="../../../_static/js/bootstrap.js"></script>
+  <div class="container-wrapper">
+    <div class="container-fluid">
+      <div class="footer">
+        &copy; Copyright 2015, Dan Gunter, Matt Henderson. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

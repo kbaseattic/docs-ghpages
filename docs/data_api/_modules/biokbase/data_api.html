@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>data_api.search &mdash; KBase Data API 0.0.1 documentation</title>
+    <title>biokbase.data_api &mdash; KBase Data API 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -98,43 +98,36 @@
               
                 <li><a href="../index.html">Module code</a></li>
               
-              <li>data_api.search</li>
+              <li>biokbase.data_api</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
-  <h1>Source code for data_api.search</h1><div class="highlight"><pre>
+  <h1>Source code for biokbase.data_api</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">The search APIs are broken down into the different types of data stores in the</span>
-<span class="sd">system:</span>
-
-<span class="sd">* :class:`DataStore` - Data objects and their relationships</span>
-<span class="sd">* :class:`DataModel` - Data types and their relationships</span>
-
-<span class="sd">Each data store is represented with a separate subclass</span>
-<span class="sd">of the parent &quot;SearchableData&quot;.</span>
+<span class="sd">KBase Data API package.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
-<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;4/8/15&#39;</span>
 
-<div class="viewcode-block" id="SearchableData"><a class="viewcode-back" href="../../searchapi.html#data_api.search.SearchableData">[docs]</a><span class="k">class</span> <span class="nc">SearchableData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base functionality for any searchable data source.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">biokbase.data_api.nav</span> <span class="kn">import</span> <span class="n">DBConnection</span><span class="p">,</span> <span class="n">Finder</span>
+
+<div class="viewcode-block" id="browse"><a class="viewcode-back" href="../../biokbase.data_api.html#biokbase.data_api.browse">[docs]</a><span class="k">def</span> <span class="nf">browse</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create and return a `.nav.Finder` instance, which allows</span>
+<span class="sd">    the user to easily list and retrieve objects in a given</span>
+<span class="sd">    workspace through the Data API.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      workspace: Integer identifier for the workspace</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      An initialized Finder instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span>
-</div>
-<div class="viewcode-block" id="DataStore"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataStore">[docs]</a><span class="k">class</span> <span class="nc">DataStore</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Store of data objects.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Main data store.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-</div>
-<div class="viewcode-block" id="DataModel"><a class="viewcode-back" href="../../searchapi.html#data_api.search.DataModel">[docs]</a><span class="k">class</span> <span class="nc">DataModel</span><span class="p">(</span><span class="n">SearchableData</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Store of data types, which together form a data model (type system).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span>
-</pre></div></div>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">DBConnection</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">workspace</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Finder</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+
+        </div>
+</pre></div>
 
           </div>
             
