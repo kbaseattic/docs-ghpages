@@ -67,8 +67,8 @@ div.document {
     width: auto;
 }
 
-/* hide the toctree inside the document itself */
-div.toctree-wrapper {
+/* hide the toctree right after a body */
+div.body > div.toctree-wrapper {
     display: none;
 }
 
