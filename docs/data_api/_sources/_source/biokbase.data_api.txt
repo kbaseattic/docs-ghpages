@@ -1,0 +1,105 @@
+biokbase.data_api package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    biokbase.data_api.annotation
+    biokbase.data_api.baseobj
+    biokbase.data_api.sequence
+    biokbase.data_api.taxonomy
+    biokbase.data_api.tests
+
+Submodules
+----------
+
+biokbase.data_api.core module
+-----------------------------
+
+.. automodule:: biokbase.data_api.core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.db module
+---------------------------
+
+.. automodule:: biokbase.data_api.db
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.display module
+--------------------------------
+
+.. automodule:: biokbase.data_api.display
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.nav module
+----------------------------
+
+.. automodule:: biokbase.data_api.nav
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.rpc_util module
+---------------------------------
+
+.. automodule:: biokbase.data_api.rpc_util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.types module
+------------------------------
+
+.. automodule:: biokbase.data_api.types
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.typesystem module
+-----------------------------------
+
+.. automodule:: biokbase.data_api.typesystem
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.util module
+-----------------------------
+
+.. automodule:: biokbase.data_api.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.workspace_db module
+-------------------------------------
+
+.. automodule:: biokbase.data_api.workspace_db
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+biokbase.data_api.wsfile module
+-------------------------------
+
+.. automodule:: biokbase.data_api.wsfile
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: biokbase.data_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
