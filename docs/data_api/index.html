@@ -23,9 +23,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10530b650>
+<jinja2.runtime.BlockReference object at 0x10e13c950>
 
    
   
@@ -42,12 +44,34 @@
   <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="create_api.html">Creating a Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="create_api.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create_api.html#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#name-your-api">1. Name your API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-a-directory">2. Create a directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-a-specification">3. Create a specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#generate-stubs">4. Generate stubs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-python-api-modules">5. Create Python API modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-test-client-server">6. Create test client/server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#test">7. Test!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_api.html#publish-your-api">8. Publish your API</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="biokbase.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="biokbase.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="biokbase.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#getting-a-taxonomic-object">Getting a Taxonomic object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#basic-operations">Basic operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_source/biokbase.html">biokbase package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_source/biokbase.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_source/biokbase.data_api.html">biokbase.data_api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_source/biokbase.workspace.html">biokbase.workspace package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_source/biokbase.html#module-biokbase">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -55,11 +79,29 @@
 <div class="section" id="kbase-data-api-documentation">
 <h1>KBase Data API documentation<a class="headerlink" href="#kbase-data-api-documentation" title="Permalink to this headline">¶</a></h1>
 <p>The Data API provides a unified entry point to retrieve and, eventually,
-store KBase data objects.</p>
+store KBase data objects. A simplified view of how the Data API relates to other
+components of KBase is below:</p>
+<div class="highlight-python"><div class="highlight"><pre>+------------------------------+
+|Services/Narrative code cells |
++------------------------------+
+    |                    ^
+    v                    |
+*******************************
+||     Data API library      ||
+*******************************
+    ^                    |
+    |                    v
++-----------------------------+
+|     Workspace/Datastores    |
++-----------------------------+
+</pre></div>
+</div>
+<p>Here we see that the Data API library is called by Services or Narrative code cells (via the backend Jupyter/IPython kernel), and communicates with the underlying data stores on behalf of its clients.</p>
 </div>
 <div class="section" id="using-the-data-api">
 <h1>Using the Data API<a class="headerlink" href="#using-the-data-api" title="Permalink to this headline">¶</a></h1>
-<p>There are two primary modes of using the Data API: interactively and programmatically.
+<p>There are two primary modes of using the Data API: interactively, as in the Narrative UI or
+Jupyter noteboook, and programmatically, as from an installed service.
 Interactively, the API can be imported into in the IPython/Jupyter notebook or
 Narrative and used to explore and examine data objects.
 Results will be automatically displayed as HTML and inline plots. Programmatically,
@@ -67,9 +109,8 @@ the same API can be imported into any Python code and used like a standard
 library.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The integration of the Data API into the KBase Narrative is not quite
-done yet. For now, you need to try it out in a recent (August 2015+)
-version of the Jupyter notebook.</p>
+<p class="last">The integration of the Data API into the KBase Narrative is not quite done yet.
+For now, you need to try it out in a recent (August 2015+) version of the Jupyter notebook.</p>
 </div>
 <p>In both cases, the <a class="reference internal" href="#core-api"><em>Core API</em></a> functions are used to access the objects.
 For interactive use, and some programmatic use-cases, the <a class="reference internal" href="#highlevel-api"><em>High-level API</em></a>
@@ -104,15 +145,12 @@ data as an authenticated user, then how to use the provided functions.</p>
 <h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
 <p>Unit tests can be run with a file-based Workspace library, based on the
 mongomock package and implemented in the <cite>biokbase.data_api.wsfile</cite> module.</p>
-<div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
 <p>This mode is activated by passing a directory path instead of a
 regular URL to the <cite>&#8211;ws-url</cite> option for nosetests. This nosetest option is
 enabled by a plugin in <cite>biokbase.data_api.tests.nose_plugin_wsurl</cite>,
 that is referred to by the &#8220;entry_points&#8221; key in the configuration in the
 setup.py script. It is recommended that you also pass the <cite>&#8211;wsfile-msgpack</cite>
 option and use the msgpack output option when creating the input data (see below).</p>
-</div>
 <div class="section" id="step-1-create-test-data">
 <h3>Step 1: Create test data<a class="headerlink" href="#step-1-create-test-data" title="Permalink to this headline">¶</a></h3>
 <p>To create the test data for the file-based workspace, you need to dump some existing workspace objects into a directory. This is done with the <cite>dump_wsfile</cite> script in the bin/ directory (also installed by setup.py in the package bin path). An example invocation of this script is:</p>
@@ -181,7 +219,8 @@ the tests.</p>
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="create_api.html">Creating a Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="biokbase.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -253,7 +292,7 @@ the tests.</p>
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x10530b650>
+<jinja2.runtime.BlockReference object at 0x10e13c950>
 
   </body>
 </html>
