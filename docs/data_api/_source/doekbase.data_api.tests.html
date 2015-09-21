@@ -1,0 +1,1029 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.tests package &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x1083fa550>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="doekbase-data-api-tests-package">
+<h1>doekbase.data_api.tests package<a class="headerlink" href="#doekbase-data-api-tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="doekbase.data_api.tests.examples.html">doekbase.data_api.tests.examples package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.examples.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples.examples_genome_annotation_api">doekbase.data_api.tests.examples.examples_genome_annotation_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples.taxon_api">doekbase.data_api.tests.examples.taxon_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples.taxon_api_examples">doekbase.data_api.tests.examples.taxon_api_examples module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doekbase.data_api.tests.performance.html">doekbase.data_api.tests.performance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.performance.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.performance.html#module-doekbase.data_api.tests.performance.bench_pt2">doekbase.data_api.tests.performance.bench_pt2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.performance.html#module-doekbase.data_api.tests.performance.test_benchmark_assembly_objects">doekbase.data_api.tests.performance.test_benchmark_assembly_objects module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.performance.html#module-doekbase.data_api.tests.performance">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-doekbase.data_api.tests.nose_plugin_wsurl">
+<span id="doekbase-data-api-tests-nose-plugin-wsurl-module"></span><h2>doekbase.data_api.tests.nose_plugin_wsurl module<a class="headerlink" href="#module-doekbase.data_api.tests.nose_plugin_wsurl" title="Permalink to this headline">¶</a></h2>
+<p>Nose testing plugin for configuring Workspace URL during tests.</p>
+<dl class="class">
+<dt id="doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.tests.nose_plugin_wsurl.</tt><tt class="descname">WorkspaceURL</tt><a class="reference internal" href="../_modules/doekbase/data_api/tests/nose_plugin_wsurl.html#WorkspaceURL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">nose.plugins.base.Plugin</span></tt></p>
+<p>Plugin that sets up the Workspace mocking instead of the
+&#8216;real&#8217; workspace for all tests.</p>
+<dl class="method">
+<dt id="doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL.configure">
+<tt class="descname">configure</tt><big>(</big><em>options</em>, <em>conf</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/nose_plugin_wsurl.html#WorkspaceURL.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure plugin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL.options">
+<tt class="descname">options</tt><big>(</big><em>parser</em>, <em>env</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/nose_plugin_wsurl.html#WorkspaceURL.options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register commmandline options.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.shared">
+<span id="doekbase-data-api-tests-shared-module"></span><h2>doekbase.data_api.tests.shared module<a class="headerlink" href="#module-doekbase.data_api.tests.shared" title="Permalink to this headline">¶</a></h2>
+<p>Shared by test code</p>
+<dl class="function">
+<dt id="doekbase.data_api.tests.shared.can_connect">
+<tt class="descclassname">doekbase.data_api.tests.shared.</tt><tt class="descname">can_connect</tt><big>(</big><em>ref='PrototypeReferenceGenomes/kb|g.166819'</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/shared.html#can_connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.shared.can_connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>See if we can get a connection to the workspace and access the
+given reference.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ref</strong> (<em>str</em>) &#8211; Workspace object reference</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(bool) if it can be accessed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.shared.determine_can_connect">
+<tt class="descclassname">doekbase.data_api.tests.shared.</tt><tt class="descname">determine_can_connect</tt><big>(</big><em>workspaces</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/shared.html#determine_can_connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.shared.determine_can_connect" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Replace value with connection status.</dt>
+<dd>Now we can simply refer to the dict entry in future tests. Also add
+a special &#8216;all&#8217; to handle all features in a given workspace.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>workspaces</strong> (<em>dict</em>) &#8211; 2-level dict of {&#8216;name&#8217;: {&#8216;name2&#8217;: &#8216;full-ws-id&#8217;, .. }}</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.shared.get_services">
+<tt class="descclassname">doekbase.data_api.tests.shared.</tt><tt class="descname">get_services</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/shared.html#get_services"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.shared.get_services" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.shared.setup">
+<tt class="descclassname">doekbase.data_api.tests.shared.</tt><tt class="descname">setup</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/shared.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.shared.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.shared.teardown">
+<tt class="descclassname">doekbase.data_api.tests.shared.</tt><tt class="descname">teardown</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/shared.html#teardown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.shared.teardown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.taxon_client_driver">
+<span id="doekbase-data-api-tests-taxon-client-driver-module"></span><h2>doekbase.data_api.tests.taxon_client_driver module<a class="headerlink" href="#module-doekbase.data_api.tests.taxon_client_driver" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="doekbase.data_api.tests.taxon_client_driver.test_client">
+<tt class="descclassname">doekbase.data_api.tests.taxon_client_driver.</tt><tt class="descname">test_client</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/taxon_client_driver.html#test_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.taxon_client_driver.test_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="doekbase-data-api-tests-taxon-service-driver-module">
+<h2>doekbase.data_api.tests.taxon_service_driver module<a class="headerlink" href="#doekbase-data-api-tests-taxon-service-driver-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-doekbase.data_api.tests.test_assembly_api">
+<span id="doekbase-data-api-tests-test-assembly-api-module"></span><h2>doekbase.data_api.tests.test_assembly_api module<a class="headerlink" href="#module-doekbase.data_api.tests.test_assembly_api" title="Permalink to this headline">¶</a></h2>
+<p>Unit tests for assembly</p>
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.setup">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">setup</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_assembly_id_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_assembly_id_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_assembly_id_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_assembly_id_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_assembly_id_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_assembly_id_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_assembly_id_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_assembly_id_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contig_gc_content_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contig_gc_content_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contig_gc_content_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contig_gc_content_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contig_gc_content_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contig_gc_content_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contig_gc_content_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contig_gc_content_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contig_ids_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contig_ids_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contig_ids_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contig_ids_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contig_ids_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contig_ids_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contig_ids_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contig_ids_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contig_lengths_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contig_lengths_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contig_lengths_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contig_lengths_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contig_lengths_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contig_lengths_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contig_lengths_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contig_lengths_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contigs_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contigs_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contigs_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contigs_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_contigs_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_contigs_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_contigs_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_contigs_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_dna_size_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_dna_size_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_dna_size_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_dna_size_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_dna_size_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_dna_size_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_dna_size_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_dna_size_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_external_source_info_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_external_source_info_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_external_source_info_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_external_source_info_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_external_source_info_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_external_source_info_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_external_source_info_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_external_source_info_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_gc_content_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_gc_content_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_gc_content_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_gc_content_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_gc_content_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_gc_content_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_gc_content_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_gc_content_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_genome_annotations_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_genome_annotations_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_genome_annotations_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_genome_annotations_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_genome_annotations_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_genome_annotations_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_genome_annotations_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_genome_annotations_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_number_contigs_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_number_contigs_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_number_contigs_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_number_contigs_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_number_contigs_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_number_contigs_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_number_contigs_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_number_contigs_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_stats_new">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_stats_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_stats_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_stats_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_assembly_api.test_get_stats_old">
+<tt class="descclassname">doekbase.data_api.tests.test_assembly_api.</tt><tt class="descname">test_get_stats_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_assembly_api.html#test_get_stats_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_assembly_api.test_get_stats_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.test_fsmock">
+<span id="doekbase-data-api-tests-test-fsmock-module"></span><h2>doekbase.data_api.tests.test_fsmock module<a class="headerlink" href="#module-doekbase.data_api.tests.test_fsmock" title="Permalink to this headline">¶</a></h2>
+<p>Test workspace mocking.</p>
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.foo_datum">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">foo_datum</tt><big>(</big><em>n</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#foo_datum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.foo_datum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.setup">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">setup</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.teardown">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">teardown</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#teardown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.teardown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.test_get_object_history">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">test_get_object_history</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#test_get_object_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.test_get_object_history" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.test_get_object_info_new">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">test_get_object_info_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#test_get_object_info_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.test_get_object_info_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.test_get_object_provenance">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">test_get_object_provenance</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#test_get_object_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.test_get_object_provenance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.test_get_object_subset">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">test_get_object_subset</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#test_get_object_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.test_get_object_subset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.test_get_objects">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">test_get_objects</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#test_get_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.test_get_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.test_get_type_info">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">test_get_type_info</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#test_get_type_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.test_get_type_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_fsmock.test_list_referencing_objects">
+<tt class="descclassname">doekbase.data_api.tests.test_fsmock.</tt><tt class="descname">test_list_referencing_objects</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_fsmock.html#test_list_referencing_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_fsmock.test_list_referencing_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.test_genome_annotation_api">
+<span id="doekbase-data-api-tests-test-genome-annotation-api-module"></span><h2>doekbase.data_api.tests.test_genome_annotation_api module<a class="headerlink" href="#module-doekbase.data_api.tests.test_genome_annotation_api" title="Permalink to this headline">¶</a></h2>
+<p>Unit tests for genome_annotation</p>
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.setup">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">setup</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_assembly_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_assembly_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_assembly_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_assembly_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_assembly_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_assembly_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_assembly_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_assembly_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_invalid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_gene_invalid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_gene_invalid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_invalid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_invalid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_gene_invalid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_gene_invalid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_invalid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_valid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_gene_valid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_gene_valid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_valid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_valid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_gene_valid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_gene_valid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_valid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_invalid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_mrna_invalid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_mrna_invalid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_invalid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_invalid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_mrna_invalid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_mrna_invalid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_invalid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_valid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_mrna_valid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_mrna_valid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_valid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_valid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_cds_by_mrna_valid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_cds_by_mrna_valid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_valid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_aliases_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_aliases_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_aliases_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_aliases_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_aliases_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_aliases_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_aliases_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_aliases_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_dna_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_dna_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_dna_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_dna_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_dna_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_dna_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_dna_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_dna_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_functions_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_functions_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_functions_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_functions_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_functions_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_functions_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_functions_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_functions_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_ids_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_ids_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_ids_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_ids_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_ids_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_ids_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_ids_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_ids_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_locations_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_locations_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_locations_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_locations_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_locations_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_locations_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_locations_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_locations_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_publications_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_publications_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_publications_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_publications_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_publications_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_publications_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_publications_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_publications_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_counts_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_type_counts_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_type_counts_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_counts_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_counts_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_type_counts_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_type_counts_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_counts_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_descriptions_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_type_descriptions_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_type_descriptions_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_descriptions_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_descriptions_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_type_descriptions_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_type_descriptions_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_descriptions_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_types_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_types_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_types_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_types_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_types_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_feature_types_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_feature_types_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_types_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_features_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_features_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_features_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_features_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_features_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_features_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_features_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_features_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_invalid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_cds_invalid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_cds_invalid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_invalid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_invalid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_cds_invalid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_cds_invalid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_invalid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_valid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_cds_valid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_cds_valid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_valid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_valid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_cds_valid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_cds_valid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_valid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_invalid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_mrna_invalid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_mrna_invalid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_invalid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_invalid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_mrna_invalid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_mrna_invalid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_invalid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_valid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_mrna_valid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_mrna_valid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_valid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_valid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_gene_by_mrna_valid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_gene_by_mrna_valid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_valid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_invalid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_cds_invalid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_cds_invalid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_invalid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_invalid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_cds_invalid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_cds_invalid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_invalid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_valid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_cds_valid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_cds_valid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_valid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_valid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_cds_valid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_cds_valid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_valid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_invalid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_gene_invalid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_gene_invalid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_invalid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_invalid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_gene_invalid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_gene_invalid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_invalid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_valid_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_gene_valid_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_gene_valid_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_valid_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_valid_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_mrna_by_gene_valid_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_mrna_by_gene_valid_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_valid_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_proteins_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_proteins_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_proteins_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_proteins_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_proteins_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_proteins_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_proteins_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_proteins_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_taxon_new">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_taxon_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_taxon_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_taxon_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_genome_annotation_api.test_get_taxon_old">
+<tt class="descclassname">doekbase.data_api.tests.test_genome_annotation_api.</tt><tt class="descname">test_get_taxon_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_genome_annotation_api.html#test_get_taxon_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_genome_annotation_api.test_get_taxon_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.test_nav">
+<span id="doekbase-data-api-tests-test-nav-module"></span><h2>doekbase.data_api.tests.test_nav module<a class="headerlink" href="#module-doekbase.data_api.tests.test_nav" title="Permalink to this headline">¶</a></h2>
+<p>Tests for doekbase.data_api.nav module</p>
+<dl class="class">
+<dt id="doekbase.data_api.tests.test_nav.MockConn">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">MockConn</tt><big>(</big><em>workspace=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#MockConn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.MockConn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Mock database connection.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.tests.test_nav.MockConn.CANNED_OBJECTS">
+<tt class="descname">CANNED_OBJECTS</tt><em class="property"> = [('Frodo', 'hobbit', {'hair': 'brown', 'ringbearer': True}), ('Sam', 'hobbit', {'hair': 'brown', 'ringbearer': False}), ('Merry', 'hobbit', {'hair': 'brown', 'ringbearer': False}), ('Pippin', 'hobbit', {'hair': 'brown', 'ringbearer': False}), ('Gimli', 'dwarf', {'hair': 'red', 'ringbearer': False}), ('Legolas', 'elf', {'hair': 'white', 'ringbearer': False}), ('Aragorn', 'human', {'hair': 'black', 'ringbearer': False}), ('Boromir', 'human', {'hair': 'black', 'ringbearer': False}), ('Gandalf', 'wizard', {'hair': 'silver', 'ringbearer': False})]</em><a class="headerlink" href="#doekbase.data_api.tests.test_nav.MockConn.CANNED_OBJECTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.tests.test_nav.MockConn.get_object">
+<tt class="descname">get_object</tt><big>(</big><em>objid</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#MockConn.get_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.MockConn.get_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.tests.test_nav.MockConn.get_workspace">
+<tt class="descname">get_workspace</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#MockConn.get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.MockConn.get_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.tests.test_nav.MockConn.list_objects">
+<tt class="descname">list_objects</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#MockConn.list_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.MockConn.list_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fake the actual fetching of a list of objects.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.tests.test_nav.MockNavObject">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">MockNavObject</tt><big>(</big><em>name</em>, <em>type_</em>, <em>kwd</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#MockNavObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.MockNavObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_nav.expect_value_error">
+<tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">expect_value_error</tt><big>(</big><em>f</em>, <em>*a</em>, <em>**k</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#expect_value_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.expect_value_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_nav.setup">
+<tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">setup</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_nav.test_filter">
+<tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">test_filter</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#test_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.test_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filtering of listing of workspace objects</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_nav.test_filter_args">
+<tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">test_filter_args</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#test_filter_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.test_filter_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Args for filtering of listing of workspace objects</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_nav.test_finder">
+<tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">test_finder</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#test_finder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.test_finder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creating a Finder object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_nav.test_list">
+<tt class="descclassname">doekbase.data_api.tests.test_nav.</tt><tt class="descname">test_list</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_nav.html#test_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_nav.test_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Listing workspace objects</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.test_rpc_util">
+<span id="doekbase-data-api-tests-test-rpc-util-module"></span><h2>doekbase.data_api.tests.test_rpc_util module<a class="headerlink" href="#module-doekbase.data_api.tests.test_rpc_util" title="Permalink to this headline">¶</a></h2>
+<p>Test rpc_util functions</p>
+<dl class="class">
+<dt id="doekbase.data_api.tests.test_rpc_util.Metadata">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">Metadata</tt><big>(</big><em>object_id=None</em>, <em>object_name=None</em>, <em>object_reference=None</em>, <em>object_reference_versioned=None</em>, <em>type_string=None</em>, <em>save_timestamp=None</em>, <em>version=None</em>, <em>saved_by=None</em>, <em>workspace_id=None</em>, <em>workspace_name=None</em>, <em>object_checksum=None</em>, <em>object_size=None</em>, <em>object_metadata=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#Metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.Metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>SAMPLE object for testing validation, etc.</p>
+<p>Default metadata for an object.</p>
+<dl class="attribute">
+<dt>
+<tt class="descname">- object_id</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- object_name</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- object_reference</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- object_reference_versioned</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- type_string</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- save_date</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- version</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- saved_by</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- workspace_id</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- workspace_name</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- object_checksum</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- object_size</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">- object_metadata</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.tests.test_rpc_util.Metadata.thrift_spec">
+<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 11, 'object_id', None, None), (2, 11, 'object_name', None, None), (3, 11, 'object_reference', None, None), (4, 11, 'object_reference_versioned', None, None), (5, 11, 'type_string', None, None), (6, 4, 'save_timestamp', None, None), (7, 11, 'version', None, None), (8, 11, 'saved_by', None, None), (9, 10, 'workspace_id', None, None), (10, 11, 'workspace_name', None, None), (11, 11, 'object_checksum', None, None), (12, 10, 'object_size', None, None), (13, 11, 'object_metadata', None, None))</em><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.Metadata.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_errmsg">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_errmsg</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_errmsg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_errmsg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_double">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_double</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_double"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_double" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_double_fail">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_double_fail</tt><big>(</big><em>*arg</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_double_fail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_double_fail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_int</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_double">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_int_double</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_int_double"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_double" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_double_fail">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_int_double_fail</tt><big>(</big><em>*arg</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_int_double_fail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_double_fail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_fail">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_int_fail</tt><big>(</big><em>*arg</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_int_fail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_fail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_str">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_str</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_rpc_util.test_thrift_validate_str_fail">
+<tt class="descclassname">doekbase.data_api.tests.test_rpc_util.</tt><tt class="descname">test_thrift_validate_str_fail</tt><big>(</big><em>*arg</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_rpc_util.html#test_thrift_validate_str_fail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_str_fail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.test_taxon_api">
+<span id="doekbase-data-api-tests-test-taxon-api-module"></span><h2>doekbase.data_api.tests.test_taxon_api module<a class="headerlink" href="#module-doekbase.data_api.tests.test_taxon_api" title="Permalink to this headline">¶</a></h2>
+<p>Unit tests for genome_annotation</p>
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.setup">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">setup</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_bogus_type">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_bogus_type</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_bogus_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_bogus_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_aliases_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_aliases_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_aliases_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_aliases_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_aliases_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_aliases_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_aliases_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_aliases_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_children_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_children_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_children_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_children_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_children_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_children_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_children_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_children_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_domain_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_domain_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_domain_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_domain_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_domain_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_domain_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_domain_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_domain_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_genetic_code_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_genetic_code_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_genetic_code_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_genetic_code_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_genetic_code_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_genetic_code_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_genetic_code_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_genetic_code_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_genome_annotations_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_genome_annotations_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_genome_annotations_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_genome_annotations_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_genome_annotations_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_genome_annotations_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_genome_annotations_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_genome_annotations_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_kingdom_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_kingdom_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_kingdom_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_kingdom_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_kingdom_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_kingdom_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_kingdom_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_kingdom_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_parent_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_parent_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_parent_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_parent_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_parent_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_parent_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_parent_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_parent_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_scientific_lineage_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_scientific_lineage_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_scientific_lineage_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_scientific_lineage_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_scientific_lineage_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_scientific_lineage_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_scientific_lineage_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_scientific_lineage_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_scientific_name_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_scientific_name_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_scientific_name_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_scientific_name_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_scientific_name_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_scientific_name_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_scientific_name_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_scientific_name_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_taxonomic_id_new">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_taxonomic_id_new</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_taxonomic_id_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_taxonomic_id_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.test_taxon_api.test_get_taxonomic_id_old">
+<tt class="descclassname">doekbase.data_api.tests.test_taxon_api.</tt><tt class="descname">test_get_taxonomic_id_old</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/test_taxon_api.html#test_get_taxonomic_id_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.test_taxon_api.test_get_taxonomic_id_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-doekbase.data_api.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../create_api.html">Creating a Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="doekbase.html">doekbase package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="doekbase.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="doekbase.data_api.html">doekbase.data_api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.workspace.html">doekbase.workspace package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="doekbase.html#module-doekbase">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">doekbase</a><ul>
+  <li><a href="doekbase.html">doekbase package</a><ul>
+  <li><a href="doekbase.data_api.html">doekbase.data_api package</a><ul>
+      <li>Previous: <a href="doekbase.data_api.taxonomy.taxon.service.html" title="previous chapter">doekbase.data_api.taxonomy.taxon.service package</a></li>
+      <li>Next: <a href="doekbase.data_api.tests.examples.html" title="next chapter">doekbase.data_api.tests.examples package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x1083fa550>
+
+  </body>
+</html>

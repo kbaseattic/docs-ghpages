@@ -1,0 +1,22 @@
+doekbase.data_api.annotation package
+====================================
+
+Submodules
+----------
+
+doekbase.data_api.annotation.genome_annotation module
+-----------------------------------------------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api.annotation
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,54 @@
+doekbase.data_api.baseobj package
+=================================
+
+Submodules
+----------
+
+doekbase.data_api.baseobj.api module
+------------------------------------
+
+.. automodule:: doekbase.data_api.baseobj.api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.baseobj.constants module
+------------------------------------------
+
+.. automodule:: doekbase.data_api.baseobj.constants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.baseobj.impl module
+-------------------------------------
+
+.. automodule:: doekbase.data_api.baseobj.impl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.baseobj.thrift_service module
+-----------------------------------------------
+
+.. automodule:: doekbase.data_api.baseobj.thrift_service
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.baseobj.ttypes module
+---------------------------------------
+
+.. automodule:: doekbase.data_api.baseobj.ttypes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api.baseobj
+    :members:
+    :undoc-members:
+    :show-inheritance:

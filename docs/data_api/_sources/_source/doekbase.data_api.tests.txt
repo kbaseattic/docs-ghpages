@@ -1,0 +1,102 @@
+doekbase.data_api.tests package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    doekbase.data_api.tests.examples
+    doekbase.data_api.tests.performance
+
+Submodules
+----------
+
+doekbase.data_api.tests.nose_plugin_wsurl module
+------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.nose_plugin_wsurl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.shared module
+-------------------------------------
+
+.. automodule:: doekbase.data_api.tests.shared
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.taxon_client_driver module
+--------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.taxon_client_driver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.taxon_service_driver module
+---------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.taxon_service_driver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.test_assembly_api module
+------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.test_assembly_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.test_fsmock module
+------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.test_fsmock
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.test_genome_annotation_api module
+---------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.test_genome_annotation_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.test_nav module
+---------------------------------------
+
+.. automodule:: doekbase.data_api.tests.test_nav
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.test_rpc_util module
+--------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.test_rpc_util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.test_taxon_api module
+---------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.test_taxon_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api.tests
+    :members:
+    :undoc-members:
+    :show-inheritance:

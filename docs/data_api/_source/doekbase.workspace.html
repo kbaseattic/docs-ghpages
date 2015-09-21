@@ -1,0 +1,471 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.workspace package &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x105e77d90>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="doekbase-workspace-package">
+<h1>doekbase.workspace package<a class="headerlink" href="#doekbase-workspace-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-doekbase.workspace.client">
+<span id="doekbase-workspace-client-module"></span><h2>doekbase.workspace.client module<a class="headerlink" href="#module-doekbase.workspace.client" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="doekbase.workspace.client.ServerError">
+<em class="property">exception </em><tt class="descclassname">doekbase.workspace.client.</tt><tt class="descname">ServerError</tt><big>(</big><em>name</em>, <em>code</em>, <em>message</em>, <em>data=None</em>, <em>error=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#ServerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.ServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.workspace.client.Workspace">
+<em class="property">class </em><tt class="descclassname">doekbase.workspace.client.</tt><tt class="descname">Workspace</tt><big>(</big><em>url=None</em>, <em>timeout=1800</em>, <em>user_id=None</em>, <em>password=None</em>, <em>token=None</em>, <em>ignore_authrc=False</em>, <em>trust_all_ssl_certificates=False</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.administer">
+<tt class="descname">administer</tt><big>(</big><em>command</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.administer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.administer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.alter_workspace_metadata">
+<tt class="descname">alter_workspace_metadata</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.alter_workspace_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.alter_workspace_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.clone_workspace">
+<tt class="descname">clone_workspace</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.clone_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.clone_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.copy_object">
+<tt class="descname">copy_object</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.copy_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.copy_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.create_workspace">
+<tt class="descname">create_workspace</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.create_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.create_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.delete_objects">
+<tt class="descname">delete_objects</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.delete_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.delete_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.delete_workspace">
+<tt class="descname">delete_workspace</tt><big>(</big><em>wsi</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.delete_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.delete_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_all_func_info">
+<tt class="descname">get_all_func_info</tt><big>(</big><em>mod</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_all_func_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_all_func_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_all_type_info">
+<tt class="descname">get_all_type_info</tt><big>(</big><em>mod</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_all_type_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_all_type_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_func_info">
+<tt class="descname">get_func_info</tt><big>(</big><em>func</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_func_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_func_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_jsonschema">
+<tt class="descname">get_jsonschema</tt><big>(</big><em>type</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_jsonschema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_jsonschema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_module_info">
+<tt class="descname">get_module_info</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_module_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_module_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_object">
+<tt class="descname">get_object</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_object_history">
+<tt class="descname">get_object_history</tt><big>(</big><em>object</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_object_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_object_history" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_object_info">
+<tt class="descname">get_object_info</tt><big>(</big><em>object_ids</em>, <em>includeMetadata</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_object_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_object_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_object_info_new">
+<tt class="descname">get_object_info_new</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_object_info_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_object_info_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_object_provenance">
+<tt class="descname">get_object_provenance</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_object_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_object_provenance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_object_subset">
+<tt class="descname">get_object_subset</tt><big>(</big><em>sub_object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_object_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_object_subset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_objectmeta">
+<tt class="descname">get_objectmeta</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_objectmeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_objectmeta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_objects">
+<tt class="descname">get_objects</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_permissions">
+<tt class="descname">get_permissions</tt><big>(</big><em>wsi</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_permissions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_permissions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_referenced_objects">
+<tt class="descname">get_referenced_objects</tt><big>(</big><em>ref_chains</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_referenced_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_referenced_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_type_info">
+<tt class="descname">get_type_info</tt><big>(</big><em>type</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_type_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_type_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_workspace_description">
+<tt class="descname">get_workspace_description</tt><big>(</big><em>wsi</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_workspace_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_workspace_description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_workspace_info">
+<tt class="descname">get_workspace_info</tt><big>(</big><em>wsi</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_workspace_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_workspace_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.get_workspacemeta">
+<tt class="descname">get_workspacemeta</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.get_workspacemeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.get_workspacemeta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.grant_module_ownership">
+<tt class="descname">grant_module_ownership</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.grant_module_ownership"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.grant_module_ownership" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.hide_objects">
+<tt class="descname">hide_objects</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.hide_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.hide_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_all_types">
+<tt class="descname">list_all_types</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_all_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_all_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_module_versions">
+<tt class="descname">list_module_versions</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_module_versions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_module_versions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_modules">
+<tt class="descname">list_modules</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_modules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_modules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_objects">
+<tt class="descname">list_objects</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_referencing_object_counts">
+<tt class="descname">list_referencing_object_counts</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_referencing_object_counts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_referencing_object_counts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_referencing_objects">
+<tt class="descname">list_referencing_objects</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_referencing_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_referencing_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_workspace_info">
+<tt class="descname">list_workspace_info</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_workspace_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_workspace_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_workspace_objects">
+<tt class="descname">list_workspace_objects</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_workspace_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_workspace_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.list_workspaces">
+<tt class="descname">list_workspaces</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.list_workspaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.list_workspaces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.lock_workspace">
+<tt class="descname">lock_workspace</tt><big>(</big><em>wsi</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.lock_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.lock_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.register_typespec">
+<tt class="descname">register_typespec</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.register_typespec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.register_typespec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.register_typespec_copy">
+<tt class="descname">register_typespec_copy</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.register_typespec_copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.register_typespec_copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.release_module">
+<tt class="descname">release_module</tt><big>(</big><em>mod</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.release_module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.release_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.remove_module_ownership">
+<tt class="descname">remove_module_ownership</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.remove_module_ownership"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.remove_module_ownership" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.rename_object">
+<tt class="descname">rename_object</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.rename_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.rename_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.rename_workspace">
+<tt class="descname">rename_workspace</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.rename_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.rename_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.request_module_ownership">
+<tt class="descname">request_module_ownership</tt><big>(</big><em>mod</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.request_module_ownership"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.request_module_ownership" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.revert_object">
+<tt class="descname">revert_object</tt><big>(</big><em>object</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.revert_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.revert_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.save_object">
+<tt class="descname">save_object</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.save_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.save_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.save_objects">
+<tt class="descname">save_objects</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.save_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.save_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.set_global_permission">
+<tt class="descname">set_global_permission</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.set_global_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.set_global_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.set_permissions">
+<tt class="descname">set_permissions</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.set_permissions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.set_permissions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.set_workspace_description">
+<tt class="descname">set_workspace_description</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.set_workspace_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.set_workspace_description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.translate_from_MD5_types">
+<tt class="descname">translate_from_MD5_types</tt><big>(</big><em>md5_types</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.translate_from_MD5_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.translate_from_MD5_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.translate_to_MD5_types">
+<tt class="descname">translate_to_MD5_types</tt><big>(</big><em>sem_types</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.translate_to_MD5_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.translate_to_MD5_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.undelete_objects">
+<tt class="descname">undelete_objects</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.undelete_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.undelete_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.undelete_workspace">
+<tt class="descname">undelete_workspace</tt><big>(</big><em>wsi</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.undelete_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.undelete_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.unhide_objects">
+<tt class="descname">unhide_objects</tt><big>(</big><em>object_ids</em><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.unhide_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.unhide_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.workspace.client.Workspace.ver">
+<tt class="descname">ver</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/workspace/client.html#Workspace.ver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.workspace.client.Workspace.ver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.workspace">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-doekbase.workspace" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../create_api.html">Creating a Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="doekbase.html">doekbase package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="doekbase.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.html">doekbase.data_api package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">doekbase.workspace package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="doekbase.html#module-doekbase">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">doekbase</a><ul>
+  <li><a href="doekbase.html">doekbase package</a><ul>
+      <li>Previous: <a href="doekbase.data_api.tests.performance.html" title="previous chapter">doekbase.data_api.tests.performance package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x105e77d90>
+
+  </body>
+</html>

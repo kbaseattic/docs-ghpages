@@ -1,0 +1,105 @@
+doekbase.data_api package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    doekbase.data_api.annotation
+    doekbase.data_api.baseobj
+    doekbase.data_api.sequence
+    doekbase.data_api.taxonomy
+    doekbase.data_api.tests
+
+Submodules
+----------
+
+doekbase.data_api.core module
+-----------------------------
+
+.. automodule:: doekbase.data_api.core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.db module
+---------------------------
+
+.. automodule:: doekbase.data_api.db
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.display module
+--------------------------------
+
+.. automodule:: doekbase.data_api.display
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.nav module
+----------------------------
+
+.. automodule:: doekbase.data_api.nav
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.rpc_util module
+---------------------------------
+
+.. automodule:: doekbase.data_api.rpc_util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.types module
+------------------------------
+
+.. automodule:: doekbase.data_api.types
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.typesystem module
+-----------------------------------
+
+.. automodule:: doekbase.data_api.typesystem
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.util module
+-----------------------------
+
+.. automodule:: doekbase.data_api.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.workspace_db module
+-------------------------------------
+
+.. automodule:: doekbase.data_api.workspace_db
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.wsfile module
+-------------------------------
+
+.. automodule:: doekbase.data_api.wsfile
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api
+    :members:
+    :undoc-members:
+    :show-inheritance:

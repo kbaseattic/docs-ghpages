@@ -1,0 +1,38 @@
+doekbase.data_api.tests.examples package
+========================================
+
+Submodules
+----------
+
+doekbase.data_api.tests.examples.examples_genome_annotation_api module
+----------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.examples_genome_annotation_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.taxon_api module
+-------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.taxon_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.taxon_api_examples module
+----------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.taxon_api_examples
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api.tests.examples
+    :members:
+    :undoc-members:
+    :show-inheritance:

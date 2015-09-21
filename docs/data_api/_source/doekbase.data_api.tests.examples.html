@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.tests.examples package &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x10a7cbad0>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="doekbase-data-api-tests-examples-package">
+<h1>doekbase.data_api.tests.examples package<a class="headerlink" href="#doekbase-data-api-tests-examples-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-doekbase.data_api.tests.examples.examples_genome_annotation_api">
+<span id="doekbase-data-api-tests-examples-examples-genome-annotation-api-module"></span><h2>doekbase.data_api.tests.examples.examples_genome_annotation_api module<a class="headerlink" href="#module-doekbase.data_api.tests.examples.examples_genome_annotation_api" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="doekbase.data_api.tests.examples.examples_genome_annotation_api.get_all_proteins_for_gene">
+<tt class="descclassname">doekbase.data_api.tests.examples.examples_genome_annotation_api.</tt><tt class="descname">get_all_proteins_for_gene</tt><big>(</big><em>ga=None</em>, <em>gene_id=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/examples/examples_genome_annotation_api.html#get_all_proteins_for_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.examples.examples_genome_annotation_api.get_all_proteins_for_gene" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.examples.taxon_api">
+<span id="doekbase-data-api-tests-examples-taxon-api-module"></span><h2>doekbase.data_api.tests.examples.taxon_api module<a class="headerlink" href="#module-doekbase.data_api.tests.examples.taxon_api" title="Permalink to this headline">¶</a></h2>
+<p>Example scripts for the Taxon API.</p>
+<dl class="function">
+<dt id="doekbase.data_api.tests.examples.taxon_api.fetch_and_print_taxon">
+<tt class="descclassname">doekbase.data_api.tests.examples.taxon_api.</tt><tt class="descname">fetch_and_print_taxon</tt><big>(</big><em>ws_url='https://ci.kbase.us/services/ws/'</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/examples/taxon_api.html#fetch_and_print_taxon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.examples.taxon_api.fetch_and_print_taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch Taxon from Workspace Service.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ws_url</strong> (<em>str</em>) &#8211; a service address or a local directory
+containing a downloaded version of the data created with the
+<tt class="docutils literal"><span class="pre">dump_wsfile</span></tt> utility.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.examples.taxon_api_examples">
+<span id="doekbase-data-api-tests-examples-taxon-api-examples-module"></span><h2>doekbase.data_api.tests.examples.taxon_api_examples module<a class="headerlink" href="#module-doekbase.data_api.tests.examples.taxon_api_examples" title="Permalink to this headline">¶</a></h2>
+<p>Example scripts for the Taxon API.</p>
+<p>These scripts require a valid KBase authentication token to be
+in the environment at runtime.</p>
+<p>Unfortunately there is no really easy way to get this token right now. One
+way to do it is to login to KBase, open a narrative (any narrative), and then
+use the developer tools for your browser to get to a JavaScript console and then
+print the value of the variable <tt class="docutils literal"><span class="pre">kb.token</span></tt>.</p>
+<p>Once you have this value, set it in your environment as KB_AUTH_TOKEN,
+e.g., in the Unix bash shell:</p>
+<div class="highlight-python"><div class="highlight"><pre>export KB_AUTH_TOKEN=&#39;un=myname|tokenid=abcdef012-0000-2222-3333-123456789abc|expiry=1469959033|client_id=myname|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/some-long-key-here|sig=123456...&#39;
+</pre></div>
+</div>
+<p>You can add this command to your login scripts (e.g. your &#8220;~/.bash_profile&#8221;)
+so it&#8217;s not so painful in the future.</p>
+<dl class="function">
+<dt id="doekbase.data_api.tests.examples.taxon_api_examples.eprint">
+<tt class="descclassname">doekbase.data_api.tests.examples.taxon_api_examples.</tt><tt class="descname">eprint</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#doekbase.data_api.tests.examples.taxon_api_examples.eprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.tests.examples.taxon_api_examples.get_simple">
+<tt class="descclassname">doekbase.data_api.tests.examples.taxon_api_examples.</tt><tt class="descname">get_simple</tt><big>(</big><big>)</big><a class="headerlink" href="#doekbase.data_api.tests.examples.taxon_api_examples.get_simple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.tests.examples">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-doekbase.data_api.tests.examples" title="Permalink to this headline">¶</a></h2>
+<p>Description.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../create_api.html">Creating a Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="doekbase.html">doekbase package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="doekbase.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="doekbase.data_api.html">doekbase.data_api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.workspace.html">doekbase.workspace package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="doekbase.html#module-doekbase">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">doekbase</a><ul>
+  <li><a href="doekbase.html">doekbase package</a><ul>
+  <li><a href="doekbase.data_api.html">doekbase.data_api package</a><ul>
+  <li><a href="doekbase.data_api.tests.html">doekbase.data_api.tests package</a><ul>
+      <li>Previous: <a href="doekbase.data_api.tests.html" title="previous chapter">doekbase.data_api.tests package</a></li>
+      <li>Next: <a href="doekbase.data_api.tests.performance.html" title="next chapter">doekbase.data_api.tests.performance package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10a7cbad0>
+
+  </body>
+</html>

@@ -1,0 +1,18 @@
+doekbase package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    doekbase.data_api
+    doekbase.workspace
+
+Module contents
+---------------
+
+.. automodule:: doekbase
+    :members:
+    :undoc-members:
+    :show-inheritance:

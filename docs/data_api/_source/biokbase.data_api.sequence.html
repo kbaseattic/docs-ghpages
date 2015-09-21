@@ -1,0 +1,430 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>biokbase.data_api.sequence package &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x10e0439d0>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="biokbase-data-api-sequence-package">
+<h1>biokbase.data_api.sequence package<a class="headerlink" href="#biokbase-data-api-sequence-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-biokbase.data_api.sequence.assembly">
+<span id="biokbase-data-api-sequence-assembly-module"></span><h2>biokbase.data_api.sequence.assembly module<a class="headerlink" href="#module-biokbase.data_api.sequence.assembly" title="Permalink to this headline">¶</a></h2>
+<p>Data API for Assembly entities.  This API provides methods for retrieving
+summary information such as GC content, total length, external source information
+as well as methods for retrieving individual contig sequences and gathering contig lengths and contig GC.</p>
+<dl class="class">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI">
+<em class="property">class </em><tt class="descclassname">biokbase.data_api.sequence.assembly.</tt><tt class="descname">AbstractAssemblyAPI</tt><big>(</big><em>services=None</em>, <em>ref=None</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="biokbase.data_api.html#biokbase.data_api.core.ObjectAPI" title="biokbase.data_api.core.ObjectAPI"><tt class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.core.ObjectAPI</span></tt></a></p>
+<p>API for the assembled sequences associated with a Genome Annotation.</p>
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_assembly_id">
+<tt class="descname">get_assembly_id</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_assembly_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the id for an Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string identifier for the Assembly</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">id</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contig_gc_content">
+<tt class="descname">get_contig_gc_content</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contig_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total GC content for each contiguous sequence of this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contig_ids">
+<tt class="descname">get_contig_ids</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contig_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the ids for every contiguous sequence in this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list&lt;str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contig_lengths">
+<tt class="descname">get_contig_lengths</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contig_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the ids for every contiguous sequence in this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">&lt;int&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contigs">
+<tt class="descname">get_contigs</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_contigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve contiguous sequences from this Assembly by id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>contig_id_list</strong> &#8211; list&lt;str&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict<p>dictionary of contigs, with contig id as key
+contig value structure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;contig_id&#39;</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span>
+    <span class="s">&#39;length&#39;</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+    <span class="s">&#39;md5&#39;</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span>
+    <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span>
+    <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span>
+    <span class="s">&#39;is_complete&#39;</span><span class="p">:</span> <span class="mi">0</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">&#39;is_circular&#39;</span><span class="p">:</span> <span class="mi">0</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">&#39;sequence&#39;</span><span class="p">:</span> <span class="n">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_dna_size">
+<tt class="descname">get_dna_size</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_dna_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total DNA size for this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_external_source_info">
+<tt class="descname">get_external_source_info</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_external_source_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the external source information associated with this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string identifier for the Assembly</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">id</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_gc_content">
+<tt class="descname">get_gc_content</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total GC content for this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_genome_annotations">
+<tt class="descname">get_genome_annotations</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_genome_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the GenomeAnnotations that refer to this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list&lt;GenomeAnnotationAPI&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_number_contigs">
+<tt class="descname">get_number_contigs</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_number_contigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of contiguous sequences in this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_stats">
+<tt class="descname">get_stats</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the derived statistical information about this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">total guanine and cytosine content, counting all G and C only
+dna_size: total length of all dna sequence for this Assembly
+num_contigs: total number of contiguous sequences in this Assembly</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">gc_content</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI">
+<em class="property">class </em><tt class="descclassname">biokbase.data_api.sequence.assembly.</tt><tt class="descname">AssemblyAPI</tt><big>(</big><em>services</em>, <em>ref</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biokbase.data_api.sequence.assembly.AbstractAssemblyAPI" title="biokbase.data_api.sequence.assembly.AbstractAssemblyAPI"><tt class="xref py py-class docutils literal"><span class="pre">biokbase.data_api.sequence.assembly.AbstractAssemblyAPI</span></tt></a></p>
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_assembly_id">
+<tt class="descname">get_assembly_id</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_assembly_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_contig_gc_content">
+<tt class="descname">get_contig_gc_content</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_contig_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_contig_ids">
+<tt class="descname">get_contig_ids</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_contig_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_contig_lengths">
+<tt class="descname">get_contig_lengths</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_contig_lengths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_contigs">
+<tt class="descname">get_contigs</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_contigs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_dna_size">
+<tt class="descname">get_dna_size</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_dna_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_external_source_info">
+<tt class="descname">get_external_source_info</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_external_source_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_gc_content">
+<tt class="descname">get_gc_content</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_genome_annotations">
+<tt class="descname">get_genome_annotations</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_genome_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_number_contigs">
+<tt class="descname">get_number_contigs</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_number_contigs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="biokbase.data_api.sequence.assembly.AssemblyAPI.get_stats">
+<tt class="descname">get_stats</tt><big>(</big><big>)</big><a class="headerlink" href="#biokbase.data_api.sequence.assembly.AssemblyAPI.get_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biokbase.data_api.sequence">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-biokbase.data_api.sequence" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../create_api.html">Creating a Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="biokbase.html">biokbase package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="biokbase.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="biokbase.data_api.html">biokbase.data_api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="biokbase.workspace.html">biokbase.workspace package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="biokbase.html#module-biokbase">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">biokbase</a><ul>
+  <li><a href="biokbase.html">biokbase package</a><ul>
+  <li><a href="biokbase.data_api.html">biokbase.data_api package</a><ul>
+      <li>Previous: <a href="biokbase.data_api.baseobj.html" title="previous chapter">biokbase.data_api.baseobj package</a></li>
+      <li>Next: <a href="biokbase.data_api.taxonomy.html" title="next chapter">biokbase.data_api.taxonomy package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10e0439d0>
+
+  </body>
+</html>

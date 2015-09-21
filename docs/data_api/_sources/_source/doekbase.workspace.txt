@@ -1,0 +1,22 @@
+doekbase.workspace package
+==========================
+
+Submodules
+----------
+
+doekbase.workspace.client module
+--------------------------------
+
+.. automodule:: doekbase.workspace.client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.workspace
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,22 @@
+doekbase.data_api.sequence package
+==================================
+
+Submodules
+----------
+
+doekbase.data_api.sequence.assembly module
+------------------------------------------
+
+.. automodule:: doekbase.data_api.sequence.assembly
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api.sequence
+    :members:
+    :undoc-members:
+    :show-inheritance:

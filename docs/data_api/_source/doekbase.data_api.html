@@ -1,0 +1,1244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api package &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x109638ed0>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="doekbase-data-api-package">
+<h1>doekbase.data_api package<a class="headerlink" href="#doekbase-data-api-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="doekbase.data_api.annotation.html">doekbase.data_api.annotation package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.annotation.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.annotation.html#module-doekbase.data_api.annotation.genome_annotation">doekbase.data_api.annotation.genome_annotation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.annotation.html#module-doekbase.data_api.annotation">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doekbase.data_api.baseobj.html">doekbase.data_api.baseobj package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.baseobj.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.baseobj.html#module-doekbase.data_api.baseobj.api">doekbase.data_api.baseobj.api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.baseobj.html#module-doekbase.data_api.baseobj.constants">doekbase.data_api.baseobj.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.baseobj.html#module-doekbase.data_api.baseobj.impl">doekbase.data_api.baseobj.impl module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.baseobj.html#module-doekbase.data_api.baseobj.thrift_service">doekbase.data_api.baseobj.thrift_service module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.baseobj.html#module-doekbase.data_api.baseobj.ttypes">doekbase.data_api.baseobj.ttypes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.baseobj.html#module-doekbase.data_api.baseobj">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doekbase.data_api.sequence.html">doekbase.data_api.sequence package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.sequence.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.sequence.html#module-doekbase.data_api.sequence.assembly">doekbase.data_api.sequence.assembly module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.sequence.html#module-doekbase.data_api.sequence">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doekbase.data_api.taxonomy.html">doekbase.data_api.taxonomy package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.taxonomy.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.html">doekbase.data_api.taxonomy.taxon package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.service.html">doekbase.data_api.taxonomy.taxon.service package</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.service.html#submodules">Submodules</a></li>
+<li class="toctree-l6"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.service.html#doekbase-data-api-taxonomy-taxon-service-interface-module">doekbase.data_api.taxonomy.taxon.service.interface module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.service.html#module-doekbase.data_api.taxonomy.taxon.service">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.html#module-doekbase.data_api.taxonomy.taxon.api">doekbase.data_api.taxonomy.taxon.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.taxonomy.taxon.html#module-doekbase.data_api.taxonomy.taxon">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.taxonomy.html#module-doekbase.data_api.taxonomy">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doekbase.data_api.tests.html">doekbase.data_api.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doekbase.data_api.tests.examples.html">doekbase.data_api.tests.examples package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.examples.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples.examples_genome_annotation_api">doekbase.data_api.tests.examples.examples_genome_annotation_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples.taxon_api">doekbase.data_api.tests.examples.taxon_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples.taxon_api_examples">doekbase.data_api.tests.examples.taxon_api_examples module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.examples.html#module-doekbase.data_api.tests.examples">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="doekbase.data_api.tests.performance.html">doekbase.data_api.tests.performance package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.performance.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.performance.html#module-doekbase.data_api.tests.performance.bench_pt2">doekbase.data_api.tests.performance.bench_pt2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.performance.html#module-doekbase.data_api.tests.performance.test_benchmark_assembly_objects">doekbase.data_api.tests.performance.test_benchmark_assembly_objects module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.data_api.tests.performance.html#module-doekbase.data_api.tests.performance">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.nose_plugin_wsurl">doekbase.data_api.tests.nose_plugin_wsurl module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.shared">doekbase.data_api.tests.shared module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.taxon_client_driver">doekbase.data_api.tests.taxon_client_driver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#doekbase-data-api-tests-taxon-service-driver-module">doekbase.data_api.tests.taxon_service_driver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.test_assembly_api">doekbase.data_api.tests.test_assembly_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.test_fsmock">doekbase.data_api.tests.test_fsmock module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.test_genome_annotation_api">doekbase.data_api.tests.test_genome_annotation_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.test_nav">doekbase.data_api.tests.test_nav module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.test_rpc_util">doekbase.data_api.tests.test_rpc_util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests.test_taxon_api">doekbase.data_api.tests.test_taxon_api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doekbase.data_api.tests.html#module-doekbase.data_api.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-doekbase.data_api.core">
+<span id="doekbase-data-api-core-module"></span><h2>doekbase.data_api.core module<a class="headerlink" href="#module-doekbase.data_api.core" title="Permalink to this headline">¶</a></h2>
+<p>Module for base class for Data API objects.</p>
+<dl class="class">
+<dt id="doekbase.data_api.core.ObjectAPI">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.core.</tt><tt class="descname">ObjectAPI</tt><big>(</big><em>services=None</em>, <em>token=None</em>, <em>ref=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Generic Object API for basic properties and actions
+of a KBase Data Object.</p>
+<p>In general, users will not instantiate this object directly, but instead
+they will create a biology-specific object like <cite>TaxonAPI</cite> or
+<cite>GenomeAnnotationAPI</cite>. However, methods in this class may be used to get
+basic shared properties like provenance or metadata.</p>
+<p>If you find yourself using some form of <a class="reference internal" href="#doekbase.data_api.core.ObjectAPI.get_data" title="doekbase.data_api.core.ObjectAPI.get_data"><tt class="xref py py-meth docutils literal"><span class="pre">get_data()</span></tt></a> or <a class="reference internal" href="#doekbase.data_api.core.ObjectAPI.get_data_subset" title="doekbase.data_api.core.ObjectAPI.get_data_subset"><tt class="xref py py-meth docutils literal"><span class="pre">get_data_subset()</span></tt></a> frequently,
+you should consider wrapping those calls in a higher-level method that is
+specific to the kind of data you want.</p>
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.copy">
+<tt class="descname">copy</tt><big>(</big><em>to_ws=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a naive object copy to a target workspace.  A naive object copy is a simple
+copy that only generates a copy object of this entity, but any referencing entities
+are not included or considered.  More specific object copies should be implemented by
+specific types that understand their copy semantics for children and other referencing
+or referenced objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>to_ws</strong> &#8211; the target workspace to copy the object to, which the user must have permission</li>
+<li><strong>write to.</strong> (<em>to</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_data">
+<tt class="descname">get_data</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve object data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_data_subset">
+<tt class="descname">get_data_subset</tt><big>(</big><em>path_list=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_data_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a subset of data from this object, given a list of paths to the data elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_history">
+<tt class="descname">get_history</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the recorded history of this object describing how it has been modified.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_id">
+<tt class="descname">get_id</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the internal identifier for this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_info">
+<tt class="descname">get_info</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve basic properties about this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the name assigned to this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_provenance">
+<tt class="descname">get_provenance</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_provenance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the recorded provenance of this object describing how to recreate it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_referrers">
+<tt class="descname">get_referrers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_referrers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a dictionary that indicates by type what objects are referring to this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_schema">
+<tt class="descname">get_schema</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the schema associated with this object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.core.ObjectAPI.get_typestring">
+<tt class="descname">get_typestring</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#ObjectAPI.get_typestring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.ObjectAPI.get_typestring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the type identifier string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.core.get_token">
+<tt class="descclassname">doekbase.data_api.core.</tt><tt class="descname">get_token</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/core.html#get_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.core.get_token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.db">
+<span id="doekbase-data-api-db-module"></span><h2>doekbase.data_api.db module<a class="headerlink" href="#module-doekbase.data_api.db" title="Permalink to this headline">¶</a></h2>
+<p>PEP-249 style database API for KBase databases</p>
+<dl class="class">
+<dt id="doekbase.data_api.db.BaseConnection">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">BaseConnection</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#BaseConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.BaseConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="doekbase.data_api.db.BaseConnection.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/db.html#BaseConnection.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.BaseConnection.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.db.BaseConnection.commit">
+<tt class="descname">commit</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/db.html#BaseConnection.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.BaseConnection.commit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.db.BaseConnection.cursor">
+<tt class="descname">cursor</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/db.html#BaseConnection.cursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.BaseConnection.cursor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.db.BaseConnection.rollback">
+<tt class="descname">rollback</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/db.html#BaseConnection.rollback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.BaseConnection.rollback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.DataError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">DataError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#DataError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.DataError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.DatabaseError" title="doekbase.data_api.db.DatabaseError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.DatabaseError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.DatabaseError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">DatabaseError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#DatabaseError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.DatabaseError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.StandardError" title="doekbase.data_api.db.StandardError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.StandardError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.Error">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">Error</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.StandardError" title="doekbase.data_api.db.StandardError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.StandardError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.IntegrityError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">IntegrityError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#IntegrityError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.IntegrityError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.DatabaseError" title="doekbase.data_api.db.DatabaseError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.DatabaseError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.InterfaceError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">InterfaceError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#InterfaceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.InterfaceError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.StandardError" title="doekbase.data_api.db.StandardError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.StandardError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.InternalError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">InternalError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#InternalError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.InternalError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.DatabaseError" title="doekbase.data_api.db.DatabaseError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.DatabaseError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.NotSupportedError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">NotSupportedError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#NotSupportedError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.NotSupportedError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.DatabaseError" title="doekbase.data_api.db.DatabaseError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.DatabaseError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.OperationalError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">OperationalError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#OperationalError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.OperationalError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.DatabaseError" title="doekbase.data_api.db.DatabaseError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.DatabaseError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.ProgrammingError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">ProgrammingError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#ProgrammingError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.ProgrammingError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.DatabaseError" title="doekbase.data_api.db.DatabaseError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.DatabaseError</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.StandardError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">StandardError</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#StandardError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.StandardError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.data_api.db.Warning">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.db.</tt><tt class="descname">Warning</tt><a class="reference internal" href="../_modules/doekbase/data_api/db.html#Warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.db.Warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.StandardError" title="doekbase.data_api.db.StandardError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.StandardError</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="doekbase-data-api-display-module">
+<h2>doekbase.data_api.display module<a class="headerlink" href="#doekbase-data-api-display-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-doekbase.data_api.nav">
+<span id="doekbase-data-api-nav-module"></span><h2>doekbase.data_api.nav module<a class="headerlink" href="#module-doekbase.data_api.nav" title="Permalink to this headline">¶</a></h2>
+<p>Navigation of object containers (e.g. workspaces).</p>
+<p>The primary class is &#8216;Finder&#8217;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">nav</span>
+<span class="n">finder</span> <span class="o">=</span> <span class="n">nav</span><span class="o">.</span><span class="n">Finder</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="c"># see class docs for args and usage</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="doekbase.data_api.nav.DBConnection">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.nav.</tt><tt class="descname">DBConnection</tt><big>(</big><em>workspace=None</em>, <em>auth_token=None</em>, <em>ws_url=None</em>, <em>shock_url=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#DBConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.DBConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Database connection.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.nav.DBConnection.DEFAULT_SHOCK_URL">
+<tt class="descname">DEFAULT_SHOCK_URL</tt><em class="property"> = 'https://ci.kbase.us/services/shock-api/'</em><a class="headerlink" href="#doekbase.data_api.nav.DBConnection.DEFAULT_SHOCK_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.nav.DBConnection.DEFAULT_WS_URL">
+<tt class="descname">DEFAULT_WS_URL</tt><em class="property"> = 'https://ci.kbase.us/services/ws/'</em><a class="headerlink" href="#doekbase.data_api.nav.DBConnection.DEFAULT_WS_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.nav.DBConnection.get_object">
+<tt class="descname">get_object</tt><big>(</big><em>objid</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#DBConnection.get_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.DBConnection.get_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an object in the workspace.</p>
+<p>TODO: Make this work!!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.nav.DBConnection.get_objectapi_params">
+<tt class="descname">get_objectapi_params</tt><big>(</big><em>objid</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#DBConnection.get_objectapi_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.DBConnection.get_objectapi_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get back the params that the Data ctor wants, as
+a dictionary with the correct keyword arguments set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.nav.DBConnection.get_workspace">
+<tt class="descname">get_workspace</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#DBConnection.get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.DBConnection.get_workspace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.nav.DBConnection.list_objects">
+<tt class="descname">list_objects</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#DBConnection.list_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.DBConnection.list_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all objects in workspace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of ObjectInfo</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.nav.Finder">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.nav.</tt><tt class="descname">Finder</tt><big>(</big><em>conn</em>, <em>cache=True</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#Finder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.Finder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Find objects.</p>
+<p>Initialize with a DBConnection object:</p>
+<blockquote>
+<div>f = Finder(DBConnection(workspace=1122))</div></blockquote>
+<p>You can use indexing to look up objects by name:</p>
+<blockquote>
+<div>f[&#8216;kb|contigset.12523&#8217;]</div></blockquote>
+<p>The name can contain Unix glob characters (e.g. &#8220;*&#8221;):</p>
+<blockquote>
+<div>f[&#8216;Rhodobacter*&#8217;]</div></blockquote>
+<p>You can also look up objects by position</p>
+<blockquote>
+<div>f[0]</div></blockquote>
+<p>You can look up an object by arbitrary attributes by
+passing a dict-like object (anything with an &#8216;items&#8217; method) as the index</p>
+<blockquote>
+<div>f[dict(type=&#8217;KBaseGenomes.ContigSet-2.0&#8217;)]</div></blockquote>
+<p>Use list() to see all objects:</p>
+<blockquote>
+<div>print(list(f))</div></blockquote>
+<dl class="method">
+<dt id="doekbase.data_api.nav.Finder.__getitem__">
+<tt class="descname">__getitem__</tt><big>(</big><em>item</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#Finder.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.Finder.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indexing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.nav.Finder.filter">
+<tt class="descname">filter</tt><big>(</big><em>objid=None</em>, <em>name=None</em>, <em>name_re=None</em>, <em>type_=None</em>, <em>type_re=None</em>, <em>type_ver=None</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#Finder.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.Finder.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a filtered subset of the contained objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>objid</strong> (<em>int</em>) &#8211; Object identifier</li>
+<li><strong>name</strong> (<em>str</em>) &#8211; Exact match name</li>
+<li><strong>name_re</strong> (<em>str</em>) &#8211; Regular expression match name</li>
+<li><strong>type</strong> (<em>str</em>) &#8211; Exact match type</li>
+<li><strong>type_re</strong> (<em>str</em>) &#8211; Regular expression match type</li>
+<li><strong>type_ver</strong> (<em>tuple</em>) &#8211; Match on string type and str version comparator</li>
+<li><strong>kw</strong> (<em>dict</em>) &#8211; Names and values, matched as exact strings. If the
+name is not in the record, it is ignored.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.nav.Finder.ls">
+<tt class="descname">ls</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#Finder.ls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.Finder.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>List objects in the current container namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of objects, each in the same form returned by the indexing
+operations.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.nav.ObjectInfo">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.nav.</tt><tt class="descname">ObjectInfo</tt><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#ObjectInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.ObjectInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.nav._ObjectInfo</span></tt></p>
+<p>Metadata about one object.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.nav.ObjectInfo.data">
+<tt class="descname">data</tt><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#ObjectInfo.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.ObjectInfo.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full, raw, data from its metadata.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.nav.ObjectInfo.object">
+<tt class="descname">object</tt><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#ObjectInfo.object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.ObjectInfo.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get wrapped KBase data object from the metadata.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.nav.ObjectInfo.set_conn">
+<tt class="descname">set_conn</tt><big>(</big><em>conn</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#ObjectInfo.set_conn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.ObjectInfo.set_conn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.nav.add_dicts">
+<tt class="descclassname">doekbase.data_api.nav.</tt><tt class="descname">add_dicts</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/nav.html#add_dicts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.nav.add_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add two dictionaries together and return a third.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.rpc_util">
+<span id="doekbase-data-api-rpc-util-module"></span><h2>doekbase.data_api.rpc_util module<a class="headerlink" href="#module-doekbase.data_api.rpc_util" title="Permalink to this headline">¶</a></h2>
+<p>RPC-related utility functions</p>
+<dl class="exception">
+<dt id="doekbase.data_api.rpc_util.InvalidField">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.rpc_util.</tt><tt class="descname">InvalidField</tt><big>(</big><em>dtype</em>, <em>name</em>, <em>value</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#InvalidField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.InvalidField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.rpc_util.KIDLToThriftConverter">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.rpc_util.</tt><tt class="descname">KIDLToThriftConverter</tt><big>(</big><em>lines</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#KIDLToThriftConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.KIDLToThriftConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Convert KIDL to Thrift IDL</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.rpc_util.KIDLToThriftConverter.CONTAINER_MAPPING">
+<tt class="descname">CONTAINER_MAPPING</tt><em class="property"> = {'list': 'list', 'mapping': 'map', 'tuple': 'list'}</em><a class="headerlink" href="#doekbase.data_api.rpc_util.KIDLToThriftConverter.CONTAINER_MAPPING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.rpc_util.KIDLToThriftConverter.change_container">
+<tt class="descname">change_container</tt><big>(</big><em>s</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#KIDLToThriftConverter.change_container"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.KIDLToThriftConverter.change_container" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.rpc_util.KIDLToThriftConverter.change_struct">
+<tt class="descname">change_struct</tt><big>(</big><em>ln</em>, <em>p</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#KIDLToThriftConverter.change_struct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.KIDLToThriftConverter.change_struct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.rpc_util.KIDLToThriftConverter.process">
+<tt class="descname">process</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#KIDLToThriftConverter.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.KIDLToThriftConverter.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.rpc_util.ThriftInputValue">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.rpc_util.</tt><tt class="descname">ThriftInputValue</tt><big>(</big><em>dtype</em>, <em>value</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#ThriftInputValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.ThriftInputValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.rpc_util.ThriftTypes">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.rpc_util.</tt><tt class="descname">ThriftTypes</tt><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#ThriftTypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.ThriftTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">enum.Enum</span></tt></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.rpc_util.kidl_to_thrift_main">
+<tt class="descclassname">doekbase.data_api.rpc_util.</tt><tt class="descname">kidl_to_thrift_main</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#kidl_to_thrift_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.kidl_to_thrift_main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.rpc_util.thrift_validate">
+<tt class="descclassname">doekbase.data_api.rpc_util.</tt><tt class="descname">thrift_validate</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/rpc_util.html#thrift_validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.rpc_util.thrift_validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate an auto-generated datatype from the Thrift <cite>ttypes</cite> module.</p>
+<p>Automatically extract the fields to be validated from the <cite>thrift_spec</cite>
+attribute in the <cite>obj</cite>.</p>
+<dl class="docutils">
+<dt>Validation has the following features:</dt>
+<dd><ul class="first last simple">
+<li>unicode or non-unicode strings are equivalent</li>
+<li>an integer value is valid for a floating-point field</li>
+<li>a floating-point value is valid for a floating-point field, if and
+only if the value has no fractional part (i.e. floor(value) == value)</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; Object to validate.</td>
+</tr>
+</tbody>
+</table>
+<p>Return: The input object (for chaining)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.types">
+<span id="doekbase-data-api-types-module"></span><h2>doekbase.data_api.types module<a class="headerlink" href="#module-doekbase.data_api.types" title="Permalink to this headline">¶</a></h2>
+<p>Mapping of data store types to object classes.</p>
+<dl class="class">
+<dt id="doekbase.data_api.types.DataStores">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.types.</tt><tt class="descname">DataStores</tt><a class="reference internal" href="../_modules/doekbase/data_api/types.html#DataStores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.types.DataStores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">enum.Enum</span></tt></p>
+<p>The huge variety of data stores we have at the moment.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.types.get_object_class">
+<tt class="descclassname">doekbase.data_api.types.</tt><tt class="descname">get_object_class</tt><big>(</big><em>type_name</em>, <em>store=&lt;DataStores.workspace: 1&gt;</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/types.html#get_object_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.types.get_object_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the appropriate object class for a given type name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>- string name of type</strong> (<em>type_name</em>) &#8211; </li>
+<li><strong>- type of data store</strong> (<em>store</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">appropriate subclass of Data (possibly just the base class)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.types.get_re">
+<tt class="descclassname">doekbase.data_api.types.</tt><tt class="descname">get_re</tt><big>(</big><em>d</em>, <em>key</em>, <em>default_value</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/types.html#get_re"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.types.get_re" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get key from dict, but treat keys <em>in</em> dict as regular
+expressions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>d</strong> &#8211; Dictionary to search</li>
+<li><strong>key</strong> &#8211; String key</li>
+<li><strong>default_value</strong> &#8211; A default value, any type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">matching value or <cite>default_value</cite> if not found</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.typesystem">
+<span id="doekbase-data-api-typesystem-module"></span><h2>doekbase.data_api.typesystem module<a class="headerlink" href="#module-doekbase.data_api.typesystem" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="doekbase.data_api.typesystem.AbstractTypeAPI">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.typesystem.</tt><tt class="descname">AbstractTypeAPI</tt><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeAPI.get_schema">
+<tt class="descname">get_schema</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeAPI.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeAPI.get_schema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeAPI.set_schema">
+<tt class="descname">set_schema</tt><big>(</big><em>schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeAPI.set_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeAPI.set_schema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeAPI.validate_schema">
+<tt class="descname">validate_schema</tt><big>(</big><em>schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeAPI.validate_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeAPI.validate_schema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.typesystem.</tt><tt class="descname">AbstractTypeNamespaceAPI</tt><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_type">
+<tt class="descname">add_type</tt><big>(</big><em>type_schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.add_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_user">
+<tt class="descname">add_user</tt><big>(</big><em>type_schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.add_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.add_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type">
+<tt class="descname">get_type</tt><big>(</big><em>type_name=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.get_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type_names">
+<tt class="descname">get_type_names</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.get_type_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.get_type_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.publish_type">
+<tt class="descname">publish_type</tt><big>(</big><em>type_name=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.publish_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.publish_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_type">
+<tt class="descname">remove_type</tt><big>(</big><em>type_schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.remove_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_user">
+<tt class="descname">remove_user</tt><big>(</big><em>type_schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.remove_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.remove_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.unpublish_type">
+<tt class="descname">unpublish_type</tt><big>(</big><em>type_name=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.unpublish_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.unpublish_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_type">
+<tt class="descname">update_type</tt><big>(</big><em>type_name=None</em>, <em>type_schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.update_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_user">
+<tt class="descname">update_user</tt><big>(</big><em>type_schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeNamespaceAPI.update_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeNamespaceAPI.update_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.typesystem.</tt><tt class="descname">AbstractTypeRegistry</tt><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry.get_namespaces">
+<tt class="descname">get_namespaces</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry.get_namespaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry.get_namespaces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry.get_registry_info">
+<tt class="descname">get_registry_info</tt><big>(</big><em>hash=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry.get_registry_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry.get_registry_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry.get_spec_hash">
+<tt class="descname">get_spec_hash</tt><big>(</big><em>schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry.get_spec_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry.get_spec_hash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry.get_types">
+<tt class="descname">get_types</tt><big>(</big><em>namespace=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry.get_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry.get_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry.register_namespace">
+<tt class="descname">register_namespace</tt><big>(</big><em>namespace=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry.register_namespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry.register_namespace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry.register_spec">
+<tt class="descname">register_spec</tt><big>(</big><em>namespace=None</em>, <em>schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry.register_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry.register_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.typesystem.AbstractTypeRegistry.update_spec">
+<tt class="descname">update_spec</tt><big>(</big><em>namespace=None</em>, <em>schema=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/typesystem.html#AbstractTypeRegistry.update_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.typesystem.AbstractTypeRegistry.update_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.util">
+<span id="doekbase-data-api-util-module"></span><h2>doekbase.data_api.util module<a class="headerlink" href="#module-doekbase.data_api.util" title="Permalink to this headline">¶</a></h2>
+<p>Utility functions.</p>
+<dl class="docutils">
+<dt>Includes:</dt>
+<dd><ul class="first last simple">
+<li>Logging decorators</li>
+<li>Logging functions log_start() and log_end()</li>
+</ul>
+</dd>
+</dl>
+<dl class="class">
+<dt id="doekbase.data_api.util.Timer">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">Timer</tt><a class="reference internal" href="../_modules/doekbase/data_api/util.html#Timer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="doekbase.data_api.util.Timer.pop">
+<tt class="descname">pop</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#Timer.pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.Timer.pop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.format_kvp">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">format_kvp</tt><big>(</big><em>d</em>, <em>sep</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#format_kvp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.format_kvp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format key-value pairs as a string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.format_timestamp">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">format_timestamp</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#doekbase.data_api.util.format_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.get_auth_token">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">get_auth_token</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#get_auth_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.get_auth_token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.get_logger">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">get_logger</tt><big>(</big><em>name</em>, <em>config={'handlers': {'console': {'formatter': 'basic'</em>, <em>'class': 'logging.StreamHandler'</em>, <em>'stream': 'ext://sys.stderr'</em>, <em>'level': 'INFO'}}</em>, <em>'version': 1</em>, <em>'root': {'level': 'INFO'</em>, <em>'handlers': ['console']}</em>, <em>'formatters': {'basic': {'format': '%(levelname)s %(message)s'}}}</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#get_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.get_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by other modules to get a logger,
+and set or change the configuration.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.log_end">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">log_end</tt><big>(</big><em>logger</em>, <em>t0</em>, <em>func_name</em>, <em>level=None</em>, <em>fmt=None</em>, <em>status_code=0</em>, <em>kvp=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#log_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.log_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.log_event">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">log_event</tt><big>(</big><em>logger</em>, <em>func_name</em>, <em>level=None</em>, <em>fmt=None</em>, <em>kvp=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#log_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.log_event" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.log_start">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">log_start</tt><big>(</big><em>logger</em>, <em>func_name</em>, <em>level=None</em>, <em>fmt=None</em>, <em>kvp=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#log_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.log_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.util.logged">
+<tt class="descclassname">doekbase.data_api.util.</tt><tt class="descname">logged</tt><big>(</big><em>logger</em>, <em>log_level=20</em>, <em>log_name=None</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/util.html#logged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.util.logged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap a method/function in a log start/end message.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.workspace_db">
+<span id="doekbase-data-api-workspace-db-module"></span><h2>doekbase.data_api.workspace_db module<a class="headerlink" href="#module-doekbase.data_api.workspace_db" title="Permalink to this headline">¶</a></h2>
+<p>Workspace DB following PEP-249</p>
+<dl class="class">
+<dt id="doekbase.data_api.workspace_db.WorkspaceConnection">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.workspace_db.</tt><tt class="descname">WorkspaceConnection</tt><big>(</big><em>url</em>, <em>shock_url</em>, <em>token=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/workspace_db.html#WorkspaceConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.workspace_db.WorkspaceConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.db.BaseConnection" title="doekbase.data_api.db.BaseConnection"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.db.BaseConnection</span></tt></a></p>
+<p>Database connection to the KBase &#8216;Workspace&#8217;, the
+main KBase data store.</p>
+<dl class="method">
+<dt id="doekbase.data_api.workspace_db.WorkspaceConnection.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/workspace_db.html#WorkspaceConnection.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.workspace_db.WorkspaceConnection.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.workspace_db.WorkspaceConnection.commit">
+<tt class="descname">commit</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/workspace_db.html#WorkspaceConnection.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.workspace_db.WorkspaceConnection.commit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.workspace_db.WorkspaceConnection.cursor">
+<tt class="descname">cursor</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/workspace_db.html#WorkspaceConnection.cursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.workspace_db.WorkspaceConnection.cursor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.workspace_db.WorkspaceConnection.rollback">
+<tt class="descname">rollback</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/workspace_db.html#WorkspaceConnection.rollback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.workspace_db.WorkspaceConnection.rollback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.workspace_db.connect">
+<tt class="descclassname">doekbase.data_api.workspace_db.</tt><tt class="descname">connect</tt><big>(</big><em>ws_url='https://ci.kbase.us/services/ws/'</em>, <em>shock_url='https://ci.kbase.us/services/shock-api/'</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/workspace_db.html#connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.workspace_db.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.workspace_db.get_token">
+<tt class="descclassname">doekbase.data_api.workspace_db.</tt><tt class="descname">get_token</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/workspace_db.html#get_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.workspace_db.get_token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api.wsfile">
+<span id="doekbase-data-api-wsfile-module"></span><h2>doekbase.data_api.wsfile module<a class="headerlink" href="#module-doekbase.data_api.wsfile" title="Permalink to this headline">¶</a></h2>
+<p>Workspace implemented over files, using the mongomock package.</p>
+<dl class="exception">
+<dt id="doekbase.data_api.wsfile.LibError">
+<em class="property">exception </em><tt class="descclassname">doekbase.data_api.wsfile.</tt><tt class="descname">LibError</tt><big>(</big><em>description</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#LibError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.LibError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="doekbase.workspace.html#doekbase.workspace.client.ServerError" title="doekbase.workspace.client.ServerError"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.workspace.client.ServerError</span></tt></a></p>
+<p>To imitate server errors, raise this with a description
+of the error as the argument.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.wsfile.</tt><tt class="descname">WorkspaceFile</tt><big>(</big><em>working_directory</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Mock object for KBase Workspace service.</p>
+<p>You can use this in place of the doekbase.client.workspace.Workspace class.</p>
+<p>To insulate from changes in the workspace storage format, the input
+data is in a simplified and reduced schema. The input should be a list
+of JSON ojects, separated by commas and bracketed by &#8220;[ ]&#8221; like a
+normal JSON list. Each object should have these fields:</p>
+<ul class="simple">
+<li>ref - object reference like &#8220;123/4&#8221;</li>
+<li>type - Name of the type of this object, e.g. &#8220;FooType&#8221;</li>
+<li>name - Name of this object, e.g. &#8220;PrototypeReferenceGenomes/kb|g.3157&#8221;</li>
+<li>links - List of references, each in the same form as the &#8216;ref&#8217; field.</li>
+<li>data - JSON object with the data (whatever you want)</li>
+</ul>
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.copy_object">
+<tt class="descname">copy_object</tt><big>(</big><em>prm</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.copy_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.copy_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.get_object_history">
+<tt class="descname">get_object_history</tt><big>(</big><em>prm</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.get_object_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.get_object_history" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.get_object_info_new">
+<tt class="descname">get_object_info_new</tt><big>(</big><em>prm</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.get_object_info_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.get_object_info_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.get_object_provenance">
+<tt class="descname">get_object_provenance</tt><big>(</big><em>prm</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.get_object_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.get_object_provenance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.get_object_subset">
+<tt class="descname">get_object_subset</tt><big>(</big><em>prm</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.get_object_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.get_object_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note: this is not efficient. It actually looks at
+the whole object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.get_objects">
+<tt class="descname">get_objects</tt><big>(</big><em>prm</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.get_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.get_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.get_type_info">
+<tt class="descname">get_type_info</tt><big>(</big><em>type_name</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.get_type_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.get_type_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.list_referencing_objects">
+<tt class="descname">list_referencing_objects</tt><big>(</big><em>prm</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.list_referencing_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.list_referencing_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.load">
+<tt class="descname">load</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from a given reference.</p>
+<p>The reference will be translated into a file to load,
+using the following formula:
+<tt class="docutils literal"><span class="pre">&lt;working_directory&gt;</span> <span class="pre">+</span> <span class="pre">'/'</span> <span class="pre">+</span> <span class="pre">&lt;ref&gt;</span> <span class="pre">+</span> <span class="pre">&lt;ext&gt;`,</span>
+<span class="pre">where</span> <span class="pre">``&lt;working_directory&gt;</span></tt> is the path given to the class
+constructor, <tt class="docutils literal"><span class="pre">&lt;ref&gt;</span></tt> is the reference given to this
+function, and
+<tt class="docutils literal"><span class="pre">&lt;ext&gt;</span></tt> is a file extension &#8216;.msgpack&#8217; if
+<cite>use_msgpack</cite> is True and &#8216;.json&#8217; otherwise.</p>
+<p>Thus, for <tt class="docutils literal"><span class="pre">WorkspaceFile('/tmp/data').load('foo_bar')</span></tt>,
+the path loaded would be &#8216;/tmp/data/foo_bar.msgpack&#8217;.</p>
+<p>See class documentation on format of input data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ref</strong> (<em>str</em>) &#8211; The reference</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Post-condition: Object is loaded if and only if that reference was
+not loaded previously. Modification timestamp of the underlying
+file is NOT checked, you must manually invalidate modified
+data with <tt class="xref py py-meth docutils literal"><span class="pre">unload(ref)()</span></tt>.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><tt class="xref py py-exc docutils literal"><span class="pre">IOError</span></tt> &#8211; file not found or not readable.</li>
+<li><tt class="xref py py-exc docutils literal"><span class="pre">ValueError</span></tt> &#8211; parsing failed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.translate_to_MD5_types">
+<tt class="descname">translate_to_MD5_types</tt><big>(</big><em>types</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.translate_to_MD5_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.translate_to_MD5_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.unload">
+<tt class="descname">unload</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#WorkspaceFile.unload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.unload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force reload of <tt class="docutils literal"><span class="pre">ref</span></tt> the next time.
+Does nothing if <tt class="docutils literal"><span class="pre">ref</span></tt> is not already loaded.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ref</strong> (<em>str</em>) &#8211; The reference</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Post:</dt>
+<dd>ref is no longer loaded</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.wsfile.WorkspaceFile.use_msgpack">
+<tt class="descname">use_msgpack</tt><em class="property"> = True</em><a class="headerlink" href="#doekbase.data_api.wsfile.WorkspaceFile.use_msgpack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use MessagePack encoding for workspace objects</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.wsfile.workspace_to_file">
+<tt class="descclassname">doekbase.data_api.wsfile.</tt><tt class="descname">workspace_to_file</tt><big>(</big><em>ref</em>, <em>workspace='narrative'</em>, <em>token=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/wsfile.html#workspace_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.wsfile.workspace_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Workspace objects to the JSON format read by the
+mongomock module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ref</strong> (<em>str</em>) &#8211; Workspace object reference e.g. &#8216;1019/4/1&#8217;</li>
+<li><strong>workspace</strong> (<em>str</em>) &#8211; <dl class="docutils">
+<dt>Name or full URL for workspace to contact</dt>
+<dd>&#8216;narrative&#8217; or &#8216;ci&#8217; are recognized</dd>
+</dl>
+<p>token (str): KBase auth token</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(dict) Object in the mock schema</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.data_api">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-doekbase.data_api" title="Permalink to this headline">¶</a></h2>
+<p>KBase Data API package.</p>
+<dl class="function">
+<dt id="doekbase.data_api.browse">
+<tt class="descclassname">doekbase.data_api.</tt><tt class="descname">browse</tt><big>(</big><em>workspace=None</em>, <em>**kw</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api.html#browse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.browse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a <cite>.nav.Finder</cite> instance, which allows
+the user to easily list and retrieve objects in a given
+workspace through the Data API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>workspace</strong> &#8211; Integer identifier for the workspace</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An initialized Finder instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../create_api.html">Creating a Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="doekbase.html">doekbase package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="doekbase.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="">doekbase.data_api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doekbase.workspace.html">doekbase.workspace package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="doekbase.html#module-doekbase">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">doekbase</a><ul>
+  <li><a href="doekbase.html">doekbase package</a><ul>
+      <li>Previous: <a href="doekbase.html" title="previous chapter">doekbase package</a></li>
+      <li>Next: <a href="doekbase.data_api.annotation.html" title="next chapter">doekbase.data_api.annotation package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x109638ed0>
+
+  </body>
+</html>
