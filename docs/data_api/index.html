@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x1085b3d90>
+<jinja2.runtime.BlockReference object at 0x1051a8650>
 
    
   
@@ -43,32 +43,19 @@
             
   <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="create_api.html">Creating a Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="create_api.html#overview">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#name-your-api">1. Name your API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-a-directory">2. Create a directory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-a-specification">3. Create a specification</a></li>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#generate-stubs">4. Generate stubs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-python-api-modules">5. Create Python API modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#create-test-client-server">6. Create test client/server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#test">7. Test!</a></li>
-<li class="toctree-l3"><a class="reference internal" href="create_api.html#publish-your-api">8. Publish your API</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genome_api.html">Genome Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#getting-a-taxonomic-object">Getting a Taxonomic object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#basic-operations">Basic operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#examples">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#creating-a-taxonomic-object">Creating a Taxonomic object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#python-examples">Python examples</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="taxon_api.html#example-fetch-and-print-taxon">Example: Fetch and Print Taxon</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#advanced-operations">Advanced operations</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_source/doekbase.html">doekbase package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_source/doekbase.html#subpackages">Subpackages</a><ul>
@@ -86,109 +73,73 @@
 <div class="section" id="kbase-data-api-documentation">
 <h1>KBase Data API documentation<a class="headerlink" href="#kbase-data-api-documentation" title="Permalink to this headline">¶</a></h1>
 <p>The Data API provides a unified entry point to retrieve and, eventually,
-store KBase data objects. A simplified view of how the Data API relates to other
-components of KBase is below:</p>
-<div class="highlight-python"><div class="highlight"><pre>+------------------------------+
-|Services/Narrative code cells |
-+------------------------------+
-    |                    ^
-    v                    |
-*******************************
-||     Data API library      ||
-*******************************
-    ^                    |
-    |                    v
-+-----------------------------+
-|     Workspace/Datastores    |
-+-----------------------------+
+store KBase data objects. This page covers concepts and installation instructions.
+For usage see the individual API pages for the <a class="reference internal" href="annotation_api.html#annotation-api"><em>Annotation Data API</em></a>, <a class="reference internal" href="genome_api.html#genome-api"><em>Genome Data API</em></a> , and <a class="reference internal" href="taxon_api.html#taxon-api"><em>Taxon Data API</em></a>.</p>
+<p>Developers should read the <a class="reference internal" href="developer.html#developer-notes"><em>Developer notes</em></a>.</p>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<p>The Data API is multi-language, with the primary language implementation being Python. We are using Thrift to generate consistent language APIs in other languages. In all languages except Python, the implementation is a client/server, with a Python-based server and the other language as the client. The diagram below summarizes this design.</p>
+<div class="figure" id="overview-diagram">
+<a class="reference internal image-reference" href="_images/api_overview.png"><img alt="_images/api_overview.png" src="_images/api_overview.png" style="height: 400px;" /></a>
+<p class="caption">Overview of the Data API modules</p>
+</div>
+</div>
+<div class="section" id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<p>You can download the latest release of the Data API from the <a href="#id1"><span class="problematic" id="id2">`release page on github https://github.com/kbase/data_api/releases`_</span></a>. It is generally recommended that you install packages in a virtual environment.</p>
+<ol class="arabic">
+<li><p class="first">Install virtualenv using your local installer e.g., apt-get install virtualenv</p>
+</li>
+<li><p class="first">Create a virtualenv environment to install the source to e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
 </pre></div>
 </div>
-<p>Here we see that the Data API library is called by Services or Narrative code cells (via the backend Jupyter/IPython kernel), and communicates with the underlying data stores on behalf of its clients.</p>
+</li>
+<li><p class="first">Activate the virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre>source venv/bin/activate
+</pre></div>
 </div>
-<div class="section" id="using-the-data-api">
-<h1>Using the Data API<a class="headerlink" href="#using-the-data-api" title="Permalink to this headline">¶</a></h1>
-<p>There are two primary modes of using the Data API: interactively, as in the Narrative UI or
-Jupyter noteboook, and programmatically, as from an installed service.
-Interactively, the API can be imported into in the IPython/Jupyter notebook or
-Narrative and used to explore and examine data objects.
-Results will be automatically displayed as HTML and inline plots. Programmatically,
-the same API can be imported into any Python code and used like a standard
-library.</p>
+</li>
+</ol>
+<p>You can get out of the virtualenv environment with &#8220;deactivate&#8221;.</p>
+<ol class="arabic simple" start="4">
+<li>Set your <tt class="docutils literal"><span class="pre">KB_AUTH_TOKEN</span></tt> to your token string.</li>
+</ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The integration of the Data API into the KBase Narrative is not quite done yet.
-For now, you need to try it out in a recent (August 2015+) version of the Jupyter notebook.</p>
+<p>These scripts require a valid KBase authentication token to be in the
+environment at runtime. Unfortunately, there is no really easy way to get
+this token right now. Below are two possible approaches.</p>
+<p>1. From the UI. Login to KBase, open a narrative
+(any narrative), and then use the developer tools for your browser to get to
+a JavaScript console and then print the value of the variable <tt class="docutils literal"><span class="pre">kb.token</span></tt>.
+Once you have this value, set it in your environment as KB_AUTH_TOKEN,
+e.g., in the Unix bash shell, e.g.: <tt class="docutils literal"><span class="pre">export</span> <span class="pre">KB_AUTH_TOKEN='un=myname|tokenid=...'</span></tt>.
+You can add this command to your login scripts (e.g. your &#8220;~/.bash_profile&#8221;)
+so it&#8217;s not so painful in the future.</p>
+<p class="last">2. Another approach is to use the <tt class="docutils literal"><span class="pre">kbase-login</span></tt> command, run inside a KBase environment.
+From the command-line, run <tt class="docutils literal"><span class="pre">kbase-login</span></tt> to retrieve a token and check your <tt class="docutils literal"><span class="pre">.kbase_config</span></tt>.</p>
 </div>
-<p>In both cases, the <a class="reference internal" href="#core-api"><em>Core API</em></a> functions are used to access the objects.
-For interactive use, and some programmatic use-cases, the <a class="reference internal" href="#highlevel-api"><em>High-level API</em></a>
-will be more convenient.</p>
-<div class="section" id="high-level-api">
-<span id="highlevel-api"></span><h2>High-level API<a class="headerlink" href="#high-level-api" title="Permalink to this headline">¶</a></h2>
-<p>This section covers how to <a class="reference internal" href="#highlevel-api-conf"><em>initialize the high-level API</em></a>
-to access the KBase data as an authenticated user,
-then how to <a class="reference internal" href="#highlevel-api-func"><em>use the provided functions</em></a>.</p>
-<div class="section" id="configuration-and-authorization">
-<span id="highlevel-api-conf"></span><h3>Configuration and Authorization<a class="headerlink" href="#configuration-and-authorization" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="functions">
-<span id="highlevel-api-func"></span><h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="core-api">
-<span id="id1"></span><h2>Core API<a class="headerlink" href="#core-api" title="Permalink to this headline">¶</a></h2>
-<p>This section covers how to initialize the high-level API to access the KBase
-data as an authenticated user, then how to use the provided functions.</p>
-<div class="section" id="id2">
-<h3>Configuration and Authorization<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="id3">
-<h3>Functions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="section" id="developer-notes">
-<h1>Developer notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="running-tests">
-<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
-<p>Unit tests can be run with a file-based Workspace library, based on the
-mongomock package and implemented in the <cite>biokbase.data_api.wsfile</cite> module.</p>
-<p>This mode is activated by passing a directory path instead of a
-regular URL to the <cite>&#8211;ws-url</cite> option for nosetests. This nosetest option is
-enabled by a plugin in <cite>biokbase.data_api.tests.nose_plugin_wsurl</cite>,
-that is referred to by the &#8220;entry_points&#8221; key in the configuration in the
-setup.py script. It is recommended that you also pass the <cite>&#8211;wsfile-msgpack</cite>
-option and use the msgpack output option when creating the input data (see below).</p>
-<div class="section" id="step-1-create-test-data">
-<h3>Step 1: Create test data<a class="headerlink" href="#step-1-create-test-data" title="Permalink to this headline">¶</a></h3>
-<p>To create the test data for the file-based workspace, you need to dump some existing workspace objects into a directory. This is done with the <cite>dump_wsfile</cite> script in the bin/ directory (also installed by setup.py in the package bin path). An example invocation of this script is:</p>
-<div class="highlight-python"><div class="highlight"><pre>dump_wsfile --url ci  --file test_data/test-objects.txt --msgpack --dir test_data -vv
+<p>Unpackage the download file, change into the top-level directory, then run the standard Python setup command:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py install
 </pre></div>
 </div>
-<p>This would dump all object IDs found in the file <cite>test_data/test-objects.txt</cite>
-into the directory <cite>test_data</cite>, using the CI (continuous integration) workspace
-server, formatting them using <a class="reference external" href="http://msgpack.org/">MessagePack</a>.</p>
-<p>An <cite>objects.txt</cite> file simply lists full object IDs, i.e. &#8220;&lt;workspace&gt;/&lt;object&gt;[/&lt;version&gt;]&#8221;, one per line. Lines starting with
-&#8220;#&#8221; and blank lines are ignored. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre># Genome
-PrototypeReferenceGenomes/kb|g.3899
-# Features
-PrototypeReferenceGenomes/kb|g.3899_feature_container_gene
-PrototypeReferenceGenomes/kb|g.3899_feature_container_CDS
-PrototypeReferenceGenomes/kb|g.3899_feature_container_mRNA
-# Taxon
-993/674615/1
+<ol class="arabic" start="5">
+<li><p class="first">Run the tests, which are designed to use <tt class="docutils literal"><span class="pre">nosetests</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nosetests</span>
 </pre></div>
 </div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can re-run <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> if you have edited files locally and want to test them out without having to reset the virtualenv.</p>
 </div>
-<div class="section" id="step-2-run-tests">
-<h3>Step 2: Run tests<a class="headerlink" href="#step-2-run-tests" title="Permalink to this headline">¶</a></h3>
-<p>After this is done, the command-line to nosetests would look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">nosetests</span> <span class="o">--</span><span class="n">ws</span><span class="o">-</span><span class="n">url</span><span class="o">=</span><span class="n">test_data</span>  <span class="o">--</span><span class="n">wsfile</span><span class="o">-</span><span class="n">msgpack</span>
-</pre></div>
 </div>
-<p>The <cite>&#8211;ws-url</cite> option gives the path to the entire directory of files, and the <cite>&#8211;wsfile-msgpack</cite> means that it will load all the files ending in &#8221;.msgpack&#8221; in that directory into the file-based mongo mocking library for
-the tests.</p>
-</div>
+<div class="section" id="hello-world">
+<h2>Hello, World<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h2>
+<p>A simple hello, world example will be here &#8220;real soon now&#8221;.</p>
+<p>For more examples, see the object API pages for the <a class="reference internal" href="annotation_api.html#annotation-api"><em>Annotation Data API</em></a>, <a class="reference internal" href="genome_api.html#genome-api"><em>Genome Data API</em></a> , and <a class="reference internal" href="taxon_api.html#taxon-api"><em>Taxon Data API</em></a>.</p>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -225,8 +176,10 @@ the tests.</p>
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="create_api.html">Creating a Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genome_api.html">Genome Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a></li>
 </ul>
 
@@ -234,7 +187,7 @@ the tests.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="create_api.html" title="next chapter">Creating a Data API</a></li>
+      <li>Next: <a href="annotation_api.html" title="next chapter">Annotation Data API</a></li>
   </ul></li>
 </ul>
 </div>
@@ -299,7 +252,7 @@ the tests.</p>
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x1085b3d90>
+<jinja2.runtime.BlockReference object at 0x1051a8650>
 
   </body>
 </html>

@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10a7cbad0>
+<jinja2.runtime.BlockReference object at 0x10633c910>
 
    
   
@@ -54,6 +54,10 @@
 <dd></dd></dl>
 
 </div>
+<div class="section" id="module-doekbase.data_api.tests.examples.foo">
+<span id="doekbase-data-api-tests-examples-foo-module"></span><h2>doekbase.data_api.tests.examples.foo module<a class="headerlink" href="#module-doekbase.data_api.tests.examples.foo" title="Permalink to this headline">¶</a></h2>
+<p>Description.</p>
+</div>
 <div class="section" id="module-doekbase.data_api.tests.examples.taxon_api">
 <span id="doekbase-data-api-tests-examples-taxon-api-module"></span><h2>doekbase.data_api.tests.examples.taxon_api module<a class="headerlink" href="#module-doekbase.data_api.tests.examples.taxon_api" title="Permalink to this headline">¶</a></h2>
 <p>Example scripts for the Taxon API.</p>
@@ -74,30 +78,18 @@ containing a downloaded version of the data created with the
 </dd></dl>
 
 </div>
-<div class="section" id="module-doekbase.data_api.tests.examples.taxon_api_examples">
-<span id="doekbase-data-api-tests-examples-taxon-api-examples-module"></span><h2>doekbase.data_api.tests.examples.taxon_api_examples module<a class="headerlink" href="#module-doekbase.data_api.tests.examples.taxon_api_examples" title="Permalink to this headline">¶</a></h2>
-<p>Example scripts for the Taxon API.</p>
-<p>These scripts require a valid KBase authentication token to be
-in the environment at runtime.</p>
-<p>Unfortunately there is no really easy way to get this token right now. One
-way to do it is to login to KBase, open a narrative (any narrative), and then
-use the developer tools for your browser to get to a JavaScript console and then
-print the value of the variable <tt class="docutils literal"><span class="pre">kb.token</span></tt>.</p>
-<p>Once you have this value, set it in your environment as KB_AUTH_TOKEN,
-e.g., in the Unix bash shell:</p>
-<div class="highlight-python"><div class="highlight"><pre>export KB_AUTH_TOKEN=&#39;un=myname|tokenid=abcdef012-0000-2222-3333-123456789abc|expiry=1469959033|client_id=myname|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/some-long-key-here|sig=123456...&#39;
-</pre></div>
-</div>
-<p>You can add this command to your login scripts (e.g. your &#8220;~/.bash_profile&#8221;)
-so it&#8217;s not so painful in the future.</p>
+<div class="section" id="module-doekbase.data_api.tests.examples.test_taxon_api">
+<span id="doekbase-data-api-tests-examples-test-taxon-api-module"></span><h2>doekbase.data_api.tests.examples.test_taxon_api module<a class="headerlink" href="#module-doekbase.data_api.tests.examples.test_taxon_api" title="Permalink to this headline">¶</a></h2>
+<p>Verify that all examples in <tt class="docutils literal"><span class="pre">taxon_api</span></tt> are runnable.</p>
+<p>When you add a new example, add a call to it, here.</p>
 <dl class="function">
-<dt id="doekbase.data_api.tests.examples.taxon_api_examples.eprint">
-<tt class="descclassname">doekbase.data_api.tests.examples.taxon_api_examples.</tt><tt class="descname">eprint</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#doekbase.data_api.tests.examples.taxon_api_examples.eprint" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.tests.examples.test_taxon_api.setup">
+<tt class="descclassname">doekbase.data_api.tests.examples.test_taxon_api.</tt><tt class="descname">setup</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/examples/test_taxon_api.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.examples.test_taxon_api.setup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="doekbase.data_api.tests.examples.taxon_api_examples.get_simple">
-<tt class="descclassname">doekbase.data_api.tests.examples.taxon_api_examples.</tt><tt class="descname">get_simple</tt><big>(</big><big>)</big><a class="headerlink" href="#doekbase.data_api.tests.examples.taxon_api_examples.get_simple" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.tests.examples.test_taxon_api.test_examples">
+<tt class="descclassname">doekbase.data_api.tests.examples.test_taxon_api.</tt><tt class="descname">test_examples</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/tests/examples/test_taxon_api.html#test_examples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.tests.examples.test_taxon_api.test_examples" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -132,8 +124,10 @@ so it&#8217;s not so painful in the future.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../create_api.html">Creating a Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genome_api.html">Genome Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer.html">Developer notes</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="doekbase.html">doekbase package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="doekbase.html#subpackages">Subpackages</a><ul class="current">
@@ -226,7 +220,7 @@ so it&#8217;s not so painful in the future.</p>
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x10a7cbad0>
+<jinja2.runtime.BlockReference object at 0x10633c910>
 
   </body>
 </html>

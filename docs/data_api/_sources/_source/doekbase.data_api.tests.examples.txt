@@ -12,6 +12,14 @@ doekbase.data_api.tests.examples.examples_genome_annotation_api module
     :undoc-members:
     :show-inheritance:
 
+doekbase.data_api.tests.examples.foo module
+-------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.foo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 doekbase.data_api.tests.examples.taxon_api module
 -------------------------------------------------
 
@@ -20,10 +28,10 @@ doekbase.data_api.tests.examples.taxon_api module
     :undoc-members:
     :show-inheritance:
 
-doekbase.data_api.tests.examples.taxon_api_examples module
-----------------------------------------------------------
+doekbase.data_api.tests.examples.test_taxon_api module
+------------------------------------------------------
 
-.. automodule:: doekbase.data_api.tests.examples.taxon_api_examples
+.. automodule:: doekbase.data_api.tests.examples.test_taxon_api
     :members:
     :undoc-members:
     :show-inheritance:
