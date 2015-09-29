@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.tests.test_taxon_api &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x108001e90>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for doekbase.data_api.tests.test_taxon_api</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Unit tests for genome_annotation</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">skipUnless</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">shared</span>
+
+<span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.api</span> <span class="kn">import</span> <span class="n">TaxonAPI</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.api</span> <span class="kn">import</span> <span class="n">_Prototype</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.api</span> <span class="kn">import</span> <span class="n">_KBaseGenomes_Genome</span>
+
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="n">taxon_new</span> <span class="o">=</span> <span class="s">&quot;ReferenceTaxons/242159_taxon&quot;</span>
+<span class="n">taxon_old</span> <span class="o">=</span> <span class="s">&quot;OriginalReferenceGenomes/kb|g.166819&quot;</span>
+<span class="n">t_new</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_new_e</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_old</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_old_e</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="n">shared</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+    <span class="k">global</span> <span class="n">t_new</span><span class="p">,</span> <span class="n">t_new_e</span><span class="p">,</span> <span class="n">t_old</span><span class="p">,</span> <span class="n">t_old_e</span>
+    <span class="n">t_new</span> <span class="o">=</span> <span class="n">TaxonAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">taxon_new</span><span class="p">)</span>
+    <span class="n">t_new_e</span> <span class="o">=</span> <span class="n">_Prototype</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">taxon_new</span><span class="p">)</span>
+    <span class="n">t_old</span> <span class="o">=</span> <span class="n">TaxonAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">taxon_old</span><span class="p">)</span>
+    <span class="n">t_old_e</span> <span class="o">=</span> <span class="n">_KBaseGenomes_Genome</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">taxon_old</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_bogus_type"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_bogus_type">[docs]</a><span class="k">def</span> <span class="nf">test_bogus_type</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Bogus&quot;</span><span class="p">,</span>
+              <span class="s">&quot;PrototypeReferenceGenomes/kb|g.166819&quot;</span><span class="p">,</span>
+              <span class="s">&quot;PrototypeReferenceGenomes/kb|g.166819_assembly&quot;</span><span class="p">,</span>
+              <span class="s">&quot;OriginalReferenceGenomes/kb|g.166819.contigset&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputs</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">TaxonAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span>
+
+
+<span class="c">####### New Taxon Type tests</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_parent_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_parent_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_parent_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_parent</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parent</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">TaxonAPI</span><span class="p">)</span>
+    <span class="n">parent_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_parent</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent_e</span><span class="p">,</span> <span class="n">TaxonAPI</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">parent</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span> <span class="o">==</span> <span class="n">parent_e</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_children_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_children_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_children_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_children</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">children</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="c">#and len(children) &gt; 0</span>
+    <span class="n">children_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_children</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">children</span> <span class="o">==</span> <span class="n">children_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_genome_annotations_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_genome_annotations_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_genome_annotations_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">annotations</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">annotations</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="c">#and len(annotations) &gt; 0</span>
+    <span class="n">annotations_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">annotations</span> <span class="o">==</span> <span class="n">annotations_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_scientific_lineage_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_scientific_lineage_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_scientific_lineage_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">scientific_lineage</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scientific_lineage</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_lineage</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_lineage</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">scientific_lineage_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_lineage_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_lineage_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">scientific_lineage</span> <span class="o">==</span> <span class="n">scientific_lineage_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_scientific_name_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_scientific_name_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_scientific_name_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">scientific_name</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scientific_name</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_name</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">scientific_name_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_name_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_name_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">scientific_name</span> <span class="o">==</span> <span class="n">scientific_name_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_taxonomic_id_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_taxonomic_id_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_taxonomic_id_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">taxonomic_id</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxonomic_id</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxonomic_id</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">taxonomic_id</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">taxonomic_id_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxonomic_id_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">taxonomic_id_e</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">taxonomic_id</span> <span class="o">==</span> <span class="n">taxonomic_id_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_kingdom_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_kingdom_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_kingdom_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">kingdom</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_kingdom</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kingdom</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">kingdom</span> <span class="o">==</span> <span class="s">&quot;Viridiplantae&quot;</span>
+    <span class="n">kingdom_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_kingdom</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">kingdom_e</span> <span class="o">==</span> <span class="s">&quot;Viridiplantae&quot;</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_domain_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_domain_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_domain_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_domain</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">domain</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">domain_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_domain</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">domain_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">domain</span> <span class="o">==</span> <span class="n">domain_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_aliases_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_aliases_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_aliases_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">aliases</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_aliases</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aliases</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aliases</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">aliases</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">aliases_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_aliases</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aliases_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">aliases_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">aliases</span> <span class="o">==</span> <span class="n">aliases_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_genetic_code_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_genetic_code_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_genetic_code_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_new</span><span class="p">))</span>
+    <span class="n">genetic_code</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_genetic_code</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genetic_code</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genetic_code</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">genetic_code</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">genetic_code_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_genetic_code</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genetic_code_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">genetic_code_e</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">genetic_code</span> <span class="o">==</span> <span class="n">genetic_code_e</span>
+
+
+<span class="c">####### Old Taxon Type tests</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_parent_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_parent_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_parent_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_parent</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parent</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">parent</span> <span class="ow">is</span> <span class="bp">None</span>
+    <span class="n">parent_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_parent</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">parent_e</span> <span class="ow">is</span> <span class="bp">None</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_children_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_children_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_children_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_children</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">children</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="n">children_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_children</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">children_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">children_e</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">children</span> <span class="o">==</span> <span class="n">children_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_genome_annotations_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_genome_annotations_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_genome_annotations_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">annotations</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">annotations</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="n">annotations_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">annotations_e</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">annotations</span> <span class="o">==</span> <span class="n">annotations_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_scientific_lineage_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_scientific_lineage_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_scientific_lineage_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">scientific_lineage</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scientific_lineage</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_lineage</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_lineage</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">scientific_lineage_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_lineage_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_lineage_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">scientific_lineage</span> <span class="o">==</span> <span class="n">scientific_lineage_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_scientific_name_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_scientific_name_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_scientific_name_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">scientific_name</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scientific_name</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_name</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">scientific_name_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scientific_name_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scientific_name_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">scientific_name</span> <span class="o">==</span> <span class="n">scientific_name_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_taxonomic_id_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_taxonomic_id_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_taxonomic_id_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">taxonomic_id</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxonomic_id</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxonomic_id</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">taxonomic_id</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">taxonomic_id_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxonomic_id_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">taxonomic_id_e</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">taxonomic_id</span> <span class="o">==</span> <span class="n">taxonomic_id_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_kingdom_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_kingdom_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_kingdom_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">kingdom</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_kingdom</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kingdom</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">kingdom</span> <span class="ow">is</span> <span class="bp">None</span>
+    <span class="n">kingdom_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_kingdom</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">kingdom_e</span> <span class="ow">is</span> <span class="bp">None</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_domain_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_domain_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_domain_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_domain</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">domain</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">domain_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_domain</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">domain_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">domain</span> <span class="o">==</span> <span class="n">domain_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_aliases_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_aliases_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_aliases_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">aliases</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_aliases</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aliases</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aliases</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">aliases</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="n">aliases_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_aliases</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aliases_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">aliases_e</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">aliases</span> <span class="o">==</span> <span class="n">aliases_e</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_genetic_code_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_taxon_api.test_get_genetic_code_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_genetic_code_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon_old</span><span class="p">))</span>
+    <span class="n">genetic_code</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_genetic_code</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genetic_code</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genetic_code</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">genetic_code</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">genetic_code_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_genetic_code</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genetic_code_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">genetic_code_e</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../../index.html">
+    <img class="logo" src="../../../../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../_source/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../data_api.html">doekbase.data_api</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x107a1bf90>
+
+  </body>
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.tests.test_genome_annotation_api &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x106b6ad90>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for doekbase.data_api.tests.test_genome_annotation_api</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Unit tests for genome_annotation</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">skipUnless</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">shared</span>
+
+<span class="kn">from</span> <span class="nn">doekbase.data_api.annotation.genome_annotation</span> <span class="kn">import</span> <span class="n">GenomeAnnotationAPI</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly</span> <span class="kn">import</span> <span class="n">AssemblyAPI</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.api</span> <span class="kn">import</span> <span class="n">TaxonAPI</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="n">genome_new</span> <span class="o">=</span> <span class="s">&quot;PrototypeReferenceGenomes/kb|g.166819&quot;</span>
+<span class="n">genome_old</span> <span class="o">=</span> <span class="s">&quot;OriginalReferenceGenomes/kb|g.166819&quot;</span>
+<span class="n">t_new</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_old</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="n">shared</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+    <span class="k">global</span> <span class="n">t_new</span><span class="p">,</span> <span class="n">t_old</span>
+    <span class="n">t_new</span> <span class="o">=</span> <span class="n">GenomeAnnotationAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">genome_new</span><span class="p">)</span>
+    <span class="n">t_old</span> <span class="o">=</span> <span class="n">GenomeAnnotationAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">genome_old</span><span class="p">)</span>
+
+
+<span class="c">######## New Genome type tests</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_taxon_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_taxon_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_taxon_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">taxon</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxon</span><span class="p">,</span> <span class="n">TaxonAPI</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_assembly_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_assembly_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_assembly_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">assembly</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_assembly</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly</span><span class="p">,</span> <span class="n">AssemblyAPI</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_types_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_types_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_types_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_types</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_types</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_types</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_types</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_type_descriptions_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_descriptions_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_type_descriptions_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_type_descriptions</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_type_descriptions</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_type_descriptions</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_type_descriptions</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_ids_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_ids_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_ids_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_ids</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_ids</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">feature_ids</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_ids</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_type_counts_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_counts_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_type_counts_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_type_counts</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_type_counts</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_type_counts</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_type_counts</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_locations_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_locations_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_locations_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_locations</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_locations</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_locations</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_locations</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_dna_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_dna_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_dna_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_dna</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_dna</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_dna</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_dna</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_functions_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_functions_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_functions_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_functions</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_functions</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_functions</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_functions</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_aliases_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_aliases_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_aliases_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_aliases</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_aliases</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_aliases</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_aliases</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_publications_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_publications_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_publications_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">feature_publications</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_feature_publications</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_publications</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_publications</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_features_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_features_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_features_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_features</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_proteins_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_proteins_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_proteins_new</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">))</span>
+    <span class="n">proteins</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">proteins</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">proteins</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_mrna_valid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_valid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_mrna_valid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.mRNA.238&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_cds_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_mrna_invalid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_invalid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_mrna_invalid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.99999999999&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.1&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_cds_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_cds_valid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_valid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_cds_valid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.CDS.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.278&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_mrna_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_cds_invalid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_invalid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_cds_invalid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.9999999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_mrna_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_mrna_valid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_valid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_mrna_valid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.mRNA.238&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_gene_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_mrna_invalid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_invalid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_mrna_invalid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.99999999999&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.1&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_gene_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_gene_valid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_valid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_gene_valid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.locus.256&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.112&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_cds_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_gene_invalid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_invalid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_gene_invalid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_cds_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_gene_valid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_valid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_gene_valid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.locus.256&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.112&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_mrna_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_gene_invalid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_invalid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_gene_invalid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_mrna_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_cds_valid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_valid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_cds_valid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.CDS.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.278&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_gene_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_cds_invalid_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_invalid_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_cds_invalid_new</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_gene_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+
+<span class="c">######## Old Genome Annotation Type tests</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_taxon_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_taxon_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_taxon_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">taxon</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taxon</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxon</span><span class="p">,</span> <span class="n">TaxonAPI</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_assembly_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_assembly_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_assembly_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">assembly</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_assembly</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly</span><span class="p">,</span> <span class="n">AssemblyAPI</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_types_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_types_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_types_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_types</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_types</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_types</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_types</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_type_descriptions_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_descriptions_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_type_descriptions_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_type_descriptions</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_type_descriptions</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_type_descriptions</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_type_descriptions</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_ids_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_ids_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_ids_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_ids</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_ids</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">feature_ids</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_ids</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_type_counts_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_type_counts_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_type_counts_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_type_counts</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_type_counts</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_type_counts</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_type_counts</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_locations_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_locations_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_locations_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_locations</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_locations</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_locations</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_locations</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_dna_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_dna_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_dna_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_dna</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_dna</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_dna</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_dna</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_functions_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_functions_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_functions_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_functions</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_functions</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_functions</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_functions</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_aliases_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_aliases_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_aliases_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_aliases</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_aliases</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_aliases</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_aliases</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_feature_publications_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_feature_publications_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_feature_publications_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">feature_publications</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_feature_publications</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_publications</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature_publications</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_features_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_features_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_features_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_features</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_proteins_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_proteins_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_proteins_old</span><span class="p">():</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">))</span>
+    <span class="n">proteins</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">proteins</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">proteins</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_mrna_valid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_valid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_mrna_valid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.mRNA.238&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_cds_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_mrna_invalid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_mrna_invalid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_mrna_invalid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.99999999999&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.1&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_cds_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_cds_valid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_valid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_cds_valid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.CDS.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.278&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_mrna_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_cds_invalid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_cds_invalid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_cds_invalid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.9999999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_mrna_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_mrna_valid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_valid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_mrna_valid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.mRNA.238&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_gene_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_mrna_invalid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_mrna_invalid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_mrna_invalid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.99999999999&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.1&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_gene_by_mrna</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_gene_valid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_valid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_gene_valid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.locus.256&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.112&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_cds_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_cds_by_gene_invalid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_cds_by_gene_invalid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_cds_by_gene_invalid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_cds_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_gene_valid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_valid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_gene_valid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.locus.256&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.112&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_mrna_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_mrna_by_gene_invalid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_mrna_by_gene_invalid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_mrna_by_gene_invalid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.locus.999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_mrna_by_gene</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_cds_valid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_valid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_cds_valid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.CDS.0&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.278&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_gene_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+</div>
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_get_gene_by_cds_invalid_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_genome_annotation_api.test_get_gene_by_cds_invalid_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_gene_by_cds_invalid_old</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kb|g.166819.mRNA.1&quot;</span><span class="p">,</span> <span class="s">&quot;kb|g.166819.CDS.999999&quot;</span><span class="p">]</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">genome_old</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
+    <span class="n">subset_features</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_gene_by_cds</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_features</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_features</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../../index.html">
+    <img class="logo" src="../../../../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../_source/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../data_api.html">doekbase.data_api</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x106b6ad90>
+
+  </body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.tests.shared &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x1073b0050>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for doekbase.data_api.tests.shared</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Shared by test code</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;8/11/15&#39;</span>
+
+<span class="c"># Stdlib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c"># Local</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.core</span> <span class="kn">import</span> <span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">g_ws_url</span><span class="p">,</span> <span class="n">g_shock_url</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">get_logger</span>
+
+<span class="n">genome</span> <span class="o">=</span> <span class="s">&quot;PrototypeReferenceGenomes/kb|g.166819&quot;</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;KB_AUTH_TOKEN&quot;</span><span class="p">]</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="c"># Logging</span>
+<span class="n">_log</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">services</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="c"># Functions and classes</span>
+<div class="viewcode-block" id="get_services"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.shared.get_services">[docs]</a><span class="k">def</span> <span class="nf">get_services</span><span class="p">():</span>
+    <span class="n">svc</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;workspace_service_url&quot;</span><span class="p">:</span> <span class="n">g_ws_url</span><span class="p">,</span>
+            <span class="s">&quot;shock_service_url&quot;</span><span class="p">:</span> <span class="n">g_shock_url</span><span class="p">}</span>
+    <span class="c">#print(&quot;@@ service URLs = {}&quot;.format(svc))</span>
+    <span class="k">return</span> <span class="n">svc</span>
+</div>
+<div class="viewcode-block" id="can_connect"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.shared.can_connect">[docs]</a><span class="k">def</span> <span class="nf">can_connect</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="n">genome</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;See if we can get a connection to the workspace and access the</span>
+<span class="sd">    given reference.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      ref (str): Workspace object reference</span>
+<span class="sd">    Returns:</span>
+<span class="sd">      (bool) if it can be accessed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="n">services</span><span class="o">=</span><span class="n">get_services</span><span class="p">(),</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&#39;Connect and fetch object failed: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="determine_can_connect"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.shared.determine_can_connect">[docs]</a><span class="k">def</span> <span class="nf">determine_can_connect</span><span class="p">(</span><span class="n">workspaces</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Replace value with connection status.</span>
+<span class="sd">       Now we can simply refer to the dict entry in future tests. Also add</span>
+<span class="sd">       a special &#39;all&#39; to handle all features in a given workspace.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      workspaces (dict): 2-level dict of {&#39;name&#39;: {&#39;name2&#39;: &#39;full-ws-id&#39;, .. }}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">workspaces</span><span class="p">:</span>
+        <span class="n">all_objects</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">workspaces</span><span class="p">[</span><span class="n">num</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">workspaces</span><span class="p">[</span><span class="n">num</span><span class="p">][</span><span class="n">ref</span><span class="p">],</span> <span class="nb">bool</span><span class="p">):</span>
+                <span class="k">continue</span> <span class="c"># skip, already determined</span>
+            <span class="n">ok</span> <span class="o">=</span> <span class="n">can_connect</span><span class="p">(</span><span class="n">workspaces</span><span class="p">[</span><span class="n">num</span><span class="p">][</span><span class="n">ref</span><span class="p">])</span>
+            <span class="n">workspaces</span><span class="p">[</span><span class="n">num</span><span class="p">][</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="n">ok</span>
+            <span class="n">all_objects</span> <span class="o">=</span> <span class="n">all_objects</span> <span class="ow">and</span> <span class="n">ref</span>
+        <span class="n">workspaces</span><span class="p">[</span><span class="n">num</span><span class="p">][</span><span class="s">&#39;all&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_objects</span>
+    <span class="k">return</span> <span class="n">workspaces</span>
+
+<span class="c"># Print this when we skip a function due to inability to fetch</span>
+<span class="c"># required objects</span></div>
+<span class="n">connect_fail</span> <span class="o">=</span> <span class="s">&#39;Cannot fetch all required objects from workspace&#39;</span>
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.shared.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">_log</span><span class="p">,</span> <span class="n">services</span>
+    <span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="s">&#39;doekbase.data_api.tests.shared&#39;</span><span class="p">)</span>
+    <span class="n">services</span> <span class="o">=</span> <span class="n">get_services</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="teardown"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.shared.teardown">[docs]</a><span class="k">def</span> <span class="nf">teardown</span><span class="p">():</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../../index.html">
+    <img class="logo" src="../../../../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../_source/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../data_api.html">doekbase.data_api</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x106a19d50>
+
+  </body>
+</html>

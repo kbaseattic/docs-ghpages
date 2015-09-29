@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.util &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x106ad6750>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for doekbase.data_api.util</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utility functions.</span>
+
+<span class="sd">Includes:</span>
+<span class="sd">    - Logging decorators</span>
+<span class="sd">    - Logging functions log_start() and log_end()</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;8/4/15&#39;</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">logging.config</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">ENTRY_MESSAGE</span> <span class="o">=</span> <span class="s">&#39;{timestamp} {func_name}.begin {kvp}&#39;</span>
+<span class="n">EXIT_MESSAGE</span> <span class="o">=</span> <span class="s">&#39;{timestamp} {func_name}.end {dur} {kvp}&#39;</span>
+<span class="n">EVENT_MESSAGE</span> <span class="o">=</span> <span class="s">&#39;{timestamp} {func_name} {kvp}&#39;</span>
+
+<span class="n">DEFAULT_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+<span class="n">DEFAULT_LEVEL_NAME</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLevelName</span><span class="p">(</span><span class="n">DEFAULT_LEVEL</span><span class="p">)</span>
+<span class="n">DEFAULT_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">&#39;formatters&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;basic&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;format&#39;</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%(levelname)s</span><span class="s"> </span><span class="si">%(message)s</span><span class="s">&#39;</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;console&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;logging.StreamHandler&#39;</span><span class="p">,</span>
+            <span class="s">&#39;formatter&#39;</span><span class="p">:</span> <span class="s">&#39;basic&#39;</span><span class="p">,</span>
+            <span class="s">&#39;stream&#39;</span><span class="p">:</span> <span class="s">&#39;ext://sys.stderr&#39;</span><span class="p">,</span>
+            <span class="s">&#39;level&#39;</span><span class="p">:</span> <span class="n">DEFAULT_LEVEL_NAME</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;console&#39;</span><span class="p">],</span>
+        <span class="s">&#39;level&#39;</span><span class="p">:</span> <span class="n">DEFAULT_LEVEL_NAME</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">_configuration</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="get_logger"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.get_logger">[docs]</a><span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">DEFAULT_CONFIG</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Called by other modules to get a logger,</span>
+<span class="sd">    and set or change the configuration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_configuration</span>
+
+    <span class="c"># Perform configuration/reconfiguration if necessary.</span>
+    <span class="c"># Usually none of this is done.</span>
+    <span class="k">if</span> <span class="n">_configuration</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>  <span class="c"># need something!</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">_configuration</span> <span class="o">=</span> <span class="n">config</span>  <span class="c"># first time</span>
+    <span class="k">elif</span> <span class="n">config</span> <span class="ow">is</span> <span class="n">DEFAULT_CONFIG</span> <span class="ow">and</span> <span class="n">_configuration</span> <span class="ow">is</span> <span class="n">DEFAULT_CONFIG</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c"># quickly check the common case</span>
+    <span class="k">elif</span> <span class="n">config</span> <span class="o">!=</span> <span class="n">_configuration</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dictConfig</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>  <span class="c"># reconfigure</span>
+        <span class="n">_configuration</span> <span class="o">=</span> <span class="n">config</span>
+
+    <span class="c"># Get the logger, given the current configuration.</span>
+    <span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">dt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="n">t</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Timer.pop"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.Timer.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timings</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</div></div>
+<div class="viewcode-block" id="logged"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.logged">[docs]</a><span class="k">def</span> <span class="nf">logged</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">log_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrap a method/function in a log start/end message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">real_decorator</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">logger_name</span><span class="o">=</span><span class="n">logger</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+        <span class="c"># choose name for logged event</span>
+        <span class="n">func_name</span> <span class="o">=</span> <span class="n">log_name</span> <span class="ow">or</span> <span class="n">method</span><span class="o">.</span><span class="n">__name__</span>
+        <span class="n">full_name</span> <span class="o">=</span> <span class="n">logger_name</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">func_name</span>
+        <span class="c"># format any key/value pairs</span>
+        <span class="n">kvp_str</span> <span class="o">=</span> <span class="n">format_kvp</span><span class="p">(</span><span class="n">kw</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">kw</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+
+        <span class="c"># create wrapper</span>
+        <span class="k">def</span> <span class="nf">method_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">log_start</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">full_name</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">log_level</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="n">kvp_str</span><span class="p">)</span>
+            <span class="n">returnval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+            <span class="n">log_end</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">full_name</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">log_level</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="n">kvp_str</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">returnval</span>
+        <span class="c"># return wrapper</span>
+        <span class="k">return</span> <span class="n">method_wrapper</span>
+
+    <span class="k">return</span> <span class="n">real_decorator</span>
+</div>
+<div class="viewcode-block" id="log_start"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.log_start">[docs]</a><span class="k">def</span> <span class="nf">log_start</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">kvp_str</span> <span class="o">=</span> <span class="n">format_kvp</span><span class="p">(</span><span class="n">kvp</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">kvp</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">format_timestamp</span><span class="p">(</span><span class="n">t0</span><span class="p">),</span>
+             <span class="n">func_name</span><span class="o">=</span><span class="n">func_name</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="n">kvp_str</span><span class="p">)</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="n">fmt</span> <span class="ow">or</span> <span class="n">ENTRY_MESSAGE</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">DEFAULT_LEVEL</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t0</span>
+</div>
+<div class="viewcode-block" id="log_event"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.log_event">[docs]</a><span class="k">def</span> <span class="nf">log_event</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">kvp_str</span> <span class="o">=</span> <span class="n">format_kvp</span><span class="p">(</span><span class="n">kvp</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">kvp</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">format_timestamp</span><span class="p">(</span><span class="n">t0</span><span class="p">),</span>
+             <span class="n">func_name</span><span class="o">=</span><span class="n">func_name</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="n">kvp_str</span><span class="p">)</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="n">fmt</span> <span class="ow">or</span> <span class="n">EVENT_MESSAGE</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">DEFAULT_LEVEL</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t0</span>
+</div>
+<div class="viewcode-block" id="log_end"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.log_end">[docs]</a><span class="k">def</span> <span class="nf">log_end</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">kvp_str</span> <span class="o">=</span> <span class="n">format_kvp</span><span class="p">(</span><span class="n">kvp</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">kvp</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">format_timestamp</span><span class="p">(</span><span class="n">t1</span><span class="p">),</span>
+             <span class="n">func_name</span><span class="o">=</span><span class="n">func_name</span><span class="p">,</span>
+             <span class="n">kvp</span><span class="o">=</span><span class="n">kvp_str</span><span class="p">,</span>
+             <span class="n">dur</span><span class="o">=</span><span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">),</span>
+             <span class="n">status</span><span class="o">=</span><span class="n">status_code</span><span class="p">)</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="n">fmt</span> <span class="ow">or</span> <span class="n">EXIT_MESSAGE</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">DEFAULT_LEVEL</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="format_kvp"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.format_kvp">[docs]</a><span class="k">def</span> <span class="nf">format_kvp</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">sep</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Format key-value pairs as a string.&quot;&quot;&quot;</span>
+    <span class="n">pairs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\\</span><span class="s">,&#39;</span><span class="p">)</span>
+        <span class="n">pairs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;{}={}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">s</span>
+
+<span class="c"># Format a timestamp as an ISO8601 string.</span></div>
+<span class="n">format_timestamp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+<div class="viewcode-block" id="get_auth_token"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.util.get_auth_token">[docs]</a><span class="k">def</span> <span class="nf">get_auth_token</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;KB_AUTH_TOKEN&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="s">&quot;Missing authentication token! &quot;</span>
+            <span class="s">&quot;Set KB_AUTH_TOKEN environment variable.&quot;</span><span class="p">)</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../index.html">
+    <img class="logo" src="../../../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_source/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../data_api.html">doekbase.data_api</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10816e4d0>
+
+  </body>
+</html>

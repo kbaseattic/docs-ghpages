@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.display &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x10739d710>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for doekbase.data_api.display</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Objects for displaying the results in the IPython notebook.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;8/1/15&#39;</span>
+
+<span class="c"># Stdlib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c"># Third-party</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="c"># Qgrid table display</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">qgrid</span>
+    <span class="n">qgrid</span><span class="o">.</span><span class="n">nbinstall</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">qgrid</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="c"># Seaborn graphing</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">sns</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="c"># Local</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">get_logger</span><span class="p">,</span> <span class="n">log_start</span><span class="p">,</span> <span class="n">log_end</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="s">&#39;doekbase.data_api.display&#39;</span><span class="p">)</span>
+
+<span class="n">_nbviewer</span> <span class="o">=</span> <span class="bp">False</span>
+<div class="viewcode-block" id="nbviewer_mode"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.nbviewer_mode">[docs]</a><span class="k">def</span> <span class="nf">nbviewer_mode</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get/set the global nbviewer-friendly mode.</span>
+<span class="sd">    This is currently used to tell qgrid where to get</span>
+<span class="sd">    its JavaScript from (local or a CDN).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_nbviewer</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">_nbviewer</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_nbviewer</span>
+</div>
+<div class="viewcode-block" id="Table"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.Table">[docs]</a><span class="k">class</span> <span class="nc">Table</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a Table from the input data.</span>
+<span class="sd">    This is a thin wrapper around the Pandas DataFrame object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_ipython_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">qgrid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">qgrid</span><span class="o">.</span><span class="n">show_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remote_js</span><span class="o">=</span><span class="n">nbviewer_mode</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Contigs"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.Contigs">[docs]</a><span class="k">class</span> <span class="nc">Contigs</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contigs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create contigset from list of strings.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          contigs: List of strings for contigs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;ids&#39;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">})</span>
+</div>
+<div class="viewcode-block" id="TemplateMixin"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.TemplateMixin">[docs]</a><span class="k">class</span> <span class="nc">TemplateMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TemplateMixin.render"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.TemplateMixin.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="Classification"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.Classification">[docs]</a><span class="k">class</span> <span class="nc">Classification</span><span class="p">(</span><span class="n">TemplateMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Taxonomic classification.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">      taxon (TaxonAPI): base taxon</span>
+<span class="sd">      name (str): Scientific name</span>
+<span class="sd">      children (list of TaxonAPI): List of TaxonAPI objects</span>
+<span class="sd">      parents (list of Taxon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;{</span><span class="si">% f</span><span class="s">or name in classification %}</span>
+<span class="s">    &lt;span style=&quot;margin-left: {{ loop.index0 * 10 }}px&quot;&gt;</span>
+<span class="s">    &lt;span style=&quot;font-size: 50%&quot;&gt;&amp;gt;&lt;/span&gt;&amp;nbsp;{{ name }}</span>
+<span class="s">    &lt;/span&gt;&lt;br&gt;{</span><span class="si">% e</span><span class="s">ndfor %}&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a taxon.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          obj: TaxonAPI object or object with `get_taxon`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TemplateMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;get_taxon&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classification</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
+        <span class="c"># self.children = self.taxon.get_children() or []</span>
+        <span class="c"># tx, self.parents = self.taxon, []</span>
+        <span class="c"># while tx:</span>
+        <span class="c">#     tx = tx.get_parent()</span>
+        <span class="c">#     if tx:</span>
+        <span class="c">#         self.parents.insert(tx.get_scientific_name(), 0)</span>
+        <span class="c"># self.classification = self.parents + [self.name] + [</span>
+        <span class="c">#     child.get_scientific_name() for child in self.children]</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">classification</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">classification</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Organism"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.Organism">[docs]</a><span class="k">class</span> <span class="nc">Organism</span><span class="p">(</span><span class="n">TemplateMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Summary of an organism as per ENSEMBL page, from</span>
+<span class="sd">    a TaxonAPI.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">      taxon (TaxonAPI): Taxon with info for organism</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;&lt;b&gt;Taxonomy ID&lt;/b&gt;: {{taxon.get_taxonomic_id()}}&lt;br&gt;</span>
+<span class="s">        &lt;b&gt;Name&lt;/b&gt;: {{taxon.get_scientific_name()}}&lt;br&gt;</span>
+<span class="s">        &lt;b&gt;Aliases&lt;/b&gt;:&lt;br&gt;</span>
+<span class="s">        {</span><span class="si">% f</span><span class="s">or a in taxon.get_aliases() %}</span>
+<span class="s">        &amp;nbsp;&amp;nbsp;{{ a }}&lt;br&gt;</span>
+<span class="s">        {</span><span class="si">% e</span><span class="s">ndfor %}</span>
+<span class="s">        &lt;b&gt;Classification&lt;/b&gt;:&lt;br&gt;&#39;&#39;&#39;</span> <span class="o">+</span> \
+        <span class="n">Classification</span><span class="o">.</span><span class="n">template</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from an API object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          obj: TaxonAPI object or object with `get_taxon`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TemplateMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;get_taxon&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxon</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="n">classf</span> <span class="o">=</span> <span class="n">Classification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="p">)</span><span class="o">.</span><span class="n">classification</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">classification</span><span class="o">=</span><span class="n">classf</span><span class="p">,</span> <span class="n">taxon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="AssemblyInfo"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.AssemblyInfo">[docs]</a><span class="k">class</span> <span class="nc">AssemblyInfo</span><span class="p">(</span><span class="n">TemplateMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get information about assembly.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">      stats (dict): Statistics from `AssemblyAPI.get_stats()`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;&lt;b&gt;GC content&lt;/b&gt;: {{gc_content}}&lt;br&gt;</span>
+<span class="s">    &lt;b&gt;Total DNA sequence length&lt;/b&gt;:{{dna_size}}&lt;br&gt;</span>
+<span class="s">    &lt;b&gt;Number of contigs&lt;/b&gt;:{{num_contigs}}&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create assembly info.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          obj: AssemblyAPI or object with `get_assembly` method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TemplateMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;get_assembly&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_assembly</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="FeatureStats"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.FeatureStats">[docs]</a><span class="k">class</span> <span class="nc">FeatureStats</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Feature information for genomes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a genome.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ga: GenomeAnnotation object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_feature_types</span><span class="p">():</span> <span class="c"># all feature types</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c"># get lists of positions for each feature_id</span>
+            <span class="n">feature_id_lists</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_feature_ids_by_type</span><span class="p">([</span><span class="n">feature</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">fi</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">feature_id_lists</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">feature</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;feature_type&#39;</span><span class="p">,</span> <span class="s">&#39;count&#39;</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="FeaturePositions"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.FeaturePositions">[docs]</a><span class="k">class</span> <span class="nc">FeaturePositions</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The position (and ID and type) of features in the genome.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a genome.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ga: GenomeAnnotation object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_features</span><span class="p">(</span><span class="n">ga</span><span class="p">)</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="s">&#39;len&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">):</span>
+        <span class="s">&quot;This should probably move into genome_annotation module&quot;</span>
+        <span class="kn">from</span> <span class="nn">doekbase.data_api.object</span> <span class="kn">import</span> <span class="n">ObjectAPI</span>
+        <span class="n">fcr</span> <span class="o">=</span> <span class="s">&#39;feature_container_references&#39;</span>
+        <span class="n">refs</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="n">fcr</span><span class="p">])[</span><span class="n">fcr</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">refs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="n">ga</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="c"># fetch data</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&#39;features&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">feat_id</span> <span class="ow">in</span> <span class="n">features</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  <span class="c"># iterate features</span>
+                <span class="n">ftype</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">feat_id</span><span class="p">][</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">features</span><span class="p">[</span><span class="n">feat_id</span><span class="p">][</span><span class="s">&#39;locations&#39;</span><span class="p">]:</span>
+                    <span class="c"># biuld an output row and add to result</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">(</span><span class="n">ftype</span><span class="p">,</span> <span class="n">feat_id</span><span class="p">,</span> <span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">loc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+<div class="viewcode-block" id="FeaturePositions.stripplot"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.FeaturePositions.stripplot">[docs]</a>    <span class="k">def</span> <span class="nf">stripplot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make a &#39;stripplot&#39; of all feature positions.</span>
+
+<span class="sd">        Requires the &#39;seaborn&#39; library</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sns</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&#39;Requires the &quot;seaborn&quot; library. See: &#39;</span>
+                             <span class="s">&#39;https://github.com/mwaskom/seaborn&#39;</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c"># get rid of spurious negative tick</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">ax</span>
+
+</div></div>
+<div class="viewcode-block" id="ProteinStats"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.ProteinStats">[docs]</a><span class="k">class</span> <span class="nc">ProteinStats</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Various statistics for proteins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">STATS_LENGTH</span> <span class="o">=</span> <span class="s">&#39;length&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="n">STATS_LENGTH</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Create from a genome.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ga: GenomeAnnotation object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">proteins</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">STATS_LENGTH</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">STATS_LENGTH</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s">&#39;amino_acid_sequence&#39;</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">proteins</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">Table</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ProteinStats.plot_protein_lengths"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.ProteinStats.plot_protein_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">plot_protein_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">STATS_LENGTH</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s">&#39;hist&#39;</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="GenomeSummary"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.GenomeSummary">[docs]</a><span class="k">class</span> <span class="nc">GenomeSummary</span><span class="p">(</span><span class="n">TemplateMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Summary of a GenomeAnnotation.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">       taxon (dict): Information about the taxonomic type</span>
+<span class="sd">       assembly (dict): Infomration about the contigs in the assembly</span>
+<span class="sd">       annotation (dict): Information about the assembly</span>
+<span class="sd">       data (dict): All the information as a single dict with the attributes</span>
+<span class="sd">                    listed above as top-level keys.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&#39;&lt;h3&gt;Genome Summary&lt;/h3&gt;&#39;</span><span class="o">+</span> <span class="n">Organism</span><span class="o">.</span><span class="n">template</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ga</span><span class="p">,</span> <span class="n">taxons</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">assembly</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">annotation</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create new summary from GenomeAnnotation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ga (GenomeAnnotation): input object</span>
+<span class="sd">          taxons: If False, do not retrieve taxons</span>
+<span class="sd">          assembly: If False, do not retrieve assembly</span>
+<span class="sd">          annotation: If False, do not retrieve annotation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ga</span><span class="p">,</span> <span class="s">&#39;get_taxon&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ga</span><span class="p">,</span> <span class="s">&#39;get_assembly&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;{} is not a recognized GenomeAnnotation type.&#39;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ga</span><span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;taxon&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s">&#39;assembly&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s">&#39;annotation&#39;</span><span class="p">:</span> <span class="p">{}}</span>
+        <span class="k">if</span> <span class="n">taxons</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;taxon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_taxon</span><span class="p">(</span><span class="n">ga</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">assembly</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;assembly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_assembly</span><span class="p">(</span><span class="n">ga</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">annotation</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;annotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_annotation</span><span class="p">(</span><span class="n">ga</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ga</span> <span class="o">=</span> <span class="n">ga</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_attrs</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_set_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set attributes for top-level keys&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="n">TemplateMixin</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_taxon</span><span class="p">(</span><span class="n">ga</span><span class="p">):</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">log_start</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="s">&#39;get_taxon&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">taxon</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&#39;Cannot get taxon: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="n">txn</span> <span class="o">=</span> <span class="p">{</span> <span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">taxon</span><span class="p">,</span> <span class="s">&#39;get_&#39;</span> <span class="o">+</span> <span class="n">k</span><span class="p">)()</span>
+                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;taxonomic_id&#39;</span><span class="p">,</span> <span class="s">&#39;kingdom&#39;</span><span class="p">,</span> <span class="s">&#39;domain&#39;</span><span class="p">,</span>
+                           <span class="s">&#39;genetic_code&#39;</span><span class="p">,</span> <span class="s">&#39;scientific_name&#39;</span><span class="p">,</span> <span class="s">&#39;aliases&#39;</span><span class="p">,</span>
+                           <span class="s">&#39;scientific_lineage&#39;</span><span class="p">)}</span>
+        <span class="n">txn</span><span class="p">[</span><span class="s">&#39;lineage_list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">txn</span><span class="p">[</span><span class="s">&#39;scientific_lineage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">)</span>
+        <span class="n">log_end</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s">&#39;get_taxon&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">txn</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_assembly</span><span class="p">(</span><span class="n">ga</span><span class="p">):</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">log_start</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="s">&#39;get_assembly&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">assembly</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_assembly</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&#39;Cannot get assembly: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="n">asy</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k1</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">assembly</span><span class="p">,</span> <span class="s">&#39;get_&#39;</span> <span class="o">+</span> <span class="n">k2</span><span class="p">)()</span>
+            <span class="k">for</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span> <span class="ow">in</span> <span class="p">(</span>
+                <span class="p">(</span><span class="s">&#39;number_of_contigs&#39;</span><span class="p">,</span> <span class="s">&#39;number_contigs&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;total_length&#39;</span><span class="p">,</span> <span class="s">&#39;dna_size&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;total_gc_content&#39;</span><span class="p">,</span> <span class="s">&#39;gc_content&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;contig_length&#39;</span><span class="p">,</span> <span class="s">&#39;contig_lengths&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;contig_gc_content&#39;</span><span class="p">,</span> <span class="s">&#39;contig_gc_content&#39;</span><span class="p">)</span>
+            <span class="p">)}</span>
+        <span class="n">log_end</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s">&#39;get_assembly&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">asy</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_annotation</span><span class="p">(</span><span class="n">ga</span><span class="p">):</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">log_start</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="s">&#39;get_annotation&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">feature_types</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">get_feature_types</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&#39;Cannot get feature_types: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="n">ann</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;feature_&#39;</span> <span class="o">+</span> <span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ga</span><span class="p">,</span> <span class="s">&#39;get_feature_&#39;</span> <span class="o">+</span> <span class="n">k</span><span class="p">)(</span><span class="n">feature_types</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;type_descriptions&#39;</span><span class="p">,</span> <span class="s">&#39;type_counts&#39;</span><span class="p">)}</span>
+        <span class="n">ann</span><span class="p">[</span><span class="s">&#39;feature_types&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature_types</span>
+        <span class="n">log_end</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s">&#39;get_annotation&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ann</span>
+
+<div class="viewcode-block" id="GenomeSummary.summary_plots"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.display.GenomeSummary.summary_plots">[docs]</a>    <span class="k">def</span> <span class="nf">summary_plots</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Show some plots summarizing the information in the Genome.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># First plot: feature types and counts</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_feature_counts</span><span class="p">()</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c"># Second plot</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_contig_lengths</span><span class="p">()</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c"># Third plot</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plot_contig_gc</span><span class="p">()</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</div>
+    <span class="k">def</span> <span class="nf">_plot_feature_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">&#39;Feature Type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="p">[</span><span class="s">&#39;feature_types&#39;</span><span class="p">],</span>
+                          <span class="s">&#39;Count&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotation</span><span class="p">[</span><span class="s">&#39;feature_type_counts&#39;</span><span class="p">]})</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&#39;Count&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;Feature Type&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Feature type counts from {} to{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s">&#39;Count&#39;</span><span class="p">]),</span>
+                                                               <span class="nb">max</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s">&#39;Count&#39;</span><span class="p">])))</span>
+
+    <span class="k">def</span> <span class="nf">_plot_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">assembly</span><span class="p">[</span><span class="s">&#39;contig_length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+                         <span class="n">name</span><span class="o">=</span><span class="s">&#39;Sequence length (bp)&#39;</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Contig lengths from {} to {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">vals</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">vals</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+
+    <span class="k">def</span> <span class="nf">_plot_contig_gc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">gc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">assembly</span><span class="p">[</span><span class="s">&#39;contig_gc_content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="n">gcp</span><span class="p">,</span> <span class="n">ctg</span> <span class="o">=</span> <span class="s">&#39;GC percent&#39;</span><span class="p">,</span> <span class="s">&#39;Contigs&#39;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">gcp</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="mf">100.0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">gc</span><span class="p">)],</span>
+                          <span class="n">ctg</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)})</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">factorplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">gcp</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ctg</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+        <span class="c">#ax.set_title(&quot;Contig {} from {.2f} to {.2f}&quot;</span>
+        <span class="c">#             .format(gcp, min(gc), max(gc)))</span>
+        <span class="k">return</span> <span class="n">ax</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_plots</span><span class="p">()</span>
+        <span class="n">classf</span> <span class="o">=</span> <span class="n">Classification</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="p">)</span><span class="o">.</span><span class="n">classification</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">classification</span><span class="o">=</span><span class="n">classf</span><span class="p">,</span> <span class="n">taxon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">taxon</span><span class="p">)</span>
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../index.html">
+    <img class="logo" src="../../../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_source/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../data_api.html">doekbase.data_api</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x107317e10>
+
+  </body>
+</html>

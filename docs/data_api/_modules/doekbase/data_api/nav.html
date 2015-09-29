@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.nav &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x1073b0e90>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for doekbase.data_api.nav</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Navigation of object containers (e.g. workspaces).</span>
+
+<span class="sd">The primary class is &#39;Finder&#39;::</span>
+
+<span class="sd">   from doekbase.data_api import nav</span>
+<span class="sd">   finder = nav.Finder(...) # see class docs for args and usage</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;7/30/15&#39;</span>
+
+<span class="c"># System</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c"># Local</span>
+<span class="kn">import</span> <span class="nn">doekbase</span>
+<span class="kn">import</span> <span class="nn">doekbase.workspace.client</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.types</span> <span class="kn">import</span> <span class="n">get_object_class</span>
+
+<div class="viewcode-block" id="add_dicts"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.add_dicts">[docs]</a><span class="k">def</span> <span class="nf">add_dicts</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add two dictionaries together and return a third.&quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">c</span>
+
+<span class="c">## Make a simply-accessed object for object_metadata from workspace API</span></div>
+<span class="n">_ObjectInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">&#39;_ObjectInfo&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;objid,name,type,save_date,version,saved_by,wsid,&#39;</span>
+                        <span class="s">&#39;workspace,chsum,size,meta&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ObjectInfo"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.ObjectInfo">[docs]</a><span class="k">class</span> <span class="nc">ObjectInfo</span><span class="p">(</span><span class="n">_ObjectInfo</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Metadata about one object.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ObjectInfo.set_conn"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.ObjectInfo.set_conn">[docs]</a>    <span class="k">def</span> <span class="nf">set_conn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span> <span class="o">=</span> <span class="n">conn</span>
+        <span class="k">return</span> <span class="bp">self</span>  <span class="c"># for chaining</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ObjectInfo.data"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.ObjectInfo.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get full, raw, data from its metadata.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objid</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ObjectInfo.object"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.ObjectInfo.object">[docs]</a>    <span class="k">def</span> <span class="nf">object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get wrapped KBase data object from the metadata.&quot;&quot;&quot;</span>
+        <span class="n">clazz</span> <span class="o">=</span> <span class="n">get_object_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">clazz</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&#39;Internal error: Cannot get any class &#39;</span>
+                               <span class="s">&#39;for type &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">kwparams</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">get_objectapi_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clazz</span><span class="p">(</span><span class="o">**</span><span class="n">kwparams</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="DBConnection"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.DBConnection">[docs]</a><span class="k">class</span> <span class="nc">DBConnection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Database connection.&quot;&quot;&quot;</span>
+    <span class="n">DEFAULT_WS_URL</span> <span class="o">=</span> <span class="s">&#39;https://ci.kbase.us/services/ws/&#39;</span>
+    <span class="n">DEFAULT_SHOCK_URL</span> <span class="o">=</span> <span class="s">&#39;https://ci.kbase.us/services/shock-api/&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">auth_token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ws_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shock_url</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">workspace</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Workspace id, e.g. 1003, required&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ws_param</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="p">]}</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Workspace id must be an integer&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">auth_token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">varname</span> <span class="o">=</span> <span class="s">&#39;KB_AUTH_TOKEN&#39;</span>
+                <span class="n">auth_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unable to authorize. No &#39;</span>
+                                 <span class="s">&#39;value given for auth_token and &#39;</span>
+                                 <span class="s">&#39;environment variable {} not found&#39;</span><span class="o">.</span>
+                                 <span class="n">format</span><span class="p">(</span><span class="n">varname</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">ws_url</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ws_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_WS_URL</span>
+            
+        <span class="k">if</span> <span class="n">shock_url</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">shock_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_SHOCK_URL</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ws_url</span> <span class="o">=</span> <span class="n">ws_url</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shock_url</span> <span class="o">=</span> <span class="n">shock_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">doekbase</span><span class="o">.</span><span class="n">workspace</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Workspace</span><span class="p">(</span><span class="n">ws_url</span><span class="p">,</span>
+                                                          <span class="n">token</span><span class="o">=</span><span class="n">auth_token</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DBConnection.get_objectapi_params"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.DBConnection.get_objectapi_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_objectapi_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get back the params that the Data ctor wants, as</span>
+<span class="sd">        a dictionary with the correct keyword arguments set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">services</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws_url</span><span class="p">,</span> 
+                              <span class="s">&#39;shock_service_url&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shock_url</span><span class="p">},</span>
+                    <span class="n">ref</span><span class="o">=</span><span class="s">&#39;{}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="p">,</span> <span class="n">objid</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="DBConnection.get_workspace"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.DBConnection.get_workspace">[docs]</a>    <span class="k">def</span> <span class="nf">get_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DBConnection.list_objects"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.DBConnection.list_objects">[docs]</a>    <span class="k">def</span> <span class="nf">list_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List all objects in workspace.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">          list of ObjectInfo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">objlist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">list_objects</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ws_param</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">ObjectInfo</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="n">o</span><span class="p">)</span><span class="o">.</span><span class="n">set_conn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objlist</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="DBConnection.get_object"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.DBConnection.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get an object in the workspace.</span>
+
+<span class="sd">        TODO: Make this work!!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">oid</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;wsid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="p">,</span> <span class="s">&#39;objid&#39;</span><span class="p">:</span> <span class="n">objid</span><span class="p">}</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">oid</span><span class="p">]</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_objects</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span>
+</div></div>
+<div class="viewcode-block" id="Finder"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.Finder">[docs]</a><span class="k">class</span> <span class="nc">Finder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find objects.</span>
+
+<span class="sd">    Initialize with a DBConnection object:</span>
+
+<span class="sd">      f = Finder(DBConnection(workspace=1122))</span>
+
+<span class="sd">    You can use indexing to look up objects by name:</span>
+
+<span class="sd">      f[&#39;kb|contigset.12523&#39;]</span>
+
+<span class="sd">    The name can contain Unix glob characters (e.g. &quot;*&quot;):</span>
+
+<span class="sd">      f[&#39;Rhodobacter*&#39;]</span>
+
+<span class="sd">    You can also look up objects by position</span>
+
+<span class="sd">      f[0]</span>
+
+<span class="sd">    You can look up an object by arbitrary attributes by</span>
+<span class="sd">    passing a dict-like object (anything with an &#39;items&#39; method) as the index</span>
+
+<span class="sd">       f[dict(type=&#39;KBaseGenomes.ContigSet-2.0&#39;)]</span>
+
+<span class="sd">    Use list() to see all objects:</span>
+
+<span class="sd">      print(list(f))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ctor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          conn - DBConnection object</span>
+<span class="sd">          cache - If True (the default), cache objects and don&#39;t</span>
+<span class="sd">                  contact the server again. If False, contact the</span>
+<span class="sd">                  server every time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s">&#39;client&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Input &quot;conn&quot; parameter does not look like &#39;</span>
+                             <span class="s">&#39;a DBConnection object; no &quot;client&quot; attribute &#39;</span>
+                             <span class="s">&#39;found&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">conn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_objlist</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_force_refresh</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">cache</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ws_name</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_globmatch</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatchcase</span>
+
+    <span class="k">def</span> <span class="nf">_set_objlist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_refresh</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objlist</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_objlist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">list_objects</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Finder.ls"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.Finder.ls">[docs]</a>    <span class="k">def</span> <span class="nf">ls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List objects in the current container namespace.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          list of objects, each in the same form returned by the indexing</span>
+<span class="sd">          operations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Finder.filter"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.Finder.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objid</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name_re</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+               <span class="n">type_re</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">type_ver</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a filtered subset of the contained objects.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            objid (int): Object identifier</span>
+<span class="sd">            name (str): Exact match name</span>
+<span class="sd">            name_re (str): Regular expression match name</span>
+<span class="sd">            type_ (str): Exact match type</span>
+<span class="sd">            type_re (str): Regular expression match type</span>
+<span class="sd">            type_ver (tuple): Match on string type and str version comparator</span>
+<span class="sd">            kw (dict): Names and values, matched as exact strings. If the</span>
+<span class="sd">                       name is not in the record, it is ignored.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name_re</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;keywords &quot;name_re&quot; and &quot;name&quot; cannot both be given&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="p">(</span><span class="n">type_re</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">type_ver</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s">&#39;keywords &quot;type_re&quot;, &quot;type&quot;, and &quot;type_ver&quot; are exclusive&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">objid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">objid</span> <span class="o">!=</span> <span class="n">objid</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">name_re</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name_re</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                    <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">type_re</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">type_re</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">type</span><span class="p">):</span>
+                    <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">type_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">type_</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="n">kwmatch</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kw</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">o</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">o</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+                        <span class="n">kwmatch</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="k">break</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">kwmatch</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="Finder.__getitem__"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.nav.Finder.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indexing.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_objlist</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objlist</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s">&#39;items&#39;</span><span class="p">):</span> <span class="c"># dict-like</span>
+            <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objlist</span><span class="p">:</span>
+                <span class="n">matched</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+                        <span class="n">matched</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">matched</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">o</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&#39;Object with attributes ({}) not found &#39;</span>
+                           <span class="s">&#39;in workspace {}&#39;</span><span class="o">.</span>
+                           <span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws_name</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objlist</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">o</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_globmatch</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">o</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&#39;Object with name &quot;{}&quot; not found in workspace {}&#39;</span><span class="o">.</span>
+                           <span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws_name</span><span class="p">))</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../index.html">
+    <img class="logo" src="../../../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_source/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../data_api.html">doekbase.data_api</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x107526f50>
+
+  </body>
+</html>

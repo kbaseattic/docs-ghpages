@@ -1,0 +1,587 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>doekbase.data_api.wsfile &mdash; KBase Data API 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
+<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
+<jinja2.runtime.BlockReference object at 0x108399fd0>
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for doekbase.data_api.wsfile</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Workspace implemented over files, using the mongomock package.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;9/3/15&#39;</span>
+
+<span class="c"># Imports</span>
+
+<span class="c"># Stdlib</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">cStringIO</span> <span class="kn">as</span> <span class="nn">StringIO</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">StringIO</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">msgpack</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="c"># Third-party</span>
+<span class="kn">import</span> <span class="nn">mongomock</span> <span class="kn">as</span> <span class="nn">mm</span>
+<span class="c"># Local</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">get_logger</span><span class="p">,</span> <span class="n">log_start</span><span class="p">,</span> <span class="n">log_end</span>
+<span class="kn">from</span> <span class="nn">doekbase.workspace.client</span> <span class="kn">import</span> <span class="n">ServerError</span>
+
+<span class="c"># Logging</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="c"># Globals</span>
+
+<span class="n">NUMERIC_REF_PAT</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;\d+/\d+(/\d+)?&#39;</span><span class="p">)</span>
+
+<span class="c"># Exceptions</span>
+
+<div class="viewcode-block" id="LibError"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.LibError">[docs]</a><span class="k">class</span> <span class="nc">LibError</span><span class="p">(</span><span class="n">ServerError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;To imitate server errors, raise this with a description</span>
+<span class="sd">    of the error as the argument.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LibError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="s">&#39;ServerError&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">32500</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+
+<span class="c"># Functions and classes</span>
+</div>
+<span class="n">ws_url_template</span> <span class="o">=</span> <span class="s">&#39;https://{}.kbase.us/services/ws/&#39;</span>
+
+<div class="viewcode-block" id="workspace_to_file"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.workspace_to_file">[docs]</a><span class="k">def</span> <span class="nf">workspace_to_file</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">workspace</span><span class="o">=</span><span class="s">&#39;narrative&#39;</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert Workspace objects to the JSON format read by the</span>
+<span class="sd">    mongomock module.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      ref (str): Workspace object reference e.g. &#39;1019/4/1&#39;</span>
+<span class="sd">      workspace (str): Name or full URL for workspace to contact</span>
+<span class="sd">                       &#39;narrative&#39; or &#39;ci&#39; are recognized</span>
+<span class="sd">       token (str): KBase auth token</span>
+<span class="sd">    Return:</span>
+<span class="sd">       (dict) Object in the mock schema</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">doekbase.workspace.client</span> <span class="kn">import</span> <span class="n">Workspace</span>
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&#39;https://.*&#39;</span><span class="p">,</span> <span class="n">workspace</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">workspace</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">ws_url_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No `token` given and environment does not &#39;</span>
+                             <span class="s">&#39;contain value for KB_AUTH_TOKEN&#39;</span><span class="p">)</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">Workspace</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+    <span class="n">objlist</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">get_objects</span><span class="p">([{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">}])</span>
+    <span class="n">obj</span><span class="p">,</span> <span class="n">oi</span> <span class="o">=</span> <span class="n">objlist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">objlist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;info&#39;</span><span class="p">]</span>
+    <span class="n">canonical_ref</span> <span class="o">=</span> <span class="s">&quot;{0}/{1}/{2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oi</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">oi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">oi</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+    <span class="n">canonical_name</span> <span class="o">=</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oi</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">oi</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c"># convert to our schema</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="n">canonical_ref</span><span class="p">,</span>
+         <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+         <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">canonical_name</span><span class="p">,</span>
+         <span class="s">&#39;links&#39;</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;refs&#39;</span><span class="p">],</span>
+         <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">],</span>
+         <span class="s">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+         <span class="p">}</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;workspace_to_file: returning record for: {}&#39;</span>
+               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">canonical_ref</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">d</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile">[docs]</a><span class="k">class</span> <span class="nc">WorkspaceFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Mock object for KBase Workspace service.</span>
+
+<span class="sd">    You can use this in place of the doekbase.client.workspace.Workspace class.</span>
+
+<span class="sd">    To insulate from changes in the workspace storage format, the input</span>
+<span class="sd">    data is in a simplified and reduced schema. The input should be a list</span>
+<span class="sd">    of JSON ojects, separated by commas and bracketed by &quot;[ ]&quot; like a</span>
+<span class="sd">    normal JSON list. Each object should have these fields:</span>
+
+<span class="sd">    * ref - object reference like &quot;123/4&quot;</span>
+<span class="sd">    * type - Name of the type of this object, e.g. &quot;FooType&quot;</span>
+<span class="sd">    * name - Name of this object, e.g. &quot;PrototypeReferenceGenomes/kb|g.3157&quot;</span>
+<span class="sd">    * links - List of references, each in the same form as the &#39;ref&#39; field.</span>
+<span class="sd">    * data - JSON object with the data (whatever you want)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c">#: Use MessagePack encoding for workspace objects</span>
+    <span class="n">use_msgpack</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">use_redis</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">_loaded</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># static cache of loaded refs</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">working_directory</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create file-based Workspace instance, using files in</span>
+<span class="sd">        the given working directory.</span>
+
+<span class="sd">        Additional files are added with the `load` method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          working_directory (str): Path to directory with files to load.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wd</span> <span class="o">=</span> <span class="n">working_directory</span>
+        <span class="c"># create client and collection</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">collection</span>
+        <span class="c"># This monkey-patch avoids a copy of the parsed workspace object</span>
+        <span class="c"># as it is added to the mongomock collection. Of course, this</span>
+        <span class="c"># means that this dict MUST be treated as immutable by other code.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">_internalize_dict</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span>
+        <span class="c"># some internal state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oids</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="WorkspaceFile.load"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load data from a given reference.</span>
+
+<span class="sd">        The reference will be translated into a file to load,</span>
+<span class="sd">        using the following formula:</span>
+<span class="sd">        ``&lt;working_directory&gt; + &#39;/&#39; + &lt;ref&gt; + &lt;ext&gt;`,</span>
+<span class="sd">        where ``&lt;working_directory&gt;`` is the path given to the class</span>
+<span class="sd">        constructor, ``&lt;ref&gt;`` is the reference given to this</span>
+<span class="sd">        function, and</span>
+<span class="sd">        ``&lt;ext&gt;`` is a file extension &#39;.msgpack&#39; if</span>
+<span class="sd">        `use_msgpack` is True and &#39;.json&#39; otherwise.</span>
+
+<span class="sd">        Thus, for ``WorkspaceFile(&#39;/tmp/data&#39;).load(&#39;foo_bar&#39;)``,</span>
+<span class="sd">        the path loaded would be &#39;/tmp/data/foo_bar.msgpack&#39;.</span>
+
+<span class="sd">        See class documentation on format of input data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ref (str): The reference</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">          * Post-condition: Object is loaded if and only if that reference was</span>
+<span class="sd">            not loaded previously. Modification timestamp of the underlying</span>
+<span class="sd">            file is NOT checked, you must manually invalidate modified</span>
+<span class="sd">            data with :meth:`unload(ref)`.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">          IOError: file not found or not readable.</span>
+<span class="sd">          ValueError: parsing failed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># log start</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">log_start</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="s">&#39;WorkspaceFile.load&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+                       <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">))</span>
+        <span class="c"># stop if already loaded in the past</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
+            <span class="c"># log done and return</span>
+            <span class="n">log_end</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s">&#39;WorkspaceFile.load&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+                    <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">cached</span><span class="o">=</span><span class="s">&#39;yes&#39;</span><span class="p">))</span>
+            <span class="k">return</span>
+        <span class="c"># create the full path from the reference</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s">&#39;msgpack&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_msgpack</span> <span class="k">else</span> <span class="s">&#39;json&#39;</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="s">&#39;{}.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wd</span><span class="p">,</span> <span class="n">ref</span><span class="p">),</span> <span class="n">ext</span><span class="p">)</span>
+        <span class="c"># open the file; raises IOError on failure</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span>
+        <span class="c"># parse the file</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="n">msgpack</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_msgpack</span> <span class="k">else</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Loading {}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">err</span><span class="p">))</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c"># cache the parsed data, both by reference and by &#39;name&#39;</span>
+        <span class="c"># (if name is not the same as reference)</span>
+        <span class="c">#print(&quot;@@ REF={r} RECORD[ref]={rr} RECORD[name]={n}&quot;</span>
+        <span class="c">#      .format(r=ref, rr=record[&#39;ref&#39;], n=record[&#39;name&#39;]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">[</span><span class="n">record</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">record</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">[</span><span class="n">record</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">record</span>
+        <span class="c">#print(&#39;@@ STORE RECORD BY ({},{})&#39;.format(record[&#39;ref&#39;], record[&#39;name&#39;]))</span>
+        <span class="c"># insert the parsed data into mongomock</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="c"># log done</span>
+        <span class="n">log_end</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s">&#39;WorkspaceFile.load&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+                <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">cached</span><span class="o">=</span><span class="s">&#39;no&#39;</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.unload"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.unload">[docs]</a>    <span class="k">def</span> <span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Force reload of ``ref`` the next time.</span>
+<span class="sd">        Does nothing if ``ref`` is not already loaded.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ref (str): The reference</span>
+<span class="sd">        Post:</span>
+<span class="sd">           ref is no longer loaded</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+
+    <span class="c"># Public methods</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.copy_object"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.copy_object">[docs]</a>    <span class="k">def</span> <span class="nf">copy_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prm</span><span class="p">):</span>
+        <span class="c"># do nothing</span>
+        <span class="k">return</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.get_object_history"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.get_object_history">[docs]</a>    <span class="k">def</span> <span class="nf">get_object_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prm</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.get_object_info_new"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.get_object_info_new">[docs]</a>    <span class="k">def</span> <span class="nf">get_object_info_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prm</span><span class="p">):</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">prm</span><span class="p">[</span><span class="s">&#39;objects&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;ref&#39;</span><span class="p">]</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_ref</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_make_info_tuple</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">])</span>
+                  <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.get_object_provenance"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.get_object_provenance">[docs]</a>    <span class="k">def</span> <span class="nf">get_object_provenance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prm</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.get_object_subset"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.get_object_subset">[docs]</a>    <span class="k">def</span> <span class="nf">get_object_subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prm</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Note: this is not efficient. It actually looks at</span>
+<span class="sd">        the whole object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># loop over each specified subset, and add all results</span>
+        <span class="c"># to a single list in `result`</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">prm</span><span class="p">:</span>
+            <span class="n">ref</span><span class="p">,</span> <span class="n">paths</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">],</span> <span class="n">subset</span><span class="p">[</span><span class="s">&#39;included&#39;</span><span class="p">]</span>
+            <span class="c"># get matching records and data in the paths</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_ref</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+            <span class="c"># add to result</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+                <span class="n">extracted</span> <span class="o">=</span> <span class="p">{}</span> <span class="c"># all extracted paths</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span> <span class="c"># alias</span>
+                    <span class="n">parts</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+
+                    <span class="c"># Look for value matching path in &#39;d&#39;</span>
+                    <span class="n">e</span> <span class="o">=</span> <span class="n">extracted</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                            <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+                            <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">e</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                                <span class="n">e</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">):</span>
+                                <span class="n">e</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                            <span class="n">e</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+
+                    <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">extracted</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extracted</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c">#print(&quot;@@ add extracted: {}&quot;.format(extracted))</span>
+                    <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_object</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">extracted</span><span class="p">)</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.get_objects"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.get_objects">[docs]</a>    <span class="k">def</span> <span class="nf">get_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prm</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">refs</span> <span class="ow">in</span> <span class="n">prm</span><span class="p">:</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">refs</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">]</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_ref</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+            <span class="c">#print(&quot;@@ GO, got records: {}&quot;.format(records))</span>
+            <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_make_object</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">]</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.get_type_info"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.get_type_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_type_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_type_info</span><span class="p">({</span><span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="n">type_name</span><span class="p">})</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.list_referencing_objects"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.list_referencing_objects">[docs]</a>    <span class="k">def</span> <span class="nf">list_referencing_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prm</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">refs</span> <span class="ow">in</span> <span class="n">prm</span><span class="p">:</span>
+            <span class="n">ref_result</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">refs</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">]</span>
+            <span class="c"># find every record that refers to this one</span>
+            <span class="k">for</span> <span class="n">rfr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s">&#39;links&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">}):</span>
+                <span class="n">info_tuple</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_info_tuple</span><span class="p">(</span><span class="n">rfr</span><span class="p">,</span> <span class="n">rfr</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">])</span>
+                <span class="n">ref_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info_tuple</span><span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref_result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="WorkspaceFile.translate_to_MD5_types"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.wsfile.WorkspaceFile.translate_to_MD5_types">[docs]</a>    <span class="k">def</span> <span class="nf">translate_to_MD5_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">MD5_TYPES</span><span class="p">:</span>
+                <span class="n">m</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">MD5_TYPES</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">LibError</span><span class="p">(</span><span class="s">&#39;Type schema record was not found for {}&#39;</span>
+                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">m</span>
+
+    <span class="c"># ___ Internal methods ___</span>
+</div>
+    <span class="k">def</span> <span class="nf">_get_oid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oids</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oids</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oids</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oids</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">n</span>
+
+    <span class="k">def</span> <span class="nf">_make_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make and return a single &#39;info&#39; section.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">NUMERIC_REF_PAT</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>  <span class="c"># require numeric ref</span>
+        <span class="c">#print(&quot;@@ make_info from: {}&quot;.format(record))</span>
+        <span class="n">ws_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_oid</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;object_id&#39;</span><span class="p">:</span> <span class="n">oid</span><span class="p">,</span>
+                <span class="s">&#39;object_name&#39;</span><span class="p">:</span> <span class="s">&#39;Object{:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oid</span><span class="p">),</span>
+                <span class="s">&#39;object_reference&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">,</span>
+                <span class="s">&#39;object_reference_versioned&#39;</span><span class="p">:</span> <span class="s">&#39;{}/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">),</span>
+                <span class="s">&#39;type_string&#39;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">],</span>
+                <span class="s">&#39;save_date&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span>
+                <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s">&#39;saved_by&#39;</span><span class="p">:</span> <span class="s">&#39;CookieMonster&#39;</span><span class="p">,</span>
+                <span class="s">&#39;workspace_id&#39;</span><span class="p">:</span> <span class="n">ws_id</span><span class="p">,</span>
+                <span class="s">&#39;workspace_name&#39;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">],</span>
+                <span class="s">&#39;object_checksum&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s">&#39;object_size&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+                <span class="s">&#39;object_metadata&#39;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;metadata&#39;</span><span class="p">]</span>
+                <span class="p">}</span>
+        <span class="k">return</span> <span class="n">info</span>
+
+    <span class="k">def</span> <span class="nf">_make_info_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make the object_info type tuple:</span>
+
+<span class="sd">        0: obj_id objid, 1: obj_name name,</span>
+<span class="sd">        2: type_string type, 3: timestamp save_date,</span>
+<span class="sd">        4: int version, 5: username saved_by,</span>
+<span class="sd">		6: ws_id wsid, 7: ws_name workspace,</span>
+<span class="sd">		8: string chsum, 9: int size, 10: usermeta meta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">NUMERIC_REF_PAT</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>  <span class="c"># require numeric ref</span>
+        <span class="n">ver</span> <span class="o">=</span> <span class="s">&#39;1&#39;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_oid</span><span class="p">(</span><span class="n">ref</span><span class="p">),</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">],</span>
+                <span class="n">record</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">],</span> <span class="n">datetime</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span>
+                <span class="n">record</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">ver</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="n">ver</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{}</span>
+                <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_make_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">canonical_ref</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span> <span class="ow">or</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">],</span>
+            <span class="s">&#39;object_info&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_info</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">canonical_ref</span><span class="p">),</span>
+            <span class="s">&#39;provenance&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s">&#39;creator&#39;</span><span class="p">:</span> <span class="s">&#39;Gonzo&#39;</span><span class="p">,</span>
+            <span class="s">&#39;created&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span>
+            <span class="s">&#39;refs&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s">&#39;copied&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+            <span class="s">&#39;copy_source_inaccessible&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&#39;extracted_ids&#39;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s">&#39;handle_error&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+            <span class="s">&#39;handle_stacktrace&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">r</span>
+
+    <span class="k">def</span> <span class="nf">_make_type_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;type_string&#39;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">],</span>
+            <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="s">&#39;This is type {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]),</span>
+            <span class="c"># &#39;spec_def&#39;: &#39;&#39;,</span>
+            <span class="c"># &#39;json_schema&#39;: &#39;{}&#39;,</span>
+            <span class="c"># &#39;parsing_structure&#39;: &#39;{}&#39;,</span>
+            <span class="c"># &#39;module_vers&#39;: [1],</span>
+            <span class="c"># &#39;released_module_vers&#39;: [1],</span>
+            <span class="c"># &#39;type_vers&#39; : [&#39;1&#39;],</span>
+            <span class="c"># &#39;released_type_vers&#39;: [&#39;1&#39;],</span>
+            <span class="c"># &#39;using_func_defs&#39;: [],</span>
+            <span class="c"># &#39;using_type_defs&#39;: [],</span>
+            <span class="c"># &#39;used_type_defs&#39;: []</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">r</span>
+
+    <span class="k">def</span> <span class="nf">_find_ref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find records by reference.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ref (str): numeric or named object reference</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          list of records (may be an empty list)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">#print(&quot;@@ looking for REF={} in KEYS={}&quot;.format(ref, self._loaded.keys()))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span><span class="p">[</span><span class="n">ref</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+<span class="c">####</span>
+</div>
+<span class="n">MD5_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-0.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-1e1fce431960397da77cb092d27a50cf&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-1.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-1e1fce431960397da77cb092d27a50cf&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-2.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-e0979de9df4baccca8bdd95f7565fde4&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-3.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-225de07e59f4fdc5d9b8bf0bcd12c498&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-4.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-c0526fae0ce1fd8d342ec94fc4dc510a&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-5.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-c0526fae0ce1fd8d342ec94fc4dc510a&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-6.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-aafaaa7df90d03b33258f4fa7790dcbe&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-7.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-93da9d2c8fb7836fb473dd9c1e4ca89e&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.Genome-8.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.Genome-51b05a5c27084ae56106e60df5b66df5&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomes.ContigSet-3.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomes.ContigSet-db7f518c9469d166a783d813c15d64e9&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-0.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-d4301f53dab71e72d70ea5be6919696e&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-1.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-d4301f53dab71e72d70ea5be6919696e&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-1.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-97253a4ad440116a6421ede1fca50cad&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-2.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-e3de51478246422db519fd4cbc9eb4cd&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-2.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-6935b73c720523e4541dd516bc13ef56&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-3.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-841a82daab5165ff77a4fd9aba899d93&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-3.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation-2d8e562a12357b92ce84c723e2663c10&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Taxon-0.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Taxon-ba7d1e3c906dba5b760e22f5d3bba2a2&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Taxon-1.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Taxon-ba7d1e3c906dba5b760e22f5d3bba2a2&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Taxon-2.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Taxon-f569f539547dd1eea6a59eb9aa0b2eda&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-0.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-3e6afdc52a0574ae18a8c66f6a4e10a3&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-1.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-3e6afdc52a0574ae18a8c66f6a4e10a3&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-2.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-c0f1fd6639ab3663d1a8373253981fdf&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-3.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-3cf973a339b0e6e18e8cade7b77272fe&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-4.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-9f300ab15a34a764eb32acc265983ef3&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-5.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-02ba9ba1340d07c0eb7401dcb9e51647&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-6.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.FeatureContainer-3cf973a339b0e6e18e8cade7b77272fe&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.ProteinContainer-4.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.ProteinContainer-24986e79a34d6c0800b2008c974015b4&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-0.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-ffd679cc5c9ce4a3b1bb1a5c3960b42e&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-1.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-ffd679cc5c9ce4a3b1bb1a5c3960b42e&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-1.1&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-1ab165a65ef2bf6d7279107ac185fa99&#39;</span><span class="p">,</span>
+    <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-2.0&#39;</span><span class="p">:</span> <span class="s">u&#39;KBaseGenomesCondensedPrototypeV2.Assembly-d4a52a103bd75fb99714c2a330d80d20&#39;</span>
+<span class="p">}</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../../index.html">
+    <img class="logo" src="../../../_static/img/kbase-logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../annotation_api.html">Annotation Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../taxon_api.html">Taxon Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_source/modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../data_api.html">doekbase.data_api</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10845ca90>
+
+  </body>
+</html>
