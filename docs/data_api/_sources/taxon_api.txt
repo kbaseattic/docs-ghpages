@@ -20,6 +20,11 @@ If instead you are using Python or another language as a client, and running the
 
 In either case you will instantiate the class with an object reference, in the format expected by the KBase workspace: |wsref|. 
 
+The interface used by both the client/server and local Python library APIs is shown below.
+
+.. autoclass:: TaxonInterface
+    :members:
+    
 Python examples
 +++++++++++++++
 
