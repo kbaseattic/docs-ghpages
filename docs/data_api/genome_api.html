@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Creating a Data API &mdash; KBase Data API 0.0.1 documentation</title>
+    <title>Genome Data API &mdash; KBase Data API 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10b354d90>
+<jinja2.runtime.BlockReference object at 0x10bd3a210>
 
    
   
@@ -41,60 +41,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="creating-a-data-api">
-<h1>Creating a Data API<a class="headerlink" href="#creating-a-data-api" title="Permalink to this headline">¶</a></h1>
-<p>A guide for the perplexed.</p>
-<p>&#8220;It is thus necessary to examine all things according to their essence, to infer from every species such true and well established propositions as may assist us in the solution of metaphysical problems.&#8221; -Maimonides</p>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>The basic procedure for creating a new Data API has 8 steps:</p>
-<ol class="arabic simple">
-<li>Name your API</li>
-<li>Create a directory</li>
-<li>Create a Thrift specification of the data API as a service</li>
-<li>Generate the Thrift client/server stubs</li>
-<li>Create Python API modules</li>
-<li>Create test client and server</li>
-<li>Test!</li>
-<li>Publish your API</li>
-</ol>
-<div class="section" id="name-your-api">
-<h3>1. Name your API<a class="headerlink" href="#name-your-api" title="Permalink to this headline">¶</a></h3>
-<p>The name should be short, descriptive, and be composed solely of letters. For the rest of the steps we will use the classic name, &#8220;foo&#8221;. This name will be used several places in the following.</p>
-</div>
-<div class="section" id="create-a-directory">
-<h3>2. Create a directory<a class="headerlink" href="#create-a-directory" title="Permalink to this headline">¶</a></h3>
-<p>Give the directory the same name, e.g., &#8220;foo/&#8221;</p>
-</div>
-<div class="section" id="create-a-specification">
-<h3>3. Create a specification<a class="headerlink" href="#create-a-specification" title="Permalink to this headline">¶</a></h3>
-<p>This specification should be named after the type, e.g. &#8220;foo.thrift&#8221;. The Thrift &#8220;namespace&#8221; should also be the same as the name of the API, e.g. &#8220;namespace * foo&#8221;.</p>
-<p>In this specification, import base definitions from other types, particularly &#8220;object.thrift&#8221;, and define new ones you need. Create a &#8220;service { }&#8221; section named with the capitalized type followed by API, e.g. &#8220;FooAPI&#8221;. Put methods in this section.</p>
-</div>
-<div class="section" id="generate-stubs">
-<h3>4. Generate stubs<a class="headerlink" href="#generate-stubs" title="Permalink to this headline">¶</a></h3>
-<p>Use the &#8220;-out .&#8221; option to generate output in the namespaced directory (which is the same as your API name). Then add language output options. For example, for Python stubs:</p>
-<blockquote>
-<div>thrift &#8211;gen py:new_style -out . object.thrift</div></blockquote>
-</div>
-<div class="section" id="create-python-api-modules">
-<h3>5. Create Python API modules<a class="headerlink" href="#create-python-api-modules" title="Permalink to this headline">¶</a></h3>
-<p>Create two Python modules in your new directory, called &#8220;api&#8221; and &#8220;impl&#8221;, e.g. &#8220;foo/api.py&#8221; and &#8220;foo/impl.py&#8221;.</p>
-<p>You can use the examples from &#8220;object/api.py&#8221; and &#8220;object/impl.py&#8221; as a starting point. Basically, you implement the high-level idiomatic API in api.py and then implement the set of functions defined in the Thrift service in impl.py. The class in api.py will take either a client to a remote service or an instance of the implementation in its constructor, depending on whether you want to call locally or not. On the server side, the class defined in impl.py will act as a &#8220;handler&#8221; of the incoming messages.</p>
-</div>
-<div class="section" id="create-test-client-server">
-<h3>6. Create test client/server<a class="headerlink" href="#create-test-client-server" title="Permalink to this headline">¶</a></h3>
-<p>TBD</p>
-</div>
-<div class="section" id="test">
-<h3>7. Test!<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h3>
-<p>TBD</p>
-</div>
-<div class="section" id="publish-your-api">
-<h3>8. Publish your API<a class="headerlink" href="#publish-your-api" title="Permalink to this headline">¶</a></h3>
-<p>TBD</p>
-</div>
-</div>
+  <div class="section" id="genome-data-api">
+<span id="genome-api"></span><h1>Genome Data API<a class="headerlink" href="#genome-data-api" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -121,9 +69,9 @@
 
 
 <h3>Navigation</h3>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Genome Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a></li>
@@ -133,6 +81,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="annotation_api.html" title="previous chapter">Annotation Data API</a></li>
+      <li>Next: <a href="taxon_api.html" title="next chapter">Taxon Data API</a></li>
   </ul></li>
 </ul>
 </div>
@@ -197,7 +147,7 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x10b354d90>
+<jinja2.runtime.BlockReference object at 0x10bd3a210>
 
   </body>
 </html>

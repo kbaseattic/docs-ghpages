@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x104eebd10>
+<jinja2.runtime.BlockReference object at 0x10c1fe750>
 
    
   
@@ -397,8 +397,200 @@ or referenced objects.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="doekbase-data-api-display-module">
-<h2>doekbase.data_api.display module<a class="headerlink" href="#doekbase-data-api-display-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-doekbase.data_api.display">
+<span id="doekbase-data-api-display-module"></span><h2>doekbase.data_api.display module<a class="headerlink" href="#module-doekbase.data_api.display" title="Permalink to this headline">¶</a></h2>
+<p>Objects for displaying the results in the IPython notebook.</p>
+<dl class="class">
+<dt id="doekbase.data_api.display.AssemblyInfo">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">AssemblyInfo</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#AssemblyInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.AssemblyInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.TemplateMixin" title="doekbase.data_api.display.TemplateMixin"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.TemplateMixin</span></tt></a></p>
+<p>Get information about assembly.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.display.AssemblyInfo.stats">
+<tt class="descname">stats</tt><a class="headerlink" href="#doekbase.data_api.display.AssemblyInfo.stats" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; Statistics from <cite>AssemblyAPI.get_stats()</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.AssemblyInfo.template">
+<tt class="descname">template</tt><em class="property"> = '&lt;b&gt;GC content&lt;/b&gt;: {{gc_content}}&lt;br&gt;\n    &lt;b&gt;Total DNA sequence length&lt;/b&gt;:{{dna_size}}&lt;br&gt;\n    &lt;b&gt;Number of contigs&lt;/b&gt;:{{num_contigs}}'</em><a class="headerlink" href="#doekbase.data_api.display.AssemblyInfo.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.Classification">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">Classification</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#Classification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.Classification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.TemplateMixin" title="doekbase.data_api.display.TemplateMixin"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.TemplateMixin</span></tt></a></p>
+<p>Taxonomic classification.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.display.Classification.taxon">
+<tt class="descname">taxon</tt><a class="headerlink" href="#doekbase.data_api.display.Classification.taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>TaxonAPI</em> &#8211; base taxon</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.Classification.name">
+<tt class="descname">name</tt><a class="headerlink" href="#doekbase.data_api.display.Classification.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Scientific name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.Classification.children">
+<tt class="descname">children</tt><a class="headerlink" href="#doekbase.data_api.display.Classification.children" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of TaxonAPI</em> &#8211; List of TaxonAPI objects</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">parents (list of Taxon</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.Classification.template">
+<tt class="descname">template</tt><em class="property"> = '{% for name in classification %}\n    &lt;span style=&quot;margin-left: {{ loop.index0 * 10 }}px&quot;&gt;\n    &lt;span style=&quot;font-size: 50%&quot;&gt;&amp;gt;&lt;/span&gt;&amp;nbsp;{{ name }}\n    &lt;/span&gt;&lt;br&gt;{% endfor %}'</em><a class="headerlink" href="#doekbase.data_api.display.Classification.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.Contigs">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">Contigs</tt><big>(</big><em>contigs</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#Contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.Contigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.Table" title="doekbase.data_api.display.Table"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.Table</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.FeaturePositions">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">FeaturePositions</tt><big>(</big><em>ga</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#FeaturePositions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.FeaturePositions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.Table" title="doekbase.data_api.display.Table"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.Table</span></tt></a></p>
+<p>The position (and ID and type) of features in the genome.</p>
+<dl class="method">
+<dt id="doekbase.data_api.display.FeaturePositions.stripplot">
+<tt class="descname">stripplot</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#FeaturePositions.stripplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.FeaturePositions.stripplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a &#8216;stripplot&#8217; of all feature positions.</p>
+<p>Requires the &#8216;seaborn&#8217; library</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.FeatureStats">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">FeatureStats</tt><big>(</big><em>ga</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#FeatureStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.FeatureStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.Table" title="doekbase.data_api.display.Table"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.Table</span></tt></a></p>
+<p>Feature information for genomes</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.GenomeSummary">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">GenomeSummary</tt><big>(</big><em>ga</em>, <em>taxons=True</em>, <em>assembly=True</em>, <em>annotation=True</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#GenomeSummary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.GenomeSummary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.TemplateMixin" title="doekbase.data_api.display.TemplateMixin"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.TemplateMixin</span></tt></a></p>
+<p>Summary of a GenomeAnnotation.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.display.GenomeSummary.taxon">
+<tt class="descname">taxon</tt><a class="headerlink" href="#doekbase.data_api.display.GenomeSummary.taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; Information about the taxonomic type</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.GenomeSummary.assembly">
+<tt class="descname">assembly</tt><a class="headerlink" href="#doekbase.data_api.display.GenomeSummary.assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; Infomration about the contigs in the assembly</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.GenomeSummary.annotation">
+<tt class="descname">annotation</tt><a class="headerlink" href="#doekbase.data_api.display.GenomeSummary.annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; Information about the assembly</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.GenomeSummary.data">
+<tt class="descname">data</tt><a class="headerlink" href="#doekbase.data_api.display.GenomeSummary.data" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; All the information as a single dict with the attributes
+listed above as top-level keys.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.display.GenomeSummary.summary_plots">
+<tt class="descname">summary_plots</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#GenomeSummary.summary_plots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.GenomeSummary.summary_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show some plots summarizing the information in the Genome.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.GenomeSummary.template">
+<tt class="descname">template</tt><em class="property"> = '&lt;h3&gt;Genome Summary&lt;/h3&gt;&lt;b&gt;Taxonomy ID&lt;/b&gt;: {{taxon.get_taxonomic_id()}}&lt;br&gt;\n        &lt;b&gt;Name&lt;/b&gt;: {{taxon.get_scientific_name()}}&lt;br&gt;\n        &lt;b&gt;Aliases&lt;/b&gt;:&lt;br&gt;\n        {% for a in taxon.get_aliases() %}\n        &amp;nbsp;&amp;nbsp;{{ a }}&lt;br&gt;\n        {% endfor %}\n        &lt;b&gt;Classification&lt;/b&gt;:&lt;br&gt;{% for name in classification %}\n    &lt;span style=&quot;margin-left: {{ loop.index0 * 10 }}px&quot;&gt;\n    &lt;span style=&quot;font-size: 50%&quot;&gt;&amp;gt;&lt;/span&gt;&amp;nbsp;{{ name }}\n    &lt;/span&gt;&lt;br&gt;{% endfor %}'</em><a class="headerlink" href="#doekbase.data_api.display.GenomeSummary.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.Organism">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">Organism</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#Organism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.Organism" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.TemplateMixin" title="doekbase.data_api.display.TemplateMixin"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.TemplateMixin</span></tt></a></p>
+<p>Summary of an organism as per ENSEMBL page, from
+a TaxonAPI.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.display.Organism.taxon">
+<tt class="descname">taxon</tt><a class="headerlink" href="#doekbase.data_api.display.Organism.taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>TaxonAPI</em> &#8211; Taxon with info for organism</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.Organism.template">
+<tt class="descname">template</tt><em class="property"> = '&lt;b&gt;Taxonomy ID&lt;/b&gt;: {{taxon.get_taxonomic_id()}}&lt;br&gt;\n        &lt;b&gt;Name&lt;/b&gt;: {{taxon.get_scientific_name()}}&lt;br&gt;\n        &lt;b&gt;Aliases&lt;/b&gt;:&lt;br&gt;\n        {% for a in taxon.get_aliases() %}\n        &amp;nbsp;&amp;nbsp;{{ a }}&lt;br&gt;\n        {% endfor %}\n        &lt;b&gt;Classification&lt;/b&gt;:&lt;br&gt;{% for name in classification %}\n    &lt;span style=&quot;margin-left: {{ loop.index0 * 10 }}px&quot;&gt;\n    &lt;span style=&quot;font-size: 50%&quot;&gt;&amp;gt;&lt;/span&gt;&amp;nbsp;{{ name }}\n    &lt;/span&gt;&lt;br&gt;{% endfor %}'</em><a class="headerlink" href="#doekbase.data_api.display.Organism.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.ProteinStats">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">ProteinStats</tt><big>(</big><em>ga, stats=['length']</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#ProteinStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.ProteinStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.display.Table" title="doekbase.data_api.display.Table"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.display.Table</span></tt></a></p>
+<p>Various statistics for proteins.</p>
+<dl class="attribute">
+<dt id="doekbase.data_api.display.ProteinStats.STATS_LENGTH">
+<tt class="descname">STATS_LENGTH</tt><em class="property"> = 'length'</em><a class="headerlink" href="#doekbase.data_api.display.ProteinStats.STATS_LENGTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.display.ProteinStats.plot_protein_lengths">
+<tt class="descname">plot_protein_lengths</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#ProteinStats.plot_protein_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.ProteinStats.plot_protein_lengths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.Table">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">Table</tt><big>(</big><em>data=None</em>, <em>index=None</em>, <em>columns=None</em>, <em>dtype=None</em>, <em>copy=False</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#Table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pandas.core.frame.DataFrame</span></tt></p>
+<p>Create a Table from the input data.
+This is a thin wrapper around the Pandas DataFrame object.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="doekbase.data_api.display.TemplateMixin">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">TemplateMixin</tt><a class="reference internal" href="../_modules/doekbase/data_api/display.html#TemplateMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.TemplateMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="doekbase.data_api.display.TemplateMixin.render">
+<tt class="descname">render</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#TemplateMixin.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.TemplateMixin.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="doekbase.data_api.display.TemplateMixin.template">
+<tt class="descname">template</tt><em class="property"> = ''</em><a class="headerlink" href="#doekbase.data_api.display.TemplateMixin.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="doekbase.data_api.display.nbviewer_mode">
+<tt class="descclassname">doekbase.data_api.display.</tt><tt class="descname">nbviewer_mode</tt><big>(</big><em>value=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/display.html#nbviewer_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.display.nbviewer_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get/set the global nbviewer-friendly mode.
+This is currently used to tell qgrid where to get
+its JavaScript from (local or a CDN).</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-doekbase.data_api.nav">
 <span id="doekbase-data-api-nav-module"></span><h2>doekbase.data_api.nav module<a class="headerlink" href="#module-doekbase.data_api.nav" title="Permalink to this headline">¶</a></h2>
@@ -1246,7 +1438,7 @@ workspace through the Data API.</p>
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x104eebd10>
+<jinja2.runtime.BlockReference object at 0x10c1fe750>
 
   </body>
 </html>
