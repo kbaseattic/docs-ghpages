@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x106970a10>
+<jinja2.runtime.BlockReference object at 0x1056f7150>
 
    
   
@@ -69,123 +69,142 @@
 <span class="n">TYPES</span> <span class="o">=</span> <span class="n">_CONTIGSET_TYPES</span> <span class="o">+</span> <span class="n">_ASSEMBLY_TYPES</span>
 
 
-<div class="viewcode-block" id="AssemblyInterface"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface">[docs]</a><span class="k">class</span> <span class="nc">AssemblyInterface</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface">[docs]</a><span class="k">class</span> <span class="nc">AssemblyInterface</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;API for the assembled sequences associated with a Genome Annotation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
 
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_assembly_id"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_assembly_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_assembly_id"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_assembly_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the id for an Assembly.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">          id: string identifier for the Assembly&quot;&quot;&quot;</span>
+<span class="sd">          str: string identifier for the Assembly</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_genome_annotations"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_genome_annotations"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the GenomeAnnotations that refer to this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          list&lt;GenomeAnnotationAPI&gt;</span>
+<span class="sd">          list&lt;GenomeAnnotationAPI&gt;: List of GenomeAnnotationAPI objects</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
     </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_external_source_info"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_external_source_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the external source information associated with this Assembly.</span>
+<div class="viewcode-block" id="AssemblyInterface.get_external_source_info"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_external_source_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the external source information for this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          id: string identifier for the Assembly&quot;&quot;&quot;</span>        
+<span class="sd">          str: string identifier for the Assembly</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_stats"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_stats"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the derived statistical information about this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          gc_content: total guanine and cytosine content, counting all G and C only</span>
-<span class="sd">          dna_size: total length of all dna sequence for this Assembly</span>
-<span class="sd">          num_contigs: total number of contiguous sequences in this Assembly&quot;&quot;&quot;</span>        
+<span class="sd">          dict: Statistics with the following keys and values:</span>
+
+<span class="sd">            gc_content : float</span>
+<span class="sd">                proportion of guanine (G) and cytosine (C) content</span>
+<span class="sd">            dna_size : int</span>
+<span class="sd">                total length of all dna sequences</span>
+<span class="sd">            num_contigs : int</span>
+<span class="sd">                total number of contiguous sequences</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_number_contigs"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_number_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_number_contigs"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_number_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the number of contiguous sequences in this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          int&quot;&quot;&quot;</span>
+<span class="sd">          int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_gc_content"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_gc_content"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the total GC content for this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          float&quot;&quot;&quot;</span>
+<span class="sd">          float: Proportion of GC content, 0 &lt;= x &lt;= 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_dna_size"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_dna_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_dna_size"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_dna_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the total DNA size for this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          int&quot;&quot;&quot;</span>
+<span class="sd">          int: Total DNA size</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_contig_lengths"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_contig_lengths"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the length for every contiguous sequence.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          dict&lt;str,int&gt;: Mapping of sequence identifiers to lengths.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</div>
+    <span class="nd">@abc.abstractmethod</span>    
+<div class="viewcode-block" id="AssemblyInterface.get_contig_gc_content"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the total GC content for each contiguous sequence</span>
+<span class="sd">        of this Assembly.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">          dict&lt;str,float&gt;: Mapping of sequence identifiers to GC content.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</div>
+    <span class="nd">@abc.abstractmethod</span>    
+<div class="viewcode-block" id="AssemblyInterface.get_contig_ids"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the ids for every contiguous sequence in this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;: &lt;int&gt;&quot;&quot;&quot;</span>
+<span class="sd">          list&lt;str&gt;: Sequence identifiers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_contig_gc_content"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the total GC content for each contiguous sequence of this Assembly.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;: float&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
-</div>
-    <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_contig_ids"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the ids for every contiguous sequence in this Assembly.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">          list&lt;str&gt;&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
-</div>
-    <span class="nd">@abc.abstractmethod</span>    
-<div class="viewcode-block" id="AssemblyInterface.get_contigs"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyInterface.get_contigs"><a class="viewcode-back" href="../../../../assembly_api.html#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve contiguous sequences from this Assembly by id.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">          contig_id_list: list&lt;str&gt;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict</span>
-<span class="sd">          </span>
-<span class="sd">          dictionary of contigs, with contig id as key</span>
-<span class="sd">          contig value structure::</span>
+<span class="sd">          dict&lt;str,dict&gt;: dictionary of contigs, with contig id as key</span>
+<span class="sd">          and each value itself a dict with the following key/value pairs:</span>
 
-<span class="sd">              {</span>
-<span class="sd">                  &#39;contig_id&#39;: string,</span>
-<span class="sd">                  &#39;length&#39;: integer,</span>
-<span class="sd">                  &#39;md5&#39;: string,</span>
-<span class="sd">                  &#39;name&#39;: string,</span>
-<span class="sd">                  &#39;description&#39;: string,</span>
-<span class="sd">                  &#39;is_complete&#39;: 0 or 1,</span>
-<span class="sd">                  &#39;is_circular&#39;: 0 or 1,</span>
-<span class="sd">                  &#39;sequence&#39;: string</span>
-<span class="sd">              }</span>
+<span class="sd">          contig_id : str</span>
+<span class="sd">            the contig identifier</span>
+<span class="sd">          length : integer</span>
+<span class="sd">            length of the contig</span>
+<span class="sd">          md5 : string</span>
+<span class="sd">            hex-digest of MD5 hash of the contig&#39;s contents,</span>
+<span class="sd">          name : string</span>
+<span class="sd">            name of the contig</span>
+<span class="sd">          description : string</span>
+<span class="sd">            description of the contig</span>
+<span class="sd">          is_complete : int</span>
+<span class="sd">             0 if this contig is complete, 1 otherwise</span>
+<span class="sd">          is_circular : int</span>
+<span class="sd">             0 or 1</span>
+<span class="sd">          sequence : string</span>
+<span class="sd">             actual contents of the sequence for this contig</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
 
 </div></div>
-<div class="viewcode-block" id="AssemblyAPI"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI">[docs]</a><span class="k">class</span> <span class="nc">AssemblyAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">AssemblyInterface</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">AssemblyAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">AssemblyInterface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Defines which types and type versions that are legal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -202,40 +221,40 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_KBaseGenomes_ContigSet</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
     
-<div class="viewcode-block" id="AssemblyAPI.get_assembly_id"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_assembly_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_genome_annotations"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
-    </div>
-<div class="viewcode-block" id="AssemblyAPI.get_external_source_info"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_external_source_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_stats"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_number_contigs"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_number_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_gc_content"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_dna_size"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_dna_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_contig_lengths"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_contig_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_contig_gc_content"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_contig_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_contig_ids"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_contig_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="AssemblyAPI.get_contigs"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.sequence.html#doekbase.data_api.sequence.assembly.AssemblyAPI.get_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span>
 
-</div></div>
+
 <span class="k">class</span> <span class="nc">_KBaseGenomes_ContigSet</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">AssemblyInterface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_KBaseGenomes_ContigSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
@@ -567,10 +586,9 @@
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../assembly_api.html">Assembly Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../_source/modules.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -645,7 +663,7 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x106970a10>
+<jinja2.runtime.BlockReference object at 0x104b84e10>
 
   </body>
 </html>

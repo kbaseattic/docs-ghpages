@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10801a310>
+<jinja2.runtime.BlockReference object at 0x105bb9dd0>
 
    
   
@@ -43,8 +43,34 @@
             
   <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="annotation_api.html#creating-an-annotation">Creating an Annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotation_api.html#genome-annotation-object-interface">Genome annotation object interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="annotation_api.html#feature-description-codes">Feature description codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="annotation_api.html#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="annotation_api.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="annotation_api.html#python-examples">Python examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="annotation_api.html#example-fetch-all-proteins-for-a-gene">Example: Fetch all proteins for a gene</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#creating-an-assembly">Creating an assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#assembly-object-interface">Assembly object interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#python-examples">Python examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="taxon_api.html#creating-a-taxonomic-object">Creating a Taxonomic object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="taxon_api.html#taxon-object-interface">Taxon object interface</a></li>
@@ -58,25 +84,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_source/doekbase.html">doekbase package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="_source/doekbase.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="_source/doekbase.data_api.html">doekbase.data_api package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_source/doekbase.workspace.html">doekbase.workspace package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="_source/doekbase.html#module-doekbase">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </div>
 <div class="section" id="kbase-data-api-documentation">
 <h1>KBase Data API documentation<a class="headerlink" href="#kbase-data-api-documentation" title="Permalink to this headline">¶</a></h1>
 <p>The Data API provides a unified entry point to retrieve and, eventually,
 store KBase data objects. This page covers concepts and installation instructions.
-For usage see the individual API pages for the <a class="reference internal" href="annotation_api.html#annotation-api"><em>Annotation Data API</em></a>, <a class="reference internal" href="genome_api.html#genome-api"><em>Genome Data API</em></a> , and <a class="reference internal" href="taxon_api.html#taxon-api"><em>Taxon Data API</em></a>.</p>
+For usage see the individual API pages for the <a class="reference internal" href="annotation_api.html#annotation-api"><em>Annotation Data API</em></a>, <a class="reference internal" href="assembly_api.html#assembly-api"><em>Assembly Data API</em></a> , and <a class="reference internal" href="taxon_api.html#taxon-api"><em>Taxon Data API</em></a>.</p>
 <p>Developers should read the <a class="reference internal" href="developer.html#developer-notes"><em>Developer notes</em></a>.</p>
 <div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
@@ -179,10 +193,9 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -254,7 +267,7 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x10801a310>
+<jinja2.runtime.BlockReference object at 0x105bb9dd0>
 
   </body>
 </html>

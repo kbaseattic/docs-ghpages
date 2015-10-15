@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x108215a10>
+<jinja2.runtime.BlockReference object at 0x1059e89d0>
 
    
   
@@ -60,6 +60,10 @@
 <span class="n">_GENOME_ANNOTATION_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;KBaseGenomesCondensedPrototypeV2.GenomeAnnotation&#39;</span><span class="p">]</span>
 <span class="n">TYPES</span> <span class="o">=</span> <span class="n">_GENOME_TYPES</span> <span class="o">+</span> <span class="n">_GENOME_ANNOTATION_TYPES</span>
 
+<span class="c">#: Mapping of feature type codes to descriptions</span>
+<span class="c">#: of their meaning. The keys of this mapping give possible values for</span>
+<span class="c">#: functions taking feature type identifiers, e.g.</span>
+<span class="c">#: :meth:`GenomeInterface.get_feature_types`.</span>
 <span class="n">FEATURE_DESCRIPTIONS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&quot;CDS&quot;</span><span class="p">:</span> <span class="s">&quot;Coding Sequence&quot;</span><span class="p">,</span>
     <span class="s">&quot;PEG&quot;</span><span class="p">:</span> <span class="s">&quot;Protein Encoding Genes&quot;</span><span class="p">,</span>
@@ -85,223 +89,274 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="GenomeInterface"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface">[docs]</a><span class="k">class</span> <span class="nc">GenomeInterface</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="GenomeInterface"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface">[docs]</a><span class="k">class</span> <span class="nc">GenomeInterface</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
 
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_taxon"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_taxon">[docs]</a>    <span class="k">def</span> <span class="nf">get_taxon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the Taxon assigned to this Genome Annotation.</span>
+<div class="viewcode-block" id="GenomeInterface.get_taxon"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_taxon">[docs]</a>    <span class="k">def</span> <span class="nf">get_taxon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves the Taxon assigned to this Genome Annotation.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          TaxonAPI&quot;&quot;&quot;</span>
+<span class="sd">          TaxonAPI: Taxon object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_assembly"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_assembly">[docs]</a>    <span class="k">def</span> <span class="nf">get_assembly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the Assembly used to create this Genome Annotation.</span>
+<div class="viewcode-block" id="GenomeInterface.get_assembly"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_assembly">[docs]</a>    <span class="k">def</span> <span class="nf">get_assembly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves the Assembly used to create this Genome Annotation.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          AssemblyAPI&quot;&quot;&quot;</span>
+<span class="sd">          AssemblyAPI: Assembly object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
     </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_types"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the Genome Feature type identifiers available from this Genome Annotation.</span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_types"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves the Genome Feature type identifiers available from this</span>
+<span class="sd">        Genome Annotation.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          list&lt;str&gt;&quot;&quot;&quot;</span>
+<span class="sd">          list&lt;str&gt;: List of feature type identifiers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
-<div class="viewcode-block" id="GenomeInterface.get_feature_type_descriptions"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_descriptions">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_type_descriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves a descriptive string for each feature type identifier.</span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_type_descriptions"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_descriptions">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_type_descriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves a descriptive string for each feature type identifier.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">          type_list: list&lt;str&gt;</span>
+<span class="sd">          type_list (list&lt;str&gt;): List of feature types. The known values for</span>
+<span class="sd">            these are enumerated in the module&#39;s  :data:`FEATURE_DESCRIPTIONS`.</span>
+<span class="sd">            If this list is empty or None, then the whole mapping will be</span>
+<span class="sd">            returned.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&quot;&quot;&quot;</span>
+<span class="sd">          dict: Key/value pairs for each requested feature description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         
-        <span class="k">if</span> <span class="n">type_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">FEATURE_DESCRIPTIONS</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">type_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">type_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> \
-             <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">type_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">unicode</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">type_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nb">str</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">FEATURE_DESCRIPTIONS</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">FEATURE_DESCRIPTIONS</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">type_list</span><span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">type_list</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">FEATURE_DESCRIPTIONS</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">type_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;key &#39;{}&#39; is type &#39;{}&#39;, but type &#39;str&#39; &quot;</span>
+                                    <span class="s">&quot;expected&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)))</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">FEATURE_DESCRIPTIONS</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_ids"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">region_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">function_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">alias_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves feature ids based on filters such as feature types, regions, functional descriptions, aliases.</span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_ids"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">region_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                        <span class="n">function_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">alias_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves feature ids based on filters such as feature types,</span>
+<span class="sd">        regions, functional descriptions, aliases.</span>
 <span class="sd">        </span>
 <span class="sd">        If any argument is None, it will not be used as a filter.  </span>
 <span class="sd">        If all arguments are None, all feature ids will be returned.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">          type_list: list&lt;str&gt;</span>
-<span class="sd">          region_list: list&lt;dict&gt; e.g., [{&quot;contig_id&quot;: str, &quot;strand&quot;: &quot;+&quot;|&quot;-&quot;|&quot;?&quot;, &quot;start&quot;: int, &quot;stop&quot;: int},...]</span>
-<span class="sd">          function_list: list&lt;str&gt;</span>
-<span class="sd">          alias_list: list&lt;str&gt;</span>
+<span class="sd">          type_list (list&lt;str&gt;): List of feature types. Each should match a</span>
+<span class="sd">            value in :data:`FEATURE_DESCRIPTIONS`.</span>
+<span class="sd">          region_list (list&lt;dict&gt;): List of region objects, e.g.:</span>
+<span class="sd">            [{&quot;contig_id&quot;: str, &quot;strand&quot;: &quot;+&quot;|&quot;-&quot;|&quot;?&quot;, &quot;start&quot;: int, &quot;stop&quot;: int},...]</span>
+<span class="sd">          function_list (list&lt;str&gt;): List of functions</span>
+<span class="sd">          alias_list (list&lt;str&gt;): List of feature aliases</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;:list&lt;dict or str&gt;&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+<span class="sd">          dict&lt;str,list&lt;dict or str&gt;&gt;: Mapping of each retrieved feature ID</span>
+<span class="sd">             to its corresponding value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>  <span class="c"># TODO: add examples in docs for function_list and alias_list</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_type_counts"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_counts">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_type_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the number of Genome Features contained in this Genome Annotation by Feature type identifier.</span>
-<span class="sd">        </span>
-<span class="sd">        If type_list is None, will retrieve all type counts.</span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_type_counts"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_counts">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_type_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the number of Genome Features, grouped by</span>
+<span class="sd">        feature type identifier.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">          type_list: list&lt;str&gt;</span>
-<span class="sd">        </span>
+<span class="sd">          type_list (list&lt;str&gt;): List of feature types. Each should match a</span>
+<span class="sd">            value in :data:`FEATURE_DESCRIPTIONS`. If None,</span>
+<span class="sd">            or empty, will retrieve all type counts.</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;:&lt;int&gt;&quot;&quot;&quot;</span>        
+<span class="sd">          dict: Map of string feature types to integer counts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
     </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_locations"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_locations">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_locations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the location information for Genome Features present in this Genome Annotation.</span>
-<span class="sd">        </span>
-<span class="sd">        If feature_id_list is None, returns all feature locations.</span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_locations"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_locations">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_locations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves the location information for given genome features.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">          feature_id_list: list&lt;str&gt;</span>
+<span class="sd">          feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">            If None, returns all feature functions.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;: dict</span>
-<span class="sd">          </span>
-<span class="sd">          {&quot;contig_id&quot;: str,</span>
-<span class="sd">           &quot;strand&quot;: str,</span>
-<span class="sd">           &quot;start&quot;: int</span>
-<span class="sd">           &quot;length&quot;: int}&quot;&quot;&quot;</span>                        
+<span class="sd">          dict: Mapping from feature IDs to location information for each.</span>
+<span class="sd">          The location information has the following key/value pairs:</span>
+
+<span class="sd">          contig_id : str</span>
+<span class="sd">              The identifier for this contig</span>
+<span class="sd">          strand : str</span>
+<span class="sd">              The strand for the contig ????</span>
+<span class="sd">          start : int</span>
+<span class="sd">              The start position for the contig</span>
+<span class="sd">          length : int</span>
+<span class="sd">              The length of the contig</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
     </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_dna"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_dna">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_dna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the dna sequence for Genome Features present in this Genome Annotation.</span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_dna"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_dna">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_dna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves the DNA sequence for genome features.</span>
 <span class="sd">        </span>
-<span class="sd">        If feature_id_list is None, returns all feature dna.</span>
+<span class="sd">        If `feature_id_list` is None, returns all feature dna.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">          feature_id_list: list&lt;str&gt;</span>
+<span class="sd">          feature_id_list (list&lt;str&gt;): List of features.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;: str&quot;&quot;&quot;</span>
+<span class="sd">          dict&lt;str,str&gt;: Mapping of feature IDs to their values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_functions"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_functions">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_functions"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_functions">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the functional description for Genome Features present in this Genome Annotation.</span>
-<span class="sd">        </span>
-<span class="sd">        If feature_id_list is None, returns all feature functions.</span>
-<span class="sd">        </span>
+<span class="sd">        Retrieves the functional description for given features.</span>
+
+
 <span class="sd">        Args:</span>
-<span class="sd">          feature_id_list: list&lt;str&gt;</span>
+<span class="sd">          feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">            If None, returns all feature functions.</span>
+
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;: str&quot;&quot;&quot;</span>
+<span class="sd">          dict&lt;str,str&gt;: Mapping from feature IDs to their functions.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_aliases"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_aliases">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the aliases for Genome Features present in this Genome Annotation.</span>
-<span class="sd">        </span>
-<span class="sd">        If feature_id_list is None, returns all feature aliases.</span>
-<span class="sd">        </span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_aliases"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_aliases">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves the aliases for genome features.</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">          feature_id_list: list&lt;str&gt;</span>
+<span class="sd">          feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">            If None, returns all feature functions.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">          dict&lt;str&gt;: list&lt;str&gt;&quot;&quot;&quot;</span>
         <span class="k">pass</span>
     </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_feature_publications"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_publications">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_publications</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the publications for Genome Features present in this Genome Annotation.</span>
-<span class="sd">        </span>
-<span class="sd">        If feature_id_list is None, returns all feature associated publications.</span>
-<span class="sd">        </span>
+<div class="viewcode-block" id="GenomeInterface.get_feature_publications"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_publications">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_publications</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves the publications for genome features.</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">          feature_id_list: list&lt;str&gt;</span>
+<span class="sd">          feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">            If None, returns all feature functions.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">          dict&lt;str&gt;: list&lt;dict&gt;&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_features"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves all the available data for Genome Features present in this Genome Annotation.</span>
-<span class="sd">        </span>
-<span class="sd">        If feature_id_list is None, returns all feature data.</span>
-<span class="sd">        </span>
+<div class="viewcode-block" id="GenomeInterface.get_features"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves all the available data for Genome Features.</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">          feature_id_list: list&lt;str&gt;</span>
+<span class="sd">          feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">            If None, returns all feature functions.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str&gt;: dict&lt;str&gt;: list&quot;&quot;&quot;</span>
+<span class="sd">          dict&lt;str,dict&lt;str,list&gt;&gt;: Mapping from feature IDs to dicts</span>
+<span class="sd">            of available data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_proteins"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_proteins">[docs]</a>    <span class="k">def</span> <span class="nf">get_proteins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves all the available proteins for Genome Features present in this Genome Annotation.</span>
-<span class="sd">        </span>
+<div class="viewcode-block" id="GenomeInterface.get_proteins"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_proteins">[docs]</a>    <span class="k">def</span> <span class="nf">get_proteins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves all the available proteins for genome features.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">          list&lt;dict&gt;&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_cds_by_mrna"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_mrna">[docs]</a>    <span class="k">def</span> <span class="nf">get_cds_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GenomeInterface.get_cds_by_mrna"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_mrna">[docs]</a>    <span class="k">def</span> <span class="nf">get_cds_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves coding sequences (cds) for given mRNA feature IDs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           mrna_feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">             If None, returns all values.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          ????</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_mrna_by_cds"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_cds">[docs]</a>    <span class="k">def</span> <span class="nf">get_mrna_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span> 
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GenomeInterface.get_mrna_by_cds"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_cds">[docs]</a>    <span class="k">def</span> <span class="nf">get_mrna_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves mRNA for given coding sequences (cds) feature IDs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           cds_feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">             If None, returns all values.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          ????</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_gene_by_cds"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_cds">[docs]</a>    <span class="k">def</span> <span class="nf">get_gene_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GenomeInterface.get_gene_by_cds"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_cds">[docs]</a>    <span class="k">def</span> <span class="nf">get_gene_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves Genes for given coding sequence (cds)  feature IDs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           cds_feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">             If None, returns all values.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          ????</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
   </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_gene_by_mrna"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_mrna">[docs]</a>    <span class="k">def</span> <span class="nf">get_gene_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GenomeInterface.get_gene_by_mrna"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_mrna">[docs]</a>    <span class="k">def</span> <span class="nf">get_gene_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves Genes for given mRNA feature IDs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           mrna_feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">             If None, returns all values.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          ????</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_cds_by_gene"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_gene">[docs]</a>    <span class="k">def</span> <span class="nf">get_cds_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GenomeInterface.get_cds_by_gene"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_gene">[docs]</a>    <span class="k">def</span> <span class="nf">get_cds_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves coding sequences (cds) for given Gene feature IDs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           gene_feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">             If None, returns all values.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          ????</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
     </div>
     <span class="nd">@abc.abstractmethod</span>
-<div class="viewcode-block" id="GenomeInterface.get_mrna_by_gene"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_gene">[docs]</a>    <span class="k">def</span> <span class="nf">get_mrna_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GenomeInterface.get_mrna_by_gene"><a class="viewcode-back" href="../../../../annotation_api.html#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_gene">[docs]</a>    <span class="k">def</span> <span class="nf">get_mrna_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves mRNA for given Gene feature IDs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">           gene_feature_id_list (list&lt;str&gt;): List of features to retrieve.</span>
+<span class="sd">             If None, returns all values.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          ????</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
 
 </div></div>
-<div class="viewcode-block" id="GenomeAnnotationAPI"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI">[docs]</a><span class="k">class</span> <span class="nc">GenomeAnnotationAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">GenomeInterface</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">GenomeAnnotationAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">GenomeInterface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory class for instantiating a GenomeAnnotationAPI object of the correct subtype.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -322,65 +377,65 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_KBaseGenomes_Genome</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
 
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_taxon"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_taxon">[docs]</a>    <span class="k">def</span> <span class="nf">get_taxon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_taxon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_taxon</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_assembly"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_assembly">[docs]</a>    <span class="k">def</span> <span class="nf">get_assembly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_assembly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_assembly</span><span class="p">()</span>
-    </div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_types"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_feature_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_types</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_ids"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">region_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">function_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">alias_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_feature_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">region_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">function_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">alias_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_ids</span><span class="p">(</span><span class="n">type_list</span><span class="p">,</span> <span class="n">region_list</span><span class="p">,</span> <span class="n">function_list</span><span class="p">,</span> <span class="n">alias_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_type_counts"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_type_counts">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_type_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_feature_type_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_type_counts</span><span class="p">(</span><span class="n">type_list</span><span class="p">)</span>
-    </div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_cds_protein"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_cds_protein">[docs]</a>    <span class="k">def</span> <span class="nf">get_cds_protein</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_cds_protein</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_locations"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_locations">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_locations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_feature_locations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_locations</span><span class="p">(</span><span class="n">feature_id_list</span><span class="p">)</span>
-    </div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_dna"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_dna">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_dna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_feature_dna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_dna</span><span class="p">(</span><span class="n">feature_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_functions"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_functions">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_feature_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_functions</span><span class="p">(</span><span class="n">feature_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_aliases"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_aliases">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_feature_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_aliases</span><span class="p">(</span><span class="n">feature_id_list</span><span class="p">)</span>
-    </div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_feature_publications"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_feature_publications">[docs]</a>    <span class="k">def</span> <span class="nf">get_feature_publications</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_feature_publications</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_feature_publications</span><span class="p">(</span><span class="n">feature_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_features"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_features</span><span class="p">(</span><span class="n">feature_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_proteins"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_proteins">[docs]</a>    <span class="k">def</span> <span class="nf">get_proteins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_proteins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_cds_by_mrna"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_cds_by_mrna">[docs]</a>    <span class="k">def</span> <span class="nf">get_cds_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_cds_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_cds_by_mrna</span><span class="p">(</span><span class="n">mrna_feature_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_mrna_by_cds"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_mrna_by_cds">[docs]</a>    <span class="k">def</span> <span class="nf">get_mrna_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span> 
+
+    <span class="k">def</span> <span class="nf">get_mrna_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span> 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_mrna_by_cds</span><span class="p">(</span><span class="n">cds_feature_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_gene_by_cds"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_gene_by_cds">[docs]</a>    <span class="k">def</span> <span class="nf">get_gene_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_gene_by_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_gene_by_cds</span><span class="p">(</span><span class="n">cds_feature_id_list</span><span class="p">)</span>
-  </div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_gene_by_mrna"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_gene_by_mrna">[docs]</a>    <span class="k">def</span> <span class="nf">get_gene_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  
+    <span class="k">def</span> <span class="nf">get_gene_by_mrna</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mrna_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_gene_by_mrna</span><span class="p">(</span><span class="n">mrna_feature_id_list</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_cds_by_gene"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_cds_by_gene">[docs]</a>    <span class="k">def</span> <span class="nf">get_cds_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_cds_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_cds_by_gene</span><span class="p">(</span><span class="n">gene_feature_id_list</span><span class="p">)</span>
-    </div>
-<div class="viewcode-block" id="GenomeAnnotationAPI.get_mrna_by_gene"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.annotation.html#doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI.get_mrna_by_gene">[docs]</a>    <span class="k">def</span> <span class="nf">get_mrna_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">get_mrna_by_gene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gene_feature_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_mrna_by_gene</span><span class="p">(</span><span class="n">gene_feature_id_list</span><span class="p">)</span>
     
 
-</div></div>
+
 <span class="k">class</span> <span class="nc">_KBaseGenomes_Genome</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">GenomeInterface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_KBaseGenomes_Genome</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
@@ -1170,6 +1225,7 @@
                                 <span class="s">&quot;received an empty list.&quot;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">feature_containers</span><span class="p">:</span>
+            <span class="c"># Get list of feature IDs</span>
             <span class="k">if</span> <span class="n">feature_id_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">features</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;features&quot;</span><span class="p">]</span>
                 <span class="n">working_list</span> <span class="o">=</span> <span class="n">features</span>
@@ -1177,7 +1233,7 @@
                 <span class="n">container</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
                 <span class="n">features</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="n">feature_refs</span><span class="p">)[</span><span class="s">&quot;features&quot;</span><span class="p">]</span>
                 <span class="n">working_list</span> <span class="o">=</span> <span class="n">feature_id_list</span>
-
+            <span class="c"># Pull out either aliases or locations from each feature</span>
             <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&quot;aliases&quot;</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">working_list</span><span class="p">:</span>
                     <span class="k">if</span> <span class="s">&quot;aliases&quot;</span> <span class="ow">in</span> <span class="n">features</span><span class="p">[</span><span class="n">feature_id</span><span class="p">]:</span>
@@ -1449,10 +1505,9 @@
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../assembly_api.html">Assembly Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../_source/modules.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -1527,7 +1582,7 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x108215a10>
+<jinja2.runtime.BlockReference object at 0x1056f7150>
 
   </body>
 </html>

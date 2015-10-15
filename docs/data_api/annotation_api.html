@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10cf2a690>
+<jinja2.runtime.BlockReference object at 0x1056f7790>
 
    
   
@@ -42,7 +42,469 @@
           <div class="body">
             
   <div class="section" id="annotation-data-api">
-<span id="annotation-api"></span><h1>Annotation Data API<a class="headerlink" href="#annotation-data-api" title="Permalink to this headline">¶</a></h1>
+<span id="annotation-api"></span><h1><a class="toc-backref" href="#id1">Annotation Data API</a><a class="headerlink" href="#annotation-data-api" title="Permalink to this headline">¶</a></h1>
+<p>The Annotation API can be used as a library or in client/server mode.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#annotation-data-api" id="id1">Annotation Data API</a><ul>
+<li><a class="reference internal" href="#creating-an-annotation" id="id2">Creating an Annotation</a></li>
+<li><a class="reference internal" href="#genome-annotation-object-interface" id="id3">Genome annotation object interface</a><ul>
+<li><a class="reference internal" href="#feature-description-codes" id="id4">Feature description codes</a></li>
+<li><a class="reference internal" href="#interface" id="id5">Interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples" id="id6">Examples</a><ul>
+<li><a class="reference internal" href="#python-examples" id="id7">Python examples</a><ul>
+<li><a class="reference internal" href="#example-fetch-all-proteins-for-a-gene" id="id8">Example: Fetch all proteins for a gene</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="creating-an-annotation">
+<h2><a class="toc-backref" href="#id2">Creating an Annotation</a><a class="headerlink" href="#creating-an-annotation" title="Permalink to this headline">¶</a></h2>
+<p>To create a new taxon, you will create an object that implements the interface defined in <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annnotation.genome_annotation.api.GenomeInterface</span></tt>. If you are using the
+Python library (see
+<a class="reference internal" href="index.html#overview-diagram"><em>Overview of the Data API modules</em></a>), then you can instantiate the <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI</span></tt> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
+<p>If instead you are using Python or another language as a client, and running the TaxonAPI within a Thrift server, you would use <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annotation.genome_annotation.GenomeAnnotion</span> <span class="pre">ClientAPI</span></tt> in Python or the equivalent in the target language.</p>
+<p>In either case you will instantiate the class with an object reference, in the format expected by the KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</p>
+</div>
+<div class="section" id="genome-annotation-object-interface">
+<h2><a class="toc-backref" href="#id3">Genome annotation object interface</a><a class="headerlink" href="#genome-annotation-object-interface" title="Permalink to this headline">¶</a></h2>
+<p>The interface used by both the client/server and local Python library APIs is shown below.</p>
+<div class="section" id="feature-description-codes">
+<h3><a class="toc-backref" href="#id4">Feature description codes</a><a class="headerlink" href="#feature-description-codes" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS">
+<tt class="descclassname">doekbase.data_api.annotation.genome_annotation.</tt><tt class="descname">FEATURE_DESCRIPTIONS</tt><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping of feature type codes to descriptions
+of their meaning. The keys of this mapping give possible values for
+functions taking feature type identifiers, e.g.
+<a class="reference internal" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_types" title="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_types"><tt class="xref py py-meth docutils literal"><span class="pre">GenomeInterface.get_feature_types()</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="interface">
+<h3><a class="toc-backref" href="#id5">Interface</a><a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.annotation.genome_annotation.</tt><tt class="descname">GenomeInterface</tt><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_assembly">
+<tt class="descname">get_assembly</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the Assembly used to create this Genome Annotation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Assembly object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">AssemblyAPI</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_gene">
+<tt class="descname">get_cds_by_gene</tt><big>(</big><em>gene_feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_cds_by_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves coding sequences (cds) for given Gene feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gene_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_mrna">
+<tt class="descname">get_cds_by_mrna</tt><big>(</big><em>mrna_feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_cds_by_mrna"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_cds_by_mrna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves coding sequences (cds) for given mRNA feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mrna_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_aliases">
+<tt class="descname">get_feature_aliases</tt><big>(</big><em>feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_aliases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the aliases for genome features.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all feature functions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list&lt;str&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_dna">
+<tt class="descname">get_feature_dna</tt><big>(</big><em>feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_dna"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_dna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the DNA sequence for genome features.</p>
+<p>If <cite>feature_id_list</cite> is None, returns all feature dna.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Mapping of feature IDs to their values.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str,str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_functions">
+<tt class="descname">get_feature_functions</tt><big>(</big><em>feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_functions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the functional description for given features.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all feature functions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Mapping from feature IDs to their functions.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str,str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_ids">
+<tt class="descname">get_feature_ids</tt><big>(</big><em>type_list=None</em>, <em>region_list=None</em>, <em>function_list=None</em>, <em>alias_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves feature ids based on filters such as feature types,
+regions, functional descriptions, aliases.</p>
+<p>If any argument is None, it will not be used as a filter.
+If all arguments are None, all feature ids will be returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>type_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of feature types. Each should match a
+value in <a class="reference internal" href="#doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS" title="doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS"><tt class="xref py py-data docutils literal"><span class="pre">FEATURE_DESCRIPTIONS</span></tt></a>.</li>
+<li><strong>region_list</strong> (<em>list&lt;dict&gt;</em>) &#8211; List of region objects, e.g.:
+[{&#8220;contig_id&#8221;: str, &#8220;strand&#8221;: &#8220;+&#8221;|&#8221;-&#8220;|&#8221;?&#8221;, &#8220;start&#8221;: int, &#8220;stop&#8221;: int},...]</li>
+<li><strong>function_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of functions</li>
+<li><strong>alias_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of feature aliases</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Mapping of each retrieved feature ID
+to its corresponding value.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict&lt;str,list&lt;dict or str&gt;&gt;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_locations">
+<tt class="descname">get_feature_locations</tt><big>(</big><em>feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_locations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the location information for given genome features.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all feature functions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Mapping from feature IDs to location information for each.
+The location information has the following key/value pairs:<dl class="docutils">
+<dt>contig_id <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The identifier for this contig</dd>
+<dt>strand <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The strand for the contig ????</dd>
+<dt>start <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The start position for the contig</dd>
+<dt>length <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The length of the contig</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_publications">
+<tt class="descname">get_feature_publications</tt><big>(</big><em>feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_publications"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_publications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the publications for genome features.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all feature functions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list&lt;dict&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_counts">
+<tt class="descname">get_feature_type_counts</tt><big>(</big><em>type_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_type_counts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of Genome Features, grouped by
+feature type identifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of feature types. Each should match a
+value in <a class="reference internal" href="#doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS" title="doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS"><tt class="xref py py-data docutils literal"><span class="pre">FEATURE_DESCRIPTIONS</span></tt></a>. If None,
+or empty, will retrieve all type counts.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Map of string feature types to integer counts.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_descriptions">
+<tt class="descname">get_feature_type_descriptions</tt><big>(</big><em>type_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_type_descriptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_type_descriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a descriptive string for each feature type identifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of feature types. The known values for
+these are enumerated in the module&#8217;s  <a class="reference internal" href="#doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS" title="doekbase.data_api.annotation.genome_annotation.FEATURE_DESCRIPTIONS"><tt class="xref py py-data docutils literal"><span class="pre">FEATURE_DESCRIPTIONS</span></tt></a>.
+If this list is empty or None, then the whole mapping will be
+returned.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Key/value pairs for each requested feature description.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_types">
+<tt class="descname">get_feature_types</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_feature_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_feature_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the Genome Feature type identifiers available from this
+Genome Annotation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of feature type identifiers.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list&lt;str&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_features">
+<tt class="descname">get_features</tt><big>(</big><em>feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all the available data for Genome Features.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all feature functions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Mapping from feature IDs to dicts
+of available data.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str,dict&lt;str,list&gt;&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_cds">
+<tt class="descname">get_gene_by_cds</tt><big>(</big><em>cds_feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_gene_by_cds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_cds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves Genes for given coding sequence (cds)  feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cds_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_mrna">
+<tt class="descname">get_gene_by_mrna</tt><big>(</big><em>mrna_feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_gene_by_mrna"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_gene_by_mrna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves Genes for given mRNA feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mrna_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_cds">
+<tt class="descname">get_mrna_by_cds</tt><big>(</big><em>cds_feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_mrna_by_cds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_cds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves mRNA for given coding sequences (cds) feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cds_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_gene">
+<tt class="descname">get_mrna_by_gene</tt><big>(</big><em>gene_feature_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_mrna_by_gene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_mrna_by_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves mRNA for given Gene feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gene_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
+If None, returns all values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_proteins">
+<tt class="descname">get_proteins</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_proteins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all the available proteins for genome features.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list&lt;dict&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_taxon">
+<tt class="descname">get_taxon</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/annotation/genome_annotation.html#GenomeInterface.get_taxon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.annotation.genome_annotation.GenomeInterface.get_taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the Taxon assigned to this Genome Annotation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Taxon object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">TaxonAPI</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id6">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Below are example(s) in Python and, &#8220;real soon now&#8221;, in JavaScript.</p>
+<div class="section" id="python-examples">
+<h3><a class="toc-backref" href="#id7">Python examples</a><a class="headerlink" href="#python-examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="example-fetch-all-proteins-for-a-gene">
+<h4><a class="toc-backref" href="#id8">Example: Fetch all proteins for a gene</a><a class="headerlink" href="#example-fetch-all-proteins-for-a-gene" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_proteins_for_gene</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">gene</span><span class="p">,</span> <span class="n">ws_url</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fetch all Proteins for a gene.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      ws_url (str): a service address or a local directory</span>
+<span class="sd">         containing a downloaded version of the data created with the</span>
+<span class="sd">         ``dump_wsfile`` utility.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Try to connect to remote service</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">GenomeAnnotationAPI</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">),</span>
+                              <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span>
+                              <span class="n">services</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="n">ws_url</span><span class="p">})</span>
+    <span class="c"># Now the methods of the instance can be used</span>
+    <span class="n">proteins</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
+    <span class="c"># TODO: filter by gene</span>
+    <span class="k">return</span> <span class="n">proteins</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -70,11 +532,25 @@
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Annotation Data API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-annotation">Creating an Annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#genome-annotation-object-interface">Genome annotation object interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#feature-description-codes">Feature description codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-fetch-all-proteins-for-a-gene">Example: Fetch all proteins for a gene</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -82,7 +558,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">KBase Data API documentation</a></li>
-      <li>Next: <a href="genome_api.html" title="next chapter">Genome Data API</a></li>
+      <li>Next: <a href="assembly_api.html" title="next chapter">Assembly Data API</a></li>
   </ul></li>
 </ul>
 </div>
@@ -147,7 +623,7 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x10cf2a690>
+<jinja2.runtime.BlockReference object at 0x1056f7790>
 
   </body>
 </html>

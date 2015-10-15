@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x108270550>
+<jinja2.runtime.BlockReference object at 0x1058b8b50>
 
    
   
@@ -43,7 +43,7 @@
             
   <div class="section" id="taxon-data-api">
 <span id="taxon-api"></span><h1><a class="toc-backref" href="#id1">Taxon Data API</a><a class="headerlink" href="#taxon-data-api" title="Permalink to this headline">¶</a></h1>
-<p>The API can be used as a library or in client/server mode.</p>
+<p>The Taxon API can be used as a library or in client/server mode.</p>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
@@ -63,8 +63,8 @@
 </div>
 <div class="section" id="creating-a-taxonomic-object">
 <h2><a class="toc-backref" href="#id2">Creating a Taxonomic object</a><a class="headerlink" href="#creating-a-taxonomic-object" title="Permalink to this headline">¶</a></h2>
-<p>To create a new taxon, you will create an object that implements the interface defined in <a class="reference internal" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface" title="doekbase.data_api.taxonomy.taxon.api.TaxonInterface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonInterface</span></tt></a>. If you are using the Python library (see <a class="reference internal" href="index.html#overview-diagram"><em>Overview of the Data API modules</em></a>), then you can instantiate the <a class="reference internal" href="_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI" title="doekbase.data_api.taxonomy.taxon.api.TaxonAPI"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonAPI</span></tt></a> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
-<p>If instead you are using Python or another language as a client, and running the TaxonAPI within a Thrift server, you would use <a class="reference internal" href="_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI" title="doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI</span></tt></a> in Python or the equivalent in the target language.</p>
+<p>To create a new taxon, you will create an object that implements the interface defined in <a class="reference internal" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface" title="doekbase.data_api.taxonomy.taxon.api.TaxonInterface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonInterface</span></tt></a>. If you are using the Python library (see <a class="reference internal" href="index.html#overview-diagram"><em>Overview of the Data API modules</em></a>), then you can instantiate the <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonAPI</span></tt> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
+<p>If instead you are using Python or another language as a client, and running the TaxonAPI within a Thrift server, you would use <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI</span></tt> in Python or the equivalent in the target language.</p>
 <p>In either case you will instantiate the class with an object reference, in the format expected by the KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</p>
 </div>
 <div class="section" id="taxon-object-interface">
@@ -323,7 +323,7 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Taxon Data API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#creating-a-taxonomic-object">Creating a Taxonomic object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#taxon-object-interface">Taxon object interface</a></li>
@@ -337,14 +337,13 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_source/modules.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="genome_api.html" title="previous chapter">Genome Data API</a></li>
+      <li>Previous: <a href="assembly_api.html" title="previous chapter">Assembly Data API</a></li>
       <li>Next: <a href="developer.html" title="next chapter">Developer notes</a></li>
   </ul></li>
 </ul>
@@ -410,7 +409,7 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x108270550>
+<jinja2.runtime.BlockReference object at 0x1058b8b50>
 
   </body>
 </html>

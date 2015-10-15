@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="../../../../../_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x108156810>
+<jinja2.runtime.BlockReference object at 0x105811dd0>
 
    
   
@@ -279,6 +279,15 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span>
 
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple string representation, for debugging.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s">&#39;Id: {}, Name: {}, Lineage: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
+        <span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;domain&quot;</span><span class="p">]</span>
 
@@ -292,8 +301,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;genetic_code&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="TaxonAPI"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI">[docs]</a><span class="k">class</span> <span class="nc">TaxonAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">TaxonInterface</span><span class="p">):</span>
-<div class="viewcode-block" id="TaxonAPI.__init__"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TaxonAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">TaxonInterface</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Defines which types and type versions that are legal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -310,40 +319,49 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_Prototype</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_KBaseGenomes_Genome</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_parent"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_parent">[docs]</a>    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="n">ref_only</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_children"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_children">[docs]</a>    <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">ref_only</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_genome_annotations"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">(</span><span class="n">ref_only</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_scientific_lineage"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_scientific_lineage">[docs]</a>    <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_scientific_name"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_scientific_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_taxonomic_id"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_taxonomic_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_taxonomic_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_taxonomic_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_kingdom"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_kingdom">[docs]</a>    <span class="k">def</span> <span class="nf">get_kingdom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_kingdom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_kingdom</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_domain"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_domain">[docs]</a>    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_domain</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_aliases"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_aliases">[docs]</a>    <span class="k">def</span> <span class="nf">get_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_aliases</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonAPI.get_genetic_code"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.get_genetic_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_genetic_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_genetic_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_genetic_code</span><span class="p">()</span>
 
-</div></div>
-<div class="viewcode-block" id="TaxonClientAPI"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI">[docs]</a><span class="k">class</span> <span class="nc">TaxonClientAPI</span><span class="p">(</span><span class="n">TaxonInterface</span><span class="p">):</span>
-<div class="viewcode-block" id="TaxonClientAPI.__init__"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9090</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple string representation, for debugging.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s">&#39;[{}] Id: {}, Name: {}, Lineage: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
+        <span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TaxonClientAPI</span><span class="p">(</span><span class="n">TaxonInterface</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9090</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.service.interface</span> <span class="kn">import</span> <span class="n">TaxonClientConnection</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
@@ -351,8 +369,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">TaxonClientConnection</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_parent"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_parent">[docs]</a>    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -370,8 +388,8 @@
                 <span class="k">return</span> <span class="n">TaxonClientAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">parent_ref</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">None</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_children"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_children">[docs]</a>    <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -389,8 +407,8 @@
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">children_refs</span><span class="p">:</span>
                 <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TaxonClientAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">children</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_genome_annotations"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -401,8 +419,8 @@
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_scientific_lineage"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_scientific_lineage">[docs]</a>    <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -412,8 +430,8 @@
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_scientific_name"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_scientific_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -423,8 +441,8 @@
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_taxonomic_id"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_taxonomic_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_taxonomic_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_taxonomic_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -434,8 +452,8 @@
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_kingdom"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_kingdom">[docs]</a>    <span class="k">def</span> <span class="nf">get_kingdom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_kingdom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -445,8 +463,8 @@
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_domain"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_domain">[docs]</a>    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -456,8 +474,8 @@
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_aliases"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_aliases">[docs]</a>    <span class="k">def</span> <span class="nf">get_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -467,8 +485,8 @@
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="TaxonClientAPI.get_genetic_code"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.taxonomy.taxon.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.get_genetic_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_genetic_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get_genetic_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
@@ -477,7 +495,7 @@
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
           </div>
@@ -505,10 +523,9 @@
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../genome_api.html">Genome Data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../assembly_api.html">Assembly Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../taxon_api.html">Taxon Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../developer.html">Developer notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../_source/modules.html">API Reference</a></li>
 </ul>
 
 <div class="relations">
@@ -583,7 +600,7 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x10816e4d0>
+<jinja2.runtime.BlockReference object at 0x105811dd0>
 
   </body>
 </html>
