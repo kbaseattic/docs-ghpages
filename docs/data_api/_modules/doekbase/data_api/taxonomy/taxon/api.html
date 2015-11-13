@@ -23,11 +23,10 @@
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../../../../../_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x105811dd0>
+<jinja2.runtime.BlockReference object at 0x107861450>
 
    
   
@@ -55,6 +54,9 @@
 
 <span class="c"># Local</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api.core</span> <span class="kn">import</span> <span class="n">ObjectAPI</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">get_logger</span><span class="p">,</span> <span class="n">logged</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
 
 <span class="n">_GENOME_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;KBaseGenomes.Genome&#39;</span><span class="p">]</span>
 <span class="n">_TAXON_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;KBaseGenomesCondensedPrototypeV2.Taxon&#39;</span><span class="p">]</span>
@@ -62,50 +64,52 @@
 
 
 <div class="viewcode-block" id="TaxonInterface"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface">[docs]</a><span class="k">class</span> <span class="nc">TaxonInterface</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Represents a Taxonomic Unit, e.g., species.</span>
-<span class="sd">    Built to support KBaseGenomesCondensedPrototypeV2.Taxon and KBaseGenomes.Genome.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Represents a Taxonomic Unit, e.g., species.</span>
 
+<span class="sd">    Built to support KBaseGenomesCondensedPrototypeV2.Taxon and</span>
+<span class="sd">    KBaseGenomes.Genome.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
 
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_parent"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_parent">[docs]</a>    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve parent Taxon of this Taxon as a TaxonAPI object.</span>
-<span class="sd">        If this is accessing a Genome object, returns None.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve parent Taxon.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">          ref_only (bool): Return the reference instead of the full TaxonAPI object.</span>
+<span class="sd">          ref_only (bool): Return the reference instead of the full</span>
+<span class="sd">                           TaxonAPI object.</span>
 <span class="sd">        Returns:</span>
-<span class="sd">          TaxonAPI</span>
+<span class="sd">          TaxonAPI, or str: Parent Taxon, either as an object or a</span>
+<span class="sd">                    reference.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">          AttributeError: If no Parent Taxon exists for this Taxon.</span>
 <span class="sd">         &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_children"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_children">[docs]</a>    <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the children Taxon of this Taxon as TaxonAPI objects.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the children Taxon of this Taxon as TaxonAPI objects.</span>
 <span class="sd">        If this is accessing a Genome object, returns None.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">          list&lt;TaxonAPI&gt;&quot;&quot;&quot;</span>
+<span class="sd">          list&lt;TaxonAPI&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_genome_annotations"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the GenomeAnnotations that refer to this Taxon.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the GenomeAnnotations that refer to this Taxon.</span>
 <span class="sd">        If this is accessing a Genome object, returns None.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">          list&lt;GenomeAnnotationAPI&gt;&quot;&quot;&quot;</span>
+<span class="sd">          list&lt;GenomeAnnotationAPI&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_scientific_lineage"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_scientific_lineage">[docs]</a>    <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the scientific lineage of this Taxon.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the scientific lineage of this Taxon.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          str</span>
@@ -115,8 +119,7 @@
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_scientific_name"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_scientific_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the scientific name of this Taxon.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the scientific name of this Taxon.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          str</span>
@@ -126,20 +129,19 @@
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_taxonomic_id"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_taxonomic_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_taxonomic_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the NCBI taxonomic id of this Taxon.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the NCBI taxonomic id of this Taxon.</span>
 <span class="sd">        The KBaseGenomes.Genome type&#39;s closest representative is source_id.</span>
 
-<span class="sd">        Unknown == -1</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">          int&quot;&quot;&quot;</span>
+<span class="sd">          int</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">          AttributeError: If the NCBI taxonomic id for this Taxon is not present.&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_kingdom"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_kingdom">[docs]</a>    <span class="k">def</span> <span class="nf">get_kingdom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the kingdom associated with this Taxonomic Unit.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the kingdom associated with this Taxonomic Unit.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          str&quot;&quot;&quot;</span>
@@ -147,8 +149,7 @@
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_domain"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_domain">[docs]</a>    <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the domain associated with this Taxonomic Unit.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the domain associated with this Taxonomic Unit.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          str&quot;&quot;&quot;</span>
@@ -156,8 +157,7 @@
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_aliases"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_aliases">[docs]</a>    <span class="k">def</span> <span class="nf">get_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the aliases for this Taxonomic Unit.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the aliases for this Taxonomic Unit.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          list&lt;str&gt;&quot;&quot;&quot;</span>
@@ -165,8 +165,7 @@
 </div>
     <span class="nd">@abc.abstractmethod</span>
 <div class="viewcode-block" id="TaxonInterface.get_genetic_code"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_genetic_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_genetic_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve the genetic code for this Taxonomic Unit.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the genetic code for this Taxonomic Unit.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          int&quot;&quot;&quot;</span>
@@ -180,16 +179,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">([</span><span class="s">&quot;taxonomy&quot;</span><span class="p">,</span> <span class="s">&quot;scientific_name&quot;</span><span class="p">,</span> <span class="s">&quot;source_id&quot;</span><span class="p">,</span> <span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;genetic_code&quot;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span>
 
     <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="kn">from</span> <span class="nn">doekbase.data_api.annotation.genome_annotation</span> <span class="kn">import</span> <span class="n">GenomeAnnotationAPI</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">GenomeAnnotationAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;taxonomy&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;taxonomy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;;&quot;</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;scientific_name&quot;</span><span class="p">]</span>
@@ -197,11 +197,11 @@
     <span class="k">def</span> <span class="nf">get_taxonomic_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;source_id&quot;</span><span class="p">])</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span>
 
     <span class="k">def</span> <span class="nf">get_kingdom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span>
 
     <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;domain&quot;</span><span class="p">]</span>
@@ -223,7 +223,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">parent_ref</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;parent_taxon_ref&quot;</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span>
 
         <span class="k">if</span> <span class="n">ref_only</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">parent_ref</span>
@@ -265,7 +265,7 @@
         <span class="k">return</span> <span class="n">annotations</span>
 
     <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;scientific_lineage&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;scientific_lineage&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;;&quot;</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;scientific_name&quot;</span><span class="p">]</span>
@@ -277,7 +277,7 @@
         <span class="k">if</span> <span class="s">&quot;kingdom&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;kingdom&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Simple string representation, for debugging.</span>
@@ -301,8 +301,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;genetic_code&quot;</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">TaxonAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">TaxonInterface</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="TaxonAPI"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI">[docs]</a><span class="k">class</span> <span class="nc">TaxonAPI</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">TaxonInterface</span><span class="p">):</span>
+<div class="viewcode-block" id="TaxonAPI.__init__"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Defines which types and type versions that are legal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -319,7 +319,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_Prototype</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_KBaseGenomes_Genome</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
-
+</div>
     <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="n">ref_only</span><span class="p">)</span>
 
@@ -353,23 +353,106 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Simple string representation, for debugging.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tax_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">tax_id</span> <span class="o">=</span> <span class="bp">None</span>
+
         <span class="k">return</span> <span class="s">&#39;[{}] Id: {}, Name: {}, Lineage: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">(),</span>
+            <span class="n">tax_id</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">(),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_scientific_lineage</span><span class="p">()</span>
         <span class="p">)</span>
+</div>
+<span class="n">_tc_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="s">&#39;TaxonClientAPI&#39;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">TaxonClientAPI</span><span class="p">(</span><span class="n">TaxonInterface</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9090</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="TaxonClientAPI"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI">[docs]</a><span class="k">class</span> <span class="nc">TaxonClientAPI</span><span class="p">(</span><span class="n">TaxonInterface</span><span class="p">):</span>
+
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">,</span> <span class="n">log_name</span><span class="o">=</span><span class="s">&#39;init&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="TaxonClientAPI.__init__"><a class="viewcode-back" href="../../../../../taxon_api.html#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.service.interface</span> <span class="kn">import</span> <span class="n">TaxonClientConnection</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">TaxonClientConnection</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
+        <span class="c">#TODO add exception handling and better error messages here</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">TaxonClientConnection</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
+</div>
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_history</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_provenance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_provenance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -384,14 +467,12 @@
         <span class="k">if</span> <span class="n">ref_only</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">parent_ref</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">parent_ref</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">TaxonClientAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">parent_ref</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="n">TaxonClientAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">parent_ref</span><span class="p">)</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">children_refs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
@@ -400,26 +481,32 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;@@ children_refs (1) =&gt; {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">children_refs</span><span class="p">))</span>
+        <span class="n">children_refs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">children_refs</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;@@ children_refs (2) =&gt; {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">children_refs</span><span class="p">))</span>
+
         <span class="k">if</span> <span class="n">ref_only</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">children_refs</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">children</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">children_refs</span><span class="p">:</span>
-                <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TaxonClientAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+                <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TaxonClientAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+
             <span class="k">return</span> <span class="n">children</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">annotation_refs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">annotation_refs</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_scientific_lineage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -431,6 +518,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_scientific_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -442,6 +530,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_taxonomic_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -453,6 +542,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_kingdom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -464,6 +554,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -475,6 +566,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -486,6 +578,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_tc_log</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_genetic_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -495,7 +588,7 @@
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </pre></div>
 
           </div>
@@ -600,7 +693,7 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x105811dd0>
+<jinja2.runtime.BlockReference object at 0x107796250>
 
   </body>
 </html>

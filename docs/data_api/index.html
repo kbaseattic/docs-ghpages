@@ -23,11 +23,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x105bb9dd0>
+<jinja2.runtime.BlockReference object at 0x1081e44d0>
 
    
   
@@ -52,7 +51,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="annotation_api.html#examples">Examples</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="annotation_api.html#python-examples">Python examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="annotation_api.html#example-fetch-all-proteins-for-a-gene">Example: Fetch all proteins for a gene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="annotation_api.html#example-write-proteins-as-a-fasta-file">Example: Write proteins as a FASTA file</a></li>
 </ul>
 </li>
 </ul>
@@ -60,25 +59,24 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#creating-an-assembly">Creating an assembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#assembly-object-interface">Assembly object interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#interface">Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#creating-an-assembly-object">Creating an Assembly object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#python-library-assemblyapi">Python Library: AssemblyAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#thrift-service-assemblyclientapi">Thrift Service: AssemblyClientAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#common-api-methods">Common API methods</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#python-examples">Python examples</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#creating-a-taxonomic-object">Creating a Taxonomic object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#taxon-object-interface">Taxon object interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#python-examples">Python examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="taxon_api.html#example-fetch-and-print-taxon">Example: Fetch and Print Taxon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#creating-a-taxonomic-object">Creating a Taxonomic object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#python-library-taxonapi">Python Library: TaxonAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#thrift-service-taxonclientapi">Thrift Service: TaxonClientAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#common-api-methods">Common API methods</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#example-fetch-and-print-taxon">Example: Fetch and Print Taxon</a></li>
 </ul>
 </li>
 </ul>
@@ -86,6 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
 </ul>
 </div>
+<p>TODO: API Reference &lt;_modules/index.html&gt;</p>
 <div class="section" id="kbase-data-api-documentation">
 <h1>KBase Data API documentation<a class="headerlink" href="#kbase-data-api-documentation" title="Permalink to this headline">¶</a></h1>
 <p>The Data API provides a unified entry point to retrieve and, eventually,
@@ -102,7 +101,7 @@ For usage see the individual API pages for the <a class="reference internal" hre
 </div>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<p>You can download the latest release of the Data API from the <a href="#id1"><span class="problematic" id="id2">`release page on github https://github.com/kbase/data_api/releases`_</span></a>. It is generally recommended that you install packages in a virtual environment.</p>
+<p>You can download the latest release of the Data API from the [release page on github](<a class="reference external" href="https://github.com/kbase/data_api/releases">https://github.com/kbase/data_api/releases</a>). It is generally recommended that you install packages in a virtual environment.</p>
 <ol class="arabic">
 <li><p class="first">Install virtualenv using your local installer e.g., apt-get install virtualenv</p>
 </li>
@@ -267,7 +266,7 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x105bb9dd0>
+<jinja2.runtime.BlockReference object at 0x1081807d0>
 
   </body>
 </html>

@@ -23,11 +23,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x1058b8b50>
+<jinja2.runtime.BlockReference object at 0x106a96b10>
 
    
   
@@ -48,13 +47,14 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#taxon-data-api" id="id1">Taxon Data API</a><ul>
-<li><a class="reference internal" href="#creating-a-taxonomic-object" id="id2">Creating a Taxonomic object</a></li>
-<li><a class="reference internal" href="#taxon-object-interface" id="id3">Taxon object interface</a></li>
-<li><a class="reference internal" href="#examples" id="id4">Examples</a><ul>
-<li><a class="reference internal" href="#python-examples" id="id5">Python examples</a><ul>
-<li><a class="reference internal" href="#example-fetch-and-print-taxon" id="id6">Example: Fetch and Print Taxon</a></li>
+<li><a class="reference internal" href="#creating-a-taxonomic-object" id="id2">Creating a Taxonomic object</a><ul>
+<li><a class="reference internal" href="#python-library-taxonapi" id="id3">Python Library: TaxonAPI</a></li>
+<li><a class="reference internal" href="#thrift-service-taxonclientapi" id="id4">Thrift Service: TaxonClientAPI</a></li>
+<li><a class="reference internal" href="#common-api-methods" id="id5">Common API methods</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#examples" id="id6">Examples</a><ul>
+<li><a class="reference internal" href="#example-fetch-and-print-taxon" id="id7">Example: Fetch and Print Taxon</a></li>
 </ul>
 </li>
 </ul>
@@ -63,18 +63,80 @@
 </div>
 <div class="section" id="creating-a-taxonomic-object">
 <h2><a class="toc-backref" href="#id2">Creating a Taxonomic object</a><a class="headerlink" href="#creating-a-taxonomic-object" title="Permalink to this headline">¶</a></h2>
-<p>To create a new taxon, you will create an object that implements the interface defined in <a class="reference internal" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface" title="doekbase.data_api.taxonomy.taxon.api.TaxonInterface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonInterface</span></tt></a>. If you are using the Python library (see <a class="reference internal" href="index.html#overview-diagram"><em>Overview of the Data API modules</em></a>), then you can instantiate the <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonAPI</span></tt> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
-<p>If instead you are using Python or another language as a client, and running the TaxonAPI within a Thrift server, you would use <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI</span></tt> in Python or the equivalent in the target language.</p>
-<p>In either case you will instantiate the class with an object reference, in the format expected by the KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</p>
+<p>To create a new Taxon object, you will create an object that implements the interface defined in <a class="reference internal" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface" title="doekbase.data_api.taxonomy.taxon.api.TaxonInterface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonInterface</span></tt></a>. This class can implement a library or a Thrift client. In either case you will instantiate the class with an object reference. The interfaces used by both classes are shown below.</p>
+<div class="section" id="python-library-taxonapi">
+<h3><a class="toc-backref" href="#id3">Python Library: TaxonAPI</a><a class="headerlink" href="#python-library-taxonapi" title="Permalink to this headline">¶</a></h3>
+<p>If you are using the Python library, then you can instantiate the <a class="reference internal" href="#doekbase.data_api.taxonomy.taxon.api.TaxonAPI" title="doekbase.data_api.taxonomy.taxon.api.TaxonAPI"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonAPI</span></tt></a> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
+<dl class="class">
+<dt id="doekbase.data_api.taxonomy.taxon.api.TaxonAPI">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.taxonomy.taxon.api.</tt><tt class="descname">TaxonAPI</tt><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonAPI" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="doekbase.data_api.taxonomy.taxon.api.TaxonAPI.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>services=None</em>, <em>token=None</em>, <em>ref=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonAPI.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonAPI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Construct a new TaxonAPI object, which connects directly to the
+KBase backend stores.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>services</strong> (<em>dict</em>) &#8211; Dictionary with service urls, including:
+workspace_service_url for the Workspace service, e.g.
+&#8220;<a class="reference external" href="https://kbase.us/services/ws/">https://kbase.us/services/ws/</a>&#8221;.</li>
+<li><strong>token</strong> (<em>str</em>) &#8211; KBase login token</li>
+<li><strong>ref</strong> (<em>str</em>) &#8211; KBase object reference, in the format expected by the
+KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
-<div class="section" id="taxon-object-interface">
-<h2><a class="toc-backref" href="#id3">Taxon object interface</a><a class="headerlink" href="#taxon-object-interface" title="Permalink to this headline">¶</a></h2>
-<p>The interface used by both the client/server and local Python library APIs is shown below.</p>
+<div class="section" id="thrift-service-taxonclientapi">
+<h3><a class="toc-backref" href="#id4">Thrift Service: TaxonClientAPI</a><a class="headerlink" href="#thrift-service-taxonclientapi" title="Permalink to this headline">¶</a></h3>
+<p>If instead you are using Python or another language as a client, and running the TaxonAPI within a Thrift server, you would use <a class="reference internal" href="#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI" title="doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI</span></tt></a> in Python or the equivalent in the target language.</p>
+<dl class="class">
+<dt id="doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.taxonomy.taxon.api.</tt><tt class="descname">TaxonClientAPI</tt><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonClientAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>self</em>, <em>url=None</em>, <em>token=None</em>, <em>ref=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonClientAPI.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonClientAPI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Construct a TaxonClientAPI object, connected to a Thrift Taxon service
+that proxies the communication to the KBase backend stores (or its own
+cache).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>str</em>) &#8211; A URL in the format <cite>host:port</cite> for the Thrift Taxon
+service.</li>
+<li><strong>token</strong> (<em>str</em>) &#8211; KBase login token</li>
+<li><strong>ref</strong> (<em>str</em>) &#8211; KBase object reference, in the format expected by the
+KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="common-api-methods">
+<h3><a class="toc-backref" href="#id5">Common API methods</a><a class="headerlink" href="#common-api-methods" title="Permalink to this headline">¶</a></h3>
+<p>Both the <cite>TaxonAPI</cite> and <cite>TaxonAPIClient</cite> implement all the following methods.</p>
 <dl class="class">
 <dt id="doekbase.data_api.taxonomy.taxon.api.TaxonInterface">
 <em class="property">class </em><tt class="descclassname">doekbase.data_api.taxonomy.taxon.api.</tt><tt class="descname">TaxonInterface</tt><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a Taxonomic Unit, e.g., species.
-Built to support KBaseGenomesCondensedPrototypeV2.Taxon and KBaseGenomes.Genome.</p>
+<dd><p>Represents a Taxonomic Unit, e.g., species.</p>
+<p>Built to support KBaseGenomesCondensedPrototypeV2.Taxon and
+KBaseGenomes.Genome.</p>
 <dl class="method">
 <dt id="doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_aliases">
 <tt class="descname">get_aliases</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonInterface.get_aliases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_aliases" title="Permalink to this definition">¶</a></dt>
@@ -164,15 +226,20 @@ If this is accessing a Genome object, returns None.</p>
 <dl class="method">
 <dt id="doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_parent">
 <tt class="descname">get_parent</tt><big>(</big><em>ref_only=False</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonInterface.get_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_parent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve parent Taxon of this Taxon as a TaxonAPI object.
-If this is accessing a Genome object, returns None.</p>
+<dd><p>Retrieve parent Taxon.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ref_only</strong> (<em>bool</em>) &#8211; Return the reference instead of the full TaxonAPI object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ref_only</strong> (<em>bool</em>) &#8211; Return the reference instead of the full
+TaxonAPI object.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TaxonAPI</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Parent Taxon, either as an object or a
+reference.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">TaxonAPI, or str</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><tt class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></tt> &#8211; If no Parent Taxon exists for this Taxon.</td>
 </tr>
 </tbody>
 </table>
@@ -213,12 +280,13 @@ If this is accessing a Genome object, returns None.</p>
 <tt class="descname">get_taxonomic_id</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/taxonomy/taxon/api.html#TaxonInterface.get_taxonomic_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.taxonomy.taxon.api.TaxonInterface.get_taxonomic_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the NCBI taxonomic id of this Taxon.
 The KBaseGenomes.Genome type&#8217;s closest representative is source_id.</p>
-<p>Unknown == -1</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><tt class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></tt> &#8211; If the NCBI taxonomic id for this Taxon is not present.</td>
 </tr>
 </tbody>
 </table>
@@ -227,11 +295,10 @@ The KBaseGenomes.Genome type&#8217;s closest representative is source_id.</p>
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="examples">
-<h2><a class="toc-backref" href="#id4">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Below are example(s) in Python and, &#8220;real soon now&#8221;, in JavaScript.</p>
-<div class="section" id="python-examples">
-<h3><a class="toc-backref" href="#id5">Python examples</a><a class="headerlink" href="#python-examples" title="Permalink to this headline">¶</a></h3>
 <p>For the following examples, assume the file has the following imports
 at the top of your file, Jupyter notebook, or KBase Narrative (in a code cell):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
@@ -256,7 +323,7 @@ so it&#8217;s not so painful in the future.</p>
 From the command-line, run <tt class="docutils literal"><span class="pre">kbase-login</span></tt> to retrieve a token and check your <tt class="docutils literal"><span class="pre">.kbase_config</span></tt>.</p>
 </div>
 <div class="section" id="example-fetch-and-print-taxon">
-<h4><a class="toc-backref" href="#id6">Example: Fetch and Print Taxon</a><a class="headerlink" href="#example-fetch-and-print-taxon" title="Permalink to this headline">¶</a></h4>
+<h3><a class="toc-backref" href="#id7">Example: Fetch and Print Taxon</a><a class="headerlink" href="#example-fetch-and-print-taxon" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -273,8 +340,10 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
 14
 15
 16
-17</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">fetch_and_print_taxon</span><span class="p">(</span><span class="n">ws_url</span><span class="o">=</span><span class="s">&#39;https://ci.kbase.us/services/ws/&#39;</span><span class="p">):</span>
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">fetch_and_print_taxon</span><span class="p">(</span><span class="n">ws_url</span><span class="o">=</span><span class="s">&#39;https://ci.kbase.us/services/ws/&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch Taxon from Workspace Service.</span>
+<span class="sd">    Print the scientific name and taxonomic ID of the given Taxon.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      ws_url (str): a service address or a local directory</span>
@@ -292,7 +361,6 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
                                         <span class="n">taxon</span><span class="o">.</span><span class="n">get_taxonomic_id</span><span class="p">()))</span>
 </pre></div>
 </td></tr></table></div>
-</div>
 </div>
 </div>
 </div>
@@ -325,13 +393,14 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
 <li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Taxon Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-taxonomic-object">Creating a Taxonomic object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#taxon-object-interface">Taxon object interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#example-fetch-and-print-taxon">Example: Fetch and Print Taxon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-taxonomic-object">Creating a Taxonomic object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-library-taxonapi">Python Library: TaxonAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thrift-service-taxonclientapi">Thrift Service: TaxonClientAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-api-methods">Common API methods</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-fetch-and-print-taxon">Example: Fetch and Print Taxon</a></li>
 </ul>
 </li>
 </ul>
@@ -409,7 +478,7 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x1058b8b50>
+<jinja2.runtime.BlockReference object at 0x1069ea750>
 
   </body>
 </html>

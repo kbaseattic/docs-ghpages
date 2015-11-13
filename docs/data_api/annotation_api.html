@@ -23,11 +23,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x1056f7790>
+<jinja2.runtime.BlockReference object at 0x108007410>
 
    
   
@@ -56,7 +55,7 @@
 </li>
 <li><a class="reference internal" href="#examples" id="id6">Examples</a><ul>
 <li><a class="reference internal" href="#python-examples" id="id7">Python examples</a><ul>
-<li><a class="reference internal" href="#example-fetch-all-proteins-for-a-gene" id="id8">Example: Fetch all proteins for a gene</a></li>
+<li><a class="reference internal" href="#example-write-proteins-as-a-fasta-file" id="id8">Example: Write proteins as a FASTA file</a></li>
 </ul>
 </li>
 </ul>
@@ -67,10 +66,20 @@
 </div>
 <div class="section" id="creating-an-annotation">
 <h2><a class="toc-backref" href="#id2">Creating an Annotation</a><a class="headerlink" href="#creating-an-annotation" title="Permalink to this headline">¶</a></h2>
-<p>To create a new taxon, you will create an object that implements the interface defined in <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annnotation.genome_annotation.api.GenomeInterface</span></tt>. If you are using the
-Python library (see
-<a class="reference internal" href="index.html#overview-diagram"><em>Overview of the Data API modules</em></a>), then you can instantiate the <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI</span></tt> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
-<p>If instead you are using Python or another language as a client, and running the TaxonAPI within a Thrift server, you would use <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annotation.genome_annotation.GenomeAnnotion</span> <span class="pre">ClientAPI</span></tt> in Python or the equivalent in the target language.</p>
+<p>To create a new taxon, you will create an object that implements the interface defined in <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annnotation.genome_annotation.api.GenomeInterface</span></tt>.</p>
+<ul>
+<li><p class="first">From the KBase Narrative (or within any Python program), instantiate the <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annotation.genome_annotation.GenomeAnnotationAPI</span></tt> class. This will communicate with the back-end database directly:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">my_ann</span> <span class="o">=</span> <span class="n">GenomeAnnotationAPI</span><span class="p">(</span>
+    <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">),</span>      <span class="c"># Authorization token</span>
+    <span class="n">services</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="n">ws_url</span><span class="p">},</span> <span class="c"># Workspace Service to contact,</span>
+                                                <span class="c">#   e.g., ws_url=&#39;https://kbase.us/services/ws/&#39;</span>
+    <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>                                    <span class="c"># Object reference (see below)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">If, instead, you are using Python or another language as a client, and running the GenomeAnnotationAPI within a Thrift server, you would use <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.annotation.genome_annotation.GenomeAnnotationClientAPI</span></tt> in Python or the equivalent in the target language.</p>
+</li>
+</ul>
 <p>In either case you will instantiate the class with an object reference, in the format expected by the KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</p>
 </div>
 <div class="section" id="genome-annotation-object-interface">
@@ -120,10 +129,9 @@ functions taking feature type identifiers, e.g.
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gene_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
 If None, returns all values.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="method">
@@ -137,10 +145,9 @@ If None, returns all values.</td>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mrna_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
 If None, returns all values.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="method">
@@ -371,10 +378,9 @@ of available data.</td>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cds_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
 If None, returns all values.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="method">
@@ -388,10 +394,9 @@ If None, returns all values.</td>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mrna_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
 If None, returns all values.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="method">
@@ -405,10 +410,9 @@ If None, returns all values.</td>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cds_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
 If None, returns all values.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="method">
@@ -422,10 +426,9 @@ If None, returns all values.</td>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gene_feature_id_list</strong> (<em>list&lt;str&gt;</em>) &#8211; List of features to retrieve.
 If None, returns all values.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
 </tbody>
 </table>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="method">
@@ -467,8 +470,8 @@ If None, returns all values.</td>
 <p>Below are example(s) in Python and, &#8220;real soon now&#8221;, in JavaScript.</p>
 <div class="section" id="python-examples">
 <h3><a class="toc-backref" href="#id7">Python examples</a><a class="headerlink" href="#python-examples" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="example-fetch-all-proteins-for-a-gene">
-<h4><a class="toc-backref" href="#id8">Example: Fetch all proteins for a gene</a><a class="headerlink" href="#example-fetch-all-proteins-for-a-gene" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="example-write-proteins-as-a-fasta-file">
+<h4><a class="toc-backref" href="#id8">Example: Write proteins as a FASTA file</a><a class="headerlink" href="#example-write-proteins-as-a-fasta-file" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -484,22 +487,38 @@ If None, returns all values.</td>
 13
 14
 15
-16</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_proteins_for_gene</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">gene</span><span class="p">,</span> <span class="n">ws_url</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Fetch all Proteins for a gene.</span>
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">proteins_to_fasta</span><span class="p">(</span><span class="n">ws_url</span><span class="o">=</span><span class="s">&#39;https://ci.kbase.us/services/ws/&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Write FASTA file from a genome reference.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      ws_url (str): a service address or a local directory</span>
-<span class="sd">         containing a downloaded version of the data created with the</span>
-<span class="sd">         ``dump_wsfile`` utility.</span>
+<span class="sd">        ws_url: Workspace service URL</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Full path to output file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># Try to connect to remote service</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">GenomeAnnotationAPI</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">),</span>
-                              <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span>
-                              <span class="n">services</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="n">ws_url</span><span class="p">})</span>
-    <span class="c"># Now the methods of the instance can be used</span>
-    <span class="n">proteins</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
-    <span class="c"># TODO: filter by gene</span>
-    <span class="k">return</span> <span class="n">proteins</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="s">&quot;PrototypeReferenceGenomes/kb|g.166819&quot;</span>
+    <span class="c"># ref = &quot;PrototypeReferenceGenomes/kb|g.3899&quot;</span>
+    <span class="n">genome_annotation</span> <span class="o">=</span> <span class="n">GenomeAnnotationAPI</span><span class="p">(</span>
+        <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">),</span> <span class="n">services</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="n">ws_url</span><span class="p">},</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+
+    <span class="c"># Get all the proteins with the Data API</span>
+    <span class="n">proteins</span> <span class="o">=</span> <span class="n">genome_annotation</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
+    <span class="c"># Create an output file and write to it</span>
+    <span class="n">outfile</span> <span class="o">=</span> <span class="s">&#39;/tmp/3899_prot.fasta&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fasta_line</span> <span class="ow">in</span> <span class="n">get_fasta</span><span class="p">(</span><span class="n">proteins</span><span class="p">):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fasta_line</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">outfile</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -541,7 +560,7 @@ If None, returns all values.</td>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#example-fetch-all-proteins-for-a-gene">Example: Fetch all proteins for a gene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-write-proteins-as-a-fasta-file">Example: Write proteins as a FASTA file</a></li>
 </ul>
 </li>
 </ul>
@@ -623,7 +642,7 @@ If None, returns all values.</td>
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x1056f7790>
+<jinja2.runtime.BlockReference object at 0x108007410>
 
   </body>
 </html>

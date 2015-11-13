@@ -23,11 +23,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
 <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x105860b50>
+<jinja2.runtime.BlockReference object at 0x107f06c50>
 
    
   
@@ -48,39 +47,95 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#assembly-data-api" id="id1">Assembly Data API</a><ul>
-<li><a class="reference internal" href="#creating-an-assembly" id="id2">Creating an assembly</a></li>
-<li><a class="reference internal" href="#assembly-object-interface" id="id3">Assembly object interface</a><ul>
-<li><a class="reference internal" href="#interface" id="id4">Interface</a></li>
+<li><a class="reference internal" href="#creating-an-assembly-object" id="id2">Creating an Assembly object</a><ul>
+<li><a class="reference internal" href="#python-library-assemblyapi" id="id3">Python Library: AssemblyAPI</a></li>
+<li><a class="reference internal" href="#thrift-service-assemblyclientapi" id="id4">Thrift Service: AssemblyClientAPI</a></li>
+<li><a class="reference internal" href="#common-api-methods" id="id5">Common API methods</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#examples" id="id5">Examples</a><ul>
-<li><a class="reference internal" href="#python-examples" id="id6">Python examples</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#examples" id="id6">Examples</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="creating-an-assembly">
-<h2><a class="toc-backref" href="#id2">Creating an assembly</a><a class="headerlink" href="#creating-an-assembly" title="Permalink to this headline">¶</a></h2>
-<p>To create a new assembly, you will create an object that implements the interface defined in <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.GenomeInterface</span></tt>. If you are using the
-Python library (see
-<a class="reference internal" href="index.html#overview-diagram"><em>Overview of the Data API modules</em></a>), then you can instantiate the <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.AssemblyAPI</span></tt> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
-<p>If instead you are using Python or another language as a client, and running the AssemblyAPI within a Thrift server, you would use <tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.AssemblyClientAPI</span></tt> in Python or the equivalent in the target language.</p>
-<p>In either case you will instantiate the class with an object reference, in the format expected by the KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</p>
-</div>
-<div class="section" id="assembly-object-interface">
-<h2><a class="toc-backref" href="#id3">Assembly object interface</a><a class="headerlink" href="#assembly-object-interface" title="Permalink to this headline">¶</a></h2>
-<p>The interface used by both the client/server and local Python library APIs is shown below.</p>
-<div class="section" id="interface">
-<h3><a class="toc-backref" href="#id4">Interface</a><a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="creating-an-assembly-object">
+<h2><a class="toc-backref" href="#id2">Creating an Assembly object</a><a class="headerlink" href="#creating-an-assembly-object" title="Permalink to this headline">¶</a></h2>
+<p>To create a new Assembly object, you will create an object that implements the interface defined in <a class="reference internal" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface" title="doekbase.data_api.sequence.assembly.api.AssemblyInterface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.AssemblyInterface</span></tt></a>. This class can implement a library or a Thrift client.
+In either case you will instantiate the class with an object reference. The interfaces used by both classes are shown below.</p>
+<div class="section" id="python-library-assemblyapi">
+<h3><a class="toc-backref" href="#id3">Python Library: AssemblyAPI</a><a class="headerlink" href="#python-library-assemblyapi" title="Permalink to this headline">¶</a></h3>
+<p>If you are using the Python library, then you can instantiate the <a class="reference internal" href="#doekbase.data_api.sequence.assembly.api.AssemblyAPI" title="doekbase.data_api.sequence.assembly.api.AssemblyAPI"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.AssemblyAPI</span></tt></a> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
 <dl class="class">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.sequence.assembly.</tt><tt class="descname">AssemblyInterface</tt><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyAPI">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.sequence.assembly.api.</tt><tt class="descname">AssemblyAPI</tt><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyAPI" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyAPI.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>services=None</em>, <em>token=None</em>, <em>ref=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyAPI.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyAPI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Construct a new AssemblyAPI object, which connects directly to the
+KBase backend stores.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>services</strong> (<em>dict</em>) &#8211; Dictionary with service urls, including:
+workspace_service_url for the Workspace service, e.g.
+&#8220;<a class="reference external" href="https://kbase.us/services/ws/">https://kbase.us/services/ws/</a>&#8221;.</li>
+<li><strong>token</strong> (<em>str</em>) &#8211; KBase login token</li>
+<li><strong>ref</strong> (<em>str</em>) &#8211; KBase object reference, in the format expected by the
+KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="thrift-service-assemblyclientapi">
+<h3><a class="toc-backref" href="#id4">Thrift Service: AssemblyClientAPI</a><a class="headerlink" href="#thrift-service-assemblyclientapi" title="Permalink to this headline">¶</a></h3>
+<p>If instead you are using Python or another language as a client, and running the AssemblyAPI within a Thrift server, you would use <a class="reference internal" href="#doekbase.data_api.sequence.assembly.api.AssemblyClientAPI" title="doekbase.data_api.sequence.assembly.api.AssemblyClientAPI"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.AssemblyClientAPI</span></tt></a> in Python or the equivalent in the target language.</p>
+<dl class="class">
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyClientAPI">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.sequence.assembly.api.</tt><tt class="descname">AssemblyClientAPI</tt><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyClientAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyClientAPI" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyClientAPI.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>self</em>, <em>url=None</em>, <em>token=None</em>, <em>ref=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyClientAPI.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyClientAPI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Construct an AssemblyClientAPI object, connected to a Thrift Assembly service
+that proxies the communication to the KBase backend stores (or its own
+cache).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>str</em>) &#8211; A URL in the format <cite>host:port</cite> for the Thrift Assembly
+data API service.</li>
+<li><strong>token</strong> (<em>str</em>) &#8211; KBase login token</li>
+<li><strong>ref</strong> (<em>str</em>) &#8211; KBase object reference, in the format expected by the
+KBase workspace: <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt> OR <tt class="docutils literal"><span class="pre">workspace-id</span></tt>/<tt class="docutils literal"><span class="pre">object-id</span></tt>/<tt class="docutils literal"><span class="pre">version</span></tt>, where the workspace and object can either be numeric identifiers or names. For example: <tt class="docutils literal"><span class="pre">1019/4</span></tt>, <tt class="docutils literal"><span class="pre">1019/4/1</span></tt>, or <tt class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="common-api-methods">
+<h3><a class="toc-backref" href="#id5">Common API methods</a><a class="headerlink" href="#common-api-methods" title="Permalink to this headline">¶</a></h3>
+<p>Both the <cite>AssemblyAPI</cite> and <cite>AssemblyAPIClient</cite> implement all the following methods.</p>
+<dl class="class">
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface">
+<em class="property">class </em><tt class="descclassname">doekbase.data_api.sequence.assembly.api.</tt><tt class="descname">AssemblyInterface</tt><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>API for the assembled sequences associated with a Genome Annotation.</p>
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_assembly_id">
-<tt class="descname">get_assembly_id</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_assembly_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_assembly_id" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_assembly_id">
+<tt class="descname">get_assembly_id</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_assembly_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_assembly_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the id for an Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -95,8 +150,8 @@ Python library (see
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_gc_content">
-<tt class="descname">get_contig_gc_content</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_contig_gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_gc_content" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_gc_content">
+<tt class="descname">get_contig_gc_content</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contig_gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_gc_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the total GC content for each contiguous sequence
 of this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -112,8 +167,8 @@ of this Assembly.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_ids">
-<tt class="descname">get_contig_ids</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_contig_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_ids" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_ids">
+<tt class="descname">get_contig_ids</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contig_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the ids for every contiguous sequence in this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -128,8 +183,8 @@ of this Assembly.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_lengths">
-<tt class="descname">get_contig_lengths</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_contig_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contig_lengths" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_lengths">
+<tt class="descname">get_contig_lengths</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contig_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_lengths" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the length for every contiguous sequence.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -144,8 +199,8 @@ of this Assembly.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_contigs">
-<tt class="descname">get_contigs</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_contigs" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contigs">
+<tt class="descname">get_contigs</tt><big>(</big><em>contig_id_list=None</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contigs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve contiguous sequences from this Assembly by id.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -181,8 +236,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_dna_size">
-<tt class="descname">get_dna_size</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_dna_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_dna_size" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_dna_size">
+<tt class="descname">get_dna_size</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_dna_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_dna_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the total DNA size for this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -197,8 +252,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_external_source_info">
-<tt class="descname">get_external_source_info</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_external_source_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_external_source_info" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_external_source_info">
+<tt class="descname">get_external_source_info</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_external_source_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_external_source_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the external source information for this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -213,8 +268,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_gc_content">
-<tt class="descname">get_gc_content</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_gc_content" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_gc_content">
+<tt class="descname">get_gc_content</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_gc_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the total GC content for this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -229,8 +284,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_genome_annotations">
-<tt class="descname">get_genome_annotations</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_genome_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_genome_annotations" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_genome_annotations">
+<tt class="descname">get_genome_annotations</tt><big>(</big><em>ref_only=False</em><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_genome_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_genome_annotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the GenomeAnnotations that refer to this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -245,8 +300,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_number_contigs">
-<tt class="descname">get_number_contigs</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_number_contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_number_contigs" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_number_contigs">
+<tt class="descname">get_number_contigs</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_number_contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_number_contigs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the number of contiguous sequences in this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -259,8 +314,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 </dd></dl>
 
 <dl class="method">
-<dt id="doekbase.data_api.sequence.assembly.AssemblyInterface.get_stats">
-<tt class="descname">get_stats</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly.html#AssemblyInterface.get_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.AssemblyInterface.get_stats" title="Permalink to this definition">¶</a></dt>
+<dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_stats">
+<tt class="descname">get_stats</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the derived statistical information about this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -287,11 +342,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 </div>
 </div>
 <div class="section" id="examples">
-<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>Below are example(s) in Python and, &#8220;real soon now&#8221;, in JavaScript.</p>
-<div class="section" id="python-examples">
-<h3><a class="toc-backref" href="#id6">Python examples</a><a class="headerlink" href="#python-examples" title="Permalink to this headline">¶</a></h3>
-</div>
 </div>
 </div>
 
@@ -322,15 +374,13 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Assembly Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#creating-an-assembly">Creating an assembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#assembly-object-interface">Assembly object interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#interface">Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-assembly-object">Creating an Assembly object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-library-assemblyapi">Python Library: AssemblyAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thrift-service-assemblyclientapi">Thrift Service: AssemblyClientAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-api-methods">Common API methods</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#python-examples">Python examples</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a></li>
@@ -407,7 +457,7 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x105860b50>
+<jinja2.runtime.BlockReference object at 0x107f06c50>
 
   </body>
 </html>
