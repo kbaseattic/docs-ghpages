@@ -10,6 +10,8 @@
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/kbase.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,78 +26,38 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
-<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x1081effd0>
-
+    <link rel="top" title="KBase Data API 0.0.1 documentation" href="#" />
+    <link rel="next" title="KBase Python Data API" href="python.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="annotation_api.html#creating-an-annotation">Creating an Annotation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="annotation_api.html#genome-annotation-object-interface">Genome annotation object interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="annotation_api.html#feature-description-codes">Feature description codes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="annotation_api.html#interface">Interface</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="annotation_api.html#examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="annotation_api.html#python-examples">Python examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="annotation_api.html#example-write-proteins-as-a-fasta-file">Example: Write proteins as a FASTA file</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#creating-an-assembly-object">Creating an Assembly object</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#python-library-assemblyapi">Python Library: AssemblyAPI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#thrift-service-assemblyclientapi">Thrift Service: AssemblyClientAPI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="assembly_api.html#common-api-methods">Common API methods</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="assembly_api.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#creating-a-taxonomic-object">Creating a Taxonomic object</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#python-library-taxonapi">Python Library: TaxonAPI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#thrift-service-taxonclientapi">Thrift Service: TaxonClientAPI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#common-api-methods">Common API methods</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="taxon_api.html#examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="taxon_api.html#example-fetch-and-print-taxon">Example: Fetch and Print Taxon</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript.html">JavaScript API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Notes</a></li>
 </ul>
 </div>
-<p>TODO: API Reference &lt;_modules/index.html&gt;</p>
 <div class="section" id="kbase-data-api-documentation">
 <h1>KBase Data API documentation<a class="headerlink" href="#kbase-data-api-documentation" title="Permalink to this headline">¶</a></h1>
 <p>The Data API provides a unified entry point to retrieve and, eventually,
 store KBase data objects. This page covers concepts and installation instructions.
-For usage, see the API pages for each data type: <a class="reference internal" href="annotation_api.html#annotation-api"><em>Annotation Data API</em></a>, <a class="reference internal" href="assembly_api.html#assembly-api"><em>Assembly Data API</em></a>, and <a class="reference internal" href="taxon_api.html#taxon-api"><em>Taxon Data API</em></a>.</p>
+For usage, see the API pages for your selected language.</p>
 <div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <p>The Data API is multi-language, with the library that implements all the behavior written in Python. We are using Thrift to generate consistent language APIs in other languages. For Python, you can import and use the library to connect directly to the data store. For other languages (and Python, too, if you choose), we use an RPC model, implemented as a thin layer of wrapper code around the Thrift-generated client to communicate with the Thrift-generated Data API <cite>services</cite>, which use the Python library to do its work. The diagram below summarizes this design.</p>
-<div class="figure" id="overview-diagram">
-<a class="reference internal image-reference" href="_images/DataAPIArchitecture.png"><img alt="_images/DataAPIArchitecture.png" src="_images/DataAPIArchitecture.png" style="height: 600px;" /></a>
-<p class="caption">Overview of the Data API modules</p>
+<div class="figure" id="id1">
+<span id="overview-diagram"></span><a class="reference internal image-reference" href="_images/DataAPIArchitecture.png"><img alt="_images/DataAPIArchitecture.png" src="_images/DataAPIArchitecture.png" style="height: 600px;" /></a>
+<p class="caption"><span class="caption-text">Overview of the Data API modules</span></p>
 </div>
 </div>
 <div class="section" id="install">
@@ -117,7 +79,7 @@ For usage, see the API pages for each data type: <a class="reference internal" h
 </ol>
 <p>You can get out of the virtualenv environment with &#8220;deactivate&#8221;.</p>
 <ol class="arabic simple" start="4">
-<li>Set your <tt class="docutils literal"><span class="pre">KB_AUTH_TOKEN</span></tt> to your token string.</li>
+<li>Set your <code class="docutils literal"><span class="pre">KB_AUTH_TOKEN</span></code> to your token string.</li>
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -126,20 +88,20 @@ environment at runtime. Unfortunately, there is no really easy way to get
 this token right now. Below are two possible approaches.</p>
 <p>1. From the UI. Login to KBase, open a narrative
 (any narrative), and then use the developer tools for your browser to get to
-a JavaScript console and then print the value of the variable <tt class="docutils literal"><span class="pre">kb.token</span></tt>.
+a JavaScript console and then print the value of the variable <code class="docutils literal"><span class="pre">kb.token</span></code>.
 Once you have this value, set it in your environment as KB_AUTH_TOKEN,
-e.g., in the Unix bash shell, e.g.: <tt class="docutils literal"><span class="pre">export</span> <span class="pre">KB_AUTH_TOKEN='un=myname|tokenid=...'</span></tt>.
+e.g., in the Unix bash shell, e.g.: <code class="docutils literal"><span class="pre">export</span> <span class="pre">KB_AUTH_TOKEN='un=myname|tokenid=...'</span></code>.
 You can add this command to your login scripts (e.g. your &#8220;~/.bash_profile&#8221;)
 so it&#8217;s not so painful in the future.</p>
-<p class="last">2. Another approach is to use the <tt class="docutils literal"><span class="pre">kbase-login</span></tt> command, run inside a KBase environment.
-From the command-line, run <tt class="docutils literal"><span class="pre">kbase-login</span></tt> to retrieve a token and check your <tt class="docutils literal"><span class="pre">.kbase_config</span></tt>.</p>
+<p class="last">2. Another approach is to use the <code class="docutils literal"><span class="pre">kbase-login</span></code> command, run inside a KBase environment.
+From the command-line, run <code class="docutils literal"><span class="pre">kbase-login</span></code> to retrieve a token and check your <code class="docutils literal"><span class="pre">.kbase_config</span></code>.</p>
 </div>
 <p>Unpackage the download file, change into the top-level directory, then run the standard Python setup command:</p>
 <div class="highlight-python"><div class="highlight"><pre>python setup.py install
 </pre></div>
 </div>
 <ol class="arabic" start="5">
-<li><p class="first">Run the tests, which are designed to use <tt class="docutils literal"><span class="pre">nosetests</span></tt>:</p>
+<li><p class="first">Run the tests, which are designed to use <code class="docutils literal"><span class="pre">nosetests</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">nosetests</span>
 </pre></div>
 </div>
@@ -147,105 +109,16 @@ From the command-line, run <tt class="docutils literal"><span class="pre">kbase-
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You can re-run <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> if you have edited files locally and want to test them out without having to reset the virtualenv.</p>
-</div>
-</div>
-<div class="section" id="hello-world">
-<h2>Hello, World<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h2>
-<p>Below is a simple example for each API.
-For detailed API documentation and more examples, see the object API pages for the <a class="reference internal" href="annotation_api.html#annotation-api"><em>Annotation Data API</em></a>, <a class="reference internal" href="assembly_api.html#assembly-api"><em>Assembly Data API</em></a> , and <a class="reference internal" href="taxon_api.html#taxon-api"><em>Taxon Data API</em></a>.</p>
-<div class="section" id="python">
-<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.api</span> <span class="kn">import</span> <span class="n">TaxonAPI</span>
-<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly.api</span> <span class="kn">import</span> <span class="n">AssemblyAPI</span>
-
-<span class="c"># Set up to connect to KBase services</span>
-<span class="n">auth_token</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>  <span class="c"># empty token is OK for public data</span>
-<span class="n">services</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="s">&#39;http://ci.kbase.us/services/ws/&#39;</span><span class="p">}</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="c">#########</span>
-    <span class="c"># Taxon #</span>
-    <span class="c">#########</span>
-
-    <span class="c"># Connect to the Taxon API</span>
-    <span class="n">object_id</span> <span class="o">=</span> <span class="s">&#39;993/616059/2&#39;</span>  <span class="c"># format -&gt; workspace/object/version</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">TaxonAPI</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="n">object_id</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">auth_token</span><span class="p">)</span>
-    <span class="c"># Retrieve some information from it</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_scientific_name</span><span class="p">()</span>
-    <span class="c"># Tell the world</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Hello, World! Taxon {} is called {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">object_id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
-
-    <span class="c">############</span>
-    <span class="c"># Assembly #</span>
-    <span class="c">############</span>
-
-    <span class="c"># Connect to the Assembly API</span>
-    <span class="n">object_id</span> <span class="o">=</span> <span class="s">&#39;1013/92/2&#39;</span>  <span class="c"># format -&gt; workspace/object/version</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">AssemblyAPI</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="n">object_id</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">auth_token</span><span class="p">)</span>
-    <span class="c"># Retrieve some information from it</span>
-    <span class="n">info</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
-    <span class="c"># Tell the world</span>
-    <span class="n">info</span><span class="p">[</span><span class="s">&#39;oid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">object_id</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Hello, World! Assembly {oid} has the following statistics:</span><span class="se">\n</span><span class="s">&quot;</span>
-          <span class="s">&quot;  GC content  : {gc_content}</span><span class="se">\n</span><span class="s">&quot;</span>
-          <span class="s">&quot;  DNA size    : {dna_size}</span><span class="se">\n</span><span class="s">&quot;</span>
-          <span class="s">&quot;  Num. contigs: {num_contigs}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">info</span><span class="p">))</span>
-</pre></div>
-</td></tr></table></div>
-</div>
-<div class="section" id="javascript">
-<h3>JavaScript<a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h3>
-<p>Sorry, not ready yet.</p>
-</div>
-<div class="section" id="perl">
-<h3>Perl<a class="headerlink" href="#perl" title="Permalink to this headline">¶</a></h3>
-<p>Sorry, not ready yet.</p>
+<p class="last">You can re-run <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> if you have edited files locally and want to test them out without having to reset the virtualenv.</p>
 </div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>
 </div>
 
@@ -253,7 +126,7 @@ For detailed API documentation and more examples, see the object API pages for t
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <p class="logo">
   <a href="#">
@@ -274,21 +147,20 @@ For detailed API documentation and more examples, see the object API pages for t
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="assembly_api.html">Assembly Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="taxon_api.html">Taxon Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript.html">JavaScript API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Notes</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="annotation_api.html" title="next chapter">Annotation Data API</a></li>
+      <li>Next: <a href="python.html" title="next chapter">KBase Python Data API</a></li>
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -349,7 +221,7 @@ For detailed API documentation and more examples, see the object API pages for t
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x1081effd0>
+<jinja2.runtime.BlockReference object at 0x107a25210>
 
   </body>
 </html>
