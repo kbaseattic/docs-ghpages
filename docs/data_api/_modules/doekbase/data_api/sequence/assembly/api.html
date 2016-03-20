@@ -1,57 +1,149 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>doekbase.data_api.sequence.assembly.api &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../../_static/css/kbase.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../../_static/css/bootstrap.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../../../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../../../_static/kbase-logo.ico"/>
-    <link rel="top" title="KBase Data API 0.0.1 documentation" href="../../../../../index.html" />
-    <link rel="up" title="Module code" href="../../../../index.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.sequence.assembly.api &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body role="document">  
+  
+  
+    <link rel="shortcut icon" href="../../../../../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.sequence.assembly.api</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for doekbase.data_api.sequence.assembly.api</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Data API for Assembly entities.  This API provides methods for retrieving</span>
-<span class="sd">summary information such as GC content, total length, external source information</span>
-<span class="sd">as well as methods for retrieving individual contig sequences and gathering contig lengths and contig GC.</span>
+<span class="sd">summary information such as details about an Assembly (external source information, total length)</span>
+<span class="sd">and the underlying contigs (GC content, length).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c"># Stdlib</span>
+<span class="c1"># Stdlib</span>
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="k">try</span><span class="p">:</span>
@@ -59,24 +151,25 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">StringIO</span> <span class="kn">as</span> <span class="nn">StringIO</span>
 
-<span class="c"># Local</span>
+<span class="c1"># Local</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api.core</span> <span class="kn">import</span> <span class="n">ObjectAPI</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">get_logger</span><span class="p">,</span> <span class="n">logged</span><span class="p">,</span> <span class="n">PerfCollector</span><span class="p">,</span> <span class="n">collect_performance</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">exceptions</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.service</span> <span class="kn">import</span> <span class="n">ttypes</span>
+<span class="kn">from</span> <span class="nn">doekbase.handle.Client</span> <span class="kn">import</span> <span class="n">AbstractHandle</span> <span class="k">as</span> <span class="n">handleClient</span>
 
 <span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
 
 <span class="n">CHUNK_SIZE</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">30</span>
 
-<span class="n">_CONTIGSET_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;KBaseGenomes.ContigSet&#39;</span><span class="p">]</span>
-<span class="n">_ASSEMBLY_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;KBaseGenomeAnnotations.Assembly&#39;</span><span class="p">]</span>
+<span class="n">_CONTIGSET_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KBaseGenomes.ContigSet&#39;</span><span class="p">]</span>
+<span class="n">_ASSEMBLY_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KBaseGenomeAnnotations.Assembly&#39;</span><span class="p">]</span>
 <span class="n">TYPES</span> <span class="o">=</span> <span class="n">_CONTIGSET_TYPES</span> <span class="o">+</span> <span class="n">_ASSEMBLY_TYPES</span>
 
-<span class="n">g_stats</span> <span class="o">=</span> <span class="n">PerfCollector</span><span class="p">(</span><span class="s">&#39;AssemblyAPI&#39;</span><span class="p">)</span>
+<span class="n">g_stats</span> <span class="o">=</span> <span class="n">PerfCollector</span><span class="p">(</span><span class="s1">&#39;AssemblyAPI&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AssemblyInterface"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyInterface">[docs]</a><span class="k">class</span> <span class="nc">AssemblyInterface</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;API for the assembled sequences associated with a Genome Annotation.</span>
+    <span class="sd">&quot;&quot;&quot;API for a genome Assembly associated with a Genome Annotation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
@@ -92,7 +185,7 @@
 
     <span class="nd">@abc.abstractmethod</span>    
 <div class="viewcode-block" id="AssemblyInterface.get_genome_annotations"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the GenomeAnnotations that refer to this Assembly.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the GenomeAnnotation(s) that refer to this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">          list&lt;GenomeAnnotationAPI&gt;: List of GenomeAnnotationAPI objects</span>
@@ -126,7 +219,7 @@
 
     <span class="nd">@abc.abstractmethod</span>    
 <div class="viewcode-block" id="AssemblyInterface.get_number_contigs"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_number_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the number of contiguous sequences in this Assembly.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the number of contig sequences in this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">          int</span>
@@ -153,35 +246,35 @@
 
     <span class="nd">@abc.abstractmethod</span>    
 <div class="viewcode-block" id="AssemblyInterface.get_contig_lengths"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the length for every contiguous sequence.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the lengths for all contig sequence.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str,int&gt;: Mapping of sequence identifiers to lengths.</span>
+<span class="sd">          dict&lt;str,int&gt;: Mapping of contig identifiers to length.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
     <span class="nd">@abc.abstractmethod</span>    
 <div class="viewcode-block" id="AssemblyInterface.get_contig_gc_content"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the total GC content for each contiguous sequence</span>
-<span class="sd">        of this Assembly.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the total GC content for each contig sequence</span>
+<span class="sd">        in this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&lt;str,float&gt;: Mapping of sequence identifiers to GC content.</span>
+<span class="sd">          dict&lt;str,float&gt;: Mapping of contig identifiers to GC content.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
     <span class="nd">@abc.abstractmethod</span>    
 <div class="viewcode-block" id="AssemblyInterface.get_contig_ids"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the ids for every contiguous sequence in this Assembly.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the ids for every contig sequence in this Assembly.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          list&lt;str&gt;: Sequence identifiers</span>
+<span class="sd">          list&lt;str&gt;: Contig identifiers</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
     <span class="nd">@abc.abstractmethod</span>    
 <div class="viewcode-block" id="AssemblyInterface.get_contigs"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve contiguous sequences from this Assembly by id.</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve contig sequences from this Assembly by id.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">          contig_id_list: list&lt;str&gt;</span>
@@ -215,58 +308,57 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AssemblyAPI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
         
-        <span class="n">is_assembly_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_ASSEMBLY_TYPES</span>
-        <span class="n">is_contigset_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_CONTIGSET_TYPES</span>
+        <span class="n">is_assembly_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_ASSEMBLY_TYPES</span>
+        <span class="n">is_contigset_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_CONTIGSET_TYPES</span>
         
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">is_assembly_type</span> <span class="ow">or</span> <span class="n">is_contigset_type</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Invalid type! Expected one of {0}, received {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TYPES</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type! Expected one of {0}, received {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TYPES</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">is_assembly_type</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_Assembly</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">_KBaseGenomes_ContigSet</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span></div>
     
-    <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
+<div class="viewcode-block" id="AssemblyAPI.get_assembly_id"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_assembly_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">(</span><span class="n">ref_only</span><span class="p">)</span>
+<div class="viewcode-block" id="AssemblyAPI.get_genome_annotations"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_genome_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">(</span><span class="n">ref_only</span><span class="p">)</span></div>
     
-    <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
+<div class="viewcode-block" id="AssemblyAPI.get_external_source_info"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_external_source_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+<div class="viewcode-block" id="AssemblyAPI.get_stats"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
+<div class="viewcode-block" id="AssemblyAPI.get_number_contigs"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_number_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
+<div class="viewcode-block" id="AssemblyAPI.get_gc_content"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
+<div class="viewcode-block" id="AssemblyAPI.get_dna_size"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_dna_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span>
+<div class="viewcode-block" id="AssemblyAPI.get_contig_lengths"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_contig_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span>
+<div class="viewcode-block" id="AssemblyAPI.get_contig_gc_content"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_contig_gc_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
+<div class="viewcode-block" id="AssemblyAPI.get_contig_ids"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_contig_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span></div>
+<div class="viewcode-block" id="AssemblyAPI.get_contigs"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyAPI.get_contigs">[docs]</a>    <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span></div></div>
 
 
 <span class="k">class</span> <span class="nc">_KBaseGenomes_ContigSet</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">AssemblyInterface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_KBaseGenomes_ContigSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gc_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;g|G|c|C&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">])[</span><span class="s">&quot;id&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
     
     <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">doekbase.data_api.annotation.genome_annotation.api</span> <span class="kn">import</span> <span class="n">TYPES</span> <span class="k">as</span> <span class="n">genome_annotation_types</span>
@@ -274,16 +366,16 @@
         <span class="n">referrers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_referrers</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">ref_only</span><span class="p">:</span>
-            <span class="n">annotation_refs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">annotation_refs</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">genome_annotation_types</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">genome_annotation_types</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
                         <span class="n">annotation_refs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">annotation_refs</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">annotations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">genome_annotation_types</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">genome_annotation_types</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
                         <span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                             <span class="n">GenomeAnnotationAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
@@ -291,128 +383,126 @@
             <span class="k">return</span> <span class="n">annotations</span>
     
     <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;source&quot;</span><span class="p">,</span><span class="s">&quot;source_id&quot;</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span><span class="s2">&quot;source_id&quot;</span><span class="p">])</span>
         
-        <span class="n">output</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="n">output</span><span class="p">[</span><span class="s">&quot;external_source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;source&quot;</span><span class="p">]</span>
-        <span class="n">output</span><span class="p">[</span><span class="s">&quot;external_source_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;source_id&quot;</span><span class="p">]</span>
-        <span class="n">output</span><span class="p">[</span><span class="s">&quot;external_source_origination_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Unknown&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">output</span><span class="p">[</span><span class="s2">&quot;external_source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
+        <span class="n">output</span><span class="p">[</span><span class="s2">&quot;external_source_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;source_id&quot;</span><span class="p">]</span>
+        <span class="n">output</span><span class="p">[</span><span class="s2">&quot;external_source_origination_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Unknown&quot;</span>
         
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
+        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
 
         <span class="n">total_gc</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contigs</span><span class="p">):</span>
-            <span class="n">total_gc</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s">&quot;sequence&quot;</span><span class="p">])</span>
+            <span class="n">total_gc</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">])</span>
         
         <span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
         
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-                <span class="n">total_length</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="s">&quot;length&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                <span class="n">total_length</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;length&quot;</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">total_length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s">&quot;sequence&quot;</span><span class="p">])</span>
+                <span class="n">total_length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">])</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="n">data</span><span class="p">[</span><span class="s">&quot;gc_content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_gc</span><span class="o">/</span><span class="p">(</span><span class="n">total_length</span><span class="o">*</span><span class="mf">1.0</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s">&quot;dna_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_length</span>
-        <span class="n">data</span><span class="p">[</span><span class="s">&quot;num_contigs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)</span>            
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;gc_content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_gc</span><span class="o">/</span><span class="p">(</span><span class="n">total_length</span><span class="o">*</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;dna_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">total_length</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;num_contigs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)</span>            
         
         <span class="k">return</span> <span class="n">data</span>
 
     <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
-        
-        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;g|G|c|C&#39;</span><span class="p">)</span>
-        
+        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
+
         <span class="n">total_gc</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contigs</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
-                <span class="n">total_length</span> <span class="o">+=</span> <span class="n">c</span><span class="p">[</span><span class="s">&quot;length&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+                <span class="n">total_length</span> <span class="o">+=</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;length&quot;</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">total_length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;sequence&quot;</span><span class="p">])</span>
-            
-            <span class="n">total_gc</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s">&quot;sequence&quot;</span><span class="p">])</span>
+                <span class="n">total_length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">])</span>
+
+            <span class="n">total_gc</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">])</span>
         
         <span class="k">return</span> <span class="n">total_gc</span><span class="o">/</span><span class="p">(</span><span class="n">total_length</span><span class="o">*</span><span class="mf">1.0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;length&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">])</span>
+        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;length&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>        
+        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>        
         
         <span class="k">if</span> <span class="n">contig_id_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>        
-            <span class="n">contig_id_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
+            <span class="n">contig_id_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
 
-        <span class="n">contig_lengths</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">contig_lengths</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
-                    <span class="n">contig_lengths</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s">&quot;length&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+                    <span class="n">contig_lengths</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;length&quot;</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">contig_lengths</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;sequence&quot;</span><span class="p">])</span>
+                    <span class="n">contig_lengths</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">])</span>
         
         <span class="k">return</span> <span class="n">contig_lengths</span>
         
     <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
+        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
         
-        <span class="n">contigs_gc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">contigs_gc</span> <span class="o">=</span> <span class="p">{}</span>
         
         <span class="k">if</span> <span class="n">contig_id_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">contig_id_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
+            <span class="n">contig_id_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
                     
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contigs</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
-                    <span class="n">length</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s">&quot;length&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;length&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+                    <span class="n">length</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;length&quot;</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;sequence&quot;</span><span class="p">])</span>
+                    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">])</span>
 
-                <span class="n">contigs_gc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s">&#39;sequence&#39;</span><span class="p">])</span>
+                <span class="n">contigs_gc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;sequence&#39;</span><span class="p">])</span>
                                        <span class="o">/</span> <span class="n">length</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="n">contigs_gc</span>
 
     <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
+        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
 
-    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&#39;old.&#39;</span><span class="p">)</span>
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;old.&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">contigs</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="n">raw_contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
+        <span class="n">raw_contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
 
-        <span class="n">make_md5</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s">&quot;sequence&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+        <span class="n">make_md5</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raw_contigs</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">contig_id_list</span> <span class="ow">and</span> <span class="n">c</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">contig_id_list</span> <span class="ow">and</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">cid</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;contig_id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span>
-                   <span class="s">&#39;sequence&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s">&#39;sequence&#39;</span><span class="p">],</span>
-                   <span class="s">&#39;length&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;length&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s">&#39;sequence&#39;</span><span class="p">]),</span>
-                   <span class="s">&#39;md5&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;md5&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">make_md5</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
-                   <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
-                   <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
-                   <span class="s">&#39;is_complete&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;complete&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                   <span class="s">&#39;is_circular&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;replicon_geometry&#39;</span><span class="p">,</span><span class="s">&#39;Unknown&#39;</span><span class="p">)</span>
+            <span class="n">cid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;contig_id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;sequence&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;sequence&#39;</span><span class="p">]),</span>
+                   <span class="s1">&#39;md5&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">make_md5</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+                   <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
+                   <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
+                   <span class="s1">&#39;is_complete&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;complete&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                   <span class="s1">&#39;is_circular&#39;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;replicon_geometry&#39;</span><span class="p">,</span><span class="s1">&#39;Unknown&#39;</span><span class="p">)</span>
                    <span class="p">}</span>
 
-            <span class="n">gc_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s">&#39;sequence&#39;</span><span class="p">])</span>
-            <span class="n">cid</span><span class="p">[</span><span class="s">&#39;gc_content&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc_count</span> <span class="o">/</span> <span class="n">cid</span><span class="p">[</span><span class="s">&#39;length&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span>
+            <span class="n">gc_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequence_gc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;sequence&#39;</span><span class="p">])</span>
+            <span class="n">cid</span><span class="p">[</span><span class="s1">&#39;gc_content&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gc_count</span> <span class="o">/</span> <span class="p">(</span><span class="n">cid</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
 
-            <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cid</span>
+            <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cid</span>
 
-        <span class="k">return</span> <span class="n">contigs</span>            
+        <span class="k">return</span> <span class="n">contigs</span>
 
     <span class="k">def</span> <span class="nf">_sequence_gc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get GC content for a sequence.</span>
@@ -420,23 +510,22 @@
 <span class="sd">            May refer to a cached value, if the cache is available.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_sequence</span> <span class="o">=</span> <span class="n">sequence</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;gc-{:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-        <span class="n">r</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">get_derived_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calc_sequence_gc</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">r</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;gc-{:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">get_derived_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calc_sequence_gc</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_calc_sequence_gc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate &quot;G/C Content&quot; by counting G&#39;s and C&#39;s in the</span>
-<span class="sd">           sequence and dividing the total by the sequence length.</span>
+        <span class="sd">&quot;&quot;&quot;Calculate &quot;G+C Content&quot; by counting G&#39;s and C&#39;s in the</span>
+<span class="sd">           sequence.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_gc_pattern</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_sequence</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">imap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">matches</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_sequence</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">])</span>
+
 
 <span class="k">class</span> <span class="nc">_Assembly</span><span class="p">(</span><span class="n">ObjectAPI</span><span class="p">,</span> <span class="n">AssemblyInterface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_Assembly</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_assembly_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;assembly_id&quot;</span><span class="p">])[</span><span class="s">&quot;assembly_id&quot;</span><span class="p">]</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;assembly_id&quot;</span><span class="p">])[</span><span class="s2">&quot;assembly_id&quot;</span><span class="p">]</span>        
 
     <span class="k">def</span> <span class="nf">get_genome_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">doekbase.data_api.annotation.genome_annotation.api</span> <span class="kn">import</span> <span class="n">GenomeAnnotationAPI</span>
@@ -445,143 +534,157 @@
         <span class="n">referrers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_referrers</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">ref_only</span><span class="p">:</span>
-            <span class="n">annotation_refs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">annotation_refs</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">object_type</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">object_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">GA_TYPES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">object_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">GA_TYPES</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">[</span><span class="n">object_type</span><span class="p">]:</span>
                         <span class="n">annotation_refs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">annotation_refs</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">annotations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">object_type</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">object_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">GA_TYPES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">object_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">GA_TYPES</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">[</span><span class="n">object_type</span><span class="p">]:</span>
                         <span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenomeAnnotationAPI</span><span class="p">(</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">x</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">annotations</span>
 
     <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;external_source&quot;</span><span class="p">,</span>
-                                               <span class="s">&quot;external_source_id&quot;</span><span class="p">,</span>
-                                               <span class="s">&quot;external_source_origination_date&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;external_source&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;external_source_id&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;external_source_origination_date&quot;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;gc_content&quot;</span><span class="p">,</span><span class="s">&quot;dna_size&quot;</span><span class="p">,</span><span class="s">&quot;num_contigs&quot;</span><span class="p">])</span>            
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gc_content&quot;</span><span class="p">,</span><span class="s2">&quot;dna_size&quot;</span><span class="p">,</span><span class="s2">&quot;num_contigs&quot;</span><span class="p">])</span>            
 
     <span class="k">def</span> <span class="nf">get_number_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;num_contigs&quot;</span><span class="p">])[</span><span class="s">&quot;num_contigs&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;num_contigs&quot;</span><span class="p">])[</span><span class="s2">&quot;num_contigs&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;gc_content&quot;</span><span class="p">])[</span><span class="s">&quot;gc_content&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gc_content&quot;</span><span class="p">])[</span><span class="s2">&quot;gc_content&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_dna_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;dna_size&quot;</span><span class="p">])[</span><span class="s">&quot;dna_size&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dna_size&quot;</span><span class="p">])[</span><span class="s2">&quot;dna_size&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_contig_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">contig_id_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>        
-            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>        
-            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;length&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">}</span>
+            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>        
+            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;length&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>        
-            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">([</span><span class="s">&quot;contigs/&quot;</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">])[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>        
-            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;length&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">}</span>
+            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">([</span><span class="s2">&quot;contigs/&quot;</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">])[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>        
+            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;length&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">get_contig_gc_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">contig_id_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>        
-            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>        
-            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;gc_content&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">}</span>
+            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>        
+            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;gc_content&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>        
-            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">([</span><span class="s">&quot;contigs/&quot;</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">])[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>        
-            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;gc_content&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">}</span>
+            <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">([</span><span class="s2">&quot;contigs/&quot;</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">])[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>        
+            <span class="k">return</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;gc_content&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contig_id_list</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">get_contig_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;contig_id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
+        <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;contig_id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">]</span>
 
-    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&#39;new.&#39;</span><span class="p">)</span>
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;new.&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">contig_id_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">contig_id_list</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="n">contig_id_list</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         
         <span class="n">num_contigs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span>
-        <span class="n">total_contigs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;num_contigs&quot;</span><span class="p">]</span>
-        <span class="n">fasta_ref</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;fasta_handle_ref&quot;</span><span class="p">]</span>
-        <span class="n">contigs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;contigs&quot;</span><span class="p">]</span>
+        <span class="n">total_contigs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;num_contigs&quot;</span><span class="p">]</span>
+        <span class="n">fasta_ref</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;fasta_handle_ref&quot;</span><span class="p">]</span>
+        <span class="n">contigs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;contigs&quot;</span><span class="p">]</span>
 
-        <span class="n">copy_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;contig_id&quot;</span><span class="p">,</span> <span class="s">&quot;length&quot;</span><span class="p">,</span> <span class="s">&quot;gc_content&quot;</span><span class="p">,</span> <span class="s">&quot;md5&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;description&quot;</span><span class="p">,</span> <span class="s">&quot;is_complete&quot;</span><span class="p">,</span> <span class="s">&quot;is_circular&quot;</span><span class="p">]</span>
+        <span class="n">shock_node_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">hc</span> <span class="o">=</span> <span class="n">handleClient</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;handle_service_url&quot;</span><span class="p">],</span> <span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">)</span>
+            <span class="n">handle</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">hids_to_handles</span><span class="p">([</span><span class="n">fasta_ref</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">shock_node_id</span> <span class="o">=</span> <span class="n">handle</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Failed to retrieve handle {} from {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fasta_ref</span><span class="p">,</span>
+                                                                     <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;handle_service_url&quot;</span><span class="p">]))</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">shock_node_id</span> <span class="o">=</span> <span class="n">fasta_ref</span>
 
-        <span class="n">header</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="n">header</span><span class="p">[</span><span class="s">&quot;Authorization&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Oauth {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">)</span>
+        <span class="n">copy_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;contig_id&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;gc_content&quot;</span><span class="p">,</span> <span class="s2">&quot;md5&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;is_complete&quot;</span><span class="p">,</span> <span class="s2">&quot;is_circular&quot;</span><span class="p">]</span>
+
+        <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">header</span><span class="p">[</span><span class="s2">&quot;Authorization&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Oauth {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">shock_node_id</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">fetch_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;shock_service_url&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;node/&quot;</span> <span class="o">+</span> <span class="n">shock_node_id</span>
+
+            <span class="n">subset</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">fetch_url</span> <span class="o">+=</span> <span class="s2">&quot;?download_raw&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fetch_url</span> <span class="o">+=</span> <span class="s2">&quot;?download&amp;seek=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&amp;length=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+                <span class="n">subset</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="c1">#Retrieve individual sequences</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fetch_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="nb">buffer</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">CHUNK_SIZE</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                        <span class="nb">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+
+                <span class="n">data</span> <span class="o">=</span> <span class="nb">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">raise</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="nb">buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">data</span>
 
         <span class="k">if</span> <span class="n">num_contigs</span> <span class="o">&gt;</span> <span class="n">total_contigs</span><span class="o">/</span><span class="mi">3</span> <span class="ow">or</span> <span class="n">num_contigs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">Retrieve_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s">&quot;shock_service_url&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;node/&quot;</span> <span class="o">+</span> <span class="n">fasta_ref</span> <span class="o">+</span> <span class="s">&quot;?download_raw&quot;</span>
-
-            <span class="c">#Retrieve all sequence</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Retrieve_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>                
-            <span class="nb">buffer</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">CHUNK_SIZE</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
-                    <span class="nb">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-            <span class="n">sequence_data</span> <span class="o">=</span> <span class="nb">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
-            <span class="nb">buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sequence_data</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">shock_node_id</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span>
 
             <span class="k">if</span> <span class="n">num_contigs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">contig_id_list</span> <span class="o">=</span> <span class="n">contigs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
                 <span class="n">num_contigs</span> <span class="o">=</span> <span class="n">total_contigs</span>
                 <span class="k">assert</span> <span class="n">num_contigs</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">)</span>
 
-            <span class="n">outContigs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="n">outContigs</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">num_contigs</span><span class="p">):</span>
                 <span class="n">c</span> <span class="o">=</span> <span class="n">contig_id_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">copy_keys</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
                         <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
 
-                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;sequence&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence_data</span><span class="p">[</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;start_position&quot;</span><span class="p">]:</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;start_position&quot;</span><span class="p">]</span> <span class="o">+</span> \
-                                            <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;num_bytes&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="n">whitespace</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>                
-            <span class="k">def</span> <span class="nf">fetch_contig</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
-                <span class="n">fetch_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s">&quot;shock_service_url&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;node/&quot;</span> <span class="o">+</span> <span class="n">fasta_ref</span> <span class="o">+</span> \
-                            <span class="s">&quot;?download&amp;seek=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">+</span> \
-                            <span class="s">&quot;&amp;length=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
-
-                <span class="c">#Retrieve individual sequences</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fetch_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>                
-                <span class="nb">buffer</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">CHUNK_SIZE</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
-                            <span class="nb">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-
-                    <span class="n">sequence</span> <span class="o">=</span> <span class="nb">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="n">whitespace</span><span class="p">)</span>
-                <span class="k">except</span><span class="p">:</span>
-                    <span class="k">raise</span>
-                <span class="k">finally</span><span class="p">:</span>
-                    <span class="nb">buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                
-                <span class="k">return</span> <span class="n">sequence</span>
-                            
-            <span class="n">outContigs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence_data</span><span class="p">[</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;start_position&quot;</span><span class="p">]:</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;start_position&quot;</span><span class="p">]</span> <span class="o">+</span> \
+                                            <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;num_bytes&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="n">whitespace</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">outContigs</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">sorted_contigs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">contig_id_list</span><span class="p">,</span>
-                             <span class="nb">cmp</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="nb">cmp</span><span class="p">(</span><span class="n">contigs</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="s">&quot;start_position&quot;</span><span class="p">],</span> <span class="n">contigs</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="s">&quot;start_position&quot;</span><span class="p">]))</span>
+                             <span class="nb">cmp</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="nb">cmp</span><span class="p">(</span><span class="n">contigs</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="s2">&quot;start_position&quot;</span><span class="p">],</span>
+                                                 <span class="n">contigs</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="s2">&quot;start_position&quot;</span><span class="p">]))</span>
 
             <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">sorted_contigs</span><span class="p">:</span>
-                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">copy_keys</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
                         <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
 
-                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;sequence&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fetch_contig</span><span class="p">(</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;start_position&quot;</span><span class="p">],</span><span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s">&quot;num_bytes&quot;</span><span class="p">])</span>
+                <span class="n">outContigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fetch_data</span><span class="p">(</span><span class="n">shock_node_id</span><span class="p">,</span>
+                                                       <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;start_position&quot;</span><span class="p">],</span>
+                                                       <span class="n">contigs</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;num_bytes&quot;</span><span class="p">])</span>\
+                                                       <span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="n">whitespace</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">outContigs</span>
 
 
-<span class="n">_as_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="s">&#39;AssemblyClientAPI&#39;</span><span class="p">)</span>
+<span class="n">_as_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="s1">&#39;AssemblyClientAPI&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AssemblyClientAPI"><a class="viewcode-back" href="../../../../../py/assembly_api.html#doekbase.data_api.sequence.assembly.api.AssemblyClientAPI">[docs]</a><span class="k">class</span> <span class="nc">AssemblyClientAPI</span><span class="p">(</span><span class="n">AssemblyInterface</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">client_method</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<div class="viewcode-block" id="AssemblyClientAPI.client_method"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.sequence.assembly.html#doekbase.data_api.sequence.assembly.api.AssemblyClientAPI.client_method">[docs]</a>    <span class="k">def</span> <span class="nf">client_method</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">isOpen</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
@@ -602,13 +705,13 @@
                 <span class="k">raise</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">wrapper</span>
+        <span class="k">return</span> <span class="n">wrapper</span></div>
 
-    <span class="nd">@logged</span><span class="p">(</span><span class="n">_as_log</span><span class="p">,</span> <span class="n">log_name</span><span class="o">=</span><span class="s">&#39;init&#39;</span><span class="p">)</span>
+    <span class="nd">@logged</span><span class="p">(</span><span class="n">_as_log</span><span class="p">,</span> <span class="n">log_name</span><span class="o">=</span><span class="s1">&#39;init&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly.service.interface</span> <span class="kn">import</span> <span class="n">AssemblyClientConnection</span>
 
-        <span class="c"># TODO add exception handling and better error messages here</span>
+        <span class="c1"># TODO add exception handling and better error messages here</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">AssemblyClientConnection</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
@@ -629,9 +732,9 @@
     <span class="k">def</span> <span class="nf">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s">&quot;external_source&quot;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">external_source</span><span class="p">,</span>
-            <span class="s">&quot;external_source_id&quot;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">external_source_id</span><span class="p">,</span>
-            <span class="s">&quot;external_source_origination_date&quot;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">external_source_origination_date</span>
+            <span class="s2">&quot;external_source&quot;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">external_source</span><span class="p">,</span>
+            <span class="s2">&quot;external_source_id&quot;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">external_source_id</span><span class="p">,</span>
+            <span class="s2">&quot;external_source_origination_date&quot;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">external_source_origination_date</span>
         <span class="p">}</span>
 
     <span class="nd">@logged</span><span class="p">(</span><span class="n">_as_log</span><span class="p">)</span>
@@ -639,9 +742,9 @@
     <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s">&quot;num_contigs&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">num_contigs</span><span class="p">,</span>
-            <span class="s">&quot;dna_size&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">dna_size</span><span class="p">,</span>
-            <span class="s">&quot;gc_content&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">gc_content</span>
+            <span class="s2">&quot;num_contigs&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">num_contigs</span><span class="p">,</span>
+            <span class="s2">&quot;dna_size&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">dna_size</span><span class="p">,</span>
+            <span class="s2">&quot;gc_content&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">gc_content</span>
         <span class="p">}</span>
 
     <span class="nd">@logged</span><span class="p">(</span><span class="n">_as_log</span><span class="p">)</span>
@@ -679,78 +782,80 @@
     <span class="k">def</span> <span class="nf">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">contigs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">contig_id_list</span><span class="p">)</span>
 
-        <span class="n">out_contigs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">out_contigs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">contigs</span><span class="p">:</span>
             <span class="n">out_contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s">&quot;contig_id&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">contig_id</span><span class="p">,</span>
-                <span class="s">&quot;sequence&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">sequence</span><span class="p">,</span>
-                <span class="s">&quot;length&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
-                <span class="s">&quot;gc_content&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">gc_content</span><span class="p">,</span>
-                <span class="s">&quot;md5&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">md5</span><span class="p">,</span>
-                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="s">&quot;description&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
-                <span class="s">&quot;is_complete&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">is_complete</span><span class="p">,</span>
-                <span class="s">&quot;is_circular&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">is_circular</span>
+                <span class="s2">&quot;contig_id&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">contig_id</span><span class="p">,</span>
+                <span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">sequence</span><span class="p">,</span>
+                <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+                <span class="s2">&quot;gc_content&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">gc_content</span><span class="p">,</span>
+                <span class="s2">&quot;md5&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">md5</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                <span class="s2">&quot;is_complete&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">is_complete</span><span class="p">,</span>
+                <span class="s2">&quot;is_circular&quot;</span><span class="p">:</span> <span class="n">contigs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">is_circular</span>
             <span class="p">}</span>
 
         <span class="k">return</span> <span class="n">out_contigs</span></div>
 </pre></div>
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../../../../../index.html">
-    <img class="logo" src="../../../../../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
 
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../python.html">Python API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../javascript.html">JavaScript API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../developer.html">Developer Notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -795,7 +900,8 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x1085cb250>
+<jinja2.runtime.BlockReference object at 0x10c6bafd0>
 
-  </body>
+
+</body>
 </html>

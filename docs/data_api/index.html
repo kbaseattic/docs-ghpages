@@ -1,51 +1,137 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>KBase Data API documentation &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/css/kbase.css" type="text/css" />
-    <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
-    <link rel="top" title="KBase Data API 0.0.1 documentation" href="#" />
-    <link rel="next" title="KBase Python Data API" href="python.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>KBase Data API documentation &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body role="document">  
+  
+  
+    <link rel="shortcut icon" href="_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="#"/>
+        <link rel="next" title="Python Data API" href="python.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
             
-  <div class="toctree-wrapper compound">
-<ul>
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="python.html">Python API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="javascript.html">JavaScript API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Notes</a></li>
 </ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>KBase Data API documentation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="toctree-wrapper compound">
 </div>
 <div class="section" id="kbase-data-api-documentation">
 <h1>KBase Data API documentation<a class="headerlink" href="#kbase-data-api-documentation" title="Permalink to this headline">¶</a></h1>
@@ -54,7 +140,7 @@ store KBase data objects. This page covers concepts and installation instruction
 For usage, see the API pages for your selected language.</p>
 <div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<p>The Data API is multi-language, with the library that implements all the behavior written in Python. We are using Thrift to generate consistent language APIs in other languages. For Python, you can import and use the library to connect directly to the data store. For other languages (and Python, too, if you choose), we use an RPC model, implemented as a thin layer of wrapper code around the Thrift-generated client to communicate with the Thrift-generated Data API <cite>services</cite>, which use the Python library to do its work. The diagram below summarizes this design.</p>
+<p>The Data API is multi-language, with the library that implements alql the behavior written in Python. We are using Thrift to generate consistent language APIs in other languages. For Python, you can import and use the library to connect directly to the data store. For other languages (and Python, too, if you choose), we use an RPC model, implemented as a thin layer of wrapper code around the Thrift-generated client to communicate with the Thrift-generated Data API <cite>services</cite>, which use the Python library to do its work. The diagram below summarizes this design.</p>
 <div class="figure" id="id1">
 <span id="overview-diagram"></span><a class="reference internal image-reference" href="_images/DataAPIArchitecture.png"><img alt="_images/DataAPIArchitecture.png" src="_images/DataAPIArchitecture.png" style="height: 600px;" /></a>
 <p class="caption"><span class="caption-text">Overview of the Data API modules</span></p>
@@ -67,12 +153,12 @@ For usage, see the API pages for your selected language.</p>
 <li><p class="first">Install virtualenv using your local installer e.g., apt-get install virtualenv</p>
 </li>
 <li><p class="first">Create a virtualenv environment to install the source to e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre><span></span>virtualenv venv
 </pre></div>
 </div>
 </li>
 <li><p class="first">Activate the virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre>source venv/bin/activate
+<div class="highlight-python"><div class="highlight"><pre><span></span>source venv/bin/activate
 </pre></div>
 </div>
 </li>
@@ -97,12 +183,12 @@ so it&#8217;s not so painful in the future.</p>
 From the command-line, run <code class="docutils literal"><span class="pre">kbase-login</span></code> to retrieve a token and check your <code class="docutils literal"><span class="pre">.kbase_config</span></code>.</p>
 </div>
 <p>Unpackage the download file, change into the top-level directory, then run the standard Python setup command:</p>
-<div class="highlight-python"><div class="highlight"><pre>python setup.py install
+<div class="highlight-python"><div class="highlight"><pre><span></span>python setup.py install
 </pre></div>
 </div>
 <ol class="arabic" start="5">
 <li><p class="first">Run the tests, which are designed to use <code class="docutils literal"><span class="pre">nosetests</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">nosetests</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">nosetests</span>
 </pre></div>
 </div>
 </li>
@@ -123,60 +209,70 @@ From the command-line, run <code class="docutils literal"><span class="pre">kbas
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="#">
-    <img class="logo" src="_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
-
-
-
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="python.html">Python API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="javascript.html">JavaScript API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="python.html" title="next chapter">KBase Python Data API</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python.html" class="btn btn-neutral float-right" title="Python Data API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
     </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -221,7 +317,8 @@ From the command-line, run <code class="docutils literal"><span class="pre">kbas
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x107a25210>
+<jinja2.runtime.BlockReference object at 0x10dceac90>
 
-  </body>
+
+</body>
 </html>

@@ -1,7 +1,0 @@
-doekbase
-========
-
-.. toctree::
-   :maxdepth: 4
-
-   doekbase

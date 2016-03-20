@@ -1,93 +1,184 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>doekbase.data_api.tests.test_fsmock &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
-<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10716b350>
-
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.test_fsmock &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body>  
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.test_fsmock</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for doekbase.data_api.tests.test_fsmock</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Test workspace mocking.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
-<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;9/3/15&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s1">&#39;9/3/15&#39;</span>
 
-<span class="c"># Imports</span>
+<span class="c1"># Imports</span>
 
-<span class="c"># stdlib</span>
+<span class="c1"># stdlib</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="c"># third-party</span>
-<span class="c"># local</span>
+<span class="c1"># third-party</span>
+<span class="c1"># local</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">wsfile</span>
 
-<span class="n">record_template</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;{{</span>
-<span class="s">        &quot;ref&quot;: &quot;{ref}&quot;,</span>
-<span class="s">        &quot;type&quot;: &quot;{type}&quot;,</span>
-<span class="s">        &quot;name&quot;: &quot;{name}&quot;,</span>
-<span class="s">        &quot;links&quot;: [ {links} ],</span>
-<span class="s">        &quot;data&quot;: {data},</span>
-<span class="s">        &quot;metadata&quot;: {{ }}</span>
-<span class="s">}}&#39;&#39;&#39;</span>
+<span class="n">record_template</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;{{</span>
+<span class="s1">        &quot;ref&quot;: &quot;{ref}&quot;,</span>
+<span class="s1">        &quot;type&quot;: &quot;{type}&quot;,</span>
+<span class="s1">        &quot;name&quot;: &quot;{name}&quot;,</span>
+<span class="s1">        &quot;links&quot;: [ {links} ],</span>
+<span class="s1">        &quot;data&quot;: {data},</span>
+<span class="s1">        &quot;metadata&quot;: {{ }}</span>
+<span class="s1">}}&#39;&#39;&#39;</span>
 
 
 <div class="viewcode-block" id="foo_datum"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.foo_datum">[docs]</a><span class="k">def</span> <span class="nf">foo_datum</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span>
-        <span class="s">&#39;muppets&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s">&#39;colors&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;kermit&#39;</span><span class="p">:</span> <span class="s">&#39;green&#39;</span><span class="p">,</span>
-                <span class="s">&#39;animal&#39;</span><span class="p">:</span> <span class="s">&#39;orange&#39;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span>
+        <span class="s1">&#39;muppets&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;colors&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;kermit&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;animal&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span>
             <span class="p">},</span>
-            <span class="s">&#39;actors&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;kermit&#39;</span><span class="p">:</span> <span class="s">&#39;Jim Henson&#39;</span><span class="p">,</span>
-                <span class="s">&#39;animal&#39;</span><span class="p">:</span> <span class="s">&#39;Frank Oz&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;actors&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;kermit&#39;</span><span class="p">:</span> <span class="s1">&#39;Jim Henson&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;animal&#39;</span><span class="p">:</span> <span class="s1">&#39;Frank Oz&#39;</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">}}</span>
-    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-</div>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
+
 <span class="n">TEST_DATA</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/1&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&#39;Foo&#39;</span><span class="p">,</span>
-     <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;first&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">foo_datum</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
-     <span class="s">&#39;links&#39;</span><span class="p">:</span> <span class="p">[]},</span>
-    <span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/2&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&#39;Foo&#39;</span><span class="p">,</span>
-     <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;second&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">foo_datum</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
-     <span class="s">&#39;links&#39;</span><span class="p">:</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;&quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;10/1&#39;</span><span class="p">]])},</span>
+    <span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/1&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Foo&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">foo_datum</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+     <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">[]},</span>
+    <span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/2&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Foo&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">foo_datum</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+     <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;10/1&#39;</span><span class="p">]])},</span>
 <span class="p">]</span>
 
 <span class="n">_mock</span> <span class="o">=</span> <span class="bp">None</span>
@@ -96,176 +187,175 @@
 <div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">_mock</span><span class="p">,</span> <span class="n">_tempdir</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Setting up mock DB&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Setting up mock DB&quot;</span><span class="p">)</span>
     <span class="n">_tempdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
     <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">datum</span> <span class="ow">in</span> <span class="n">TEST_DATA</span><span class="p">:</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">datum</span><span class="p">[</span><span class="s">&#39;ref&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">)</span>
-        <span class="c">#print(&#39;@@ filename={} ref={}&#39;.format(filename, datum[&#39;ref&#39;]))</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_tempdir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.json&#39;</span>
-        <span class="n">ofile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">datum</span><span class="p">[</span><span class="s1">&#39;ref&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="c1">#print(&#39;@@ filename={} ref={}&#39;.format(filename, datum[&#39;ref&#39;]))</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_tempdir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
+        <span class="n">ofile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
         <span class="n">record_buf</span> <span class="o">=</span> <span class="n">record_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">datum</span><span class="p">)</span>
         <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record_buf</span><span class="p">)</span>
         <span class="n">ofile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
-    <span class="c"># note: run nosetests with &#39;-s&#39; to see this</span>
-    <span class="c">#print(&quot;@@ input data:&quot;)</span>
-    <span class="c">#print(infile.getvalue())</span>
+    <span class="c1"># note: run nosetests with &#39;-s&#39; to see this</span>
+    <span class="c1">#print(&quot;@@ input data:&quot;)</span>
+    <span class="c1">#print(infile.getvalue())</span>
 
     <span class="n">wsfile</span><span class="o">.</span><span class="n">WorkspaceFile</span><span class="o">.</span><span class="n">use_msgpack</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="n">_mock</span> <span class="o">=</span> <span class="n">wsfile</span><span class="o">.</span><span class="n">WorkspaceFile</span><span class="p">(</span><span class="n">_tempdir</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
-        <span class="n">_mock</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</div>
+        <span class="n">_mock</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="teardown"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.teardown">[docs]</a><span class="k">def</span> <span class="nf">teardown</span><span class="p">():</span>
-    <span class="c"># remove temporary files and directory</span>
+    <span class="c1"># remove temporary files and directory</span>
     <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">_tempdir</span><span class="p">):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_tempdir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">_tempdir</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="test_get_object_history"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_get_object_history">[docs]</a><span class="k">def</span> <span class="nf">test_get_object_history</span><span class="p">():</span>
-    <span class="c"># just make sure it doesn&#39;t crash.</span>
-    <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_history</span><span class="p">({</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/1&#39;</span><span class="p">})</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">_tempdir</span><span class="p">)</span></div>
 
-</div>
+<div class="viewcode-block" id="test_get_object_history"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_get_object_history">[docs]</a><span class="k">def</span> <span class="nf">test_get_object_history</span><span class="p">():</span>
+    <span class="c1"># just make sure it doesn&#39;t crash.</span>
+    <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_history</span><span class="p">({</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/1&#39;</span><span class="p">})</span></div>
+
+
 <div class="viewcode-block" id="test_get_object_info_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_get_object_info_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_object_info_new</span><span class="p">():</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_info_new</span><span class="p">({</span><span class="s">&#39;objects&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/1&#39;</span><span class="p">}]})</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_info_new</span><span class="p">({</span><span class="s1">&#39;objects&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/1&#39;</span><span class="p">}]})</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c">#print(&quot;@@ get_oin-obj: {}&quot;.format(obj))</span>
-    <span class="k">assert</span> <span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;first&#39;</span>
-    <span class="k">assert</span> <span class="n">obj</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;Foo&#39;</span>
+    <span class="c1">#print(&quot;@@ get_oin-obj: {}&quot;.format(obj))</span>
+    <span class="k">assert</span> <span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;first&#39;</span>
+    <span class="k">assert</span> <span class="n">obj</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Foo&#39;</span></div>
 
-</div>
+
 <div class="viewcode-block" id="test_get_object_provenance"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_get_object_provenance">[docs]</a><span class="k">def</span> <span class="nf">test_get_object_provenance</span><span class="p">():</span>
-    <span class="c"># just make sure it doesn&#39;t crash.</span>
-    <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_provenance</span><span class="p">([{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/1&#39;</span><span class="p">}])</span>
+    <span class="c1"># just make sure it doesn&#39;t crash.</span>
+    <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_provenance</span><span class="p">([{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/1&#39;</span><span class="p">}])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="test_get_object_subset"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_get_object_subset">[docs]</a><span class="k">def</span> <span class="nf">test_get_object_subset</span><span class="p">():</span>
-    <span class="n">actors_1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/1&#39;</span><span class="p">,</span> <span class="s">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;muppets/actors&#39;</span><span class="p">]}</span>
+    <span class="n">actors_1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/1&#39;</span><span class="p">,</span> <span class="s1">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;muppets/actors&#39;</span><span class="p">]}</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([</span><span class="n">actors_1</span><span class="p">])</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;data&#39;</span><span class="p">]</span>
-    <span class="c">#print(&quot;@@ get_os-obj: {}&quot;.format(obj))</span>
-    <span class="k">assert</span> <span class="s">&#39;muppets&#39;</span> <span class="ow">in</span> <span class="n">obj</span>
-    <span class="k">assert</span> <span class="s">&#39;actors&#39;</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;muppets&#39;</span><span class="p">]</span>
-    <span class="k">assert</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;muppets&#39;</span><span class="p">][</span><span class="s">&#39;actors&#39;</span><span class="p">][</span><span class="s">&#39;kermit&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;Jim Henson&#39;</span>
-    <span class="k">assert</span> <span class="s">&#39;colors&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;muppets&#39;</span><span class="p">]</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    <span class="c1">#print(&quot;@@ get_os-obj: {}&quot;.format(obj))</span>
+    <span class="k">assert</span> <span class="s1">&#39;muppets&#39;</span> <span class="ow">in</span> <span class="n">obj</span>
+    <span class="k">assert</span> <span class="s1">&#39;actors&#39;</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;muppets&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;muppets&#39;</span><span class="p">][</span><span class="s1">&#39;actors&#39;</span><span class="p">][</span><span class="s1">&#39;kermit&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Jim Henson&#39;</span>
+    <span class="k">assert</span> <span class="s1">&#39;colors&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;muppets&#39;</span><span class="p">]</span>
 
-    <span class="c"># try again, this time with 2</span>
-    <span class="n">actors_2</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/2&#39;</span><span class="p">,</span> <span class="s">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;muppets/actors&#39;</span><span class="p">]}</span>
+    <span class="c1"># try again, this time with 2</span>
+    <span class="n">actors_2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/2&#39;</span><span class="p">,</span> <span class="s1">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;muppets/actors&#39;</span><span class="p">]}</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([</span><span class="n">actors_1</span><span class="p">,</span> <span class="n">actors_2</span><span class="p">])</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="s">&#39;muppets&#39;</span> <span class="ow">in</span> <span class="n">d</span>
-        <span class="k">assert</span> <span class="s">&#39;actors&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;muppets&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="s">&#39;colors&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;muppets&#39;</span><span class="p">]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="s1">&#39;muppets&#39;</span> <span class="ow">in</span> <span class="n">d</span>
+        <span class="k">assert</span> <span class="s1">&#39;actors&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;muppets&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="s1">&#39;colors&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;muppets&#39;</span><span class="p">]</span>
 
-    <span class="c"># retrieve a top level property</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/2&#39;</span><span class="p">,</span> <span class="s">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]}])</span>
+    <span class="c1"># retrieve a top level property</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/2&#39;</span><span class="p">,</span> <span class="s1">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]}])</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="s">&#39;value&#39;</span> <span class="ow">in</span> <span class="n">d</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="s1">&#39;value&#39;</span> <span class="ow">in</span> <span class="n">d</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
 
-    <span class="c"># retrieve two children of the same parent</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/2&#39;</span><span class="p">,</span> <span class="s">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;muppets/actors&#39;</span><span class="p">,</span> <span class="s">&#39;muppets/colors&#39;</span><span class="p">]}])</span>
+    <span class="c1"># retrieve two children of the same parent</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/2&#39;</span><span class="p">,</span> <span class="s1">&#39;included&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;muppets/actors&#39;</span><span class="p">,</span> <span class="s1">&#39;muppets/colors&#39;</span><span class="p">]}])</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="s">&#39;muppets&#39;</span> <span class="ow">in</span> <span class="n">d</span>
-        <span class="k">assert</span> <span class="s">&#39;actors&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;muppets&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="s">&#39;colors&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;muppets&#39;</span><span class="p">]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="s1">&#39;muppets&#39;</span> <span class="ow">in</span> <span class="n">d</span>
+        <span class="k">assert</span> <span class="s1">&#39;actors&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;muppets&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="s1">&#39;colors&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;muppets&#39;</span><span class="p">]</span></div>
 
 
-</div>
+
 <div class="viewcode-block" id="test_get_objects"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_get_objects">[docs]</a><span class="k">def</span> <span class="nf">test_get_objects</span><span class="p">():</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_objects</span><span class="p">([{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/1&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/2&#39;</span><span class="p">}])</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_objects</span><span class="p">([{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/1&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/2&#39;</span><span class="p">}])</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
     <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="s">&#39;data&#39;</span> <span class="ow">in</span> <span class="n">obj</span>
-        <span class="k">assert</span> <span class="s">&#39;object_info&#39;</span> <span class="ow">in</span> <span class="n">obj</span>
+        <span class="k">assert</span> <span class="s1">&#39;data&#39;</span> <span class="ow">in</span> <span class="n">obj</span>
+        <span class="k">assert</span> <span class="s1">&#39;object_info&#39;</span> <span class="ow">in</span> <span class="n">obj</span></div>
 
-</div>
+
 <div class="viewcode-block" id="test_get_type_info"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_get_type_info">[docs]</a><span class="k">def</span> <span class="nf">test_get_type_info</span><span class="p">():</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_type_info</span><span class="p">(</span><span class="s">&#39;Foo&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="s">&#39;type_string&#39;</span> <span class="ow">in</span> <span class="n">r</span>
-    <span class="k">assert</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;type_string&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;Foo&#39;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">get_type_info</span><span class="p">(</span><span class="s1">&#39;Foo&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;type_string&#39;</span> <span class="ow">in</span> <span class="n">r</span>
+    <span class="k">assert</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;type_string&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Foo&#39;</span></div>
 
-</div>
+
 <div class="viewcode-block" id="test_list_referencing_objects"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_fsmock.test_list_referencing_objects">[docs]</a><span class="k">def</span> <span class="nf">test_list_referencing_objects</span><span class="p">():</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">list_referencing_objects</span><span class="p">([{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/1&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="s">&#39;10/2&#39;</span><span class="p">}])</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">_mock</span><span class="o">.</span><span class="n">list_referencing_objects</span><span class="p">([{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/1&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="s1">&#39;10/2&#39;</span><span class="p">}])</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
-    <span class="c"># second is refrring to first</span>
+    <span class="c1"># second is refrring to first</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="k">assert</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;second&#39;</span>
-    <span class="c"># nobody is referring to second</span>
+    <span class="k">assert</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;second&#39;</span>
+    <span class="c1"># nobody is referring to second</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span></div>
 </pre></div>
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../../../../index.html">
-    <img class="logo" src="../../../../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
 
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../assembly_api.html">Assembly Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../index.html">Module code</a><ul>
-  <li><a href="../../data_api.html">doekbase.data_api</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -310,7 +400,8 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x106faa5d0>
+<jinja2.runtime.BlockReference object at 0x11238b450>
 
-  </body>
+
+</body>
 </html>

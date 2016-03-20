@@ -4,18 +4,50 @@ doekbase.data_api.tests.examples package
 Submodules
 ----------
 
-doekbase.data_api.tests.examples.examples_genome_annotation_api module
-----------------------------------------------------------------------
+doekbase.data_api.tests.examples.assembly_cross_annotation module
+-----------------------------------------------------------------
 
-.. automodule:: doekbase.data_api.tests.examples.examples_genome_annotation_api
+.. automodule:: doekbase.data_api.tests.examples.assembly_cross_annotation
     :members:
     :undoc-members:
     :show-inheritance:
 
-doekbase.data_api.tests.examples.foo module
--------------------------------------------
+doekbase.data_api.tests.examples.genome_annotation_api module
+-------------------------------------------------------------
 
-.. automodule:: doekbase.data_api.tests.examples.foo
+.. automodule:: doekbase.data_api.tests.examples.genome_annotation_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.get_core_exons_for_gene module
+---------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.get_core_exons_for_gene
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.get_mRNAs_for_gene_to_GFF module
+-----------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.get_mRNAs_for_gene_to_GFF
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.get_mRNAs_for_genes_to_GFF module
+------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.get_mRNAs_for_genes_to_GFF
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.proteins_to_fasta module
+---------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.proteins_to_fasta
     :members:
     :undoc-members:
     :show-inheritance:
@@ -24,6 +56,62 @@ doekbase.data_api.tests.examples.taxon_api module
 -------------------------------------------------
 
 .. automodule:: doekbase.data_api.tests.examples.taxon_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.test_assembly_api module
+---------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.test_assembly_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.test_assembly_cross_annotation module
+----------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.test_assembly_cross_annotation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.test_genome_annotation_api module
+------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.test_genome_annotation_api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.test_get_core_exons_for_gene module
+--------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.test_get_core_exons_for_gene
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.test_get_mRNAs_for_gene_to_GFF module
+----------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.test_get_mRNAs_for_gene_to_GFF
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.test_get_mRNAs_for_genes_to_GFF module
+-----------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.test_get_mRNAs_for_genes_to_GFF
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.tests.examples.test_proteins_to_fasta module
+--------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.tests.examples.test_proteins_to_fasta
     :members:
     :undoc-members:
     :show-inheritance:

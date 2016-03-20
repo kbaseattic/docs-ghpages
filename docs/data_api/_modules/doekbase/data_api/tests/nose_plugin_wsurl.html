@@ -1,60 +1,151 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>doekbase.data_api.tests.nose_plugin_wsurl &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
-<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x1076eb390>
-
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.nose_plugin_wsurl &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body>  
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.nose_plugin_wsurl</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for doekbase.data_api.tests.nose_plugin_wsurl</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Nose testing plugin for configuring Workspace URL during tests.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="c"># Imports</span>
+<span class="c1"># Imports</span>
 
-<span class="c"># Stdlib</span>
+<span class="c1"># Stdlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="c"># Third-party</span>
+<span class="c1"># Third-party</span>
 <span class="kn">from</span> <span class="nn">nose.plugins</span> <span class="kn">import</span> <span class="n">Plugin</span>
-<span class="c"># Local</span>
+<span class="c1"># Local</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">core</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">get_logger</span>
 
-<span class="c"># Logging</span>
+<span class="c1"># Logging</span>
 <span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="WorkspaceURL"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL">[docs]</a><span class="k">class</span> <span class="nc">WorkspaceURL</span><span class="p">(</span><span class="n">Plugin</span><span class="p">):</span>
@@ -64,102 +155,102 @@
 <div class="viewcode-block" id="WorkspaceURL.options"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL.options">[docs]</a>    <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">env</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Register commmandline options.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;WorkspaceURL.options&#39;</span><span class="p">)</span>
-        <span class="c"># Shock URL</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;WorkspaceURL.options&#39;</span><span class="p">)</span>
+        <span class="c1"># Shock URL</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
-            <span class="s">&quot;--shock-url&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&quot;shock_url&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s">&#39;URL&#39;</span><span class="p">,</span>
-            <span class="n">default</span><span class="o">=</span><span class="s">&#39;https://ci.kbase.us/services/shock-api/&#39;</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s">&quot;Shock URL [</span><span class="si">%d</span><span class="s">efault]&quot;</span><span class="p">)</span>
-        <span class="c"># Workspace URL (or path)</span>
+            <span class="s2">&quot;--shock-url&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;shock_url&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;URL&#39;</span><span class="p">,</span>
+            <span class="n">default</span><span class="o">=</span><span class="s1">&#39;https://ci.kbase.us/services/shock-api/&#39;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Shock URL [</span><span class="si">%d</span><span class="s2">efault]&quot;</span><span class="p">)</span>
+        <span class="c1"># Workspace URL (or path)</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
-            <span class="s">&quot;--ws-url&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&quot;ws_url&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s">&#39;URL or PATH&#39;</span><span class="p">,</span>
-            <span class="n">default</span><span class="o">=</span><span class="s">&#39;https://ci.kbase.us/services/ws/&#39;</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s">&quot;Workspace URL, which may be either a &quot;</span>
-                 <span class="s">&quot;server address or directory path to indicate that &quot;</span>
-                 <span class="s">&quot;tests should use the file-based workspace with &quot;</span>
-                 <span class="s">&quot;all files in that path. [</span><span class="si">%d</span><span class="s">efault]&quot;</span><span class="p">)</span>
-        <span class="c"># File workspace format (JSON or MessagePack)</span>
+            <span class="s2">&quot;--ws-url&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;ws_url&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;URL or PATH&#39;</span><span class="p">,</span>
+            <span class="n">default</span><span class="o">=</span><span class="s1">&#39;https://ci.kbase.us/services/ws/&#39;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Workspace URL, which may be either a &quot;</span>
+                 <span class="s2">&quot;server address or directory path to indicate that &quot;</span>
+                 <span class="s2">&quot;tests should use the file-based workspace with &quot;</span>
+                 <span class="s2">&quot;all files in that path. [</span><span class="si">%d</span><span class="s2">efault]&quot;</span><span class="p">)</span>
+        <span class="c1"># File workspace format (JSON or MessagePack)</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
-            <span class="s">&quot;--wsfile-msgpack&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&quot;wsfile_msgpack&quot;</span><span class="p">,</span>
-            <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s">&quot;If the file-based workspace is being used, &quot;</span>
-                 <span class="s">&quot;look for and decode MessagePack-formatted &quot;</span>
-                 <span class="s">&quot;files ending in &#39;.msgpack&#39;. By default, look for &quot;</span>
-                 <span class="s">&quot;JSON files ending in &#39;.json&#39;&quot;</span><span class="p">)</span>
-</div>
+            <span class="s2">&quot;--wsfile-msgpack&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;wsfile_msgpack&quot;</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;If the file-based workspace is being used, &quot;</span>
+                 <span class="s2">&quot;look for and decode MessagePack-formatted &quot;</span>
+                 <span class="s2">&quot;files ending in &#39;.msgpack&#39;. By default, look for &quot;</span>
+                 <span class="s2">&quot;JSON files ending in &#39;.json&#39;&quot;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="WorkspaceURL.configure"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.nose_plugin_wsurl.WorkspaceURL.configure">[docs]</a>    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">conf</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Configure plugin.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;WorkspaceURL.configure, ws_url={}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">ws_url</span><span class="p">))</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;WorkspaceURL.configure, ws_url={}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">ws_url</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">can_configure</span><span class="p">:</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Cannot configure&#39;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="c"># Assign parsed values to global variables in the &#39;core&#39; module.</span>
+        <span class="c1"># Assign parsed values to global variables in the &#39;core&#39; module.</span>
         <span class="n">core</span><span class="o">.</span><span class="n">g_ws_url</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">ws_url</span>
         <span class="n">core</span><span class="o">.</span><span class="n">g_shock_url</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">shock_url</span>
         <span class="n">core</span><span class="o">.</span><span class="n">g_use_msgpack</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">wsfile_msgpack</span>
-        <span class="c"># Set instance state and return</span>
+        <span class="c1"># Set instance state and return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="n">conf</span></div></div>
 </pre></div>
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../../../../index.html">
-    <img class="logo" src="../../../../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
 
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../assembly_api.html">Assembly Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../index.html">Module code</a><ul>
-  <li><a href="../../data_api.html">doekbase.data_api</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -204,7 +295,8 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x106f5df50>
+<jinja2.runtime.BlockReference object at 0x10cd43850>
 
-  </body>
+
+</body>
 </html>

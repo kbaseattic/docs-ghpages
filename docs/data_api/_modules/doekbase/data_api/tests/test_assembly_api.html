@@ -1,313 +1,502 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>doekbase.data_api.tests.test_assembly_api &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
-<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x107836f10>
-
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.test_assembly_api &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body>  
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.test_assembly_api</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for doekbase.data_api.tests.test_assembly_api</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Unit tests for assembly</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">skipUnless</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">shared</span>
-
-<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly</span> <span class="kn">import</span> <span class="n">AssemblyAPI</span>
-<span class="kn">from</span> <span class="nn">doekbase.data_api.annotation.genome_annotation</span> <span class="kn">import</span> <span class="n">GenomeAnnotationAPI</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly.api</span> <span class="kn">import</span> <span class="n">AssemblyAPI</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly.api</span> <span class="kn">import</span> <span class="n">AssemblyClientAPI</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly.api</span> <span class="kn">import</span> <span class="n">_KBaseGenomes_ContigSet</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly.api</span> <span class="kn">import</span> <span class="n">_Assembly</span>
 
 <span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
-<span class="n">assembly_new</span> <span class="o">=</span> <span class="s">&quot;PrototypeReferenceGenomes/kb|g.166819_assembly&quot;</span>
-<span class="n">assembly_old</span> <span class="o">=</span> <span class="s">&quot;OriginalReferenceGenomes/kb|g.166819.contigset&quot;</span>
+<span class="n">assembly_new</span> <span class="o">=</span> <span class="s2">&quot;ReferenceGenomeAnnotations/kb|g.166819_assembly&quot;</span>
+<span class="n">assembly_old</span> <span class="o">=</span> <span class="s2">&quot;OriginalReferenceGenomes/kb|g.166819.contigset&quot;</span>
 <span class="n">t_new</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_new_e</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">t_old</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_old_e</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_client_old</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">t_client_new</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">g_skip_shock</span> <span class="o">=</span> <span class="bp">False</span>
 
 <div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
     <span class="n">shared</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
-    <span class="k">global</span> <span class="n">t_new</span><span class="p">,</span> <span class="n">t_old</span>
+    <span class="k">global</span> <span class="n">t_new</span><span class="p">,</span> <span class="n">t_old</span><span class="p">,</span> <span class="n">t_new_e</span><span class="p">,</span> <span class="n">t_old_e</span><span class="p">,</span> <span class="n">t_client_new</span><span class="p">,</span> <span class="n">t_client_old</span><span class="p">,</span> <span class="n">g_skip_shock</span>
+    <span class="n">g_skip_shock</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;shock_service_url&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">)</span>
     <span class="n">t_new</span> <span class="o">=</span> <span class="n">AssemblyAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">assembly_new</span><span class="p">)</span>
+    <span class="n">t_new_e</span> <span class="o">=</span> <span class="n">_Assembly</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">assembly_new</span><span class="p">)</span>
     <span class="n">t_old</span> <span class="o">=</span> <span class="n">AssemblyAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">assembly_old</span><span class="p">)</span>
+    <span class="n">t_old_e</span> <span class="o">=</span> <span class="n">_KBaseGenomes_ContigSet</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">assembly_old</span><span class="p">)</span>
+    <span class="n">t_client_new</span> <span class="o">=</span> <span class="n">AssemblyClientAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;assembly_service_url&quot;</span><span class="p">],</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">assembly_new</span><span class="p">)</span>
+    <span class="n">t_client_old</span> <span class="o">=</span> <span class="n">AssemblyClientAPI</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;assembly_service_url&quot;</span><span class="p">],</span> <span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">assembly_old</span><span class="p">)</span></div>
 
 
-<span class="c">###### New Assembly Type tests</span>
+<span class="c1">###### New Assembly Type tests</span>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_assembly_id_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_assembly_id_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_assembly_id_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">assembly_id</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">assembly_id_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly_id_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly_id_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">assembly_id_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly_id_c</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly_id_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_genome_annotations_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_genome_annotations_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_genome_annotations_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">annotations</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">annotations</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">annotations</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
-    <span class="c">#and len([True for x in annotations if isinstance(x, GenomeAnnotationAPI)]) &gt; 0</span>
+    <span class="n">annotations_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">annotations</span> <span class="o">==</span> <span class="n">annotations_e</span>
+    <span class="n">annotations_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations_c</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_external_source_info_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_external_source_info_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_external_source_info_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="n">info_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">info_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">info</span> <span class="o">==</span> <span class="n">info_e</span>
+    <span class="n">info_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">info_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">info</span> <span class="o">==</span> <span class="n">info_c</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_stats_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_stats_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_stats_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">stats</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="n">stats_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stats</span> <span class="o">==</span> <span class="n">stats_e</span>
+    <span class="n">stats_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stats</span> <span class="o">==</span> <span class="n">stats_c</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_number_contigs_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_number_contigs_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_number_contigs_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">count</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">count_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">count_e</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">==</span> <span class="n">count_e</span>
+    <span class="n">count_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count_c</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">count_c</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">==</span> <span class="n">count_c</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_gc_content_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_gc_content_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_gc_content_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">gc_content</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gc_content</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gc_content</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gc_content</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gc_content</span> <span class="o">&gt;</span> <span class="mf">0.1</span>
+    <span class="n">gc_content_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gc_content_e</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gc_content_e</span> <span class="o">&gt;</span> <span class="mf">0.1</span>
+    <span class="n">gc_content_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gc_content_c</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gc_content_c</span> <span class="o">&gt;</span> <span class="mf">0.1</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_dna_size_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_dna_size_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_dna_size_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">dna_size</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dna_size</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dna_size</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dna_size</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">dna_size_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dna_size_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">==</span> <span class="n">dna_size_e</span>
+    <span class="n">dna_size_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dna_size_c</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">==</span> <span class="n">dna_size_c</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contig_lengths_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contig_lengths_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_contig_lengths_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">contig_lengths</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">)))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">)))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_lengths_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_lengths_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_lengths_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_lengths_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contig_gc_content_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contig_gc_content_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_contig_gc_content_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">contig_gc_content</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">)))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">)))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_gc_content_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_gc_content_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_gc_content_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_gc_content_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contig_ids_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contig_ids_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_contig_ids_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">contig_ids</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">)))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">)))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_ids_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_ids_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_ids_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_ids_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_ids_c</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_ids_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">g_skip_shock</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contigs_new"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contigs_new">[docs]</a><span class="k">def</span> <span class="nf">test_get_contigs_new</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_new</span><span class="p">))</span>
     <span class="n">contigs</span> <span class="o">=</span> <span class="n">t_new</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contigs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contigs_e</span> <span class="o">=</span> <span class="n">t_new_e</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contigs_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contigs_c</span> <span class="o">=</span> <span class="n">t_client_new</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contigs_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
 
-<span class="c">###### Old Assembly Type tests</span>
+<span class="c1">###### Old Assembly Type tests</span>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_assembly_id_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_assembly_id_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_assembly_id_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">assembly_id</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly_id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">assembly_id_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly_id_e</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly_id_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">assembly_id</span> <span class="o">==</span> <span class="n">assembly_id_e</span>
+    <span class="n">assembly_id_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_assembly_id</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">assembly_id_c</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">assembly_id_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">assembly_id</span> <span class="o">==</span> <span class="n">assembly_id_c</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_genome_annotations_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_genome_annotations_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_genome_annotations_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">annotations</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">annotations</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">annotations</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
-    <span class="c">#and len([True for x in annotations if isinstance(x, GenomeAnnotationAPI)]) &gt; 0</span>
+    <span class="n">annotations_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="n">annotations_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_genome_annotations</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">annotations_c</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_external_source_info_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_external_source_info_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_external_source_info_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="n">info_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">info_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="n">info_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_external_source_info</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">info_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_stats_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_stats_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_stats_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">stats</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="n">stats_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="n">stats_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_number_contigs_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_number_contigs_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_number_contigs_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">count</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">count_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">count_e</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">==</span> <span class="n">count_e</span>
+    <span class="n">count_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_number_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count_c</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">count_c</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">==</span> <span class="n">count_c</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_gc_content_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_gc_content_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_gc_content_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">gc_content</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gc_content</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gc_content</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gc_content</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gc_content</span> <span class="o">&gt;</span> <span class="mf">0.1</span>
+    <span class="n">gc_content_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gc_content_e</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gc_content_e</span> <span class="o">&gt;</span> <span class="mf">0.1</span>
+    <span class="n">gc_content_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gc_content_c</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">gc_content_c</span> <span class="o">&gt;</span> <span class="mf">0.1</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_dna_size_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_dna_size_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_dna_size_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">dna_size</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dna_size</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dna_size</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dna_size</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">dna_size_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dna_size_e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dna_size_e</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">==</span> <span class="n">dna_size_e</span>
+    <span class="n">dna_size_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_dna_size</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dna_size_c</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dna_size_c</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dna_size</span> <span class="o">==</span> <span class="n">dna_size_c</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contig_lengths_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contig_lengths_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_contig_lengths_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">contig_lengths</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">)))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">)))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_lengths_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_lengths_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_lengths_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_contig_lengths</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_lengths_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_lengths_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contig_gc_content_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contig_gc_content_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_contig_gc_content_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">contig_gc_content</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">)))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">)))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_gc_content_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_gc_content_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_gc_content_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_contig_gc_content</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_gc_content_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_gc_content_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contig_ids_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contig_ids_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_contig_ids_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">contig_ids</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">)))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">)))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_ids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_ids_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_ids_e</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_ids_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contig_ids_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_contig_ids</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contig_ids_c</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contig_ids_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-</div>
-<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
+
+<span class="nd">@skipUnless</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">can_connect</span><span class="p">,</span> <span class="s1">&#39;Cannot connect to workspace&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="test_get_contigs_old"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_assembly_api.test_get_contigs_old">[docs]</a><span class="k">def</span> <span class="nf">test_get_contigs_old</span><span class="p">():</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Input {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">assembly_old</span><span class="p">))</span>
     <span class="n">contigs</span> <span class="o">=</span> <span class="n">t_old</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">()</span>
-    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)))</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contigs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
+    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)))</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contigs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contigs_e</span> <span class="o">=</span> <span class="n">t_old_e</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contigs_e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs_e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">contigs_c</span> <span class="o">=</span> <span class="n">t_client_old</span><span class="o">.</span><span class="n">get_contigs</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contigs_c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contigs_c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 </pre></div>
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../../../../index.html">
-    <img class="logo" src="../../../../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
 
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../assembly_api.html">Assembly Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../index.html">Module code</a><ul>
-  <li><a href="../../data_api.html">doekbase.data_api</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -352,7 +541,8 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x108094d50>
+<jinja2.runtime.BlockReference object at 0x10cd43c50>
 
-  </body>
+
+</body>
 </html>

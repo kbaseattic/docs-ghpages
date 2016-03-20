@@ -1,45 +1,134 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>doekbase.data_api.baseobj package &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
-<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10cab6690>
-
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.baseobj package &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body>  
+  
+  
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>doekbase.data_api.baseobj package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/_source/doekbase.data_api.baseobj.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="doekbase-data-api-baseobj-package">
 <h1>doekbase.data_api.baseobj package<a class="headerlink" href="#doekbase-data-api-baseobj-package" title="Permalink to this headline">¶</a></h1>
@@ -51,59 +140,59 @@
 <p>Module for base class for Data API objects.</p>
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.api.</tt><tt class="descname">ObjectAPI</tt><big>(</big><em>client</em>, <em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.api.</code><code class="descname">ObjectAPI</code><span class="sig-paren">(</span><em>client</em>, <em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>API layer over the autogenerated Thrift interface.
 This can handle both local and remote modes by use of alternate
 implementations of the <cite>client</cite> parameter.</p>
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.data">
-<tt class="descname">data</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.data_subset">
-<tt class="descname">data_subset</tt><big>(</big><em>path_list=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.data_subset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data_subset</code><span class="sig-paren">(</span><em>path_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.data_subset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.get_info">
-<tt class="descname">get_info</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.get_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_info</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.get_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.history">
-<tt class="descname">history</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">history</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.history" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.id">
-<tt class="descname">id</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.id" title="Permalink to this definition">¶</a></dt>
+<code class="descname">id</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.name">
-<tt class="descname">name</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">name</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.provenance">
-<tt class="descname">provenance</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.provenance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">provenance</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.provenance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.referrers">
-<tt class="descname">referrers</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.referrers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">referrers</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.referrers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.schema">
-<tt class="descname">schema</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.schema" title="Permalink to this definition">¶</a></dt>
+<code class="descname">schema</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.schema" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.api.ObjectAPI.typestring">
-<tt class="descname">typestring</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/api.html#ObjectAPI.typestring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.typestring" title="Permalink to this definition">¶</a></dt>
+<code class="descname">typestring</code><a class="headerlink" href="#doekbase.data_api.baseobj.api.ObjectAPI.typestring" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -117,46 +206,46 @@ implementations of the <cite>client</cite> parameter.</p>
 <p>Module for base class for Data API objects.</p>
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.impl.</tt><tt class="descname">ObjectImpl</tt><big>(</big><em>services=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="doekbase.data_api.baseobj.thrift_service.Iface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.baseobj.thrift_service.Iface</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.impl.</code><code class="descname">ObjectImpl</code><span class="sig-paren">(</span><em>services=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="doekbase.data_api.baseobj.thrift_service.Iface"><code class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.baseobj.thrift_service.Iface</span></code></a></p>
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.get_data">
-<tt class="descname">get_data</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.get_data_subset">
-<tt class="descname">get_data_subset</tt><big>(</big><em>path_list=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_data_subset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_data_subset</code><span class="sig-paren">(</span><em>path_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_data_subset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.get_history">
-<tt class="descname">get_history</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_history</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_history" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.get_info">
-<tt class="descname">get_info</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_info</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.get_provenance">
-<tt class="descname">get_provenance</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_provenance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_provenance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_provenance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.get_referrers">
-<tt class="descname">get_referrers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_referrers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_referrers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_referrers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.get_schema">
-<tt class="descname">get_schema</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_schema" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_schema</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.get_schema" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.impl.ObjectImpl.init">
-<tt class="descname">init</tt><big>(</big><em>auth</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">init</code><span class="sig-paren">(</span><em>auth</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/impl.html#ObjectImpl.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.impl.ObjectImpl.init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -166,17 +255,17 @@ implementations of the <cite>client</cite> parameter.</p>
 <span id="doekbase-data-api-baseobj-thrift-service-module"></span><h2>doekbase.data_api.baseobj.thrift_service module<a class="headerlink" href="#module-doekbase.data_api.baseobj.thrift_service" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">Client</tt><big>(</big><em>iprot</em>, <em>oprot=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="doekbase.data_api.baseobj.thrift_service.Iface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.baseobj.thrift_service.Iface</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>iprot</em>, <em>oprot=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="doekbase.data_api.baseobj.thrift_service.Iface"><code class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.baseobj.thrift_service.Iface</span></code></a></p>
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.get_data">
-<tt class="descname">get_data</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the object data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.get_data_subset">
-<tt class="descname">get_data_subset</tt><big>(</big><em>path_list</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_data_subset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_data_subset</code><span class="sig-paren">(</span><em>path_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_data_subset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a subset of the object data.</p>
 <p>&#64;param path_list. List of pths to the data elements.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -191,13 +280,13 @@ implementations of the <cite>client</cite> parameter.</p>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.get_history">
-<tt class="descname">get_history</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_history</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_history" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the history.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.get_info">
-<tt class="descname">get_info</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_info</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get basic object information.</p>
 <dl class="docutils">
 <dt>&#64;param ref. Object to retrieve. This sets the object</dt>
@@ -215,25 +304,25 @@ implementations of the <cite>client</cite> parameter.</p>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.get_provenance">
-<tt class="descname">get_provenance</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_provenance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_provenance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_provenance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the provenance.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.get_referrers">
-<tt class="descname">get_referrers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_referrers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_referrers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_referrers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the list of referrers.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.get_schema">
-<tt class="descname">get_schema</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_schema" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.get_schema" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the schema associated with an object.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.init">
-<tt class="descname">init</tt><big>(</big><em>auth</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">init</code><span class="sig-paren">(</span><em>auth</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -247,98 +336,98 @@ implementations of the <cite>client</cite> parameter.</p>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_get_data">
-<tt class="descname">recv_get_data</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_get_data_subset">
-<tt class="descname">recv_get_data_subset</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_data_subset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_get_data_subset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_data_subset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_get_history">
-<tt class="descname">recv_get_history</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_get_history</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_history" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_get_info">
-<tt class="descname">recv_get_info</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_get_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_get_provenance">
-<tt class="descname">recv_get_provenance</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_provenance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_get_provenance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_provenance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_get_referrers">
-<tt class="descname">recv_get_referrers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_referrers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_get_referrers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_referrers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_get_schema">
-<tt class="descname">recv_get_schema</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_schema" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_get_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_get_schema" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.recv_init">
-<tt class="descname">recv_init</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">recv_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.recv_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.recv_init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_get_data">
-<tt class="descname">send_get_data</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_get_data_subset">
-<tt class="descname">send_get_data_subset</tt><big>(</big><em>path_list</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_data_subset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_get_data_subset</code><span class="sig-paren">(</span><em>path_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_data_subset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_get_history">
-<tt class="descname">send_get_history</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_get_history</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_history" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_get_info">
-<tt class="descname">send_get_info</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_get_info</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_get_provenance">
-<tt class="descname">send_get_provenance</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_provenance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_get_provenance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_provenance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_get_referrers">
-<tt class="descname">send_get_referrers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_referrers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_get_referrers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_referrers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_get_schema">
-<tt class="descname">send_get_schema</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_schema" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_get_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_get_schema" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Client.send_init">
-<tt class="descname">send_init</tt><big>(</big><em>auth</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">send_init</code><span class="sig-paren">(</span><em>auth</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Client.send_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Client.send_init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">Iface</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">Iface</code><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.get_data">
-<tt class="descname">get_data</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the object data.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.get_data_subset">
-<tt class="descname">get_data_subset</tt><big>(</big><em>path_list</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_data_subset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_data_subset</code><span class="sig-paren">(</span><em>path_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_data_subset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a subset of the object data.</p>
 <p>&#64;param path_list. List of pths to the data elements.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -353,13 +442,13 @@ implementations of the <cite>client</cite> parameter.</p>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.get_history">
-<tt class="descname">get_history</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_history</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_history" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the history.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.get_info">
-<tt class="descname">get_info</tt><big>(</big><em>ref</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_info</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get basic object information.</p>
 <dl class="docutils">
 <dt>&#64;param ref. Object to retrieve. This sets the object</dt>
@@ -377,25 +466,25 @@ implementations of the <cite>client</cite> parameter.</p>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.get_provenance">
-<tt class="descname">get_provenance</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_provenance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_provenance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_provenance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the provenance.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.get_referrers">
-<tt class="descname">get_referrers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_referrers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_referrers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_referrers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the list of referrers.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.get_schema">
-<tt class="descname">get_schema</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_schema" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.get_schema" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the schema associated with an object.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Iface.init">
-<tt class="descname">init</tt><big>(</big><em>auth</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">init</code><span class="sig-paren">(</span><em>auth</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Iface.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Iface.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -411,501 +500,501 @@ implementations of the <cite>client</cite> parameter.</p>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">Processor</tt><big>(</big><em>handler</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="doekbase.data_api.baseobj.thrift_service.Iface"><tt class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.baseobj.thrift_service.Iface</span></tt></a>, <tt class="xref py py-class docutils literal"><span class="pre">thrift.Thrift.TProcessor</span></tt></p>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">Processor</code><span class="sig-paren">(</span><em>handler</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#doekbase.data_api.baseobj.thrift_service.Iface" title="doekbase.data_api.baseobj.thrift_service.Iface"><code class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.baseobj.thrift_service.Iface</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">thrift.Thrift.TProcessor</span></code></p>
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process">
-<tt class="descname">process</tt><big>(</big><em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><span class="sig-paren">(</span><em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_get_data">
-<tt class="descname">process_get_data</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_get_data</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_get_data_subset">
-<tt class="descname">process_get_data_subset</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_data_subset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_get_data_subset</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_data_subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_data_subset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_get_history">
-<tt class="descname">process_get_history</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_get_history</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_history" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_get_info">
-<tt class="descname">process_get_info</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_get_info</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_get_provenance">
-<tt class="descname">process_get_provenance</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_provenance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_get_provenance</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_provenance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_get_referrers">
-<tt class="descname">process_get_referrers</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_referrers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_get_referrers</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_referrers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_referrers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_get_schema">
-<tt class="descname">process_get_schema</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_schema" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_get_schema</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_get_schema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_get_schema" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.Processor.process_init">
-<tt class="descname">process_init</tt><big>(</big><em>seqid</em>, <em>iprot</em>, <em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_init</code><span class="sig-paren">(</span><em>seqid</em>, <em>iprot</em>, <em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#Processor.process_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.Processor.process_init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_data_args</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_data_args</code><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_data_result</tt><big>(</big><em>success=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_data_result</code><span class="sig-paren">(</span><em>success=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- success</tt></dt>
+<code class="descname">- success</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ((0, 11, 'success', None, None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ((0, 11, 'success', None, None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_data_subset_args</tt><big>(</big><em>path_list=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_data_subset_args</code><span class="sig-paren">(</span><em>path_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- path_list</tt></dt>
+<code class="descname">- path_list</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 15, 'path_list', (11, None), None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = (None, (1, 15, 'path_list', (11, None), None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_data_subset_result</tt><big>(</big><em>success=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_data_subset_result</code><span class="sig-paren">(</span><em>success=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- success</tt></dt>
+<code class="descname">- success</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ((0, 11, 'success', None, None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ((0, 11, 'success', None, None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_data_subset_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_data_subset_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_data_subset_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_history_args</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_history_args</code><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_history_result</tt><big>(</big><em>success=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_history_result</code><span class="sig-paren">(</span><em>success=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- success</tt></dt>
+<code class="descname">- success</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ((0, 12, 'success', (&lt;class doekbase.data_api.baseobj.ttypes.History at 0x104ebf0b8&gt;, (None, (1, 15, 'events', (11, None), None))), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ((0, 12, 'success', (&lt;class doekbase.data_api.baseobj.ttypes.History at 0x10ecfa1f0&gt;, (None, (1, 15, 'events', (11, None), None))), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_history_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_history_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_history_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_info_args</tt><big>(</big><em>ref=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_info_args</code><span class="sig-paren">(</span><em>ref=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- ref</tt></dt>
+<code class="descname">- ref</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 11, 'ref', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = (None, (1, 11, 'ref', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_info_result</tt><big>(</big><em>success=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_info_result</code><span class="sig-paren">(</span><em>success=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- success</tt></dt>
+<code class="descname">- success</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ((0, 12, 'success', (&lt;class doekbase.data_api.baseobj.ttypes.Metadata at 0x104ebf120&gt;, (None, (1, 11, 'object_id', None, None), (2, 11, 'object_name', None, None), (3, 11, 'object_reference', None, None), (4, 11, 'object_reference_versioned', None, None), (5, 11, 'type_string', None, None), (6, 11, 'save_date', None, None), (7, 11, 'version', None, None), (8, 11, 'saved_by', None, None), (9, 10, 'workspace_id', None, None), (10, 11, 'workspace_name', None, None), (11, 11, 'object_checksum', None, None), (12, 10, 'object_size', None, None), (13, 11, 'object_metadata', None, None))), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ((0, 12, 'success', (&lt;class doekbase.data_api.baseobj.ttypes.Metadata at 0x10ecfa188&gt;, (None, (1, 11, 'object_id', None, None), (2, 11, 'object_name', None, None), (3, 11, 'object_reference', None, None), (4, 11, 'object_reference_versioned', None, None), (5, 11, 'type_string', None, None), (6, 11, 'save_date', None, None), (7, 11, 'version', None, None), (8, 11, 'saved_by', None, None), (9, 10, 'workspace_id', None, None), (10, 11, 'workspace_name', None, None), (11, 11, 'object_checksum', None, None), (12, 10, 'object_size', None, None), (13, 11, 'object_metadata', None, None))), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_info_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_info_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_info_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_provenance_args</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_provenance_args</code><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_provenance_result</tt><big>(</big><em>success=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_provenance_result</code><span class="sig-paren">(</span><em>success=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- success</tt></dt>
+<code class="descname">- success</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ((0, 12, 'success', (&lt;class doekbase.data_api.baseobj.ttypes.Provenance at 0x104ebf460&gt;, (None, (1, 11, 'where_i_came_from', None, None))), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ((0, 12, 'success', (&lt;class doekbase.data_api.baseobj.ttypes.Provenance at 0x10ecfa258&gt;, (None, (1, 11, 'where_i_came_from', None, None))), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_provenance_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_provenance_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_provenance_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_referrers_args</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_referrers_args</code><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_referrers_result</tt><big>(</big><em>success=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_referrers_result</code><span class="sig-paren">(</span><em>success=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- success</tt></dt>
+<code class="descname">- success</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ((0, 13, 'success', (11, None, 15, (11, None)), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ((0, 13, 'success', (11, None, 15, (11, None)), None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_referrers_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_referrers_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_referrers_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_schema_args</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_schema_args</code><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">get_schema_result</tt><big>(</big><em>success=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">get_schema_result</code><span class="sig-paren">(</span><em>success=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- success</tt></dt>
+<code class="descname">- success</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ((0, 11, 'success', None, None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ((0, 11, 'success', None, None),)</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.get_schema_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#get_schema_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.get_schema_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_args">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">init_args</tt><big>(</big><em>auth=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">init_args</code><span class="sig-paren">(</span><em>auth=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt>
-<tt class="descname">- auth</tt></dt>
+<code class="descname">- auth</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_args.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_args.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 12, 'auth', (&lt;class doekbase.data_api.baseobj.ttypes.AuthInfo at 0x104bdace8&gt;, (None, (1, 11, 'token', None, None))), None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = (None, (1, 12, 'auth', (&lt;class doekbase.data_api.baseobj.ttypes.AuthInfo at 0x10ecfa2c0&gt;, (None, (1, 11, 'token', None, None))), None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_args.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_args.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_args.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_args.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_result">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.thrift_service.</tt><tt class="descname">init_result</tt><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.thrift_service.</code><code class="descname">init_result</code><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_result.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_result.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = ()</em><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_result.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.thrift_service.init_result.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/thrift_service.html#init_result.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.thrift_service.init_result.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -915,38 +1004,38 @@ implementations of the <cite>client</cite> parameter.</p>
 <span id="doekbase-data-api-baseobj-ttypes-module"></span><h2>doekbase.data_api.baseobj.ttypes module<a class="headerlink" href="#module-doekbase.data_api.baseobj.ttypes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.ttypes.AuthInfo">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.ttypes.</tt><tt class="descname">AuthInfo</tt><big>(</big><em>token=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.ttypes.</code><code class="descname">AuthInfo</code><span class="sig-paren">(</span><em>token=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Authorization info</p>
 <dl class="attribute">
 <dt>
-<tt class="descname">- token</tt></dt>
+<code class="descname">- token</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.AuthInfo.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.ttypes.AuthInfo.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 11, 'token', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = (None, (1, 11, 'token', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.AuthInfo.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.AuthInfo.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#AuthInfo.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.AuthInfo.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.ttypes.History">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.ttypes.</tt><tt class="descname">History</tt><big>(</big><em>events=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.ttypes.</code><code class="descname">History</code><span class="sig-paren">(</span><em>events=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div>Object history.</div></blockquote>
 <dl class="docutils">
@@ -977,144 +1066,144 @@ Attributes:</p>
 </dl>
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.History.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.ttypes.History.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 15, 'events', (11, None), None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = (None, (1, 15, 'events', (11, None), None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.History.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.History.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#History.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.History.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.ttypes.Metadata">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.ttypes.</tt><tt class="descname">Metadata</tt><big>(</big><em>object_id=None</em>, <em>object_name=None</em>, <em>object_reference=None</em>, <em>object_reference_versioned=None</em>, <em>type_string=None</em>, <em>save_date=None</em>, <em>version=None</em>, <em>saved_by=None</em>, <em>workspace_id=None</em>, <em>workspace_name=None</em>, <em>object_checksum=None</em>, <em>object_size=None</em>, <em>object_metadata=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.ttypes.</code><code class="descname">Metadata</code><span class="sig-paren">(</span><em>object_id=None</em>, <em>object_name=None</em>, <em>object_reference=None</em>, <em>object_reference_versioned=None</em>, <em>type_string=None</em>, <em>save_date=None</em>, <em>version=None</em>, <em>saved_by=None</em>, <em>workspace_id=None</em>, <em>workspace_name=None</em>, <em>object_checksum=None</em>, <em>object_size=None</em>, <em>object_metadata=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default metadata for an object.</p>
 <dl class="attribute">
 <dt>
-<tt class="descname">- object_id</tt></dt>
+<code class="descname">- object_id</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- object_name</tt></dt>
+<code class="descname">- object_name</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- object_reference</tt></dt>
+<code class="descname">- object_reference</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- object_reference_versioned</tt></dt>
+<code class="descname">- object_reference_versioned</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- type_string</tt></dt>
+<code class="descname">- type_string</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- save_date</tt></dt>
+<code class="descname">- save_date</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- version</tt></dt>
+<code class="descname">- version</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- saved_by</tt></dt>
+<code class="descname">- saved_by</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- workspace_id</tt></dt>
+<code class="descname">- workspace_id</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- workspace_name</tt></dt>
+<code class="descname">- workspace_name</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- object_checksum</tt></dt>
+<code class="descname">- object_checksum</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- object_size</tt></dt>
+<code class="descname">- object_size</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<tt class="descname">- object_metadata</tt></dt>
+<code class="descname">- object_metadata</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.Metadata.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.ttypes.Metadata.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 11, 'object_id', None, None), (2, 11, 'object_name', None, None), (3, 11, 'object_reference', None, None), (4, 11, 'object_reference_versioned', None, None), (5, 11, 'type_string', None, None), (6, 11, 'save_date', None, None), (7, 11, 'version', None, None), (8, 11, 'saved_by', None, None), (9, 10, 'workspace_id', None, None), (10, 11, 'workspace_name', None, None), (11, 11, 'object_checksum', None, None), (12, 10, 'object_size', None, None), (13, 11, 'object_metadata', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = (None, (1, 11, 'object_id', None, None), (2, 11, 'object_name', None, None), (3, 11, 'object_reference', None, None), (4, 11, 'object_reference_versioned', None, None), (5, 11, 'type_string', None, None), (6, 11, 'save_date', None, None), (7, 11, 'version', None, None), (8, 11, 'saved_by', None, None), (9, 10, 'workspace_id', None, None), (10, 11, 'workspace_name', None, None), (11, 11, 'object_checksum', None, None), (12, 10, 'object_size', None, None), (13, 11, 'object_metadata', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.Metadata.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.Metadata.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Metadata.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Metadata.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="doekbase.data_api.baseobj.ttypes.Provenance">
-<em class="property">class </em><tt class="descclassname">doekbase.data_api.baseobj.ttypes.</tt><tt class="descname">Provenance</tt><big>(</big><em>where_i_came_from=None</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">doekbase.data_api.baseobj.ttypes.</code><code class="descname">Provenance</code><span class="sig-paren">(</span><em>where_i_came_from=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object provenance.</p>
 <dl class="attribute">
 <dt>
-<tt class="descname">- where_i_came_from</tt></dt>
+<code class="descname">- where_i_came_from</code></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.Provenance.read">
-<tt class="descname">read</tt><big>(</big><em>iprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>iprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="doekbase.data_api.baseobj.ttypes.Provenance.thrift_spec">
-<tt class="descname">thrift_spec</tt><em class="property"> = (None, (1, 11, 'where_i_came_from', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.thrift_spec" title="Permalink to this definition">¶</a></dt>
+<code class="descname">thrift_spec</code><em class="property"> = (None, (1, 11, 'where_i_came_from', None, None))</em><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.thrift_spec" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.Provenance.validate">
-<tt class="descname">validate</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.validate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="doekbase.data_api.baseobj.ttypes.Provenance.write">
-<tt class="descname">write</tt><big>(</big><em>oprot</em><big>)</big><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>oprot</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/baseobj/ttypes.html#Provenance.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.baseobj.ttypes.Provenance.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1126,80 +1215,63 @@ Attributes:</p>
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../index.html">
-    <img class="logo" src="../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
 
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../genome_api.html">Genome Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../taxon_api.html">Taxon Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developer.html">Developer notes</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="doekbase.html">doekbase package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="doekbase.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="doekbase.data_api.html">doekbase.data_api package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="doekbase.workspace.html">doekbase.workspace package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="doekbase.html#module-doekbase">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">doekbase</a><ul>
-  <li><a href="doekbase.html">doekbase package</a><ul>
-  <li><a href="doekbase.data_api.html">doekbase.data_api package</a><ul>
-      <li>Previous: <a href="doekbase.data_api.annotation.html" title="previous chapter">doekbase.data_api.annotation package</a></li>
-      <li>Next: <a href="doekbase.data_api.sequence.html" title="next chapter">doekbase.data_api.sequence package</a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -1244,7 +1316,8 @@ Attributes:</p>
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x10cab6690>
+<jinja2.runtime.BlockReference object at 0x113a81050>
 
-  </body>
+
+</body>
 </html>

@@ -8,12 +8,21 @@ Subpackages
 
     doekbase.data_api.annotation
     doekbase.data_api.baseobj
+    doekbase.data_api.interactive
     doekbase.data_api.sequence
     doekbase.data_api.taxonomy
     doekbase.data_api.tests
 
 Submodules
 ----------
+
+doekbase.data_api.cache module
+------------------------------
+
+.. automodule:: doekbase.data_api.cache
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 doekbase.data_api.core module
 -----------------------------
@@ -31,18 +40,10 @@ doekbase.data_api.db module
     :undoc-members:
     :show-inheritance:
 
-doekbase.data_api.display module
---------------------------------
+doekbase.data_api.exceptions module
+-----------------------------------
 
-.. automodule:: doekbase.data_api.display
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-doekbase.data_api.nav module
-----------------------------
-
-.. automodule:: doekbase.data_api.nav
+.. automodule:: doekbase.data_api.exceptions
     :members:
     :undoc-members:
     :show-inheritance:
@@ -55,10 +56,18 @@ doekbase.data_api.rpc_util module
     :undoc-members:
     :show-inheritance:
 
-doekbase.data_api.types module
-------------------------------
+doekbase.data_api.service_core module
+-------------------------------------
 
-.. automodule:: doekbase.data_api.types
+.. automodule:: doekbase.data_api.service_core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.thriftutil module
+-----------------------------------
+
+.. automodule:: doekbase.data_api.thriftutil
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,53 +1,145 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>doekbase.data_api.core &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
-<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x10828e950>
-
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.core &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body>  
+  
+  
+    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.core</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for doekbase.data_api.core</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module for base class for Data API objects.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c"># Imports</span>
+<span class="c1"># Imports</span>
 
-<span class="c"># Stdlib</span>
+<span class="c1"># Stdlib</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -55,31 +147,58 @@
     <span class="kn">import</span> <span class="nn">cStringIO</span> <span class="kn">as</span> <span class="nn">StringIO</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">StringIO</span> <span class="kn">as</span> <span class="nn">StringIO</span>
-<span class="c"># Local</span>
+<span class="c1"># Local</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">get_logger</span><span class="p">,</span> <span class="n">log_start</span><span class="p">,</span> <span class="n">log_end</span>
 <span class="kn">from</span> <span class="nn">doekbase.workspace.client</span> <span class="kn">import</span> <span class="n">Workspace</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api.wsfile</span> <span class="kn">import</span> <span class="n">WorkspaceFile</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">cache</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">PerfCollector</span><span class="p">,</span> <span class="n">collect_performance</span>
 
-<span class="c"># Logging</span>
+<span class="c1"># Logging</span>
 
-<span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="s">&#39;doekbase.data_api.core&#39;</span><span class="p">)</span>
+<span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="s1">&#39;doekbase.data_api.core&#39;</span><span class="p">)</span>
 
-<span class="c"># Globals</span>
-<span class="n">REF_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;(.+/.+(/[0-9].+)?)|(ws\.[1-9][0-9]+\.[1-9][0-9]+)&quot;</span><span class="p">)</span>
+<span class="c1"># Globals</span>
+<span class="n">REF_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(.+/.+(/[0-9].+)?)|(ws\.[1-9][0-9]+\.[1-9][0-9]+)&quot;</span><span class="p">)</span>
 
-<span class="n">g_ws_url</span> <span class="o">=</span> <span class="s">&quot;https://ci.kbase.us/services/ws/&quot;</span>
-<span class="n">g_shock_url</span> <span class="o">=</span> <span class="s">&quot;https://ci.kbase.us/services/shock-api/&quot;</span>
+<span class="n">g_ws_url</span> <span class="o">=</span> <span class="s2">&quot;https://ci.kbase.us/services/ws/&quot;</span>
+<span class="n">g_shock_url</span> <span class="o">=</span> <span class="s2">&quot;https://ci.kbase.us/services/shock-api/&quot;</span>
+<span class="n">g_handle_url</span> <span class="o">=</span> <span class="s2">&quot;https://ci.kbase.us/services/handle_service/&quot;</span>
 <span class="n">g_use_msgpack</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="c"># Functions and Classes</span>
+<span class="n">g_stats</span> <span class="o">=</span> <span class="n">PerfCollector</span><span class="p">(</span><span class="s1">&#39;ObjectAPI&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="fix_docs"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.fix_docs">[docs]</a><span class="k">def</span> <span class="nf">fix_docs</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">func</span><span class="o">.</span><span class="n">__doc__</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">__bases__</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+                    <span class="n">parfunc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">parfunc</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parfunc</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">):</span>
+                        <span class="n">func</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">parfunc</span><span class="o">.</span><span class="n">__doc__</span>
+                        <span class="k">break</span>
+    <span class="k">return</span> <span class="n">cls</span></div>
+
+<span class="c1">#: Name positional parts of WorkspaceInfo tuple</span>
+<span class="n">WorkspaceInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;WorkspaceInfo&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">,</span>               <span class="c1"># ws_id (int)</span>
+    <span class="s1">&#39;workspace&#39;</span><span class="p">,</span>        <span class="c1"># ws_name</span>
+    <span class="s1">&#39;owner&#39;</span><span class="p">,</span>            <span class="c1"># username</span>
+    <span class="s1">&#39;moddate&#39;</span><span class="p">,</span>          <span class="c1"># timestamp</span>
+    <span class="s1">&#39;object&#39;</span><span class="p">,</span>           <span class="c1"># int</span>
+    <span class="s1">&#39;user_permission&#39;</span><span class="p">,</span>  <span class="c1"># permission</span>
+    <span class="s1">&#39;globalread&#39;</span><span class="p">,</span>       <span class="c1"># permission</span>
+    <span class="s1">&#39;lockstat&#39;</span><span class="p">,</span>         <span class="c1"># lock_status</span>
+    <span class="s1">&#39;metadata&#39;</span>          <span class="c1"># usermeta</span>
+<span class="p">])</span>
 
 <div class="viewcode-block" id="get_token"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.get_token">[docs]</a><span class="k">def</span> <span class="nf">get_token</span><span class="p">():</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;KB_AUTH_TOKEN&quot;</span><span class="p">]</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;KB_AUTH_TOKEN&quot;</span><span class="p">]</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-            <span class="s">&quot;Missing authentication token!  Set KB_AUTH_TOKEN environment variable.&quot;</span><span class="p">)</span>
-</div>
+            <span class="s2">&quot;Missing authentication token!  Set KB_AUTH_TOKEN environment variable.&quot;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ObjectAPI"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI">[docs]</a><span class="k">class</span> <span class="nc">ObjectAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generic Object API for basic properties and actions</span>
@@ -107,69 +226,98 @@
 <span class="sd">             the object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">services</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">services</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">({}):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;You must provide a service configuration dictionary! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">services</span><span class="p">)))</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="n">services</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&quot;workspace_service_url&quot;</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s">&quot;Expecting workspace_service_url key!&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You must provide a service configuration dictionary! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">services</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">services</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s2">&quot;workspace_service_url&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Expecting workspace_service_url key!&quot;</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">ref</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Missing object reference!&quot;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="nb">unicode</span><span class="p">()):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Invalid reference given, expected string! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)))</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Missing object reference!&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="nb">unicode</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid reference given, expected string! &quot;</span>
+                            <span class="s2">&quot;Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ref</span><span class="p">)))</span>
         <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">REF_PATTERN</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Invalid workspace reference string! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid workspace reference string! Found {0}&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">services</span> <span class="o">=</span> <span class="n">services</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="bp">None</span>
 
-        <span class="n">ws_url</span> <span class="o">=</span> <span class="n">services</span><span class="p">[</span><span class="s">&quot;workspace_service_url&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s">&#39;://&#39;</span> <span class="ow">in</span> <span class="n">ws_url</span><span class="p">:</span> <span class="c"># assume a real Workspace server</span>
+        <span class="n">ws_url</span> <span class="o">=</span> <span class="n">services</span><span class="p">[</span><span class="s2">&quot;workspace_service_url&quot;</span><span class="p">]</span>
+        <span class="n">local_workspace</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="s1">&#39;://&#39;</span> <span class="ow">in</span> <span class="n">ws_url</span><span class="p">:</span> <span class="c1"># assume a real Workspace server</span>
             <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">get_token</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
 
-            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Connect to Workspace service at {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ws_url</span><span class="p">))</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Connect to Workspace service at {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ws_url</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span> <span class="o">=</span> <span class="n">Workspace</span><span class="p">(</span><span class="n">ws_url</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Load from Workspace file at {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ws_url</span><span class="p">))</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Load from Workspace file at {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ws_url</span><span class="p">))</span>
+            <span class="n">local_workspace</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_ws_from_files</span><span class="p">(</span><span class="n">ws_url</span><span class="p">)</span>
 
         <span class="n">info_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_info_new</span><span class="p">({</span>
-            <span class="s">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}],</span>
-            <span class="s">&quot;includeMetadata&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s">&quot;ignoreErrors&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+            <span class="s2">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}],</span>
+            <span class="s2">&quot;includeMetadata&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;ignoreErrors&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">info_values</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Cannot find object: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot find object: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">))</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="n">info_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&quot;object_id&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="s">&quot;object_name&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="s">&quot;object_reference&quot;</span><span class="p">:</span> <span class="s">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oi</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">oi</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-            <span class="s">&quot;object_reference_versioned&quot;</span><span class="p">:</span> <span class="s">&quot;{0}/{1}/{2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oi</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">oi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">oi</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
-            <span class="s">&quot;type_string&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-            <span class="s">&quot;save_date&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
-            <span class="s">&quot;version&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
-            <span class="s">&quot;saved_by&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
-            <span class="s">&quot;workspace_id&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
-            <span class="s">&quot;workspace_name&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
-            <span class="s">&quot;object_checksum&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
-            <span class="s">&quot;object_size&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
-            <span class="s">&quot;object_metadata&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+            <span class="s2">&quot;object_id&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;object_name&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;object_reference&quot;</span><span class="p">:</span> <span class="s2">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oi</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">oi</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="s2">&quot;object_reference_versioned&quot;</span><span class="p">:</span> <span class="s2">&quot;{0}/{1}/{2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oi</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">oi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">oi</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+            <span class="s2">&quot;type_string&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s2">&quot;save_date&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+            <span class="s2">&quot;saved_by&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+            <span class="s2">&quot;workspace_id&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+            <span class="s2">&quot;workspace_name&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+            <span class="s2">&quot;object_checksum&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+            <span class="s2">&quot;object_size&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+            <span class="s2">&quot;object_metadata&quot;</span><span class="p">:</span> <span class="n">oi</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
         <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;object_id&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;object_name&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;object_name&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">translate_to_MD5_types</span><span class="p">(</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;type_string&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s">&quot;version&quot;</span><span class="p">]</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;type_string&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c1"># Init stats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span> <span class="o">=</span> <span class="n">g_stats</span>
+        <span class="c1"># Init the caching object. Pass in whether the object is</span>
+        <span class="c1"># publically available (which can determine whether it is cached)</span>
+        <span class="k">if</span> <span class="n">local_workspace</span><span class="p">:</span>
+            <span class="n">global_read</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># Local file-workspace objects are public</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wsinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_workspace_info</span><span class="p">({</span>
+                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s1">&#39;workspace_id&#39;</span><span class="p">]})</span>
+            <span class="n">wsinfo_obj</span> <span class="o">=</span> <span class="n">WorkspaceInfo</span><span class="p">(</span><span class="o">*</span><span class="n">wsinfo</span><span class="p">)</span>
+            <span class="n">global_read</span> <span class="o">=</span> <span class="p">(</span><span class="n">wsinfo_obj</span><span class="o">.</span><span class="n">globalread</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">ObjectCache</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">[</span><span class="s2">&quot;object_reference_versioned&quot;</span><span class="p">],</span>
+            <span class="n">is_public</span><span class="o">=</span><span class="n">global_read</span><span class="p">)</span>
+
+        <span class="c1"># TODO always use a versioned reference to the data object</span>
+        <span class="c1">#self.ref = self._info[&quot;object_reference_versioned&quot;]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cache_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">stats</span>
 
     <span class="k">def</span> <span class="nf">_init_ws_from_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="s">&#39;.msgpack&#39;</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;.msgpack&#39;</span>
         <span class="n">extlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
         <span class="n">WorkspaceFile</span><span class="o">.</span><span class="n">use_msgpack</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="n">client</span> <span class="o">=</span> <span class="n">WorkspaceFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
@@ -177,18 +325,19 @@
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ext</span><span class="p">):</span>
                 <span class="n">ref</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="n">extlen</span><span class="p">]</span>
-                <span class="n">t0</span> <span class="o">=</span> <span class="n">log_start</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="s">&#39;load&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
-                               <span class="n">kvp</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">})</span>
+                <span class="n">t0</span> <span class="o">=</span> <span class="n">log_start</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+                               <span class="n">kvp</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">})</span>
                 <span class="n">client</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
-                <span class="n">log_end</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s">&#39;client.load&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
-                        <span class="n">kvp</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;ref&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">})</span>
+                <span class="n">log_end</span><span class="p">(</span><span class="n">_log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s1">&#39;client.load&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+                        <span class="n">kvp</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="n">ref</span><span class="p">})</span>
             <span class="n">num_loaded</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">num_loaded</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No files with extension &quot;{e}&quot; found in path {p}&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No files with extension &quot;{e}&quot; found in path {p}&#39;</span>
                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">ext</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">path</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">client</span>
 
-<div class="viewcode-block" id="ObjectAPI.get_schema"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_schema">[docs]</a>    <span class="k">def</span> <span class="nf">get_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the schema associated with this object.</span>
 <span class="sd">        </span>
@@ -196,11 +345,12 @@
 <span class="sd">          string&quot;&quot;&quot;</span>
     
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_type_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()[</span><span class="s">&quot;type_string&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_type_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()[</span><span class="s2">&quot;type_string&quot;</span><span class="p">])</span>
         
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span>
-</div>
-<div class="viewcode-block" id="ObjectAPI.get_typestring"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_typestring">[docs]</a>    <span class="k">def</span> <span class="nf">get_typestring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_typestring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the type identifier string.</span>
 <span class="sd">        </span>
@@ -208,38 +358,140 @@
 <span class="sd">          string&quot;&quot;&quot;</span>
                 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typestring</span>
-</div>
-<div class="viewcode-block" id="ObjectAPI.get_info"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve basic properties about this object.</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve basic properties about this object.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">          dict</span>
-<span class="sd">          &quot;&quot;&quot;</span>
-            
+<span class="sd">            object_id</span>
+<span class="sd">            object_name</span>
+<span class="sd">            object_reference</span>
+<span class="sd">            object_reference_versioned</span>
+<span class="sd">            type_string</span>
+<span class="sd">            save_date</span>
+<span class="sd">            version</span>
+<span class="sd">            saved_by</span>
+<span class="sd">            workspace_id</span>
+<span class="sd">            workspace_name</span>
+<span class="sd">            object_checksum</span>
+<span class="sd">            object_size</span>
+<span class="sd">            object_metadata&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
-</div>
-<div class="viewcode-block" id="ObjectAPI.get_history"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_history">[docs]</a>    <span class="k">def</span> <span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the recorded history of this object describing how it has been modified.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          list&lt;dict&gt;</span>
+<span class="sd">            object_id</span>
+<span class="sd">            object_name</span>
+<span class="sd">            object_reference</span>
+<span class="sd">            object_reference_versioned</span>
+<span class="sd">            type_string</span>
+<span class="sd">            save_date</span>
+<span class="sd">            version</span>
+<span class="sd">            saved_by</span>
+<span class="sd">            workspace_id</span>
+<span class="sd">            workspace_name</span>
+<span class="sd">            object_checksum</span>
+<span class="sd">            object_size</span>
+<span class="sd">            object_metadata</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_history</span><span class="p">({</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">})</span>
-        
+            <span class="n">history_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_history</span><span class="p">({</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">})</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">object_info</span> <span class="ow">in</span> <span class="n">history_list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;object_id&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">&quot;object_name&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="s2">&quot;object_reference&quot;</span><span class="p">:</span> <span class="s2">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">object_info</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">object_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="s2">&quot;object_reference_versioned&quot;</span><span class="p">:</span> <span class="s2">&quot;{0}/{1}/{2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">object_info</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                                                                       <span class="n">object_info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                                       <span class="n">object_info</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+                    <span class="s2">&quot;type_string&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                    <span class="s2">&quot;save_date&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                    <span class="s2">&quot;saved_by&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                    <span class="s2">&quot;workspace_id&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                    <span class="s2">&quot;workspace_name&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+                    <span class="s2">&quot;object_checksum&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+                    <span class="s2">&quot;object_size&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+                    <span class="s2">&quot;object_metadata&quot;</span><span class="p">:</span> <span class="n">object_info</span><span class="p">[</span><span class="mi">10</span><span class="p">]})</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_history</span>
-    </div>
-<div class="viewcode-block" id="ObjectAPI.get_provenance"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_provenance">[docs]</a>    <span class="k">def</span> <span class="nf">get_provenance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_provenance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the recorded provenance of this object describing how to recreate it.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          list&lt;dict&gt;</span>
+<span class="sd">            time</span>
+<span class="sd">            service_name</span>
+<span class="sd">            service_version</span>
+<span class="sd">            service_method</span>
+<span class="sd">            method_parameters</span>
+<span class="sd">            script_name</span>
+<span class="sd">            script_version</span>
+<span class="sd">            script_command_line</span>
+<span class="sd">            input_object_references</span>
+<span class="sd">            validated_object_references</span>
+<span class="sd">            intermediate_input_ids</span>
+<span class="sd">            intermediate_output_ids</span>
+<span class="sd">            external_data</span>
+<span class="sd">            description</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_provenance</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])</span>
-        
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_provenance</span><span class="p">([{</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">provenance_list</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;provenance&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">provenance_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+            <span class="n">copy_keys</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;service_name&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;service_ver&quot;</span><span class="p">:</span> <span class="s2">&quot;service_version&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;service_method&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;method_params&quot;</span><span class="p">:</span> <span class="s2">&quot;method_parameters&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;script_name&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;script_ver&quot;</span><span class="p">:</span> <span class="s2">&quot;script_version&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;script_command_line&quot;</span><span class="p">:</span> <span class="s2">&quot;script_command_line&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;input_ws_objects&quot;</span><span class="p">:</span> <span class="s2">&quot;input_object_references&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;resolved_ws_objects&quot;</span><span class="p">:</span> <span class="s2">&quot;validated_object_references&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;intermediate_incoming&quot;</span><span class="p">:</span> <span class="s2">&quot;intermediate_input_ids&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;intermediate_outgoing&quot;</span><span class="p">:</span> <span class="s2">&quot;intermediate_output_ids&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;external_data&quot;</span><span class="p">:</span> <span class="s2">&quot;external_data&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;description&quot;</span><span class="p">}</span>
+
+            <span class="k">for</span> <span class="n">object_provenance</span> <span class="ow">in</span> <span class="n">provenance_list</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">copy_keys</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">object_provenance</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">object_provenance</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">object_provenance</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="k">continue</span>
+
+                        <span class="n">action</span><span class="p">[</span><span class="n">copy_keys</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="n">object_provenance</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_provenance</span>
-    </div>
-<div class="viewcode-block" id="ObjectAPI.get_id"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the internal identifier for this object.</span>
 <span class="sd">        </span>
@@ -247,8 +499,19 @@
 <span class="sd">          string&quot;&quot;&quot;</span>
     
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
-    </div>
-<div class="viewcode-block" id="ObjectAPI.get_name"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the version identifier for this object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          string&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the name assigned to this object.</span>
 <span class="sd">        </span>
@@ -256,49 +519,80 @@
 <span class="sd">          string&quot;&quot;&quot;</span>
     
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
-    </div>
-<div class="viewcode-block" id="ObjectAPI.get_data"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve object data.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">          dict&quot;&quot;&quot;</span>
-        
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_objects</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])[</span><span class="mi">0</span><span class="p">][</span><span class="s">&quot;data&quot;</span><span class="p">]</span>
-        
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
-</div>
-<div class="viewcode-block" id="ObjectAPI.get_data_subset"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_data_subset">[docs]</a>    <span class="k">def</span> <span class="nf">get_data_subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve a subset of data from this object, given a list of paths to the data elements.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">          dict&quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> 
-                        <span class="s">&quot;included&quot;</span><span class="p">:</span> <span class="n">path_list</span><span class="p">}])[</span><span class="mi">0</span><span class="p">][</span><span class="s">&quot;data&quot;</span><span class="p">]</span>
-    </div>
-<div class="viewcode-block" id="ObjectAPI.get_referrers"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.get_referrers">[docs]</a>    <span class="k">def</span> <span class="nf">get_referrers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve a dictionary that indicates by type what objects are referring to this object.</span>
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve object data.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">          dict&quot;&quot;&quot;</span>
+<span class="sd">          dict (contents according to object type)&quot;&quot;&quot;</span>
         
-        <span class="n">referrers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">list_referencing_objects</span><span class="p">([{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_data_ws</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_data_ws</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_objects</span><span class="p">([{</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_data_subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve a subset of data from this object, given a list of paths</span>
+<span class="sd">        to the data elements.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          path_list (list): List of paths, each a string of node names</span>
+<span class="sd">                            separated by forward slashes, e.g.</span>
+<span class="sd">                            [&#39;a/bee/sea&#39;, &#39;d/ee/eph/gee&#39;]</span>
+<span class="sd">        Returns:</span>
+<span class="sd">          dict (contents according to object type and data requested)&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">get_data_subset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_data_subset_ws</span><span class="p">,</span>
+                                           <span class="n">path_list</span><span class="o">=</span><span class="n">path_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_data_subset_ws</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">get_object_subset</span><span class="p">([{</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> 
+                        <span class="s2">&quot;included&quot;</span><span class="p">:</span> <span class="n">path_list</span><span class="p">}])[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_referrers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">most_recent</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve a dictionary that indicates by type what objects are</span>
+<span class="sd">        referring to this object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          most_recent: True or False, defaults to True indicating that results</span>
+<span class="sd">              should be restricted to the latest version of any referencing object.</span>
+<span class="sd">              If this parameter is False, results will contain all versions of any</span>
+<span class="sd">              referencing objects.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          dict typestring -&gt; object_reference&quot;&quot;&quot;</span>
+
+        <span class="n">referrers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">list_referencing_objects</span><span class="p">([{</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}])[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># sort all object references in descending order by time</span>
+        <span class="n">referrers</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">referrers</span><span class="p">,</span> <span class="nb">cmp</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
         
-        <span class="n">object_refs_by_type</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>        
+        <span class="n">object_refs_by_type</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># keep track of which objects we have seen so far, the first instance will be the latest</span>
+        <span class="c1"># so only keep that reference</span>
+        <span class="n">found_objects</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">referrers</span><span class="p">:</span>
             <span class="n">typestring</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">translate_to_MD5_types</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-            
+
             <span class="k">if</span> <span class="n">typestring</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">object_refs_by_type</span><span class="p">:</span>
-                <span class="n">object_refs_by_type</span><span class="p">[</span><span class="n">typestring</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-            
-            <span class="n">object_refs_by_type</span><span class="p">[</span><span class="n">typestring</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+                <span class="n">object_refs_by_type</span><span class="p">[</span><span class="n">typestring</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">unversioned_ref</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">most_recent</span> <span class="ow">and</span> <span class="n">unversioned_ref</span> <span class="ow">in</span> <span class="n">found_objects</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Mark an entry for a new object</span>
+            <span class="n">found_objects</span><span class="p">[</span><span class="n">unversioned_ref</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">object_refs_by_type</span><span class="p">[</span><span class="n">typestring</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+
         <span class="k">return</span> <span class="n">object_refs_by_type</span>
-    </div>
-<div class="viewcode-block" id="ObjectAPI.copy"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.core.ObjectAPI.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_ws</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="nd">@collect_performance</span><span class="p">(</span><span class="n">g_stats</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_ws</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs a naive object copy to a target workspace.  A naive object copy is a simple</span>
 <span class="sd">        copy that only generates a copy object of this entity, but any referencing entities</span>
@@ -313,69 +607,75 @@
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
         
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">copy_object</span><span class="p">({</span><span class="s">&quot;from&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">},</span> <span class="s">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;workspace&quot;</span><span class="p">:</span> <span class="n">to_ws</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">}})</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws_client</span><span class="o">.</span><span class="n">copy_object</span><span class="p">({</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">},</span> <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;workspace&quot;</span><span class="p">:</span> <span class="n">to_ws</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">}})</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s">&quot;error&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">}</span></div></div>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test equality by underlying KBase object ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#print(&quot;@@ obj. eq called&quot;)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_id</span></div>
+
 </pre></div>
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../../../index.html">
-    <img class="logo" src="../../../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
 
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../assembly_api.html">Assembly Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../taxon_api.html">Taxon Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../developer.html">Developer notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../index.html">Module code</a><ul>
-  <li><a href="../data_api.html">doekbase.data_api</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -420,7 +720,8 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x107fb9cd0>
+<jinja2.runtime.BlockReference object at 0x109aa9ed0>
 
-  </body>
+
+</body>
 </html>

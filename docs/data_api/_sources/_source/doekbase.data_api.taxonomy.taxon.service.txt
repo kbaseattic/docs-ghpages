@@ -4,10 +4,50 @@ doekbase.data_api.taxonomy.taxon.service package
 Submodules
 ----------
 
+doekbase.data_api.taxonomy.taxon.service.constants module
+---------------------------------------------------------
+
+.. automodule:: doekbase.data_api.taxonomy.taxon.service.constants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.taxonomy.taxon.service.driver module
+------------------------------------------------------
+
+.. automodule:: doekbase.data_api.taxonomy.taxon.service.driver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 doekbase.data_api.taxonomy.taxon.service.interface module
 ---------------------------------------------------------
 
 .. automodule:: doekbase.data_api.taxonomy.taxon.service.interface
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.taxonomy.taxon.service.thrift_client module
+-------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.taxonomy.taxon.service.thrift_client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.taxonomy.taxon.service.thrift_service module
+--------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.taxonomy.taxon.service.thrift_service
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.taxonomy.taxon.service.ttypes module
+------------------------------------------------------
+
+.. automodule:: doekbase.data_api.taxonomy.taxon.service.ttypes
     :members:
     :undoc-members:
     :show-inheritance:

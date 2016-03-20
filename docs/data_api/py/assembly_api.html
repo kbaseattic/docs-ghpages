@@ -1,71 +1,162 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Assembly Data API &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/css/kbase.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/css/bootstrap.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
-    <link rel="top" title="KBase Data API 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="KBase Python Data API" href="../python.html" />
-    <link rel="next" title="Annotation Data API" href="annotation_api.html" />
-    <link rel="prev" title="KBase Python Data API" href="../python.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Assembly Data API &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body role="document">  
+  
+  
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Python Data API" href="../python.html"/>
+        <link rel="next" title="Annotation Data API" href="annotation_api.html"/>
+        <link rel="prev" title="Python Data API" href="../python.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../python.html">Python API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Assembly API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-an-assemblyapi-object">Creating an AssemblyAPI object</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#python-library-assemblyapi">Python Library: AssemblyAPI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thrift-service-assemblyclientapi">Thrift Service: AssemblyClientAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="annotation_api.html">Genome Annotation API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taxon_api.html">Taxon API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../python.html">Python Data API</a> &raquo;</li>
+      
+    <li>Assembly Data API</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/py/assembly_api.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="assembly-data-api">
-<span id="py-assembly-api"></span><h1><a class="toc-backref" href="#id1">Assembly Data API</a><a class="headerlink" href="#assembly-data-api" title="Permalink to this headline">¶</a></h1>
-<p>The assembly API can be used as a library or in client/server mode.</p>
-<div class="contents topic" id="contents">
-<p class="topic-title first">Contents</p>
-<ul class="simple">
-<li><a class="reference internal" href="#assembly-data-api" id="id1">Assembly Data API</a><ul>
-<li><a class="reference internal" href="#creating-an-assembly-object" id="id2">Creating an Assembly object</a><ul>
-<li><a class="reference internal" href="#python-library-assemblyapi" id="id3">Python Library: AssemblyAPI</a></li>
-<li><a class="reference internal" href="#thrift-service-assemblyclientapi" id="id4">Thrift Service: AssemblyClientAPI</a></li>
-<li><a class="reference internal" href="#common-api-methods" id="id5">Common API methods</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#examples" id="id6">Examples</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="creating-an-assembly-object">
-<h2><a class="toc-backref" href="#id2">Creating an Assembly object</a><a class="headerlink" href="#creating-an-assembly-object" title="Permalink to this headline">¶</a></h2>
-<p>To create a new Assembly object, you will create an object that implements the interface defined in <a class="reference internal" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface" title="doekbase.data_api.sequence.assembly.api.AssemblyInterface"><code class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.AssemblyInterface</span></code></a>. This class can implement a library or a Thrift client.
-In either case you will instantiate the class with an object reference. The interfaces used by both classes are shown below.</p>
+<span id="py-assembly-api"></span><h1>Assembly Data API<a class="headerlink" href="#assembly-data-api" title="Permalink to this headline">¶</a></h1>
+<p>The Python Assembly API can be used as a library or in client/server mode.</p>
+<div class="section" id="creating-an-assemblyapi-object">
+<h2>Creating an AssemblyAPI object<a class="headerlink" href="#creating-an-assemblyapi-object" title="Permalink to this headline">¶</a></h2>
+<p>To create a new AssemblyAPI object, you will create an object that implements the interface defined in <a class="reference internal" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface" title="doekbase.data_api.sequence.assembly.api.AssemblyInterface"><code class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.AssemblyInterface</span></code></a>.</p>
+<p>In either case you will instantiate the class with an object reference, in the format expected by the KBase workspace: <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code> OR <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code>/<code class="docutils literal"><span class="pre">version</span></code>, where the workspace and object can either be numeric identifiers or names. For example: <code class="docutils literal"><span class="pre">1019/4</span></code>, <code class="docutils literal"><span class="pre">1019/4/1</span></code>, or <code class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></code>.</p>
 <div class="section" id="python-library-assemblyapi">
-<h3><a class="toc-backref" href="#id3">Python Library: AssemblyAPI</a><a class="headerlink" href="#python-library-assemblyapi" title="Permalink to this headline">¶</a></h3>
+<h3>Python Library: AssemblyAPI<a class="headerlink" href="#python-library-assemblyapi" title="Permalink to this headline">¶</a></h3>
 <p>If you are using the Python library, then you can instantiate the <a class="reference internal" href="#doekbase.data_api.sequence.assembly.api.AssemblyAPI" title="doekbase.data_api.sequence.assembly.api.AssemblyAPI"><code class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.AssemblyAPI</span></code></a> class. This will communicate with the back-end database directly. This is the mode used when you are creating code in Python code cells in the KBase Narrative.</p>
 <dl class="class">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyAPI">
@@ -95,9 +186,19 @@ KBase workspace: <code class="docutils literal"><span class="pre">workspace-id</
 </table>
 </dd></dl>
 
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly</span> <span class="kn">import</span> <span class="n">api</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">AssemblyAPI</span><span class="p">(</span>
+    <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">),</span>
+    <span class="n">services</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://kbase.us/services/ws/&#39;</span><span class="p">},</span>
+    <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="thrift-service-assemblyclientapi">
-<h3><a class="toc-backref" href="#id4">Thrift Service: AssemblyClientAPI</a><a class="headerlink" href="#thrift-service-assemblyclientapi" title="Permalink to this headline">¶</a></h3>
+<h3>Thrift Service: AssemblyClientAPI<a class="headerlink" href="#thrift-service-assemblyclientapi" title="Permalink to this headline">¶</a></h3>
 <p>If instead you are using Python or another language as a client, and running the AssemblyAPI within a Thrift server, you would use <a class="reference internal" href="#doekbase.data_api.sequence.assembly.api.AssemblyClientAPI" title="doekbase.data_api.sequence.assembly.api.AssemblyClientAPI"><code class="xref py py-class docutils literal"><span class="pre">doekbase.data_api.sequence.assembly.api.AssemblyClientAPI</span></code></a> in Python or the equivalent in the target language.</p>
 <dl class="class">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyClientAPI">
@@ -115,8 +216,7 @@ cache).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>url</strong> (<em>str</em>) &#8211; A URL in the format <cite>host:port</cite> for the Thrift Assembly
-data API service.</li>
+<li><strong>url</strong> (<em>str</em>) &#8211; A URL for the Thrift Assembly data API service.</li>
 <li><strong>token</strong> (<em>str</em>) &#8211; KBase login token</li>
 <li><strong>ref</strong> (<em>str</em>) &#8211; KBase object reference, in the format expected by the
 KBase workspace: <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code> OR <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code>/<code class="docutils literal"><span class="pre">version</span></code>, where the workspace and object can either be numeric identifiers or names. For example: <code class="docutils literal"><span class="pre">1019/4</span></code>, <code class="docutils literal"><span class="pre">1019/4/1</span></code>, or <code class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></code>.</li>
@@ -127,14 +227,29 @@ KBase workspace: <code class="docutils literal"><span class="pre">workspace-id</
 </table>
 </dd></dl>
 
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.sequence.assembly</span> <span class="kn">import</span> <span class="n">api</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">AssemblyClientAPI</span><span class="p">(</span>
+    <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://kbase.us/services/data/assembly/&#39;</span><span class="p">,</span>
+    <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="common-api-methods">
-<h3><a class="toc-backref" href="#id5">Common API methods</a><a class="headerlink" href="#common-api-methods" title="Permalink to this headline">¶</a></h3>
-<p>Both the <cite>AssemblyAPI</cite> and <cite>AssemblyAPIClient</cite> implement all the following methods.</p>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<p>Both the <code class="docutils literal"><span class="pre">AssemblyAPI</span></code> and <code class="docutils literal"><span class="pre">AssemblyAPIClient</span></code> implement all the following methods.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The client methods will return object references as strings, whereas the Python library methods will instantiate the object references.</p>
+</div>
 <dl class="class">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface">
 <em class="property">class </em><code class="descclassname">doekbase.data_api.sequence.assembly.api.</code><code class="descname">AssemblyInterface</code><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface" title="Permalink to this definition">¶</a></dt>
-<dd><p>API for the assembled sequences associated with a Genome Annotation.</p>
+<dd><p>API for a genome Assembly associated with a Genome Annotation.</p>
 <dl class="method">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_assembly_id">
 <code class="descname">get_assembly_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_assembly_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_assembly_id" title="Permalink to this definition">¶</a></dt>
@@ -154,13 +269,13 @@ KBase workspace: <code class="docutils literal"><span class="pre">workspace-id</
 <dl class="method">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_gc_content">
 <code class="descname">get_contig_gc_content</code><span class="sig-paren">(</span><em>contig_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contig_gc_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_gc_content" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the total GC content for each contiguous sequence
-of this Assembly.</p>
+<dd><p>Retrieve the total GC content for each contig sequence
+in this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mapping of sequence identifiers to GC content.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mapping of contig identifiers to GC content.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str,float&gt;</td>
 </tr>
@@ -171,12 +286,12 @@ of this Assembly.</p>
 <dl class="method">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_ids">
 <code class="descname">get_contig_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contig_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_ids" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the ids for every contiguous sequence in this Assembly.</p>
+<dd><p>Retrieve the ids for every contig sequence in this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Sequence identifiers</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Contig identifiers</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list&lt;str&gt;</td>
 </tr>
@@ -187,12 +302,12 @@ of this Assembly.</p>
 <dl class="method">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_lengths">
 <code class="descname">get_contig_lengths</code><span class="sig-paren">(</span><em>contig_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contig_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contig_lengths" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the length for every contiguous sequence.</p>
+<dd><p>Retrieve the lengths for all contig sequence.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mapping of sequence identifiers to lengths.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mapping of contig identifiers to length.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict&lt;str,int&gt;</td>
 </tr>
@@ -203,7 +318,7 @@ of this Assembly.</p>
 <dl class="method">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contigs">
 <code class="descname">get_contigs</code><span class="sig-paren">(</span><em>contig_id_list=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_contigs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve contiguous sequences from this Assembly by id.</p>
+<dd><p>Retrieve contig sequences from this Assembly by id.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -288,7 +403,7 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 <dl class="method">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_genome_annotations">
 <code class="descname">get_genome_annotations</code><span class="sig-paren">(</span><em>ref_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_genome_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_genome_annotations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the GenomeAnnotations that refer to this Assembly.</p>
+<dd><p>Retrieve the GenomeAnnotation(s) that refer to this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -304,7 +419,7 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 <dl class="method">
 <dt id="doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_number_contigs">
 <code class="descname">get_number_contigs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/data_api/sequence/assembly/api.html#AssemblyInterface.get_number_contigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.data_api.sequence.assembly.api.AssemblyInterface.get_number_contigs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the number of contiguous sequences in this Assembly.</p>
+<dd><p>Retrieve the number of contig sequences in this Assembly.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -323,7 +438,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Statistics with the following keys and values:<dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Statistics with the following keys and values:<blockquote>
+<div><dl class="docutils">
 <dt>gc_content <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
 <dd>proportion of guanine (G) and cytosine (C) content</dd>
 <dt>dna_size <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
@@ -331,6 +447,7 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 <dt>num_contigs <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
 <dd>total number of contiguous sequences</dd>
 </dl>
+</div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
@@ -343,70 +460,74 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
 
 </div>
 </div>
-<div class="section" id="examples">
-<h2><a class="toc-backref" href="#id6">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p>Below are example(s) in Python and, &#8220;real soon now&#8221;, in JavaScript.</p>
-</div>
-</div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../index.html">
-    <img class="logo" src="../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
-
-
-
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../python.html">Python API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../javascript.html">JavaScript API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developer.html">Developer Notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="../python.html">KBase Python Data API</a><ul>
-      <li>Previous: <a href="../python.html" title="previous chapter">KBase Python Data API</a></li>
-      <li>Next: <a href="annotation_api.html" title="next chapter">Annotation Data API</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="annotation_api.html" class="btn btn-neutral float-right" title="Annotation Data API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../python.html" class="btn btn-neutral" title="Python Data API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -451,7 +572,8 @@ and each value itself a dict with the following key/value pairs:<dl class="docut
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x1080b7150>
+<jinja2.runtime.BlockReference object at 0x10dcea550>
 
-  </body>
+
+</body>
 </html>

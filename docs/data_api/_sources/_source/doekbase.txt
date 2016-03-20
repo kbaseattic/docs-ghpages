@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     doekbase.data_api
+    doekbase.handle
     doekbase.workspace
 
 Module contents

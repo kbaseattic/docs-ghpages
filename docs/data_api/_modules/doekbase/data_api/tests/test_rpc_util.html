@@ -1,59 +1,150 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>doekbase.data_api.tests.test_rpc_util &mdash; KBase Data API 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
-<link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="_static/css/kbase.css" type="text/css">
-<jinja2.runtime.BlockReference object at 0x107aaa9d0>
-
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.test_rpc_util &mdash; KBase Data API 0.1.0 documentation</title>
+  
 
-  </head>
-  <body>  
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.test_rpc_util</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for doekbase.data_api.tests.test_rpc_util</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Test rpc_util functions</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
-<span class="n">__date__</span> <span class="o">=</span> <span class="s">&#39;8/28/15&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s1">&#39;8/28/15&#39;</span>
 
-<span class="c"># Imports</span>
+<span class="c1"># Imports</span>
 
-<span class="c"># stdlib</span>
+<span class="c1"># stdlib</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="c"># third-party</span>
+<span class="c1"># third-party</span>
 <span class="kn">from</span> <span class="nn">nose.tools</span> <span class="kn">import</span> <span class="n">raises</span>
-<span class="c"># local</span>
+<span class="c1"># local</span>
 <span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">rpc_util</span>
 <span class="kn">from</span> <span class="nn">thrift.Thrift</span> <span class="kn">import</span> <span class="n">TType</span>
 
@@ -79,20 +170,20 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">thrift_spec</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="bp">None</span><span class="p">,</span>  <span class="c"># 0</span>
-        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;object_id&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 1</span>
-        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;object_name&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 2</span>
-        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;object_reference&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 3</span>
-        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;object_reference_versioned&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 4</span>
-        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;type_string&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 5</span>
-        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">DOUBLE</span><span class="p">,</span> <span class="s">&#39;save_timestamp&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 6</span>
-        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;version&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 7</span>
-        <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;saved_by&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 8</span>
-        <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">I64</span><span class="p">,</span> <span class="s">&#39;workspace_id&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 9</span>
-        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;workspace_name&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 10</span>
-        <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;object_checksum&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 11</span>
-        <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">I64</span><span class="p">,</span> <span class="s">&#39;object_size&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 12</span>
-        <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s">&#39;object_metadata&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c"># 13</span>
+        <span class="bp">None</span><span class="p">,</span>  <span class="c1"># 0</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 1</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;object_name&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 2</span>
+        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;object_reference&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 3</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;object_reference_versioned&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 4</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;type_string&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 5</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">DOUBLE</span><span class="p">,</span> <span class="s1">&#39;save_timestamp&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 6</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 7</span>
+        <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;saved_by&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 8</span>
+        <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">I64</span><span class="p">,</span> <span class="s1">&#39;workspace_id&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 9</span>
+        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;workspace_name&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 10</span>
+        <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;object_checksum&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 11</span>
+        <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">I64</span><span class="p">,</span> <span class="s1">&#39;object_size&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 12</span>
+        <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">TType</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span> <span class="s1">&#39;object_metadata&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,),</span>  <span class="c1"># 13</span>
     <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">object_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">object_reference</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -112,110 +203,109 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">workspace_name</span> <span class="o">=</span> <span class="n">workspace_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">object_checksum</span> <span class="o">=</span> <span class="n">object_checksum</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">object_size</span> <span class="o">=</span> <span class="n">object_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">object_metadata</span> <span class="o">=</span> <span class="n">object_metadata</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object_metadata</span> <span class="o">=</span> <span class="n">object_metadata</span></div>
 
-</div>
+
 <span class="nd">@raises</span><span class="p">(</span><span class="n">rpc_util</span><span class="o">.</span><span class="n">InvalidField</span><span class="p">)</span>
 <div class="viewcode-block" id="test_thrift_validate_str_fail"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_str_fail">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_str_fail</span><span class="p">():</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">object_id</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">object_id</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span></div>
+
 <span class="nd">@raises</span><span class="p">(</span><span class="n">rpc_util</span><span class="o">.</span><span class="n">InvalidField</span><span class="p">)</span>
 <div class="viewcode-block" id="test_thrift_validate_int_fail"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_fail">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_int_fail</span><span class="p">():</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="s">&#39;hello&#39;</span><span class="p">))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">))</span></div>
+
 <span class="nd">@raises</span><span class="p">(</span><span class="n">rpc_util</span><span class="o">.</span><span class="n">InvalidField</span><span class="p">)</span>
 <div class="viewcode-block" id="test_thrift_validate_int_double_fail"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_double_fail">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_int_double_fail</span><span class="p">():</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mf">3.5</span><span class="p">))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mf">3.5</span><span class="p">))</span></div>
+
 <span class="nd">@raises</span><span class="p">(</span><span class="n">rpc_util</span><span class="o">.</span><span class="n">InvalidField</span><span class="p">)</span>
 <div class="viewcode-block" id="test_thrift_validate_double_fail"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_double_fail">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_double_fail</span><span class="p">():</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">save_timestamp</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;June&#39;</span><span class="p">]))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">save_timestamp</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;June&#39;</span><span class="p">]))</span></div>
+
 <div class="viewcode-block" id="test_thrift_validate_str"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_str">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_str</span><span class="p">():</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">object_id</span><span class="o">=</span><span class="s">&#39;12&#39;</span><span class="p">))</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">object_id</span><span class="o">=</span><span class="s">u&#39;12&#39;</span><span class="p">))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">object_id</span><span class="o">=</span><span class="s1">&#39;12&#39;</span><span class="p">))</span>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">object_id</span><span class="o">=</span><span class="s1">u&#39;12&#39;</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="test_thrift_validate_int"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_int</span><span class="p">():</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="test_thrift_validate_int_double"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_int_double">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_int_double</span><span class="p">():</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mf">12.0</span><span class="p">))</span>  <span class="c"># ok if int.</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mf">12.0</span><span class="p">))</span>  <span class="c1"># ok if int.</span>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">workspace_id</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="test_thrift_validate_double"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_validate_double">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_validate_double</span><span class="p">():</span>
     <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">save_timestamp</span><span class="o">=</span><span class="mi">123456</span><span class="p">))</span>
-    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">save_timestamp</span><span class="o">=</span><span class="mf">123456.7</span><span class="p">))</span>
-</div>
+    <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">save_timestamp</span><span class="o">=</span><span class="mf">123456.7</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="test_thrift_errmsg"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_rpc_util.test_thrift_errmsg">[docs]</a><span class="k">def</span> <span class="nf">test_thrift_errmsg</span><span class="p">():</span>
-    <span class="n">val</span> <span class="o">=</span> <span class="s">&#39;really big&#39;</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;really big&#39;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">rpc_util</span><span class="o">.</span><span class="n">thrift_validate</span><span class="p">(</span><span class="n">Metadata</span><span class="p">(</span><span class="n">object_size</span><span class="o">=</span><span class="n">val</span><span class="p">))</span>
     <span class="k">except</span> <span class="n">rpc_util</span><span class="o">.</span><span class="n">InvalidField</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-        <span class="c">#print(&quot;@@ {}&quot;.format(msg))</span>
-        <span class="c"># make sure both type and value appear in error message</span>
-        <span class="k">assert</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">msg</span>  <span class="c"># note: assumes string value</span>
-        <span class="k">assert</span> <span class="s">&#39;I64&#39;</span> <span class="ow">in</span> <span class="n">msg</span></div>
+        <span class="c1">#print(&quot;@@ {}&quot;.format(msg))</span>
+        <span class="c1"># make sure both type and value appear in error message</span>
+        <span class="k">assert</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">msg</span>  <span class="c1"># note: assumes string value</span>
+        <span class="k">assert</span> <span class="s1">&#39;I64&#39;</span> <span class="ow">in</span> <span class="n">msg</span></div>
 </pre></div>
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="../../../../index.html">
-    <img class="logo" src="../../../../_static/img/kbase-logo.png" alt="Logo"/>
-    
-  </a>
-</p>
+          <footer>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
 
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=kbase&repo=data_api&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../annotation_api.html">Annotation Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../assembly_api.html">Assembly Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../taxon_api.html">Taxon Data API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../developer.html">Developer notes</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../../../index.html">Documentation overview</a><ul>
-  <li><a href="../../../index.html">Module code</a><ul>
-  <li><a href="../../data_api.html">doekbase.data_api</a><ul>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
 <div class="container-fluid kbase-footer">
     <div class="row">
         <div class="col-md-12">
@@ -260,7 +350,8 @@
         </div>
     </div>
 </div>
-<jinja2.runtime.BlockReference object at 0x108232290>
+<jinja2.runtime.BlockReference object at 0x10e4a3dd0>
 
-  </body>
+
+</body>
 </html>

@@ -1,17 +1,12 @@
 doekbase.data_api.sequence package
 ==================================
 
-Submodules
-----------
+Subpackages
+-----------
 
-doekbase.data_api.sequence.assembly module
-------------------------------------------
+.. toctree::
 
-.. automodule:: doekbase.data_api.sequence.assembly
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+    doekbase.data_api.sequence.assembly
 
 Module contents
 ---------------
