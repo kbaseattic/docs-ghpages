@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.test_cache &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.test_cache</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for doekbase.data_api.tests.test_cache</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Test caching.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s1">&#39;9/30/15&#39;</span>
+
+<span class="c1"># System</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="c1"># Third-party</span>
+<span class="kn">from</span> <span class="nn">dogpile.cache.api</span> <span class="kn">import</span> <span class="n">NO_VALUE</span>
+<span class="c1"># Local</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">cache</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.core</span> <span class="kn">import</span> <span class="n">ObjectAPI</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">shared</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="c1"># Uncomment this line to turn off DBM tests</span>
+<span class="n">USE_DBM</span> <span class="o">=</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="n">shared</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestCache"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache">[docs]</a><span class="k">class</span> <span class="nc">TestCache</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test the cache.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dbm_path</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="c1">## Setup / teardown</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TestCache.setUpClass"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.setUpClass">[docs]</a>    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">USE_DBM</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">dbm_path</span> <span class="o">=</span> <span class="s1">&#39;/tmp/test_cache-{:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">dbm_path</span><span class="p">)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">dbm_region</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_dbm_region</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">dbm_path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestCache.setUp"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># DBM</span>
+        <span class="k">if</span> <span class="n">USE_DBM</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="s1">&#39;DBM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dbm_region</span>
+        <span class="c1"># Redis</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">redis_region</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_redis_region</span><span class="p">()</span>
+            <span class="n">redis_region</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="s1">&#39;Redis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">redis_region</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Skipping Redis tests, simple get gave error: {&#39;</span>
+                      <span class="s1">&#39;e}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">=</span><span class="n">err</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_keys</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="TestCache.tearDown"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># clear data on persistent redis cache</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Redis&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clear_keys</span><span class="p">)):</span>
+                <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Deleting key &quot;{}&quot; from Redis&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+                <span class="n">region</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TestCache.tearDownClass"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.tearDownClass">[docs]</a>    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">USE_DBM</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">dbm_path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">dbm_path</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">dbm_path</span><span class="p">)</span></div>
+
+<span class="c1">## Tests</span>
+
+<div class="viewcode-block" id="TestCache.test_get"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.test_get">[docs]</a>    <span class="k">def</span> <span class="nf">test_get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;get.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">region</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="TestCache.test_parallel"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.test_parallel">[docs]</a>    <span class="k">def</span> <span class="nf">test_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;parallel.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parallel_simple</span><span class="p">(</span><span class="n">region</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestCache.parallel_simple"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.parallel_simple">[docs]</a>    <span class="k">def</span> <span class="nf">parallel_simple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
+        <span class="n">n</span><span class="p">,</span> <span class="n">nthreads</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span>
+        <span class="n">region</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">threads</span> <span class="o">=</span> <span class="p">[</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reader_thread</span><span class="p">,</span>
+                                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                   <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nthreads</span><span class="p">)]</span>
+        <span class="p">[</span><span class="n">thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">]</span>
+        <span class="p">[</span><span class="n">thr</span><span class="o">.</span><span class="n">join</span><span class="p">()</span> <span class="k">for</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TestCache.reader_thread"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.reader_thread">[docs]</a>    <span class="k">def</span> <span class="nf">reader_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">expected_value</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">region</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="n">expected_value</span></div>
+
+<div class="viewcode-block" id="TestCache.test_basic"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.test_basic">[docs]</a>    <span class="k">def</span> <span class="nf">test_basic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;wait.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">basic</span><span class="p">(</span><span class="n">region</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestCache.basic"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.basic">[docs]</a>    <span class="k">def</span> <span class="nf">basic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_keys</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+        <span class="c1"># get/set some values</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_set</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">v2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_set</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">v3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_set</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="c1"># cached value is the same</span>
+        <span class="k">assert</span> <span class="n">v1</span> <span class="o">==</span> <span class="n">v2</span>
+        <span class="c1"># different values are different</span>
+        <span class="k">assert</span> <span class="n">v3</span> <span class="o">!=</span> <span class="n">v2</span></div>
+
+<div class="viewcode-block" id="TestCache.get_set"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.get_set">[docs]</a>    <span class="k">def</span> <span class="nf">get_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">region</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">NO_VALUE</span><span class="p">:</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">return</span> <span class="n">val</span></div>
+
+<div class="viewcode-block" id="TestCache.test_complex_dict"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.test_complex_dict">[docs]</a>    <span class="k">def</span> <span class="nf">test_complex_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;glossary&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;example glossary&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;GlossDiv&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;GlossList&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;GlossEntry&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="s2">&quot;SGML&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;SortAs&quot;</span><span class="p">:</span> <span class="s2">&quot;SGML&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;GlossTerm&quot;</span><span class="p">:</span> <span class="s2">&quot;Standard Generalized Markup Language&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Acronym&quot;</span><span class="p">:</span> <span class="s2">&quot;SGML&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Abbrev&quot;</span><span class="p">:</span> <span class="s2">&quot;ISO 8879:1986&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;GlossDef&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;para&quot;</span><span class="p">:</span> <span class="s2">&quot;A meta-markup language, used to create markup languages such as DocBook.&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;GlossSeeAlso&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GML&quot;</span><span class="p">,</span> <span class="s2">&quot;XML&quot;</span><span class="p">]</span>
+                            <span class="p">},</span>
+                            <span class="s2">&quot;GlossSee&quot;</span><span class="p">:</span> <span class="s2">&quot;markup&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                 <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;my-key&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">d2</span> <span class="o">=</span> <span class="n">region</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;my-key&#39;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">d</span> <span class="o">==</span> <span class="n">d2</span><span class="p">,</span> <span class="s2">&quot;Cached value does not match original&quot;</span></div>
+
+    <span class="c1"># This takes too long to include in the normal unit tests,</span>
+    <span class="c1"># but it is good to have around as a stress test.</span>
+<div class="viewcode-block" id="TestCache.toast_large"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.toast_large">[docs]</a>    <span class="k">def</span> <span class="nf">toast_large</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;large_objects.{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put_large_objects</span><span class="p">(</span><span class="n">region</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestCache.put_large_objects"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCache.put_large_objects">[docs]</a>    <span class="k">def</span> <span class="nf">put_large_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Try putting large objects into the cache.&quot;&quot;&quot;</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Put large object with {:d}M zeroes&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">))</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">50000000</span><span class="p">)</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;zeroes_{:d}M&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">z</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="TestCachedObjectAPI"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCachedObjectAPI">[docs]</a><span class="k">class</span> <span class="nc">TestCachedObjectAPI</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="n">genome_new</span> <span class="o">=</span> <span class="s2">&quot;ReferenceGenomeAnnotations/kb|g.166819&quot;</span>
+    <span class="n">genome_old</span> <span class="o">=</span> <span class="s2">&quot;OriginalReferenceGenomes/kb|g.166819&quot;</span>
+
+<div class="viewcode-block" id="TestCachedObjectAPI.setUp"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCachedObjectAPI.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">services</span> <span class="o">=</span> <span class="n">shared</span><span class="o">.</span><span class="n">get_services</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">services</span><span class="p">[</span><span class="s2">&quot;redis_host&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cache</span><span class="o">.</span><span class="n">ObjectCache</span><span class="o">.</span><span class="n">cache_class</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">RedisCache</span>
+            <span class="n">cache</span><span class="o">.</span><span class="n">ObjectCache</span><span class="o">.</span><span class="n">cache_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;redis_host&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;KB_REDIS_HOST not defined, using &#39;null&#39; cache&quot;</span><span class="p">)</span>
+            <span class="n">cache</span><span class="o">.</span><span class="n">ObjectCache</span><span class="o">.</span><span class="n">cache_class</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">NullCache</span>
+            <span class="n">cache</span><span class="o">.</span><span class="n">ObjectCache</span><span class="o">.</span><span class="n">cache_params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Fetching old object&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_object</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="n">services</span><span class="o">=</span><span class="n">services</span><span class="p">,</span>
+                                    <span class="n">ref</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">genome_old</span><span class="p">)</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Fetching new object&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_object</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="n">services</span><span class="o">=</span><span class="n">services</span><span class="p">,</span>
+                                    <span class="n">ref</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">genome_new</span><span class="p">)</span></div>
+
+    <span class="c1"># def test_extract_paths(self):</span>
+    <span class="c1">#     data = {&#39;a1&#39;: {&#39;b1&#39;: {&#39;c1&#39;: 1, &#39;c2&#39;: 2}, &#39;b2&#39;: {&#39;d1&#39;: 3}}}</span>
+    <span class="c1">#     paths = [&#39;a1/b1&#39;, &#39;a1/b1/c2&#39;, &#39;a1/b2/d1&#39;, &#39;a1/b1/N&#39;, &#39;N&#39;, &#39;a1/N&#39;]</span>
+    <span class="c1">#     r = cache.ObjectCache.extract_paths(data, paths)</span>
+    <span class="c1">#     assert len(r) == 3, &#39;Wrong number of results, got {:d} expected {:d}&#39;.\</span>
+    <span class="c1">#         format(len(r), 3)</span>
+    <span class="c1">#     msg = &#39;Invalid result &quot;{r}&quot; for path &quot;{p}&quot;&#39;</span>
+    <span class="c1">#     assert r[&#39;a1/b1&#39;] == {&#39;a1&#39;: {&#39;b1&#39;: {&#39;c1&#39;: 1, &#39;c2&#39;: 2}}}, \</span>
+    <span class="c1">#         msg.format(r=r[0], p=paths[0])</span>
+    <span class="c1">#     assert r[&#39;a1/b1/c2&#39;] == {&#39;a1&#39;: {&#39;b1&#39;: {&#39;c2&#39;: 2}}}, msg.format(r=r[1],</span>
+    <span class="c1">#                                                            p=paths[1])</span>
+    <span class="c1">#     assert r[&#39;a1/b2/d1&#39;] == {&#39;a1&#39;: {&#39;b2&#39;:{&#39;d1&#39;: 3}}}, msg.format(r=r[2],</span>
+    <span class="c1">#                                                           p=paths[2])</span>
+
+<div class="viewcode-block" id="TestCachedObjectAPI.test_get_new_data"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCachedObjectAPI.test_get_new_data">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_new_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_object</span><span class="o">.</span><span class="n">cache_stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Get new genome #1: {:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_object</span><span class="o">.</span><span class="n">cache_stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Get new genome #2: {:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestCachedObjectAPI.test_get_old_data"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCachedObjectAPI.test_get_old_data">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_old_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_object</span><span class="o">.</span><span class="n">cache_stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Get old genome #1: {:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_object</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_object</span><span class="o">.</span><span class="n">cache_stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Get old genome #2: {:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestCachedObjectAPI.test_perf_stats"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_cache.TestCachedObjectAPI.test_perf_stats">[docs]</a>    <span class="k">def</span> <span class="nf">test_perf_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">ObjectAPI</span><span class="p">(</span><span class="n">services</span><span class="o">=</span><span class="n">shared</span><span class="o">.</span><span class="n">get_services</span><span class="p">(),</span> <span class="n">ref</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">genome_old</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;get_schema&#39;</span><span class="p">,</span> <span class="s1">&#39;get_history&#39;</span><span class="p">,</span> <span class="s1">&#39;get_data&#39;</span><span class="p">,</span> <span class="s1">&#39;get_referrers&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;copy&#39;</span><span class="p">,</span> <span class="s1">&#39;get_provenance&#39;</span><span class="p">):</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">old_object</span><span class="p">,</span> <span class="n">method</span><span class="p">)()</span>
+            <span class="k">assert</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span><span class="o">.</span><span class="n">event</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Old genome {:20s}  {:.3f} seconds&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">method</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_object</span><span class="p">,</span> <span class="n">method</span><span class="p">)()</span>
+            <span class="k">assert</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span><span class="o">.</span><span class="n">event</span>
+            <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;New genome {:20s}  {:.3f} seconds&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">method</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">get_last</span><span class="p">()</span><span class="o">.</span><span class="n">duration</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x11395d0d0>
+
+
+</body>
+</html>

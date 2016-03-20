@@ -1,0 +1,62 @@
+doekbase.data_api.annotation.genome_annotation.service package
+==============================================================
+
+Submodules
+----------
+
+doekbase.data_api.annotation.genome_annotation.service.constants module
+-----------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation.service.constants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.annotation.genome_annotation.service.driver module
+--------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation.service.driver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.annotation.genome_annotation.service.interface module
+-----------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation.service.interface
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.annotation.genome_annotation.service.thrift_client module
+---------------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation.service.thrift_client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.annotation.genome_annotation.service.thrift_service module
+----------------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation.service.thrift_service
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+doekbase.data_api.annotation.genome_annotation.service.ttypes module
+--------------------------------------------------------------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation.service.ttypes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api.annotation.genome_annotation.service
+    :members:
+    :undoc-members:
+    :show-inheritance:

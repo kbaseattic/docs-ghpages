@@ -1,0 +1,172 @@
+.. include:: ../../wsref.txt
+
+.. _js_javascript_taxon_data_api:
+
+JavaScript Taxon Data API
+=========================
+The Taxon API can be used as a client of the Taxon Data API service.
+
+Creating a Taxon object
+---------------
+To create a new object, instantiate :js:class:`Taxon`
+using a configuration object as the input argument.
+
+.. code-block:: javascript
+
+    // access reference data (no token required)
+    var api_obj = Taxon({
+        ref: '1013/92/2',
+        url: 'http://narrative.kbase.us',
+        token: '',
+        timeout: 6000
+    });
+
+To use the object, call the Promise-wrapped functions
+and process the results accordingly.
+
+.. code-block:: javascript
+
+    // call function using Promise interface
+    api_obj.get_parent().then(
+        function(parent) {
+            do_something_with(parent);
+    });
+
+API Reference
+-------------
+.. js:class:: Taxon(config)
+
+
+    :param object config: Configuration object. This object has the following fields:
+    * ref - The object reference for the object to be accessed in the format expected by the workspace: |wsref|.
+    * url - The url for the GenomeAnnotation Service endpoint.
+    * token - The KBase authorization token to be used to access the service.
+:throws ArgumentError: Bad input argument
+
+.. js:function:: get_parent()
+
+    Retrieve parent Taxon. 
+
+    :throws ServiceException: Internal service error
+    :throws AuthorizationException: Failed to authorize user for operation
+    :throws AuthenticationException: Could not authenticate user
+    :throws ObjectReferenceException: Error retrieving object for reference
+    :throws AttributeException: Error retrieving requested attribute
+    :throws TypeException: Input is of wrong type
+    :returns:  :js:data:`ObjectReference`  Reference to parent Taxon.
+
+.. js:function:: get_children()
+
+    Retrieve children Taxon. 
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``list<`` :js:data:`ObjectReference` ``>`` List of references to child Taxons.
+
+.. js:function:: get_genome_annotations()
+
+    Retrieve the GenomeAnnotation(s) that refer to this Taxon. If this is accessing a KBaseGenomes.Genome object, it will return an empty list (this information is not available). 
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``list<`` :js:data:`ObjectReference` ``>`` List of references to GenomeAnnotation objects.
+
+.. js:function:: get_scientific_lineage()
+
+    Retrieve the scientific lineage.  
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``list<string>`` Strings for each 'unit' of the lineage, ordered in the usual way from Domain to Kingdom to Phylum, etc.
+
+.. js:function:: get_scientific_name()
+
+    Retrieve the scientific name. 
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``string`` The scientific name, e.g., "Escherichia Coli K12 str. MG1655"
+
+.. js:function:: get_taxonomic_id()
+
+    Retrieve the NCBI taxonomic ID of this Taxon. For type KBaseGenomes.Genome, the ``source_id`` will be returned. 
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``i32`` Integer taxonomic ID.
+
+.. js:function:: get_kingdom()
+
+    Retrieve the kingdom.  
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``string``
+
+.. js:function:: get_domain()
+
+    Retrieve the domain.  
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``string``
+
+.. js:function:: get_genetic_code()
+
+    Retrieve the genetic code.  
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``i32``
+
+.. js:function:: get_aliases()
+
+    Retrieve the aliases.  
+
+    :throws ...: same as :js:func:`get_parent`
+    :returns: ``list<string>``
+
+----
+
+.. js:data:: ObjectReference
+
+
+    ``string``
+
+.. js:data:: ServiceException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+- **inputs** (map<string,string>) *optional*: Optional mapping
+  
+
+.. js:data:: AuthorizationException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: AuthenticationException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: ObjectReferenceException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: AttributeException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: TypeException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+- **valid_types** (list<string>) *optional*: List of types that would have been acceptable.
+  

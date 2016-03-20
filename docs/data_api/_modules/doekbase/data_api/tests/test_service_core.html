@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.test_service_core &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.test_service_core</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for doekbase.data_api.tests.test_service_core</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Test doekbase.data_api.service_core module</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s1">&#39;12/27/15&#39;</span>
+
+<span class="kn">from</span> <span class="nn">twisted</span> <span class="kn">import</span> <span class="n">internet</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">service_core</span> <span class="k">as</span> <span class="n">sc</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">exceptions</span> <span class="k">as</span> <span class="n">dapi_exc</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.service</span> <span class="kn">import</span> <span class="n">ttypes</span> <span class="k">as</span> <span class="n">tax_ttypes</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.taxonomy.taxon.service</span> <span class="kn">import</span> <span class="n">thrift_service</span> <span class="k">as</span> \
+    <span class="n">taxon_thrift_service</span>
+<span class="kn">from</span>  <span class="nn">doekbase.data_api.taxonomy.taxon.service.interface</span> <span class="kn">import</span> <span class="n">TaxonService</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.tests.shared</span> <span class="kn">import</span> <span class="n">in_travis</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">unittest</span> <span class="kn">as</span> <span class="nn">ut</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="n">_travis</span> <span class="o">=</span> <span class="n">in_travis</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Incomplete1"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.Incomplete1">[docs]</a><span class="k">class</span> <span class="nc">Incomplete1</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@sc.server_method</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;Hello&#39;</span>
+
+    <span class="nd">@sc.server_method</span>
+    <span class="k">def</span> <span class="nf">wrapped_attribute_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+
+    <span class="nd">@sc.server_method</span>
+    <span class="k">def</span> <span class="nf">wrapped_authn_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">dapi_exc</span><span class="o">.</span><span class="n">AuthenticationError</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+
+    <span class="nd">@sc.server_method</span>
+    <span class="k">def</span> <span class="nf">wrapped_authz_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">dapi_exc</span><span class="o">.</span><span class="n">AuthorizationError</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+
+    <span class="nd">@sc.server_method</span>
+    <span class="k">def</span> <span class="nf">wrapped_type_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+
+    <span class="nd">@sc.server_method</span>
+    <span class="k">def</span> <span class="nf">wrapped_other_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">}[</span><span class="s1">&#39;baz&#39;</span><span class="p">]</span>  <span class="c1"># raises KeyError</span></div>
+
+<div class="viewcode-block" id="Incomplete2"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.Incomplete2">[docs]</a><span class="k">class</span> <span class="nc">Incomplete2</span><span class="p">(</span><span class="n">Incomplete1</span><span class="p">):</span>
+    <span class="n">ttypes</span> <span class="o">=</span> <span class="n">tax_ttypes</span></div>
+
+<div class="viewcode-block" id="Complete"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.Complete">[docs]</a><span class="k">class</span> <span class="nc">Complete</span><span class="p">(</span><span class="n">Incomplete2</span><span class="p">):</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestServerMethod"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestServerMethod">[docs]</a><span class="k">class</span> <span class="nc">TestServerMethod</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestServerMethod.test_server_method_incomplete_class"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestServerMethod.test_server_method_incomplete_class">[docs]</a>    <span class="k">def</span> <span class="nf">test_server_method_incomplete_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Class missing required attributes raises AssertionError</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="s1">&#39;ref&#39;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">Incomplete1</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AssertionError</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">wrapped</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">Incomplete2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AssertionError</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">wrapped</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">Complete</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="s1">&#39;Hello&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestServerMethod.test_server_method_exceptions"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestServerMethod.test_server_method_exceptions">[docs]</a>    <span class="k">def</span> <span class="nf">test_server_method_exceptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Raised exceptions are correct</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="s1">&#39;ref&#39;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">Complete</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">tax_ttypes</span><span class="o">.</span><span class="n">AttributeException</span><span class="p">,</span>
+                          <span class="n">x</span><span class="o">.</span><span class="n">wrapped_attribute_error</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">tax_ttypes</span><span class="o">.</span><span class="n">AuthenticationException</span><span class="p">,</span>
+                          <span class="n">x</span><span class="o">.</span><span class="n">wrapped_authn_error</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">tax_ttypes</span><span class="o">.</span><span class="n">AuthorizationException</span><span class="p">,</span>
+                          <span class="n">x</span><span class="o">.</span><span class="n">wrapped_authz_error</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">tax_ttypes</span><span class="o">.</span><span class="n">TypeException</span><span class="p">,</span>
+                          <span class="n">x</span><span class="o">.</span><span class="n">wrapped_type_error</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">tax_ttypes</span><span class="o">.</span><span class="n">ServiceException</span><span class="p">,</span>
+                          <span class="n">x</span><span class="o">.</span><span class="n">wrapped_other_error</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="TestBaseService"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestBaseService">[docs]</a><span class="k">class</span> <span class="nc">TestBaseService</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestBaseService.test_constructor_bad_inputs"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestBaseService.test_constructor_bad_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_constructor_bad_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#BaseService constructor handles bad inputs correctly</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">),</span> <span class="n">tax_ttypes</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">BaseService</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">BaseService</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="p">{})</span></div>
+
+<div class="viewcode-block" id="TestBaseService.test_constructor"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestBaseService.test_constructor">[docs]</a>    <span class="k">def</span> <span class="nf">test_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#BaseService constructor</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">),</span> <span class="n">tax_ttypes</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">BaseService</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span></div></div>
+
+<div class="viewcode-block" id="TestBaseClientConnection"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestBaseClientConnection">[docs]</a><span class="k">class</span> <span class="nc">TestBaseClientConnection</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestBaseClientConnection.FakeClient"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestBaseClientConnection.FakeClient">[docs]</a>    <span class="k">class</span> <span class="nc">FakeClient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">Client</span> <span class="o">=</span> <span class="bp">None</span></div>
+<div class="viewcode-block" id="TestBaseClientConnection.FakeClient2"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestBaseClientConnection.FakeClient2">[docs]</a>    <span class="k">class</span> <span class="nc">FakeClient2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">Client</span> <span class="o">=</span> <span class="nb">len</span></div>
+
+<div class="viewcode-block" id="TestBaseClientConnection.test_constructor_bad_inputs"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestBaseClientConnection.test_constructor_bad_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_constructor_bad_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#BaseClientConnection contructor handles bad inputs correctly</span>
+        <span class="n">good_url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">BaseClientConnection</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span>
+                          <span class="n">good_url</span><span class="p">)</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FakeClient</span><span class="p">()</span>
+        <span class="c1"># client.Client not callable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">BaseClientConnection</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span>
+                          <span class="n">good_url</span><span class="p">)</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FakeClient2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">BaseClientConnection</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span>
+                          <span class="s2">&quot;bad url&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">BaseClientConnection</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span>
+                          <span class="n">good_url</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="TestStartService"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestStartService">[docs]</a><span class="k">class</span> <span class="nc">TestStartService</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestStartService.test_start_service_bad_inputs"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestStartService.test_start_service_bad_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">test_start_service_bad_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#start_service() handles bad inputs correctly</span>
+        <span class="c1"># Bad api_class</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AssertionError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">start_service</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="c1"># Bad port</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">TaxonService</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AssertionError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">start_service</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestStartService.test_start_service"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestStartService.test_start_service">[docs]</a>    <span class="k">def</span> <span class="nf">test_start_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#start_service() works for semi-reasonable inputs</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">TaxonService</span><span class="p">,</span> <span class="n">taxon_thrift_service</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">())</span>
+        <span class="c1"># make sure reactor loop stops immediately after it starts</span>
+        <span class="n">internet</span><span class="o">.</span><span class="n">reactor</span><span class="o">.</span><span class="n">callWhenRunning</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">stop_service</span><span class="p">)</span>
+        <span class="c1"># start the reactor loop</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">start_service</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestStartService.test_killpgrp"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestStartService.test_killpgrp">[docs]</a>    <span class="k">def</span> <span class="nf">test_killpgrp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="n">MockOSModule</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">kill_process_group</span><span class="p">(</span><span class="n">_log</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">kill_pid</span><span class="p">,</span> <span class="o">-</span><span class="n">sc</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">getpgid</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">kill_signal</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="n">os</span> <span class="c1"># put it back!</span></div>
+
+<div class="viewcode-block" id="TestStartService.test_start_service_twisted_exception"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.TestStartService.test_start_service_twisted_exception">[docs]</a>    <span class="k">def</span> <span class="nf">test_start_service_twisted_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">orig_reactor</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">twisted</span><span class="o">.</span><span class="n">internet</span><span class="o">.</span><span class="n">reactor</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">twisted</span><span class="o">.</span><span class="n">internet</span><span class="o">.</span><span class="n">reactor</span> <span class="o">=</span> <span class="n">MockReactor</span><span class="p">()</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">TaxonService</span><span class="p">,</span> <span class="n">taxon_thrift_service</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">start_service</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">twisted</span><span class="o">.</span><span class="n">internet</span><span class="o">.</span><span class="n">reactor</span> <span class="o">=</span> <span class="n">orig_reactor</span> <span class="c1"># set it back</span></div></div>
+
+<div class="viewcode-block" id="MockOSModule"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockOSModule">[docs]</a><span class="k">class</span> <span class="nc">MockOSModule</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fake OS module for testing the process group killing, without</span>
+<span class="sd">    actually killing the process group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="n">pid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kill_pid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kill_signal</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="MockOSModule.kill"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockOSModule.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kill_pid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kill_signal</span> <span class="o">=</span> <span class="n">pid</span><span class="p">,</span> <span class="n">signal</span></div>
+
+<div class="viewcode-block" id="MockOSModule.getpid"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockOSModule.getpid">[docs]</a>    <span class="k">def</span> <span class="nf">getpid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span></div>
+
+<div class="viewcode-block" id="MockOSModule.getpgid"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockOSModule.getpgid">[docs]</a>    <span class="k">def</span> <span class="nf">getpgid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">+</span> <span class="mi">1</span></div></div>
+
+<div class="viewcode-block" id="MockReactor"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockReactor">[docs]</a><span class="k">class</span> <span class="nc">MockReactor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fake Twisted reactor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fail</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fail</span> <span class="o">=</span> <span class="n">fail</span>
+
+<div class="viewcode-block" id="MockReactor.run"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockReactor.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fail</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;MockReactor Fail&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="MockReactor.listenTCP"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockReactor.listenTCP">[docs]</a>    <span class="k">def</span> <span class="nf">listenTCP</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">):</span>
+        <span class="k">return</span></div>
+<div class="viewcode-block" id="MockReactor.addSystemEventTriegger"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_service_core.MockReactor.addSystemEventTriegger">[docs]</a>    <span class="k">def</span> <span class="nf">addSystemEventTriegger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">):</span>
+        <span class="k">return</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x110e1ea10>
+
+
+</body>
+</html>

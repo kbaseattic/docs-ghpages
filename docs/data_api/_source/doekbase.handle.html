@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.handle package &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>doekbase.handle package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/_source/doekbase.handle.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="doekbase-handle-package">
+<h1>doekbase.handle package<a class="headerlink" href="#doekbase-handle-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-doekbase.handle.Client">
+<span id="doekbase-handle-client-module"></span><h2>doekbase.handle.Client module<a class="headerlink" href="#module-doekbase.handle.Client" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="doekbase.handle.Client.AbstractHandle">
+<em class="property">class </em><code class="descclassname">doekbase.handle.Client.</code><code class="descname">AbstractHandle</code><span class="sig-paren">(</span><em>url=None</em>, <em>timeout=1800</em>, <em>user_id=None</em>, <em>password=None</em>, <em>token=None</em>, <em>ignore_authrc=False</em>, <em>trust_all_ssl_certificates=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.are_readable">
+<code class="descname">are_readable</code><span class="sig-paren">(</span><em>arg_1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.are_readable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.are_readable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.delete_handles">
+<code class="descname">delete_handles</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.delete_handles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.delete_handles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.download">
+<code class="descname">download</code><span class="sig-paren">(</span><em>h</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.download" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.download_metadata">
+<code class="descname">download_metadata</code><span class="sig-paren">(</span><em>h</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.download_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.download_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.give">
+<code class="descname">give</code><span class="sig-paren">(</span><em>user</em>, <em>perm</em>, <em>h</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.give"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.give" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.hids_to_handles">
+<code class="descname">hids_to_handles</code><span class="sig-paren">(</span><em>hids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.hids_to_handles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.hids_to_handles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.ids_to_handles">
+<code class="descname">ids_to_handles</code><span class="sig-paren">(</span><em>ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.ids_to_handles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.ids_to_handles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.initialize_handle">
+<code class="descname">initialize_handle</code><span class="sig-paren">(</span><em>h1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.initialize_handle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.initialize_handle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.is_readable">
+<code class="descname">is_readable</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.is_readable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.is_readable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.list_handles">
+<code class="descname">list_handles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.list_handles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.list_handles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.localize_handle">
+<code class="descname">localize_handle</code><span class="sig-paren">(</span><em>h1</em>, <em>service_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.localize_handle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.localize_handle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.new_handle">
+<code class="descname">new_handle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.new_handle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.new_handle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.persist_handle">
+<code class="descname">persist_handle</code><span class="sig-paren">(</span><em>h</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.persist_handle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.persist_handle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><em>infile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.upload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.upload" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="doekbase.handle.Client.AbstractHandle.upload_metadata">
+<code class="descname">upload_metadata</code><span class="sig-paren">(</span><em>h</em>, <em>infile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#AbstractHandle.upload_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.AbstractHandle.upload_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="doekbase.handle.Client.ServerError">
+<em class="property">exception </em><code class="descclassname">doekbase.handle.Client.</code><code class="descname">ServerError</code><span class="sig-paren">(</span><em>name</em>, <em>code</em>, <em>message</em>, <em>data=None</em>, <em>error=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/doekbase/handle/Client.html#ServerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#doekbase.handle.Client.ServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-doekbase.handle">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-doekbase.handle" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10967bb50>
+
+
+</body>
+</html>

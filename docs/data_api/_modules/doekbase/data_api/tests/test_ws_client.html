@@ -1,0 +1,558 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.test_ws_client &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.test_ws_client</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for doekbase.data_api.tests.test_ws_client</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Test Workspace client</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;dang&#39;</span>
+
+<span class="c1">## Imports</span>
+<span class="c1"># System</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="c1"># Local</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">shared</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">wsfile</span>
+<span class="kn">from</span> <span class="nn">doekbase.workspace</span> <span class="kn">import</span> <span class="n">client</span> <span class="k">as</span> <span class="n">ws_client</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;doekbase.tests.test_ws_client&#39;</span><span class="p">)</span>
+
+<span class="n">genome_new</span> <span class="o">=</span> <span class="s2">&quot;ReferenceGenomeAnnotations/kb|g.166819&quot;</span>
+<span class="n">genome_old</span> <span class="o">=</span> <span class="s2">&quot;OriginalReferenceGenomes/kb|g.166819&quot;</span>
+<span class="n">taxon_new</span> <span class="o">=</span> <span class="s2">&quot;ReferenceTaxons/242159_taxon&quot;</span>
+<span class="n">taxon_old</span> <span class="o">=</span> <span class="s2">&quot;OriginalReferenceGenomes/kb|g.166819&quot;</span>
+
+<div class="viewcode-block" id="generic_object"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.generic_object">[docs]</a><span class="k">def</span> <span class="nf">generic_object</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Get a generic object.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Empty.AType-1.0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;hello&#39;</span><span class="p">:</span> <span class="s1">&#39;world&#39;</span><span class="p">}}</span></div>
+
+<span class="n">NOT_SUPPORTED_MSG</span> <span class="o">=</span> <span class="s1">&#39;Not supported by local Workspace implementation&#39;</span>
+
+<div class="viewcode-block" id="WorkspaceTests"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests">[docs]</a><span class="k">class</span> <span class="nc">WorkspaceTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="c1"># maximum allowable version of workspace for this</span>
+    <span class="c1"># test suite to be valid</span>
+    <span class="n">MAX_WS_VERSION</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">999</span><span class="p">)</span>
+
+    <span class="n">is_local</span> <span class="o">=</span> <span class="s1">&#39;://&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">core</span><span class="o">.</span><span class="n">g_ws_url</span>
+
+<div class="viewcode-block" id="WorkspaceTests.setUp"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="o">=</span> <span class="n">wsfile</span><span class="o">.</span><span class="n">WorkspaceFile</span><span class="p">(</span><span class="n">shared</span><span class="o">.</span><span class="n">g_ws_url</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="p">(</span><span class="n">genome_new</span><span class="p">,</span> <span class="n">genome_old</span><span class="p">,</span> <span class="n">taxon_new</span><span class="p">,</span> <span class="n">taxon_old</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ws</span> <span class="o">=</span> <span class="n">ws_client</span><span class="o">.</span><span class="n">Workspace</span><span class="p">(</span>
+                <span class="n">url</span><span class="o">=</span><span class="n">shared</span><span class="o">.</span><span class="n">g_ws_url</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">shared</span><span class="o">.</span><span class="n">token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_my_ws</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delete_ws</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="WorkspaceTests.tearDown"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">:</span>
+            <span class="c1"># delete temporary workspaces</span>
+            <span class="k">for</span> <span class="n">ws</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete_ws</span><span class="p">:</span>
+                <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;deleting temporary workspace: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ws</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">delete_workspace</span><span class="p">({</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">ws</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WorkspaceTests.get_workspace"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.get_workspace">[docs]</a>    <span class="k">def</span> <span class="nf">get_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use_existing</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">use_existing</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_my_ws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_my_ws</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;foo-{:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+        <span class="n">ws_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">create_workspace</span><span class="p">({</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delete_ws</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_existing</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_my_ws</span> <span class="o">=</span> <span class="n">ws_obj</span>
+        <span class="k">return</span> <span class="n">name</span></div>
+
+<div class="viewcode-block" id="WorkspaceTests.test_ver"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_ver">[docs]</a>    <span class="k">def</span> <span class="nf">test_ver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">ver</span><span class="p">()</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Bad version number: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX_WS_VERSION</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> \
+                <span class="s2">&quot;Version mismatch: {ver} &gt; {expected}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">ver</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">expected</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX_WS_VERSION</span><span class="p">)))</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_create_workspace"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_create_workspace">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_alter_workspace_metadata"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_alter_workspace_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">test_alter_workspace_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">alter_workspace_metadata</span><span class="p">({</span><span class="s1">&#39;wsi&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span>
+                                          <span class="s1">&#39;new&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;trump&#39;</span><span class="p">:</span> <span class="s1">&#39;idiot&#39;</span><span class="p">}})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_clone_workspace"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_clone_workspace">[docs]</a>    <span class="k">def</span> <span class="nf">test_clone_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="n">name2</span> <span class="o">=</span> <span class="s1">&#39;bar-{:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">clone_workspace</span><span class="p">({</span><span class="s1">&#39;wsi&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span>
+                                 <span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name2</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delete_ws</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name2</span><span class="p">)</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_lock_workspace"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_lock_workspace">[docs]</a>    <span class="k">def</span> <span class="nf">test_lock_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># this is not reversible and the workspace cannot</span>
+        <span class="c1"># be deleted (!), so running this as a test against a</span>
+        <span class="c1"># real workspace creates cruft.</span>
+        <span class="c1"># name = self.test_create_workspace()</span>
+        <span class="c1"># self.ws.lock_workspace({&#39;workspace&#39;: name})</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_get_workspacemeta"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_get_workspacemeta">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_workspacemeta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># deprecated form of get_workspace_info</span>
+        <span class="k">return</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_get_workspace_info"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_get_workspace_info">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_workspace_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">get_workspace_info</span><span class="p">({</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_get_workspace_description"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_get_workspace_description">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_workspace_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">get_workspace_description</span><span class="p">({</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_set_permissions"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_set_permissions">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_permissions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">set_permissions</span><span class="p">({</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                                 <span class="s1">&#39;new_permission&#39;</span><span class="p">:</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;users&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;kbasetest&#39;</span><span class="p">]})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_set_global_permission"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_set_global_permission">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_global_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">set_global_permission</span><span class="p">({</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                                       <span class="s1">&#39;new_permission&#39;</span><span class="p">:</span> <span class="s1">&#39;r&#39;</span><span class="p">})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_set_workspace_description"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_set_workspace_description">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_workspace_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">set_workspace_description</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;quite lame&#39;</span><span class="p">})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_get_permissions"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_get_permissions">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_permissions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">get_permissions</span><span class="p">({</span><span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_save_objects"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_save_objects">[docs]</a>    <span class="k">def</span> <span class="nf">test_save_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">save_objects</span><span class="p">({</span>
+            <span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;objects&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">generic_object</span><span class="p">()]</span>
+        <span class="p">})</span></div>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">is_local</span><span class="p">,</span> <span class="n">NOT_SUPPORTED_MSG</span><span class="p">)</span>
+<div class="viewcode-block" id="WorkspaceTests.test_administer"><a class="viewcode-back" href="../../../../_source/doekbase.data_api.tests.html#doekbase.data_api.tests.test_ws_client.WorkspaceTests.test_administer">[docs]</a>    <span class="k">def</span> <span class="nf">test_administer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">administer</span><span class="p">({})</span>
+        <span class="k">except</span> <span class="n">ws_client</span><span class="o">.</span><span class="n">ServerError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="c1"># fail if this is NOT the &quot;normal&quot; error</span>
+            <span class="c1"># caused by lack of admin. permissions</span>
+            <span class="k">assert</span> <span class="s1">&#39;not an admin&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div></div>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_object_provenance(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    def test_get_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    def test_get_object_subset(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_object_history(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_list_referencing_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_list_referencing_object_counts(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_referenced_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_list_workspaces(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_list_workspace_info(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    def test_list_workspace_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    def test_list_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    def test_get_objectmeta(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    def test_get_object_info(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    def test_get_object_info_new(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_rename_workspace(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_rename_object(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_copy_object(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_revert_object(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_hide_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_unhide_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_delete_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_undelete_objects(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_delete_workspace(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_undelete_workspace(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_request_module_ownership(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_register_typespec(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_register_typespec_copy(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_release_module(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_list_modules(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_list_module_versions(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_module_info(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_jsonschema(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_translate_from_MD5_types(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_translate_to_MD5_types(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_type_info(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_all_type_info(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_func_info(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_get_all_func_info(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_grant_module_ownership(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_remove_module_ownership(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">    @unittest.skipIf(is_local, NOT_SUPPORTED_MSG)</span>
+<span class="sd">    def test_list_all_types(self):</span>
+<span class="sd">        assert False</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10c6d8a90>
+
+
+</body>
+</html>

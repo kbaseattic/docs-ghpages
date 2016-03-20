@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.tests.examples.genome_annotation_api &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../../index.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.tests.examples.genome_annotation_api</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for doekbase.data_api.tests.examples.genome_annotation_api</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Examples for Genome Annotation API</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">doekbase.data_api.annotation.genome_annotation.api</span> <span class="kn">import</span> <span class="n">GenomeAnnotationAPI</span>
+
+<span class="c1"># def get_proteins_for_gene(ref, gene, ws_url=None):</span>
+<span class="c1">#     &quot;&quot;&quot;Fetch all Proteins for a gene.</span>
+<span class="c1">#</span>
+<span class="c1">#     Args:</span>
+<span class="c1">#       ws_url (str): a service address or a local directory</span>
+<span class="c1">#          containing a downloaded version of the data created with the</span>
+<span class="c1">#          ``dump_wsfile`` utility.</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     # Try to connect to remote service</span>
+<span class="c1">#     obj = GenomeAnnotationAPI(token=os.environ.get(&#39;KB_AUTH_TOKEN&#39;),</span>
+<span class="c1">#                               ref=ref,</span>
+<span class="c1">#                               services={&#39;workspace_service_url&#39;: ws_url})</span>
+<span class="c1">#     # Now the methods of the instance can be used</span>
+<span class="c1">#     proteins = obj.get_proteins()</span>
+<span class="c1">#     # TODO: filter by gene</span>
+<span class="c1">#     return proteins</span>
+<span class="c1">#</span>
+<span class="c1"># def get_all_proteins_for_gene(ga=None, gene_id=None):</span>
+<span class="c1">#     children_cds = ci_genome_annotation_api.get_child_features(ref=ga,</span>
+<span class="c1">#                                                                from_type=&quot;gene&quot;,</span>
+<span class="c1">#                                                                to_type=&quot;cds&quot;,</span>
+<span class="c1">#                                                                feature_id_list=[</span>
+<span class="c1">#                                                                    gene_id])</span>
+<span class="c1">#     cds_id_list = [y.feature_id for y in childrens_cds[x] for x in children_cds]</span>
+<span class="c1">#     proteins = genome_annotation_api.get_proteins_by_cds(ref=ga,</span>
+<span class="c1">#                                                          cds_id_list=cds_id_list)</span>
+<span class="c1">#</span>
+<span class="c1">#     gene_to_proteins = dict()</span>
+<span class="c1">#     for gene_id in children_cds:</span>
+<span class="c1">#         gene_to_proteins[gene_id] = list()</span>
+<span class="c1">#         for cds in children_cds[gene_id]:</span>
+<span class="c1">#             gene_to_proteins[gene_id].extend(proteins[cds.feature_id])</span>
+<span class="c1">#</span>
+<span class="c1">#     return gene_to_proteins</span>
+
+<div class="viewcode-block" id="proteins_to_fasta"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.tests.examples.html#doekbase.data_api.tests.examples.genome_annotation_api.proteins_to_fasta">[docs]</a><span class="k">def</span> <span class="nf">proteins_to_fasta</span><span class="p">(</span><span class="n">ws_url</span><span class="o">=</span><span class="s1">&#39;https://ci.kbase.us/services/ws/&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Write FASTA file from a genome reference.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ws_url: Workspace service URL</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Full path to output file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;ReferenceGenomeAnnotations/kb|g.166819&quot;</span>
+    <span class="c1"># ref = &quot;ReferenceGenomeAnnotations/kb|g.3899&quot;</span>
+    <span class="n">genome_annotation</span> <span class="o">=</span> <span class="n">GenomeAnnotationAPI</span><span class="p">(</span>
+        <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;KB_AUTH_TOKEN&#39;</span><span class="p">),</span> <span class="n">services</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="n">ws_url</span><span class="p">},</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+
+    <span class="c1"># Get all the proteins with the Data API</span>
+    <span class="n">proteins</span> <span class="o">=</span> <span class="n">genome_annotation</span><span class="o">.</span><span class="n">get_proteins</span><span class="p">()</span>
+    <span class="c1"># Create an output file and write to it</span>
+    <span class="n">outfile</span> <span class="o">=</span> <span class="s1">&#39;/tmp/166819_prot.fasta&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fasta_line</span> <span class="ow">in</span> <span class="n">get_fasta</span><span class="p">(</span><span class="n">proteins</span><span class="p">):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fasta_line</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">outfile</span></div>
+
+<div class="viewcode-block" id="get_aliases"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.tests.examples.html#doekbase.data_api.tests.examples.genome_annotation_api.get_aliases">[docs]</a><span class="k">def</span> <span class="nf">get_aliases</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+    <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="get_fasta"><a class="viewcode-back" href="../../../../../_source/doekbase.data_api.tests.examples.html#doekbase.data_api.tests.examples.genome_annotation_api.get_fasta">[docs]</a><span class="k">def</span> <span class="nf">get_fasta</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">geneinfo</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span>
+        <span class="n">aliases</span> <span class="o">=</span> <span class="n">get_aliases</span><span class="p">(</span><span class="n">geneinfo</span><span class="p">[</span><span class="s2">&quot;protein_aliases&quot;</span><span class="p">])</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="n">geneinfo</span><span class="p">[</span><span class="s2">&quot;protein_function&quot;</span><span class="p">]</span>
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">geneinfo</span><span class="p">[</span><span class="s2">&quot;protein_amino_acid_sequence&quot;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="s1">&#39;&gt;{k} {f} {a}</span><span class="se">\n</span><span class="s1">{s}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="n">keys</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">function</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">aliases</span><span class="p">,</span>
+                                           <span class="n">s</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10dce3d10>
+
+
+</body>
+</html>

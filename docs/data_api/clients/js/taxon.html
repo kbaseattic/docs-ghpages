@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JavaScript Taxon Data API &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="JavaScript Data API documentation" href="../../javascript.html"/>
+        <link rel="prev" title="JavaScript Genome annotation Data API" href="genome_annotation.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../javascript.html">JavaScript API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="assembly.html">Assembly API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genome_annotation.html">Genome Annotation API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Taxon API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-taxon-object">Creating a Taxon object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../javascript.html#javascript-notes">JavaScript Notes</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../javascript.html">JavaScript Data API documentation</a> &raquo;</li>
+      
+    <li>JavaScript Taxon Data API</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/clients/js/taxon.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="javascript-taxon-data-api">
+<span id="js-javascript-taxon-data-api"></span><h1>JavaScript Taxon Data API<a class="headerlink" href="#javascript-taxon-data-api" title="Permalink to this headline">¶</a></h1>
+<p>The Taxon API can be used as a client of the Taxon Data API service.</p>
+<div class="section" id="creating-a-taxon-object">
+<h2>Creating a Taxon object<a class="headerlink" href="#creating-a-taxon-object" title="Permalink to this headline">¶</a></h2>
+<p>To create a new object, instantiate <a class="reference internal" href="../perl/taxon.html#Taxon" title="Taxon"><code class="xref js js-class docutils literal"><span class="pre">Taxon()</span></code></a>
+using a configuration object as the input argument.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// access reference data (no token required)</span>
+<span class="kd">var</span> <span class="nx">api_obj</span> <span class="o">=</span> <span class="nx">Taxon</span><span class="p">({</span>
+    <span class="nx">ref</span><span class="o">:</span> <span class="s1">&#39;1013/92/2&#39;</span><span class="p">,</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://narrative.kbase.us&#39;</span><span class="p">,</span>
+    <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">timeout</span><span class="o">:</span> <span class="mi">6000</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>To use the object, call the Promise-wrapped functions
+and process the results accordingly.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// call function using Promise interface</span>
+<span class="nx">api_obj</span><span class="p">.</span><span class="nx">get_parent</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">do_something_with</span><span class="p">(</span><span class="nx">parent</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Taxon">
+<em class="property">class </em><code class="descname">Taxon</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#Taxon" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<em>object</em>) &#8211; Configuration object. This object has the following fields:</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>ref - The object reference for the object to be accessed in the format expected by the workspace: <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code> OR <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code>/<code class="docutils literal"><span class="pre">version</span></code>, where the workspace and object can either be numeric identifiers or names. For example: <code class="docutils literal"><span class="pre">1019/4</span></code>, <code class="docutils literal"><span class="pre">1019/4/1</span></code>, or <code class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></code>.</li>
+<li>url - The url for the GenomeAnnotation Service endpoint.</li>
+<li>token - The KBase authorization token to be used to access the service.</li>
+</ul>
+</dd></dl>
+
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">throws ArgumentError:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Bad input argument</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="get_parent">
+<code class="descname">get_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve parent Taxon.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference internal" href="../perl/taxon.html#ServiceException" title="ServiceException"><strong>ServiceException</strong></a> &#8211; Internal service error</li>
+<li><a class="reference internal" href="../perl/taxon.html#AuthorizationException" title="AuthorizationException"><strong>AuthorizationException</strong></a> &#8211; Failed to authorize user for operation</li>
+<li><a class="reference internal" href="../perl/taxon.html#AuthenticationException" title="AuthenticationException"><strong>AuthenticationException</strong></a> &#8211; Could not authenticate user</li>
+<li><a class="reference internal" href="../perl/taxon.html#ObjectReferenceException" title="ObjectReferenceException"><strong>ObjectReferenceException</strong></a> &#8211; Error retrieving object for reference</li>
+<li><a class="reference internal" href="../perl/taxon.html#AttributeException" title="AttributeException"><strong>AttributeException</strong></a> &#8211; Error retrieving requested attribute</li>
+<li><a class="reference internal" href="../perl/taxon.html#TypeException" title="TypeException"><strong>TypeException</strong></a> &#8211; Input is of wrong type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../perl/taxon.html#ObjectReference" title="ObjectReference"><code class="xref js js-data docutils literal"><span class="pre">ObjectReference</span></code></a>  Reference to parent Taxon.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_children">
+<code class="descname">get_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve children Taxon.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">list&lt;</span></code> <a class="reference internal" href="../perl/taxon.html#ObjectReference" title="ObjectReference"><code class="xref js js-data docutils literal"><span class="pre">ObjectReference</span></code></a> <code class="docutils literal"><span class="pre">&gt;</span></code> List of references to child Taxons.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_genome_annotations">
+<code class="descname">get_genome_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_genome_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the GenomeAnnotation(s) that refer to this Taxon. If this is accessing a KBaseGenomes.Genome object, it will return an empty list (this information is not available).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">list&lt;</span></code> <a class="reference internal" href="../perl/taxon.html#ObjectReference" title="ObjectReference"><code class="xref js js-data docutils literal"><span class="pre">ObjectReference</span></code></a> <code class="docutils literal"><span class="pre">&gt;</span></code> List of references to GenomeAnnotation objects.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_scientific_lineage">
+<code class="descname">get_scientific_lineage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_scientific_lineage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the scientific lineage.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">list&lt;string&gt;</span></code> Strings for each &#8216;unit&#8217; of the lineage, ordered in the usual way from Domain to Kingdom to Phylum, etc.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_scientific_name">
+<code class="descname">get_scientific_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_scientific_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the scientific name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">string</span></code> The scientific name, e.g., &#8220;Escherichia Coli K12 str. MG1655&#8221;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_taxonomic_id">
+<code class="descname">get_taxonomic_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_taxonomic_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the NCBI taxonomic ID of this Taxon. For type KBaseGenomes.Genome, the <code class="docutils literal"><span class="pre">source_id</span></code> will be returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">i32</span></code> Integer taxonomic ID.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_kingdom">
+<code class="descname">get_kingdom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_kingdom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the kingdom.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">string</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_domain">
+<code class="descname">get_domain</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the domain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">string</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_genetic_code">
+<code class="descname">get_genetic_code</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_genetic_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the genetic code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">i32</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_aliases">
+<code class="descname">get_aliases</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the aliases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/taxon.html#get_parent" title="get_parent"><code class="xref js js-func docutils literal"><span class="pre">get_parent()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">list&lt;string&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="data">
+<dt id="ObjectReference">
+<code class="descname">ObjectReference</code><a class="headerlink" href="#ObjectReference" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">string</span></code></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="ServiceException">
+<code class="descname">ServiceException</code><a class="headerlink" href="#ServiceException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+<li><strong>inputs</strong> (map&lt;string,string&gt;) <em>optional</em>: Optional mapping</li>
+</ul>
+<dl class="data">
+<dt id="AuthorizationException">
+<code class="descname">AuthorizationException</code><a class="headerlink" href="#AuthorizationException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="AuthenticationException">
+<code class="descname">AuthenticationException</code><a class="headerlink" href="#AuthenticationException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="ObjectReferenceException">
+<code class="descname">ObjectReferenceException</code><a class="headerlink" href="#ObjectReferenceException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="AttributeException">
+<code class="descname">AttributeException</code><a class="headerlink" href="#AttributeException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="TypeException">
+<code class="descname">TypeException</code><a class="headerlink" href="#TypeException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+<li><strong>valid_types</strong> (list&lt;string&gt;) <em>optional</em>: List of types that would have been acceptable.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="genome_annotation.html" class="btn btn-neutral" title="JavaScript Genome annotation Data API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x113a90510>
+
+
+</body>
+</html>

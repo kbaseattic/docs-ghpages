@@ -1,0 +1,995 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JavaScript Genome annotation Data API &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="JavaScript Data API documentation" href="../../javascript.html"/>
+        <link rel="next" title="JavaScript Taxon Data API" href="taxon.html"/>
+        <link rel="prev" title="JavaScript Assembly Data API" href="assembly.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../javascript.html">JavaScript API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="assembly.html">Assembly API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Genome Annotation API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-genomeannotation-object">Creating a GenomeAnnotation object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="taxon.html">Taxon API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../javascript.html#javascript-notes">JavaScript Notes</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../javascript.html">JavaScript Data API documentation</a> &raquo;</li>
+      
+    <li>JavaScript Genome annotation Data API</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/clients/js/genome_annotation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="javascript-genome-annotation-data-api">
+<span id="js-javascript-genome-annotation-data-api"></span><h1>JavaScript Genome annotation Data API<a class="headerlink" href="#javascript-genome-annotation-data-api" title="Permalink to this headline">¶</a></h1>
+<p>The Genome annotation API can be used as a client of the Genome annotation Data API service.</p>
+<div class="section" id="creating-a-genomeannotation-object">
+<h2>Creating a GenomeAnnotation object<a class="headerlink" href="#creating-a-genomeannotation-object" title="Permalink to this headline">¶</a></h2>
+<p>To create a new object, instantiate <a class="reference internal" href="../perl/genome_annotation.html#GenomeAnnotation" title="GenomeAnnotation"><code class="xref js js-class docutils literal"><span class="pre">GenomeAnnotation()</span></code></a>
+using a configuration object as the input argument.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// access reference data (no token required)</span>
+<span class="kd">var</span> <span class="nx">api_obj</span> <span class="o">=</span> <span class="nx">GenomeAnnotation</span><span class="p">({</span>
+    <span class="nx">ref</span><span class="o">:</span> <span class="s1">&#39;1013/92/2&#39;</span><span class="p">,</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://narrative.kbase.us&#39;</span><span class="p">,</span>
+    <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">timeout</span><span class="o">:</span> <span class="mi">6000</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>To use the object, call the Promise-wrapped functions
+and process the results accordingly.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// call function using Promise interface</span>
+<span class="nx">api_obj</span><span class="p">.</span><span class="nx">get_taxon</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">taxon</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">do_something_with</span><span class="p">(</span><span class="nx">taxon</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="GenomeAnnotation">
+<em class="property">class </em><code class="descname">GenomeAnnotation</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#GenomeAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<em>object</em>) &#8211; Configuration object. This object has the following fields:</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>ref - The object reference for the object to be accessed in the format expected by the workspace: <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code> OR <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code>/<code class="docutils literal"><span class="pre">version</span></code>, where the workspace and object can either be numeric identifiers or names. For example: <code class="docutils literal"><span class="pre">1019/4</span></code>, <code class="docutils literal"><span class="pre">1019/4/1</span></code>, or <code class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></code>.</li>
+<li>url - The url for the GenomeAnnotation Service endpoint.</li>
+<li>token - The KBase authorization token to be used to access the service.</li>
+</ul>
+</dd></dl>
+
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">throws ArgumentError:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Bad input argument</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="get_taxon">
+<code class="descname">get_taxon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the Taxon associated with this GenomeAnnotation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference internal" href="../perl/taxon.html#ServiceException" title="ServiceException"><strong>ServiceException</strong></a> &#8211; Internal service error</li>
+<li><a class="reference internal" href="../perl/taxon.html#AuthorizationException" title="AuthorizationException"><strong>AuthorizationException</strong></a> &#8211; Failed to authorize user for operation</li>
+<li><a class="reference internal" href="../perl/taxon.html#AuthenticationException" title="AuthenticationException"><strong>AuthenticationException</strong></a> &#8211; Could not authenticate user</li>
+<li><a class="reference internal" href="../perl/taxon.html#ObjectReferenceException" title="ObjectReferenceException"><strong>ObjectReferenceException</strong></a> &#8211; Error retrieving object for reference</li>
+<li><a class="reference internal" href="../perl/taxon.html#AttributeException" title="AttributeException"><strong>AttributeException</strong></a> &#8211; Error retrieving requested attribute</li>
+<li><a class="reference internal" href="../perl/taxon.html#TypeException" title="TypeException"><strong>TypeException</strong></a> &#8211; Input is of wrong type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../perl/taxon.html#ObjectReference" title="ObjectReference"><code class="xref js js-data docutils literal"><span class="pre">ObjectReference</span></code></a>  Reference to TaxonAPI object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_assembly">
+<code class="descname">get_assembly</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the Assembly associated with this GenomeAnnotation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="../perl/taxon.html#ObjectReference" title="ObjectReference"><code class="xref js js-data docutils literal"><span class="pre">ObjectReference</span></code></a>  Reference to AssemblyAPI object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_types">
+<code class="descname">get_feature_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the list of Feature types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">list&lt;string&gt;</span></code> List of feature type identifiers (strings)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_type_descriptions">
+<code class="descname">get_feature_type_descriptions</code><span class="sig-paren">(</span><em>feature_type_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_type_descriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the descriptions for each Feature type in this GenomeAnnotation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_type_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Feature types. If this list is empty or None, the whole mapping will be returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,string&gt;</span></code> Name and description for each requested Feature Type</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_type_counts">
+<code class="descname">get_feature_type_counts</code><span class="sig-paren">(</span><em>feature_type_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_type_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the count of each Feature type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_type_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Feature Types. If empty, this will retrieve  counts for all Feature Types.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,i64&gt;</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_ids">
+<code class="descname">get_feature_ids</code><span class="sig-paren">(</span><em>filters</em>, <em>group_type</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Feature IDs, optionally filtered by type, region, function, alias.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>filters</strong> (<a class="reference internal" href="../perl/genome_annotation.html#Feature_id_filters" title="Feature_id_filters"><em>Feature_id_filters</em></a>) &#8211; Dictionary of filters that can be applied to contents. If this is empty or missing, all Feature IDs will be returned.</li>
+<li><strong>group_type</strong> (<em>string</em>) &#8211; How to group results, which is a single string matching one of the values for the <code class="docutils literal"><span class="pre">filters</span></code> parameter.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../perl/genome_annotation.html#Feature_id_mapping" title="Feature_id_mapping"><code class="xref js js-data docutils literal"><span class="pre">Feature_id_mapping</span></code></a>  Grouped mapping of features.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_features">
+<code class="descname">get_features</code><span class="sig-paren">(</span><em>feature_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Feature data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Features to retrieve. If None, returns all Feature data.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,</span></code> <a class="reference internal" href="../perl/genome_annotation.html#Feature_data" title="Feature_data"><code class="xref js js-data docutils literal"><span class="pre">Feature_data</span></code></a> <code class="docutils literal"><span class="pre">&gt;</span></code> Mapping from Feature IDs to dicts of available data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_proteins">
+<code class="descname">get_proteins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Protein data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">map&lt;string,</span></code> <a class="reference internal" href="../perl/genome_annotation.html#Protein_data" title="Protein_data"><code class="xref js js-data docutils literal"><span class="pre">Protein_data</span></code></a> <code class="docutils literal"><span class="pre">&gt;</span></code> Mapping from protein ID to data about the protein.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_locations">
+<code class="descname">get_feature_locations</code><span class="sig-paren">(</span><em>feature_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Feature locations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Feature IDs for which to retrieve locations. If empty, returns data for all features.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,list&lt;</span></code> <a class="reference internal" href="../perl/genome_annotation.html#Region" title="Region"><code class="xref js js-data docutils literal"><span class="pre">Region</span></code></a> <code class="docutils literal"><span class="pre">&gt;&gt;</span></code> Mapping from Feature IDs to location information for each.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_publications">
+<code class="descname">get_feature_publications</code><span class="sig-paren">(</span><em>feature_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_publications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Feature publications.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Feature IDs for which to retrieve publications. If empty, returns data for all features.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,list&lt;string&gt;&gt;</span></code> Mapping from Feature IDs to publication info for each.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_dna">
+<code class="descname">get_feature_dna</code><span class="sig-paren">(</span><em>feature_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_dna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Feature DNA sequences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Feature IDs for which to retrieve sequences. If empty, returns data for all features.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,string&gt;</span></code> Mapping of Feature IDs to their DNA sequence.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_functions">
+<code class="descname">get_feature_functions</code><span class="sig-paren">(</span><em>feature_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Feature functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Feature IDs for which to retrieve functions. If empty, returns data for all features.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,string&gt;</span></code> Mapping of Feature IDs to their functions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_feature_aliases">
+<code class="descname">get_feature_aliases</code><span class="sig-paren">(</span><em>feature_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_feature_aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Feature aliases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; List of Feature IDS for which to retrieve aliases. If empty, returns data for all features.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,list&lt;string&gt;&gt;</span></code> Mapping of Feature IDs to a list of aliases.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_cds_by_gene">
+<code class="descname">get_cds_by_gene</code><span class="sig-paren">(</span><em>gene_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_cds_by_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves coding sequence Features (cds) for given gene Feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>gene_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,list&lt;string&gt;&gt;</span></code> Mapping of gene Feature IDs to a list of CDS Feature IDs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_cds_by_mrna">
+<code class="descname">get_cds_by_mrna</code><span class="sig-paren">(</span><em>mrna_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_cds_by_mrna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves coding sequence (cds) Feature IDs for given mRNA Feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>mrna_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,string&gt;</span></code> Mapping of mRNA Feature IDs to a list of CDS Feature IDs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_gene_by_cds">
+<code class="descname">get_gene_by_cds</code><span class="sig-paren">(</span><em>cds_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_gene_by_cds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves gene Feature IDs for given coding sequence (cds) Feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>cds_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,string&gt;</span></code> Mapping of cds Feature IDs to gene Feature IDs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_gene_by_mrna">
+<code class="descname">get_gene_by_mrna</code><span class="sig-paren">(</span><em>mrna_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_gene_by_mrna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves gene Feature IDs for given mRNA Feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>mrna_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,string&gt;</span></code> Mapping of mRNA Feature IDs to gene Feature IDs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_mrna_by_cds">
+<code class="descname">get_mrna_by_cds</code><span class="sig-paren">(</span><em>cds_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_mrna_by_cds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves mRNA Features for given coding sequences (cds) Feature IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>cds_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,string&gt;</span></code> Mapping of cds Feature IDs to mRNA Feature IDs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_mrna_by_gene">
+<code class="descname">get_mrna_by_gene</code><span class="sig-paren">(</span><em>gene_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_mrna_by_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the mRNA IDs for given gene IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>gene_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,list&lt;string&gt;&gt;</span></code> Mapping of gene Feature IDs to a list of mRNA Feature IDs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_mrna_exons">
+<code class="descname">get_mrna_exons</code><span class="sig-paren">(</span><em>mrna_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_mrna_exons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Exon information for each mRNA ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>mrna_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,list&lt;</span></code> <a class="reference internal" href="../perl/genome_annotation.html#Exon_data" title="Exon_data"><code class="xref js js-data docutils literal"><span class="pre">Exon_data</span></code></a> <code class="docutils literal"><span class="pre">&gt;&gt;</span></code> Mapping of mRNA Feature IDs to a list of exons (<a class="reference internal" href="../perl/genome_annotation.html#Exon_data" title="Exon_data"><code class="xref js js-data docutils literal"><span class="pre">Exon_data</span></code></a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_mrna_utrs">
+<code class="descname">get_mrna_utrs</code><span class="sig-paren">(</span><em>mrna_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_mrna_utrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve UTR information for each mRNA Feature ID.  UTRs are calculated between mRNA features and corresponding CDS features. The return value for each mRNA can contain either: - no UTRs found (empty dict) -  5&#8217; UTR only -  3&#8217; UTR only -  5&#8217; and 3&#8217; UTRs  Note: The Genome data type does not contain interfeature relationship information. Calling this method for Genome objects will raise a <a href="#id1"><span class="problematic" id="id2">:js:throws:`exc.TypeException`</span></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>mrna_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/genome_annotation.html#get_taxon" title="get_taxon"><code class="xref js js-func docutils literal"><span class="pre">get_taxon()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,map&lt;string,</span></code> <a class="reference internal" href="../perl/genome_annotation.html#UTR_data" title="UTR_data"><code class="xref js js-data docutils literal"><span class="pre">UTR_data</span></code></a> <code class="docutils literal"><span class="pre">&gt;&gt;</span></code> Mapping of mRNA Feature IDs to a mapping that contains both 5&#8217; and 3&#8217; UTRs:: { &#8220;5&#8217;UTR&#8221;: <a class="reference internal" href="../perl/genome_annotation.html#UTR_data" title="UTR_data"><code class="xref js js-data docutils literal"><span class="pre">UTR_data</span></code></a>, &#8220;3&#8217;UTR&#8221;: <a class="reference internal" href="../perl/genome_annotation.html#UTR_data" title="UTR_data"><code class="xref js js-data docutils literal"><span class="pre">UTR_data</span></code></a> }</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="data">
+<dt id="ObjectReference">
+<code class="descname">ObjectReference</code><a class="headerlink" href="#ObjectReference" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">string</span></code></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="ServiceException">
+<code class="descname">ServiceException</code><a class="headerlink" href="#ServiceException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+<li><strong>inputs</strong> (map&lt;string,string&gt;) <em>optional</em>: Optional mapping</li>
+</ul>
+<dl class="data">
+<dt id="AuthorizationException">
+<code class="descname">AuthorizationException</code><a class="headerlink" href="#AuthorizationException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="AuthenticationException">
+<code class="descname">AuthenticationException</code><a class="headerlink" href="#AuthenticationException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="ObjectReferenceException">
+<code class="descname">ObjectReferenceException</code><a class="headerlink" href="#ObjectReferenceException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="AttributeException">
+<code class="descname">AttributeException</code><a class="headerlink" href="#AttributeException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="TypeException">
+<code class="descname">TypeException</code><a class="headerlink" href="#TypeException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+<li><strong>valid_types</strong> (list&lt;string&gt;) <em>optional</em>: List of types that would have been acceptable.</li>
+</ul>
+<dl class="data">
+<dt id="Region">
+<code class="descname">Region</code><a class="headerlink" href="#Region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>contig_id</strong> (string) <em>optional</em>: The identifier for the contig to which this region corresponds.</li>
+<li><strong>strand</strong> (string) <em>optional</em>: Either a &#8220;+&#8221; or a &#8220;-&#8221;, for the strand on which the region is located.</li>
+<li><strong>start</strong> (i64) <em>optional</em>: Starting position for this region.</li>
+<li><strong>length</strong> (i64) <em>optional</em>: Distance from the start position that bounds the end of the region.</li>
+</ul>
+<dl class="data">
+<dt id="Feature_id_filters">
+<code class="descname">Feature_id_filters</code><a class="headerlink" href="#Feature_id_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Filters passed to <code class="xref py py-meth docutils literal"><span class="pre">get_feature_ids()</span></code></p>
+<ul>
+<li><p class="first"><strong>type_list</strong> (list&lt;string&gt;) <em>optional</em>: List of Feature type strings.</p>
+</li>
+<li><p class="first"><strong>region_list</strong> (list&lt;Region&gt;) <em>optional</em>: List of region specs.
+For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s2">&quot;contig_id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;strand&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="o">|</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">},</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>The Feature sequence begin and end are calculated as follows:</dt>
+<dd><ul class="first last simple">
+<li>[start, start) for &#8220;+&#8221; strand</li>
+<li>(start - length, start] for &#8220;-&#8221; strand</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><strong>function_list</strong> (list&lt;string&gt;) <em>optional</em>: List of function strings.</p>
+</li>
+<li><p class="first"><strong>alias_list</strong> (list&lt;string&gt;) <em>optional</em>: List of alias strings.</p>
+</li>
+</ul>
+<dl class="data">
+<dt id="Feature_id_mapping">
+<code class="descname">Feature_id_mapping</code><a class="headerlink" href="#Feature_id_mapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul>
+<li><p class="first"><strong>by_type</strong> (map&lt;string,list&lt;string&gt;&gt;) <em>optional</em>: Mapping of Feature type string to a list of Feature IDs</p>
+</li>
+<li><p class="first"><strong>by_region</strong> (map&lt;string,map&lt;string,map&lt;string,list&lt;string&gt;&gt;&gt;&gt;) <em>optional</em>: Mapping of contig ID, strand &#8220;+&#8221; or &#8220;-&#8221;, and range &#8220;start&#8211;end&#8221; to
+a list of Feature IDs. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;contig1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;+&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;123--456&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;feature1&#39;</span><span class="p">,</span> <span class="s1">&#39;feature2&#39;</span><span class="p">]</span> <span class="p">}}}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>by_function</strong> (map&lt;string,list&lt;string&gt;&gt;) <em>optional</em>: Mapping of function string to a list of Feature IDs</p>
+</li>
+<li><p class="first"><strong>by_alias</strong> (map&lt;string,list&lt;string&gt;&gt;) <em>optional</em>: Mapping of alias string to a list of Feature IDs</p>
+</li>
+</ul>
+<dl class="data">
+<dt id="Feature_data">
+<code class="descname">Feature_data</code><a class="headerlink" href="#Feature_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul>
+<li><p class="first"><strong>feature_id</strong> (string) <em>optional</em>: Identifier for this feature</p>
+</li>
+<li><p class="first"><strong>feature_type</strong> (string) <em>optional</em>: The Feature type e.g., &#8220;mRNA&#8221;, &#8220;CDS&#8221;, &#8220;gene&#8221;, ...</p>
+</li>
+<li><p class="first"><strong>feature_function</strong> (string) <em>optional</em>: The functional annotation description</p>
+</li>
+<li><p class="first"><strong>feature_aliases</strong> (map&lt;string,list&lt;string&gt;&gt;) <em>optional</em>: Dictionary of Alias string to List of source string identifiers</p>
+</li>
+<li><p class="first"><strong>feature_dna_sequence_length</strong> (i64) <em>optional</em>: Integer representing the length of the DNA sequence for convenience</p>
+</li>
+<li><p class="first"><strong>feature_dna_sequence</strong> (string) <em>optional</em>: String containing the DNA sequence of the Feature</p>
+</li>
+<li><p class="first"><strong>feature_md5</strong> (string) <em>optional</em>: String containing the MD5 of the sequence, calculated from the uppercase string</p>
+</li>
+<li><dl class="first docutils">
+<dt><strong>feature_locations</strong> (list&lt;Region&gt;) <em>optional</em>: List of dictionaries::</dt>
+<dd><dl class="first last docutils">
+<dt>{ &#8220;contig_id&#8221;: str,</dt>
+<dd><p class="first last">&#8220;start&#8221;: int,
+&#8220;strand&#8221;: str,
+&#8220;length&#8221;: int  }</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>List of Feature regions, where the Feature bounds are
+calculated as follows:</p>
+<ul class="simple">
+<li>For &#8220;+&#8221; strand, [start, start + length)</li>
+<li>For &#8220;-&#8221; strand, (start - length, start]</li>
+</ul>
+</li>
+<li><p class="first"><strong>feature_publications</strong> (list&lt;string&gt;) <em>optional</em>: List of any known publications related to this Feature</p>
+</li>
+<li><p class="first"><strong>feature_quality_warnings</strong> (list&lt;string&gt;) <em>optional</em>: List of strings indicating known data quality issues.
+Note: not used for Genome type, but is used for
+GenomeAnnotation</p>
+</li>
+<li><p class="first"><strong>feature_quality_score</strong> (list&lt;string&gt;) <em>optional</em>: Quality value with unknown algorithm for Genomes,
+not calculated yet for GenomeAnnotations.</p>
+</li>
+<li><p class="first"><strong>feature_notes</strong> (string) <em>optional</em>: Notes recorded about this Feature</p>
+</li>
+<li><p class="first"><strong>feature_inference</strong> (string) <em>optional</em>: Inference information</p>
+</li>
+</ul>
+<dl class="data">
+<dt id="Protein_data">
+<code class="descname">Protein_data</code><a class="headerlink" href="#Protein_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>protein_id</strong> (string) <em>optional</em>: Protein identifier, which is feature ID plus &#8221;.protein&#8221;</li>
+<li><strong>protein_amino_acid_sequence</strong> (string) <em>optional</em>: Amino acid sequence for this protein</li>
+<li><strong>protein_function</strong> (string) <em>optional</em>: Function of protein</li>
+<li><strong>protein_aliases</strong> (list&lt;string&gt;) <em>optional</em>: List of aliases for the protein</li>
+<li><strong>protein_md5</strong> (string) <em>optional</em>: MD5 hash of the protein translation (uppercase)</li>
+<li><strong>protein_domain_locations</strong> (list&lt;string&gt;) <em>optional</em></li>
+</ul>
+<dl class="data">
+<dt id="Exon_data">
+<code class="descname">Exon_data</code><a class="headerlink" href="#Exon_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>exon_location</strong> (Region) <em>optional</em>: Location of the exon in the contig.</li>
+<li><strong>exon_dna_sequence</strong> (string) <em>optional</em>: DNA Sequence string.</li>
+<li><strong>exon_ordinal</strong> (i64) <em>optional</em>: The position of the exon, ordered 5&#8217; to 3&#8217;.</li>
+</ul>
+<dl class="data">
+<dt id="UTR_data">
+<code class="descname">UTR_data</code><a class="headerlink" href="#UTR_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>utr_locations</strong> (list&lt;Region&gt;) <em>optional</em>: Locations of this UTR</li>
+<li><strong>utr_dna_sequence</strong> (string) <em>optional</em>: DNA sequence string for this UTR</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="taxon.html" class="btn btn-neutral float-right" title="JavaScript Taxon Data API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="assembly.html" class="btn btn-neutral" title="JavaScript Assembly Data API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x111feed10>
+
+
+</body>
+</html>

@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.cache &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.cache</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for doekbase.data_api.cache</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Add simple, flexible caching layer.</span>
+
+<span class="sd">Uses [dogpile caching](http://dogpilecache.readthedocs.org/en/latest/index.html).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s1">&#39;9/26/15&#39;</span>
+
+<span class="c1">## Imports</span>
+
+<span class="c1"># System</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="c1"># Third-party</span>
+<span class="kn">from</span> <span class="nn">dogpile.cache</span> <span class="kn">import</span> <span class="n">make_region</span>
+<span class="kn">import</span> <span class="nn">redis</span>
+<span class="c1"># Local</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api.util</span> <span class="kn">import</span> <span class="n">PerfCollector</span><span class="p">,</span> <span class="n">get_logger</span>
+
+<span class="n">_log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="c1">## Functions and Classes</span>
+
+<div class="viewcode-block" id="Cache"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.Cache">[docs]</a><span class="k">class</span> <span class="nc">Cache</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RedisCache"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.RedisCache">[docs]</a><span class="k">class</span> <span class="nc">RedisCache</span><span class="p">(</span><span class="n">Cache</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">get_redis_region</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DBMCache"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.DBMCache">[docs]</a><span class="k">class</span> <span class="nc">DBMCache</span><span class="p">(</span><span class="n">Cache</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">get_dbm_region</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NullCache"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.NullCache">[docs]</a><span class="k">class</span> <span class="nc">NullCache</span><span class="p">(</span><span class="n">Cache</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">get_null_region</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="get_redis_region"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.get_redis_region">[docs]</a><span class="k">def</span> <span class="nf">get_redis_region</span><span class="p">(</span><span class="n">redis_host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">redis_port</span><span class="o">=</span><span class="mi">6379</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get a new redis cache &#39;region&#39; object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        redis_host (str): Hostname or IP for Redis server</span>
+<span class="sd">        redis_port (int): Redis server listening port</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        An object, of type CacheRegion</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">make_region</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+        <span class="s1">&#39;dogpile.cache.redis&#39;</span><span class="p">,</span>
+        <span class="n">arguments</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="n">redis_host</span><span class="p">,</span>
+            <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="n">redis_port</span><span class="p">,</span>
+            <span class="s1">&#39;db&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;redis_expiration_time&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># 2 hours</span>
+            <span class="s1">&#39;distributed_lock&#39;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">region</span></div>
+
+<div class="viewcode-block" id="get_dbm_region"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.get_dbm_region">[docs]</a><span class="k">def</span> <span class="nf">get_dbm_region</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;/tmp&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get a new anydbm (DBM) cache &#39;region&#39; object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str): Path to directory with cache file</span>
+<span class="sd">        name (str): Name of cache file. if empty a random name</span>
+<span class="sd">                    will be generated.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        An object, of type CacheRegion</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">())</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">make_region</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+        <span class="s1">&#39;dogpile.cache.dbm&#39;</span><span class="p">,</span>
+        <span class="n">arguments</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">filename</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">region</span></div>
+
+<div class="viewcode-block" id="get_null_region"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.get_null_region">[docs]</a><span class="k">def</span> <span class="nf">get_null_region</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Region for a &quot;NULL&quot; cache that doesn&#39;t really cache at all.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       (CacheRegion) object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">make_region</span><span class="p">()</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;dogpile.cache.null&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObjectCache"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.ObjectCache">[docs]</a><span class="k">class</span> <span class="nc">ObjectCache</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Caching for ObjectAPI.</span>
+
+<span class="sd">    This class provides some basic performance information</span>
+<span class="sd">    for each of its operations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Maximum timeout to fetch a cached value, in seconds</span>
+    <span class="n">MAX_FETCH_TIMEOUT</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="c1"># You can set these at the class level, and they will</span>
+    <span class="c1"># be used for parameters of the same name to the constructor</span>
+    <span class="c1"># if those parameters are empty (None).</span>
+    <span class="n">cache_class</span> <span class="o">=</span> <span class="n">NullCache</span>   <span class="c1">#: Class for cache backend</span>
+    <span class="n">cache_params</span> <span class="o">=</span> <span class="p">{}</span>         <span class="c1">#: Constructor parameters for cache backend</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cache_class</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cache_params</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          ref (str): Key for caching</span>
+<span class="sd">          stats (PerfCollector): Shared statistics object</span>
+<span class="sd">          cache_class (class): Subclass of `Cache`</span>
+<span class="sd">          cache_params (dict): Parameters for cache constructor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_key</span> <span class="o">=</span> <span class="n">ref</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_public</span> <span class="o">=</span> <span class="n">is_public</span>
+        <span class="c1"># init performance statistics</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span> <span class="o">=</span> <span class="n">stats</span> <span class="ow">or</span> <span class="n">PerfCollector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">start_event</span><span class="p">(</span><span class="s1">&#39;cache.init&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
+        <span class="c1"># init cache</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="n">cache_class</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_class</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">cache_params</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="n">cc</span><span class="p">(</span><span class="o">**</span><span class="n">cp</span><span class="p">)</span>  <span class="c1"># workers of the world unite!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">end_event</span><span class="p">(</span><span class="s1">&#39;cache.init&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;ObjectCache.init.end cache_class={}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">cc</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+
+<div class="viewcode-block" id="ObjectCache.get_derived_data"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.ObjectCache.get_derived_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_derived_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_method</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span> <span class="o">+</span> <span class="s1">&#39;::&#39;</span> <span class="o">+</span> <span class="n">name</span>  <span class="c1"># store separately from &#39;raw&#39; data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">start_event</span><span class="p">(</span><span class="s1">&#39;cache.get_derived_data&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">parent_method</span><span class="p">,</span>
+                                         <span class="n">should_cache_fn</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_should_cache</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">end_event</span><span class="p">(</span><span class="s1">&#39;cache.get_derived_data&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="ObjectCache.get_data"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.ObjectCache.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_method</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get data from cache or the callee&#39;s method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">start_event</span><span class="p">(</span><span class="s1">&#39;cache.get_data&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">,</span> <span class="n">parent_method</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">end_event</span><span class="p">(</span><span class="s1">&#39;cache.get_data&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="ObjectCache.get_data_subset"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.ObjectCache.get_data_subset">[docs]</a>    <span class="k">def</span> <span class="nf">get_data_subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_method</span><span class="p">,</span> <span class="n">path_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get data subset from cache or the callee&#39;s method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">start_event</span><span class="p">(</span><span class="s1">&#39;cache.get_data_subset&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
+        <span class="c1"># save a little time for a no-op</span>
+        <span class="k">if</span> <span class="n">path_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">end_event</span><span class="p">(</span><span class="s1">&#39;cache.get_data_subset&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">,</span>
+                                  <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;empty-path-list&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="c1"># create unique key for object + path</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;{}:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_hash</span><span class="p">(</span><span class="n">path_list</span><span class="p">))</span>
+        <span class="c1"># creator function, currying path_list arg.</span>
+        <span class="n">creator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="p">:</span> <span class="n">parent_method</span><span class="p">(</span><span class="n">path_list</span><span class="o">=</span><span class="n">path_list</span><span class="p">)</span>
+        <span class="c1"># get from cache, or create</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_get_or_create</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">creator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span><span class="o">.</span><span class="n">end_event</span><span class="p">(</span><span class="s1">&#39;cache.get_data_subset&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="ObjectCache.cache_get_or_create"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.ObjectCache.cache_get_or_create">[docs]</a>    <span class="k">def</span> <span class="nf">cache_get_or_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">creator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get from cache, or create, with extra logic to handle</span>
+<span class="sd">        a Redis server that is not yet fully up and running.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (str): Cache item key</span>
+<span class="sd">            creator (function): Called to create the item if not found</span>
+<span class="sd">        Return:</span>
+<span class="sd">            (object) value Will return a value unless MAX_FETCH_TIMEOUT</span>
+<span class="sd">            seconds is exceeded</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: on timeout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">should_cache_fn</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_should_cache</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">total_sleep</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">total_sleep</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX_FETCH_TIMEOUT</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">redis</span><span class="o">.</span><span class="n">BusyLoadingError</span><span class="p">:</span>
+                <span class="n">_log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Redis is busy, sleep for 0.1s and try again&#39;</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+                <span class="n">total_sleep</span> <span class="o">+=</span> <span class="mf">0.1</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">total_sleep</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX_FETCH_TIMEOUT</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Timeout while fetching {} from cache&#39;</span>
+                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+    <span class="k">def</span> <span class="nf">_should_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Whether this data should be cached, or fetched new every time.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          data (dict): Result from ``get_data`` or ``get_data_subset`` in</span>
+<span class="sd">                       :class:`doekbase.data_api.core.ObjectAPI`.</span>
+<span class="sd">        Return:</span>
+<span class="sd">          (bool) True if this object should be cached, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_public</span>
+        <span class="n">_log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;should_cache result={:d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ObjectCache.path_hash"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.cache.ObjectCache.path_hash">[docs]</a>    <span class="k">def</span> <span class="nf">path_hash</span><span class="p">(</span><span class="n">plist</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plist</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats</span></div>
+
+
+
+
+    <span class="c1"># @staticmethod</span>
+    <span class="c1"># def extract_paths(data, path_list):</span>
+    <span class="c1">#     &quot;&quot;&quot;Extract all matching paths from `path_list` that</span>
+    <span class="c1">#     are found in `data`.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Note: Not used right now, since all retrievals of data by</span>
+    <span class="c1">#     subset use the full path as the key (thus caching the exact</span>
+    <span class="c1">#     subset of data, and not needing to subset the object manually)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Args:</span>
+    <span class="c1">#        data (dict): Source data</span>
+    <span class="c1">#        path_list (list): List of path strings, which use a &#39;/&#39;</span>
+    <span class="c1">#                          separator between items of the path.</span>
+    <span class="c1">#     Return:</span>
+    <span class="c1">#        (dict) All data subsets matching the paths</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     result = {}</span>
+    <span class="c1">#     # Extract data for each path in path_list</span>
+    <span class="c1">#     for p in path_list:</span>
+    <span class="c1">#         extracted = {}  # create extracted path</span>
+    <span class="c1">#         cur_ex = extracted  # current position in extracted path</span>
+    <span class="c1">#         path = p.split(&#39;/&#39;)  # split path into its parts</span>
+    <span class="c1">#         # Traverse nodes matching path in `data`, building the</span>
+    <span class="c1">#         # nested dict in `extracted` as we go. Stop on missing nodes.</span>
+    <span class="c1">#         cur_data, had_path = data, True</span>
+    <span class="c1">#         # Loop over all (internal) nodes in the path</span>
+    <span class="c1">#         for node in path[:-1]:</span>
+    <span class="c1">#             # If the current node is not found, or it is a leaf,</span>
+    <span class="c1">#             # then this path is not in the data: stop.</span>
+    <span class="c1">#             if not node in cur_data or \</span>
+    <span class="c1">#                     not isinstance(cur_data[node], dict):</span>
+    <span class="c1">#                 had_path = False</span>
+    <span class="c1">#                 break</span>
+    <span class="c1">#             cur_ex[node] = {}  # create nested dict</span>
+    <span class="c1">#             cur_ex = cur_ex[node]  # descend in extracted path</span>
+    <span class="c1">#             cur_data = cur_data[node]  # descend in data</span>
+    <span class="c1">#         # Done with nodes, now let&#39;s look for the leaf</span>
+    <span class="c1">#         leaf = path[-1]</span>
+    <span class="c1">#         # If the full path was not in data, go to next path</span>
+    <span class="c1">#         if not had_path or not leaf in cur_data:</span>
+    <span class="c1">#             continue</span>
+    <span class="c1">#         cur_ex[leaf] = cur_data[leaf]  # copy leaf to extracted path</span>
+    <span class="c1">#         result.update(extracted)  # add extracted path to result</span>
+    <span class="c1">#         print(&quot;@@ update result with {}: NEW VALUE = {}&quot;.format(extracted,</span>
+    <span class="c1">#                                                                 result))</span>
+    <span class="c1">#         # Repeat this process with the next path</span>
+    <span class="c1">#     print(&quot;@@ return result: {}&quot;.format(result))</span>
+    <span class="c1">#     return result</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x11191bbd0>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+doekbase.data_api.sequence.assembly package
+===========================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    doekbase.data_api.sequence.assembly.service
+
+Submodules
+----------
+
+doekbase.data_api.sequence.assembly.api module
+----------------------------------------------
+
+.. automodule:: doekbase.data_api.sequence.assembly.api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.data_api.sequence.assembly
+    :members:
+    :undoc-members:
+    :show-inheritance:

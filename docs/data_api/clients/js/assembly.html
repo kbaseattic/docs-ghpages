@@ -1,0 +1,631 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JavaScript Assembly Data API &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="JavaScript Data API documentation" href="../../javascript.html"/>
+        <link rel="next" title="JavaScript Genome annotation Data API" href="genome_annotation.html"/>
+        <link rel="prev" title="JavaScript Data API documentation" href="../../javascript.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../javascript.html">JavaScript API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Assembly API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-an-assembly-object">Creating an Assembly object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="genome_annotation.html">Genome Annotation API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taxon.html">Taxon API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../javascript.html#javascript-notes">JavaScript Notes</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../javascript.html">JavaScript Data API documentation</a> &raquo;</li>
+      
+    <li>JavaScript Assembly Data API</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/clients/js/assembly.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="javascript-assembly-data-api">
+<span id="js-javascript-assembly-data-api"></span><h1>JavaScript Assembly Data API<a class="headerlink" href="#javascript-assembly-data-api" title="Permalink to this headline">¶</a></h1>
+<p>The Assembly API can be used as a client of the Assembly Data API service.</p>
+<div class="section" id="creating-an-assembly-object">
+<h2>Creating an Assembly object<a class="headerlink" href="#creating-an-assembly-object" title="Permalink to this headline">¶</a></h2>
+<p>To create a new object, instantiate <a class="reference internal" href="../perl/assembly.html#Assembly" title="Assembly"><code class="xref js js-class docutils literal"><span class="pre">Assembly()</span></code></a>
+using a configuration object as the input argument.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// access reference data (no token required)</span>
+<span class="kd">var</span> <span class="nx">api_obj</span> <span class="o">=</span> <span class="nx">Assembly</span><span class="p">({</span>
+    <span class="nx">ref</span><span class="o">:</span> <span class="s1">&#39;1013/92/2&#39;</span><span class="p">,</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://narrative.kbase.us&#39;</span><span class="p">,</span>
+    <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">timeout</span><span class="o">:</span> <span class="mi">6000</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>To use the object, call the Promise-wrapped functions
+and process the results accordingly.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="c1">// call function using Promise interface</span>
+<span class="nx">api_obj</span><span class="p">.</span><span class="nx">get_assembly_id</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">assembly_id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">do_something_with</span><span class="p">(</span><span class="nx">assembly_id</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Assembly">
+<em class="property">class </em><code class="descname">Assembly</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#Assembly" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<em>object</em>) &#8211; Configuration object. This object has the following fields:</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>ref - The object reference for the object to be accessed in the format expected by the workspace: <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code> OR <code class="docutils literal"><span class="pre">workspace-id</span></code>/<code class="docutils literal"><span class="pre">object-id</span></code>/<code class="docutils literal"><span class="pre">version</span></code>, where the workspace and object can either be numeric identifiers or names. For example: <code class="docutils literal"><span class="pre">1019/4</span></code>, <code class="docutils literal"><span class="pre">1019/4/1</span></code>, or <code class="docutils literal"><span class="pre">PrototypeReferenceGenomes/kb|g.166819</span></code>.</li>
+<li>url - The url for the GenomeAnnotation Service endpoint.</li>
+<li>token - The KBase authorization token to be used to access the service.</li>
+</ul>
+</dd></dl>
+
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">throws ArgumentError:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Bad input argument</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="get_assembly_id">
+<code class="descname">get_assembly_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_assembly_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve Assembly ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference internal" href="../perl/taxon.html#ServiceException" title="ServiceException"><strong>ServiceException</strong></a> &#8211; Internal service error</li>
+<li><a class="reference internal" href="../perl/taxon.html#AuthorizationException" title="AuthorizationException"><strong>AuthorizationException</strong></a> &#8211; Failed to authorize user for operation</li>
+<li><a class="reference internal" href="../perl/taxon.html#AuthenticationException" title="AuthenticationException"><strong>AuthenticationException</strong></a> &#8211; Could not authenticate user</li>
+<li><a class="reference internal" href="../perl/taxon.html#ObjectReferenceException" title="ObjectReferenceException"><strong>ObjectReferenceException</strong></a> &#8211; Error retrieving object for reference</li>
+<li><a class="reference internal" href="../perl/taxon.html#AttributeException" title="AttributeException"><strong>AttributeException</strong></a> &#8211; Error retrieving requested attribute</li>
+<li><a class="reference internal" href="../perl/taxon.html#TypeException" title="TypeException"><strong>TypeException</strong></a> &#8211; Input is of wrong type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">string</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_genome_annotations">
+<code class="descname">get_genome_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_genome_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve associated GenomeAnnotation objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">list&lt;</span></code> <a class="reference internal" href="../perl/taxon.html#ObjectReference" title="ObjectReference"><code class="xref js js-data docutils literal"><span class="pre">ObjectReference</span></code></a> <code class="docutils literal"><span class="pre">&gt;</span></code> List of GenomeAnnotation object references</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_external_source_info">
+<code class="descname">get_external_source_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_external_source_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the external source information for this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="../perl/assembly.html#AssemblyExternalSourceInfo" title="AssemblyExternalSourceInfo"><code class="xref js js-data docutils literal"><span class="pre">AssemblyExternalSourceInfo</span></code></a>  Metadata about the external source</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_stats">
+<code class="descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the derived statistical information about this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="../perl/assembly.html#AssemblyStats" title="AssemblyStats"><code class="xref js js-data docutils literal"><span class="pre">AssemblyStats</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_number_contigs">
+<code class="descname">get_number_contigs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_number_contigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the number of contigs for this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">i64</span></code> Total number of contiguous sequences.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_gc_content">
+<code class="descname">get_gc_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total GC content for this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">double</span></code> Proportion of GC content, between 0 and 1.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_dna_size">
+<code class="descname">get_dna_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_dna_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the total DNA size for this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">i64</span></code> Total DNA size</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_contig_ids">
+<code class="descname">get_contig_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_contig_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the contig identifiers for this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Throws:</th><td class="field-body"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">list&lt;string&gt;</span></code> List of contig IDs.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_contig_lengths">
+<code class="descname">get_contig_lengths</code><span class="sig-paren">(</span><em>contig_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_contig_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the lengths of the contigs in this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>contig_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,i64&gt;</span></code> Mapping of contig ID to contig length.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_contig_gc_content">
+<code class="descname">get_contig_gc_content</code><span class="sig-paren">(</span><em>contig_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_contig_gc_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the gc content for contigs in this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>contig_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,double&gt;</span></code> Mapping of contig IDs to GC content proportion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_contigs">
+<code class="descname">get_contigs</code><span class="sig-paren">(</span><em>contig_id_list</em><span class="sig-paren">)</span><a class="headerlink" href="#get_contigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all the data for the contigs in this Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>contig_id_list</strong> (<em>list&lt;string&gt;</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first"><strong>...</strong> &#8211; same as <a class="reference internal" href="../perl/assembly.html#get_assembly_id" title="get_assembly_id"><code class="xref js js-func docutils literal"><span class="pre">get_assembly_id()</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">map&lt;string,</span></code> <a class="reference internal" href="../perl/assembly.html#AssemblyContig" title="AssemblyContig"><code class="xref js js-data docutils literal"><span class="pre">AssemblyContig</span></code></a> <code class="docutils literal"><span class="pre">&gt;</span></code> Mapping of contig ID to details for that contig.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="data">
+<dt id="ObjectReference">
+<code class="descname">ObjectReference</code><a class="headerlink" href="#ObjectReference" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">string</span></code></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="ServiceException">
+<code class="descname">ServiceException</code><a class="headerlink" href="#ServiceException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+<li><strong>inputs</strong> (map&lt;string,string&gt;) <em>optional</em>: Optional mapping</li>
+</ul>
+<dl class="data">
+<dt id="AuthorizationException">
+<code class="descname">AuthorizationException</code><a class="headerlink" href="#AuthorizationException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="AuthenticationException">
+<code class="descname">AuthenticationException</code><a class="headerlink" href="#AuthenticationException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="ObjectReferenceException">
+<code class="descname">ObjectReferenceException</code><a class="headerlink" href="#ObjectReferenceException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="AttributeException">
+<code class="descname">AttributeException</code><a class="headerlink" href="#AttributeException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+</ul>
+<dl class="data">
+<dt id="TypeException">
+<code class="descname">TypeException</code><a class="headerlink" href="#TypeException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>message</strong> (string) <em>required</em>: Readable message desribing the error condition.</li>
+<li><strong>stacktrace</strong> (string) <em>optional</em>: Program stack trace</li>
+<li><strong>valid_types</strong> (list&lt;string&gt;) <em>optional</em>: List of types that would have been acceptable.</li>
+</ul>
+<dl class="data">
+<dt id="AssemblyStats">
+<code class="descname">AssemblyStats</code><a class="headerlink" href="#AssemblyStats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Derived statistical information about an assembly.</p>
+<ul class="simple">
+<li><strong>num_contigs</strong> (i64) <em>optional</em>: Total number of contiguous sequences.</li>
+<li><strong>dna_size</strong> (i64) <em>optional</em>: Total length of all dna sequences.</li>
+<li><strong>gc_content</strong> (double) <em>optional</em>: Proportion of guanine (G) and cytosine (C) content.</li>
+</ul>
+<dl class="data">
+<dt id="AssemblyExternalSourceInfo">
+<code class="descname">AssemblyExternalSourceInfo</code><a class="headerlink" href="#AssemblyExternalSourceInfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Metadata about the external source of this Assembly.</p>
+<ul class="simple">
+<li><strong>external_source</strong> (string) <em>optional</em>: Name of the external source</li>
+<li><strong>external_source_id</strong> (string) <em>optional</em>: Identifier of external source</li>
+<li><strong>external_source_origination_date</strong> (string) <em>optional</em>: Origination date of external source</li>
+</ul>
+<dl class="data">
+<dt id="AssemblyContig">
+<code class="descname">AssemblyContig</code><a class="headerlink" href="#AssemblyContig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<ul class="simple">
+<li><strong>contig_id</strong> (string) <em>optional</em>: Contig ID</li>
+<li><strong>sequence</strong> (string) <em>optional</em>: Actual contents of the sequence for this contig</li>
+<li><strong>length</strong> (i64) <em>optional</em>: Length of the contig</li>
+<li><strong>gc_content</strong> (double) <em>optional</em>: GC proportion for the contig</li>
+<li><strong>md5</strong> (string) <em>optional</em>: Hex-digest of MD5 hash of the contig&#8217;s contents</li>
+<li><strong>name</strong> (string) <em>optional</em>: Name of the contig</li>
+<li><strong>description</strong> (string) <em>optional</em>: Description of the contig</li>
+<li><strong>is_complete</strong> (bool) <em>optional</em>: True if this contig is complete, False otherwise</li>
+<li><strong>is_circular</strong> (bool) <em>optional</em>: True if this contig is circular, False otherwise</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="genome_annotation.html" class="btn btn-neutral float-right" title="JavaScript Genome annotation Data API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../javascript.html" class="btn btn-neutral" title="JavaScript Data API documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x111d5ef90>
+
+
+</body>
+</html>

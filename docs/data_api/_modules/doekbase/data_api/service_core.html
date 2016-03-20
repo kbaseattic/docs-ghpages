@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>doekbase.data_api.service_core &mdash; KBase Data API 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/kbase-logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="KBase Data API 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> KBase Data API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../javascript.html">JavaScript API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">KBase Data API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>doekbase.data_api.service_core</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for doekbase.data_api.service_core</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Base classes and utility functions for Data API service classes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Dan Gunter &lt;dkgunter@lbl.gov&gt;&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s1">&#39;12/24/15&#39;</span>
+
+<span class="c1"># Imports</span>
+<span class="c1"># -------</span>
+
+<span class="c1"># Stdlib</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="c1"># Third party</span>
+<span class="kn">import</span> <span class="nn">twisted.internet</span>
+<span class="kn">import</span> <span class="nn">twisted.web</span>
+<span class="kn">from</span> <span class="nn">thrift.transport</span> <span class="kn">import</span> <span class="n">THttpClient</span>
+<span class="kn">from</span> <span class="nn">thrift.transport</span> <span class="kn">import</span> <span class="n">TTransport</span>
+<span class="kn">from</span> <span class="nn">thrift.protocol</span> <span class="kn">import</span> <span class="n">TBinaryProtocol</span>
+<span class="kn">from</span> <span class="nn">thrift.transport</span> <span class="kn">import</span> <span class="n">TTwisted</span>
+
+<span class="c1"># Local</span>
+<span class="kn">from</span> <span class="nn">doekbase.data_api</span> <span class="kn">import</span> <span class="n">exceptions</span><span class="p">,</span> <span class="n">util</span>
+
+<span class="c1"># Global constants and variables</span>
+<span class="c1"># ------------------------------</span>
+<span class="n">DEFAULT_WS_URL</span> <span class="o">=</span> <span class="s1">&#39;https://ci.kbase.us/services/ws/&#39;</span>
+<span class="n">DEFAULT_SHOCK_URL</span> <span class="o">=</span> <span class="s1">&#39;https://ci.kbase.us/services/shock-api/&#39;</span>
+
+<span class="n">SERVICES_DICT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;workspace_service_url&#39;</span><span class="p">:</span> <span class="n">DEFAULT_WS_URL</span><span class="p">,</span>
+                 <span class="s1">&#39;shock_service_url&#39;</span>    <span class="p">:</span> <span class="n">DEFAULT_SHOCK_URL</span><span class="p">}</span>
+
+<span class="c1"># Functions and classes</span>
+<span class="c1"># ---------------------</span>
+
+<div class="viewcode-block" id="server_method"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.service_core.server_method">[docs]</a><span class="k">def</span> <span class="nf">server_method</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Decorator for service methods.</span>
+
+<span class="sd">    The wrapper depends on the existence of two attributes in the</span>
+<span class="sd">    class being wrapped:</span>
+<span class="sd">        </span>
+<span class="sd">    1. ttypes (module): Thrift type module, containing exception classes</span>
+<span class="sd">    2. log (logging.Logger): Logger instance</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        func (function): Function being wrapped</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">),</span> <span class="s1">&#39;Method in wrapped class must have &quot;log&quot; &#39;</span> \
+                                     <span class="s1">&#39;attribute&#39;</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ttypes&#39;</span><span class="p">),</span> <span class="s1">&#39;Method in wrapped class must have &#39;</span> \
+                                        <span class="s1">&#39;&quot;ttypes&quot; attribute&#39;</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+        <span class="c1">#self.log.debug(&#39;method={meth} state=begin token={tok} ref={ref} args={&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;method={meth} state=begin ref={ref} args={&#39;</span>
+                       <span class="s1">&#39;args} kwargs={kw}&#39;</span>
+                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">meth</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">tok</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span>
+                               <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="o">=</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ttypes</span><span class="o">.</span><span class="n">AttributeException</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">),</span>
+                                                 <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">AuthenticationError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ttypes</span><span class="o">.</span><span class="n">AuthenticationException</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">),</span>
+                                                      <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">AuthorizationError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ttypes</span><span class="o">.</span><span class="n">AuthorizationException</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">),</span>
+                                                     <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ttypes</span><span class="o">.</span><span class="n">TypeException</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">),</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">ttypes</span><span class="o">.</span><span class="n">ServiceException</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">),</span>
+                                               <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span>
+                                               <span class="p">{</span><span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">ref</span><span class="p">)})</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="c1">#self.log.debug(&#39;method={meth} state=end token={tok} ref={ref} &#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;method={meth} state=end ref={ref} &#39;</span>
+                               <span class="s1">&#39;args={args} kwargs={kw} dur={t:.3f}&#39;</span>
+                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">meth</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">tok</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span>
+                                       <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                                       <span class="n">t</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#self.log.error(&#39;method={meth} state=error token={tok} &#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;method={meth} state=error &#39;</span>
+                               <span class="s1">&#39;ref={ref} args={args} kwargs={kw}&#39;</span>
+                               <span class="s1">&#39;error_message=&quot;{m}&quot; dur={t:.3f}&#39;</span>
+                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">meth</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">tok</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span>
+                                       <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">),</span>
+                                       <span class="n">t</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+<div class="viewcode-block" id="BaseService"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.service_core.BaseService">[docs]</a><span class="k">class</span> <span class="nc">BaseService</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for Data API service classes, which will be defined</span>
+<span class="sd">    in the &#39;interface&#39; module of the appropriate API subdirectory.</span>
+
+<span class="sd">    Takes care of some boilerplate logging and error-checking, as well</span>
+<span class="sd">    as setting up instance variables for the @server_method decorator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">ttypes_module</span><span class="p">,</span> <span class="n">api_class</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            log (logging.Logger): For logging service activity</span>
+<span class="sd">            ttypes_module: Thrift ttypes module for the API</span>
+<span class="sd">            api_class: the API library class, e.g.,</span>
+<span class="sd">                       `doekbase.data_api.taxonomy.taxon.api.TaxonAPI`</span>
+<span class="sd">            services (dict): Service configuration dictionary, passed to</span>
+<span class="sd">                             constructor of the `api_class`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ttypes</span> <span class="o">=</span> <span class="n">ttypes_module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_api_class</span> <span class="o">=</span> <span class="n">api_class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;method=__init__ state=begin services={s}&#39;</span>
+                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">services</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">services</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">services</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You must provide a service configuration &quot;</span> <span class="o">+</span>
+                                <span class="s2">&quot;dictionary! Found {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">services</span><span class="p">)))</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">services</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s2">&quot;workspace_service_url&quot;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Expecting workspace_service_url key!&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;method=__init__ state=error services={s}&#39;</span>
+                           <span class="s1">&#39;error_message=&quot;{m}&quot;&#39;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">services</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+            <span class="k">raise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">services</span> <span class="o">=</span> <span class="n">services</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;method=__init__ state=end services={s} &#39;</span>
+                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">services</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return an instance of the API. Use this level of indirection to</span>
+<span class="sd">        allow future optimizations over creating it each time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_api_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseClientConnection"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.service_core.BaseClientConnection">[docs]</a><span class="k">class</span> <span class="nc">BaseClientConnection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for &lt;ServiceName&gt;ClientConnection objects defined</span>
+<span class="sd">    in the data_api.&lt;api.path&gt;.service.interface module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thrift_client</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">thrift_client</span><span class="p">,</span> <span class="s1">&#39;Client&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span>
+                <span class="n">thrift_client</span><span class="o">.</span><span class="n">Client</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Invalid &quot;thrift_client&quot; argument&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span> <span class="o">=</span> <span class="n">THttpClient</span><span class="o">.</span><span class="n">THttpClient</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="n">TBinaryProtocol</span><span class="o">.</span><span class="n">TBinaryProtocol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">thrift_client</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid Thrift client URL: &quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">TTransport</span><span class="o">.</span><span class="n">TTransportException</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s1">&#39;Cannot connect to remote Thrift service at {}: {}&#39;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+
+<div class="viewcode-block" id="BaseClientConnection.get_client"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.service_core.BaseClientConnection.get_client">[docs]</a>    <span class="k">def</span> <span class="nf">get_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span></div></div>
+
+<span class="c1"># For service drivers</span>
+
+<div class="viewcode-block" id="start_service"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.service_core.start_service">[docs]</a><span class="k">def</span> <span class="nf">start_service</span><span class="p">(</span><span class="n">api_class</span><span class="p">,</span> <span class="n">service_class</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span>
+                  <span class="n">services</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9100</span><span class="p">,</span> <span class="n">killprocgrp</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Start a Data API service.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        api_class (BaseService): The custom API service class, e.g.,</span>
+<span class="sd">                    `doekbase.data_api.taxonomy.taxon.api.TaxonService`</span>
+<span class="sd">        service_class (type): The Thrift auto-generated service class</span>
+<span class="sd">        log (logging.Logger): Logging object</span>
+<span class="sd">        services (dict): Service configuration dictionary, passed to</span>
+<span class="sd">                         constructor of the `api_class`.</span>
+<span class="sd">        host (str): Service host (will default to &#39;localhost&#39;)</span>
+<span class="sd">        port (int): Service port, e.g. 9101</span>
+<span class="sd">        killprocgrp (bool): if True, kill process group on exit</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">api_class</span><span class="p">,</span> <span class="n">BaseService</span><span class="p">),</span> \
+        <span class="s1">&#39;Invalid &quot;api_class&quot;: must be a subclass of &#39;</span> \
+        <span class="s1">&#39;doekbase.data_api.service_core.BaseService&#39;</span>
+    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">service_class</span><span class="p">,</span> <span class="s1">&#39;Processor&#39;</span><span class="p">),</span> <span class="s1">&#39;Invalid &quot;service_class&quot;: &#39;</span> \
+                                                <span class="s1">&#39;missing &quot;Processor&quot; attribute&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="s1">&#39;The &quot;port&quot; must be an integer&#39;</span>
+
+    <span class="n">svc_t0</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">log_start</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="s1">&#39;start_service&#39;</span><span class="p">,</span>
+                            <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">))</span>
+
+    <span class="c1"># Create server</span>
+    <span class="n">services</span> <span class="o">=</span> <span class="n">services</span> <span class="ow">or</span> <span class="n">SERVICES_DICT</span>
+    <span class="n">handler</span> <span class="o">=</span> <span class="n">api_class</span><span class="p">(</span><span class="n">services</span><span class="p">)</span>
+    <span class="n">processor</span> <span class="o">=</span> <span class="n">service_class</span><span class="o">.</span><span class="n">Processor</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="n">pfactory</span> <span class="o">=</span> <span class="n">TBinaryProtocol</span><span class="o">.</span><span class="n">TBinaryProtocolFactory</span><span class="p">()</span>
+    <span class="n">resource</span> <span class="o">=</span> <span class="n">TTwisted</span><span class="o">.</span><span class="n">ThriftResource</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="n">pfactory</span><span class="p">,</span> <span class="n">pfactory</span><span class="p">)</span>
+    <span class="n">site</span> <span class="o">=</span> <span class="n">twisted</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">Site</span><span class="p">(</span><span class="n">resource</span><span class="o">=</span><span class="n">resource</span><span class="p">)</span>
+    <span class="n">twisted</span><span class="o">.</span><span class="n">internet</span><span class="o">.</span><span class="n">reactor</span><span class="o">.</span><span class="n">listenTCP</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">site</span><span class="p">,</span> <span class="n">interface</span><span class="o">=</span><span class="n">host</span><span class="p">)</span>
+
+    <span class="c1"># Kill entire process group on shutdown</span>
+    <span class="k">if</span> <span class="n">killprocgrp</span><span class="p">:</span>
+        <span class="n">twisted</span><span class="o">.</span><span class="n">internet</span><span class="o">.</span><span class="n">reactor</span><span class="o">.</span><span class="n">addSystemEventTrigger</span><span class="p">(</span><span class="s1">&#39;before&#39;</span><span class="p">,</span> <span class="s1">&#39;shutdown&#39;</span><span class="p">,</span>
+                                                       <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
+                                                           <span class="n">kill_process_group</span><span class="p">,</span>
+                                                           <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">))</span>
+
+    <span class="c1"># Run server</span>
+    <span class="n">sname</span> <span class="o">=</span> <span class="n">api_class</span><span class="o">.</span><span class="n">__name__</span>
+    <span class="n">shost</span> <span class="o">=</span> <span class="n">host</span> <span class="ow">or</span> <span class="s1">&#39;localhost&#39;</span>
+    <span class="n">util</span><span class="o">.</span><span class="n">log_start</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sname</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">shost</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">))</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">log_start</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="s1">&#39;twisted.internet.reactor.run&#39;</span><span class="p">,</span>
+                        <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">twisted</span><span class="o">.</span><span class="n">internet</span><span class="o">.</span><span class="n">reactor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;msg=&quot;Abort {} server on error&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sname</span><span class="p">))</span>
+        <span class="n">util</span><span class="o">.</span><span class="n">log_end</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s1">&#39;twisted.internet.reactor.run&#39;</span><span class="p">,</span>
+                     <span class="n">status_code</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">err</span><span class="p">))</span>
+        <span class="k">raise</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">util</span><span class="o">.</span><span class="n">log_end</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="s1">&#39;twisted.internet.reactor.run&#39;</span><span class="p">)</span>
+
+    <span class="n">util</span><span class="o">.</span><span class="n">log_end</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">svc_t0</span><span class="p">,</span> <span class="s1">&#39;start_service&#39;</span><span class="p">,</span>
+                            <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="stop_service"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.service_core.stop_service">[docs]</a><span class="k">def</span> <span class="nf">stop_service</span><span class="p">():</span>
+    <span class="n">twisted</span><span class="o">.</span><span class="n">internet</span><span class="o">.</span><span class="n">reactor</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="kill_process_group"><a class="viewcode-back" href="../../../_source/doekbase.data_api.html#doekbase.data_api.service_core.kill_process_group">[docs]</a><span class="k">def</span> <span class="nf">kill_process_group</span><span class="p">(</span><span class="n">log</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Kill entire process group on Twisted shutdown.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        log (logging.Logger): Logger</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>  <span class="c1"># my pid</span>
+    <span class="n">grpid</span> <span class="o">=</span> <span class="o">-</span><span class="n">os</span><span class="o">.</span><span class="n">getpgid</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>  <span class="c1"># my process group</span>
+    <span class="n">signo</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span>  <span class="c1"># the signal to send</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">log_start</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="s1">&#39;kill_process_group&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">,</span>
+                       <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">,</span> <span class="n">group_pid</span><span class="o">=</span><span class="n">grpid</span><span class="p">,</span> <span class="n">signal</span><span class="o">=</span><span class="n">signo</span><span class="p">))</span>
+    <span class="c1"># ignore signal in this process (Twisted is already shutting down)</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signo</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
+    <span class="c1"># send the signal to my process group</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">grpid</span><span class="p">,</span> <span class="n">signo</span><span class="p">)</span>
+    <span class="n">util</span><span class="o">.</span><span class="n">log_end</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="s1">&#39;kill_process_group&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">,</span>
+                 <span class="n">kvp</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">,</span> <span class="n">group_pid</span><span class="o">=</span><span class="n">grpid</span><span class="p">,</span> <span class="n">signal</span><span class="o">=</span><span class="n">signo</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 The KBase Project.
+      Last updated on Mar 20, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="container-fluid kbase-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer-bar">
+                <div class="kbase-footer-menu">
+                    <ul id="menu-footer-menu" class="menu">
+                        <li id="menu-item-664"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-664">
+                            <a href="http://kbase.us/what-is-kbase/">About
+                                KBase</a> <span class="footer-sep"></span></li>
+                        <li id="menu-item-666"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-666">
+                            <a href="http://kbase.us/terms-and-conditions/">Terms
+                                and Conditions</a> <span
+                                class="footer-sep"></span></li>
+                        <li id="menu-item-667"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-667">
+                            <a href="http://kbase.us/contact-us/">Contact Us</a>
+                            <span class="footer-sep"></span></li>
+                    </ul>
+                </div>
+                <!-- hard code the social icons for now -->
+                <a href="https://www.facebook.com/pages/DOE-Systems-Biology-Knowledgebase/148332628600806"
+                   target="_blank" style="height: 24px; display: inline-block;"
+                   class="menu-item"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/facebook-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="https://twitter.com/DOEKbase" target="_blank"><img
+                        src="http://kbase.us/wp-content/themes/kbase-wordpress-theme/images/twitter-icon.png"></a>
+
+                <span class="footer-sep"></span>
+
+                <a href="http://science.energy.gov/ber/">
+                    <img src="_static/img/doe_office_of_science_250.png"
+                         alt="doe_office_of_science_250.png" width="250"
+                         height="42" target="_blank">
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<jinja2.runtime.BlockReference object at 0x10802bd90>
+
+
+</body>
+</html>

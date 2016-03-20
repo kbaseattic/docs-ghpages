@@ -1,0 +1,22 @@
+doekbase.handle package
+=======================
+
+Submodules
+----------
+
+doekbase.handle.Client module
+-----------------------------
+
+.. automodule:: doekbase.handle.Client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: doekbase.handle
+    :members:
+    :undoc-members:
+    :show-inheritance:

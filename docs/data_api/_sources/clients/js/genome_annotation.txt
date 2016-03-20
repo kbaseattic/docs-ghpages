@@ -1,0 +1,383 @@
+.. include:: ../../wsref.txt
+
+.. _js_javascript_genome_annotation_data_api:
+
+JavaScript Genome annotation Data API
+=====================================
+The Genome annotation API can be used as a client of the Genome annotation Data API service.
+
+Creating a GenomeAnnotation object
+--------------------------
+To create a new object, instantiate :js:class:`GenomeAnnotation`
+using a configuration object as the input argument.
+
+.. code-block:: javascript
+
+    // access reference data (no token required)
+    var api_obj = GenomeAnnotation({
+        ref: '1013/92/2',
+        url: 'http://narrative.kbase.us',
+        token: '',
+        timeout: 6000
+    });
+
+To use the object, call the Promise-wrapped functions
+and process the results accordingly.
+
+.. code-block:: javascript
+
+    // call function using Promise interface
+    api_obj.get_taxon().then(
+        function(taxon) {
+            do_something_with(taxon);
+    });
+
+API Reference
+-------------
+.. js:class:: GenomeAnnotation(config)
+
+
+    :param object config: Configuration object. This object has the following fields:
+    * ref - The object reference for the object to be accessed in the format expected by the workspace: |wsref|.
+    * url - The url for the GenomeAnnotation Service endpoint.
+    * token - The KBase authorization token to be used to access the service.
+:throws ArgumentError: Bad input argument
+
+.. js:function:: get_taxon()
+
+    Retrieve the Taxon associated with this GenomeAnnotation. 
+
+    :throws ServiceException: Internal service error
+    :throws AuthorizationException: Failed to authorize user for operation
+    :throws AuthenticationException: Could not authenticate user
+    :throws ObjectReferenceException: Error retrieving object for reference
+    :throws AttributeException: Error retrieving requested attribute
+    :throws TypeException: Input is of wrong type
+    :returns:  :js:data:`ObjectReference`  Reference to TaxonAPI object
+
+.. js:function:: get_assembly()
+
+    Retrieve the Assembly associated with this GenomeAnnotation. 
+
+    :throws ...: same as :js:func:`get_taxon`
+    :returns:  :js:data:`ObjectReference`  Reference to AssemblyAPI object
+
+.. js:function:: get_feature_types()
+
+    Retrieve the list of Feature types. 
+
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``list<string>`` List of feature type identifiers (strings)
+
+.. js:function:: get_feature_type_descriptions(feature_type_list)
+
+    Retrieve the descriptions for each Feature type in this GenomeAnnotation. 
+
+    :param list<string> feature_type_list: List of Feature types. If this list is empty or None, the whole mapping will be returned.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,string>`` Name and description for each requested Feature Type
+
+.. js:function:: get_feature_type_counts(feature_type_list)
+
+    Retrieve the count of each Feature type. 
+
+    :param list<string> feature_type_list: List of Feature Types. If empty, this will retrieve  counts for all Feature Types.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,i64>``
+
+.. js:function:: get_feature_ids(filters, group_type)
+
+    Retrieve Feature IDs, optionally filtered by type, region, function, alias. 
+
+    :param Feature_id_filters filters: Dictionary of filters that can be applied to contents. If this is empty or missing, all Feature IDs will be returned.
+    :param string group_type: How to group results, which is a single string matching one of the values for the ``filters`` parameter.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns:  :js:data:`Feature_id_mapping`  Grouped mapping of features.
+
+.. js:function:: get_features(feature_id_list)
+
+    Retrieve Feature data. 
+
+    :param list<string> feature_id_list: List of Features to retrieve. If None, returns all Feature data.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,`` :js:data:`Feature_data` ``>`` Mapping from Feature IDs to dicts of available data.
+
+.. js:function:: get_proteins()
+
+    Retrieve Protein data. 
+
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,`` :js:data:`Protein_data` ``>`` Mapping from protein ID to data about the protein.
+
+.. js:function:: get_feature_locations(feature_id_list)
+
+    Retrieve Feature locations. 
+
+    :param list<string> feature_id_list: List of Feature IDs for which to retrieve locations. If empty, returns data for all features.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,list<`` :js:data:`Region` ``>>`` Mapping from Feature IDs to location information for each.
+
+.. js:function:: get_feature_publications(feature_id_list)
+
+    Retrieve Feature publications. 
+
+    :param list<string> feature_id_list: List of Feature IDs for which to retrieve publications. If empty, returns data for all features.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,list<string>>`` Mapping from Feature IDs to publication info for each.
+
+.. js:function:: get_feature_dna(feature_id_list)
+
+    Retrieve Feature DNA sequences. 
+
+    :param list<string> feature_id_list: List of Feature IDs for which to retrieve sequences. If empty, returns data for all features.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,string>`` Mapping of Feature IDs to their DNA sequence.
+
+.. js:function:: get_feature_functions(feature_id_list)
+
+    Retrieve Feature functions. 
+
+    :param list<string> feature_id_list: List of Feature IDs for which to retrieve functions. If empty, returns data for all features.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,string>`` Mapping of Feature IDs to their functions.
+
+.. js:function:: get_feature_aliases(feature_id_list)
+
+    Retrieve Feature aliases. 
+
+    :param list<string> feature_id_list: List of Feature IDS for which to retrieve aliases. If empty, returns data for all features.
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,list<string>>`` Mapping of Feature IDs to a list of aliases.
+
+.. js:function:: get_cds_by_gene(gene_id_list)
+
+    Retrieves coding sequence Features (cds) for given gene Feature IDs. 
+
+    :param list<string> gene_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,list<string>>`` Mapping of gene Feature IDs to a list of CDS Feature IDs.
+
+.. js:function:: get_cds_by_mrna(mrna_id_list)
+
+    Retrieves coding sequence (cds) Feature IDs for given mRNA Feature IDs. 
+
+    :param list<string> mrna_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,string>`` Mapping of mRNA Feature IDs to a list of CDS Feature IDs.
+
+.. js:function:: get_gene_by_cds(cds_id_list)
+
+    Retrieves gene Feature IDs for given coding sequence (cds) Feature IDs. 
+
+    :param list<string> cds_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,string>`` Mapping of cds Feature IDs to gene Feature IDs.
+
+.. js:function:: get_gene_by_mrna(mrna_id_list)
+
+    Retrieves gene Feature IDs for given mRNA Feature IDs. 
+
+    :param list<string> mrna_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,string>`` Mapping of mRNA Feature IDs to gene Feature IDs.
+
+.. js:function:: get_mrna_by_cds(cds_id_list)
+
+    Retrieves mRNA Features for given coding sequences (cds) Feature IDs. 
+
+    :param list<string> cds_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,string>`` Mapping of cds Feature IDs to mRNA Feature IDs.
+
+.. js:function:: get_mrna_by_gene(gene_id_list)
+
+    Retrieve the mRNA IDs for given gene IDs. 
+
+    :param list<string> gene_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,list<string>>`` Mapping of gene Feature IDs to a list of mRNA Feature IDs.
+
+.. js:function:: get_mrna_exons(mrna_id_list)
+
+    Retrieve Exon information for each mRNA ID. 
+
+    :param list<string> mrna_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,list<`` :js:data:`Exon_data` ``>>`` Mapping of mRNA Feature IDs to a list of exons (:js:data:`Exon_data`).
+
+.. js:function:: get_mrna_utrs(mrna_id_list)
+
+    Retrieve UTR information for each mRNA Feature ID.  UTRs are calculated between mRNA features and corresponding CDS features. The return value for each mRNA can contain either: - no UTRs found (empty dict) -  5' UTR only -  3' UTR only -  5' and 3' UTRs  Note: The Genome data type does not contain interfeature relationship information. Calling this method for Genome objects will raise a :js:throws:`exc.TypeException`. 
+
+    :param list<string> mrna_id_list: 
+    :throws ...: same as :js:func:`get_taxon`
+    :returns: ``map<string,map<string,`` :js:data:`UTR_data` ``>>`` Mapping of mRNA Feature IDs to a mapping that contains both 5' and 3' UTRs:: { "5'UTR": :js:data:`UTR_data`, "3'UTR": :js:data:`UTR_data` }
+
+----
+
+.. js:data:: ObjectReference
+
+
+    ``string``
+
+.. js:data:: ServiceException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+- **inputs** (map<string,string>) *optional*: Optional mapping
+  
+
+.. js:data:: AuthorizationException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: AuthenticationException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: ObjectReferenceException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: AttributeException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+
+.. js:data:: TypeException
+
+- **message** (string) *required*: Readable message desribing the error condition.
+  
+- **stacktrace** (string) *optional*: Program stack trace
+  
+- **valid_types** (list<string>) *optional*: List of types that would have been acceptable.
+  
+
+.. js:data:: Region
+
+- **contig_id** (string) *optional*: The identifier for the contig to which this region corresponds.
+  
+- **strand** (string) *optional*: Either a "+" or a "-", for the strand on which the region is located.
+  
+- **start** (i64) *optional*: Starting position for this region.
+  
+- **length** (i64) *optional*: Distance from the start position that bounds the end of the region.
+  
+
+.. js:data:: Feature_id_filters
+
+Filters passed to :meth:`get_feature_ids`
+
+- **type_list** (list<string>) *optional*: List of Feature type strings.
+  
+- **region_list** (list<Region>) *optional*: List of region specs.
+  For example::
+      [{"contig_id": str, "strand": "+"|"-",
+        "start": int, "length": int},...]
+  
+  The Feature sequence begin and end are calculated as follows:
+    - [start, start) for "+" strand
+    - (start - length, start] for "-" strand
+  
+- **function_list** (list<string>) *optional*: List of function strings.
+  
+- **alias_list** (list<string>) *optional*: List of alias strings.
+  
+
+.. js:data:: Feature_id_mapping
+
+- **by_type** (map<string,list<string>>) *optional*: Mapping of Feature type string to a list of Feature IDs
+  
+- **by_region** (map<string,map<string,map<string,list<string>>>>) *optional*: Mapping of contig ID, strand "+" or "-", and range "start--end" to
+  a list of Feature IDs. For example::
+     {'contig1': {'+': {'123--456': ['feature1', 'feature2'] }}}
+  
+- **by_function** (map<string,list<string>>) *optional*: Mapping of function string to a list of Feature IDs
+  
+- **by_alias** (map<string,list<string>>) *optional*: Mapping of alias string to a list of Feature IDs
+  
+
+.. js:data:: Feature_data
+
+- **feature_id** (string) *optional*: Identifier for this feature
+  
+- **feature_type** (string) *optional*: The Feature type e.g., "mRNA", "CDS", "gene", ...
+  
+- **feature_function** (string) *optional*: The functional annotation description
+  
+- **feature_aliases** (map<string,list<string>>) *optional*: Dictionary of Alias string to List of source string identifiers
+  
+- **feature_dna_sequence_length** (i64) *optional*: Integer representing the length of the DNA sequence for convenience
+  
+- **feature_dna_sequence** (string) *optional*: String containing the DNA sequence of the Feature
+  
+- **feature_md5** (string) *optional*: String containing the MD5 of the sequence, calculated from the uppercase string
+  
+- **feature_locations** (list<Region>) *optional*: List of dictionaries::
+      { "contig_id": str,
+        "start": int,
+        "strand": str,
+        "length": int  }
+  
+  List of Feature regions, where the Feature bounds are
+  calculated as follows:
+  
+  - For "+" strand, [start, start + length)
+  - For "-" strand, (start - length, start]
+  
+- **feature_publications** (list<string>) *optional*: List of any known publications related to this Feature
+  
+- **feature_quality_warnings** (list<string>) *optional*: List of strings indicating known data quality issues.
+  Note: not used for Genome type, but is used for
+  GenomeAnnotation
+  
+- **feature_quality_score** (list<string>) *optional*: Quality value with unknown algorithm for Genomes,
+  not calculated yet for GenomeAnnotations.
+  
+- **feature_notes** (string) *optional*: Notes recorded about this Feature
+  
+- **feature_inference** (string) *optional*: Inference information
+  
+
+.. js:data:: Protein_data
+
+- **protein_id** (string) *optional*: Protein identifier, which is feature ID plus ".protein"
+  
+- **protein_amino_acid_sequence** (string) *optional*: Amino acid sequence for this protein
+  
+- **protein_function** (string) *optional*: Function of protein
+  
+- **protein_aliases** (list<string>) *optional*: List of aliases for the protein
+  
+- **protein_md5** (string) *optional*: MD5 hash of the protein translation (uppercase)
+  
+- **protein_domain_locations** (list<string>) *optional*
+
+.. js:data:: Exon_data
+
+- **exon_location** (Region) *optional*: Location of the exon in the contig.
+  
+- **exon_dna_sequence** (string) *optional*: DNA Sequence string.
+  
+- **exon_ordinal** (i64) *optional*: The position of the exon, ordered 5' to 3'.
+  
+
+.. js:data:: UTR_data
+
+- **utr_locations** (list<Region>) *optional*: Locations of this UTR
+  
+- **utr_dna_sequence** (string) *optional*: DNA sequence string for this UTR
+  
